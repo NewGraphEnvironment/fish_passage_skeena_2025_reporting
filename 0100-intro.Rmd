@@ -1,0 +1,29 @@
+# Introduction {#intro}
+
+`r if(identical(gitbook_on, FALSE))knitr::asis_output(paste0("This report is available as pdf and as an online interactive report at ", params$report_url, ". We recommend viewing online as the web-hosted html version contains more features and is more easily navigable."))`
+
+`r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br>")}`
+
+<br>
+
+## Header with no number {-}
+
+```{r nice-tab, eval = FALSE}
+knitr::kable(
+  head(iris, 10), caption = 'Here is a nice kable!',
+  booktabs = TRUE
+)
+```
+
+<br>
+
+Here is a `fpr_kable` with a cross reference to Table \@ref(tab:fpr-kable-nr)
+
+```{r fpr-kable-nr, eval = T}
+head(iris, 20) %>% 
+  fpr::fpr_kable(
+  caption_text = 'Here is a fpr_kable with no cross-ref and the scroll set to not happen when pdf built.',
+  scroll = gitbook_on)
+```
+
+
