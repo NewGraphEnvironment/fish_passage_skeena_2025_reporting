@@ -11,4 +11,4 @@ bcfishpass <- fpr_db_query(
 )
 
 # always disconnect from the database
-dbDisconnect(conn = conn)
+DBI::dbDisconnect(conn = conn)
