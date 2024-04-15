@@ -82,10 +82,7 @@ library(mapview)
 library(tidyverse)
 ```
 
-```{r conn}
-# connect to the database
-# another function that is def no fish passage reporting specific
-conn <- fpr_db_conn()
+```{r load-qgis}
 
 # define the file we are reading
 path <- "~/Projects/gis/sern_simpcw_2023/data_field/2023/form_pscis_2023.gpkg"
@@ -111,12 +108,17 @@ dat <- fpr_sp_gpkg_backup(
 Then we load our data to our remote database. We can only write to the `working` schema for security reasons
 so we do that here.   
 
-```{r load}
+```{r load-db }
+
+conn <- fpr::fpr_db_conn()
+
 # load to database
 sf::st_write(obj = dat, 
              dsn = conn, 
              DBI::Id(schema= "working", table = "misc"))
+
 ```
+
 
 What is going on with `DBI::Id`? From what I can gather, `sf::st_write` is a wrapper for `DBI::dbWriteTable` and
 `DBI::Id` is a function that is used to create a valid SQL identifier.  We use it here to create a valid SQL table name
@@ -132,6 +134,15 @@ res <- dbSendQuery(conn, "CREATE INDEX ON working.misc USING GIST (geom)")
 dbClearResult(res)
 res <- dbSendQuery(conn, "ALTER TABLE working.misc ADD PRIMARY KEY (misc_point_id)")
 dbClearResult(res)
+```
+
+<br>
+
+We try to remember to always disconnect from the database when we are done.  `fpr_db_query` does that for us.
+
+```{r}
+# close the connection
+DBI::dbDisconnect(conn)
 ```
 
 Why do we assign a primary key and a spatial index?  
@@ -531,22 +542,10 @@ something can take a long time but exposes a lot of what is happening and allows
 
 <br>
 
-
-
-
-Always disconnect from the database when you are done.  
-
-```{r disconnect}
-DBI::dbDisconnect(conn)
-```
-
-<br>
-
 In order to render this document we need a work around from the standard bookdown method. We run this command below
 by hand in the console to render the document.
 
-```{r render-manual, eval = FALSE}
+```{r render, eval = FALSE}
 rmarkdown::render("scripts/tutorials/road_tenure.Rmd", output_file = "road_tenure.html", output_dir = "scripts/tutorials")
-
 ```
 
