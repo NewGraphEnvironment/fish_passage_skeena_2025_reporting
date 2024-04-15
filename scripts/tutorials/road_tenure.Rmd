@@ -1,43 +1,56 @@
 ---
-title: "Getting database information using R and postgres. Sometimes its just not worth the fuss. "
-format: html
-tags: ["postgres", "R", "spatial indexes", "primary keys", "database", "fish passage", "SQL"]
+title: "Getting database information using R and postgres. Always worth the fuss? "
+tags: ["postgres", "R", "spatial indexes", "primary keys", "database", "fish passage", "SQL", "ST_Distance", "CROSS JOIN LATERAL"]
 date: "Created: 2024-04-14 | Updated: `r format(Sys.Date(), '%Y-%m-%d')`"
+output: 
+  html_document:
+    code_folding: "hide"
 ---
 
-#Background
+```{r setup, echo=TRUE, include = TRUE}
+knitr::opts_chunk$set(echo=TRUE, message=FALSE, warning=FALSE, dpi=60, out.width = "100%")
+options(scipen=999)
+options(knitr.kable.NA = '--') #'--'
+options(knitr.kable.NAN = '--')
+```
+
+# Background
 For fish passage field work - we used to collect our field data on paper form only. So - in most of our previous
 workflows we were transferring data from paper to excel spreadsheets (provincial dta submission templates) before doing
 some of the office work required to get the information still needed for those spreadsheets. Now that we are
 transitioning to gathering much of our data on digital fieldforms (still backing up on paper mostly though) we are
 attempting to clean, tidy and obtain all information necessary by updating tables of our data collected digitally before
 transferring to the spreadsheets. This is quite the process and we are still working on it.  It can make interpretation
-of our past workflows really confusing too.
+of our past workflows really confusing too.  This tutorial is an attempt to document some of the work we are doing.
+
+Here is a relevant issue - https://github.com/NewGraphEnvironment/onboarding/issues/97
 
 # Objective 1  - Get data from the database related to our field data
 
-Imagine for example that we have our assessment
-data from the field but we want to retreive information from our database about our sites.  Imagine for example we
- want to get road layer data (ex. a combination of `client_name` and `map_label` from 
- `whse_forest_tenure.ften_road_section_lines_svw`) for our points.
-Even though we have tons of info at our finger tips in layers like `bcfishpass.crossings_vw` and we have _usually_
-utilized the `bcfishpass.crossings_vw` `modelled_crossing_id` for our `my_crossing_reference` one would think 
+Imagine for example that we have our assessment data from the field but we want to retreive information from our
+database about our sites.  Imagine for example we want to get road layer data (ex. a combination of `client_name` and
+`map_label` from `whse_forest_tenure.ften_road_section_lines_svw`) for our points. Even though we have tons of info at
+our finger tips in layers like `bcfishpass.crossings_vw` and we have _usually_ utilized the `bcfishpass.crossings_vw`
+`modelled_crossing_id` for our `my_crossing_reference` one would think
 
 > hey - why not just join our field data to the `bcfishpass.crossings_vw` table and grab all the info from there? 
 
 Decent idea but we want to explore other options because... 
 
-1. we often have crossings with a `my_crossing_reference` that is not a `model_crossing_id` (ex. there is no crossing
-modelled there).
-2. the numbers we put as the `my_crossing_reference` / `model_crossing_id` may have been input incorrectly.  Happens
-all the time and will continue to happen in the future.
-3. someone else collected the data and used their own `my_crossing_reference` that has nothing to do with the `model_crossing_id`.
-4. we may want info that is different from what is currently associated with a crossing. As is the case for `map_label`.  
+<br>
 
+1. we often have crossings with a `my_crossing_reference` that is not a `model_crossing_id` (ex. there is no crossing
+modelled there). 2. the numbers we put as the `my_crossing_reference` / `model_crossing_id` may have been input
+incorrectly.  Happens all the time and will continue to happen in the future. 3. someone else collected the data and
+used their own `my_crossing_reference` that has nothing to do with the `model_crossing_id`. 4. we may want info that is
+different from what is currently associated with a crossing. As is the case for `map_label`.
+
+<br>
 
 When any of these things are true we need to find a way to get the data we want.  One way to do this is to use a database
 and spatially join together data from our field data and tables in the database. 
 
+<br>
 
 In some of our previous work we were loading data from the input spreadsheets before doing a bunch of the work to get 
 information from the database.  It looked at bit like this:
@@ -49,35 +62,38 @@ information from the database.  It looked at bit like this:
     dat <-   pscis_all |> 
              fpr::fpr_sp_assign_sf_from_utm() 
 
+
 We actually used to convert the `pscis_all` data to a spatial object using st::st_as_sf() and manually name the `utm_zone`
 but that was error prone because sometimes there are multiple zones.  `fpr::fpr_sp_assign_sf_from_utm()` solves that 
 problem.  *Of note* - this function is definitely not fish passage reporting specific so will likely be replicated in a 
 package other than `fpr` in the future.
 
-
+<br>
 
 First thing we do is read in our data.  We are going to use the new `fpr_sp_gpkg_backup` function to read in our data.
 Also - barely fish passage reporting specific.  
  
 
-```{r}
+```{r pkg}
 library(fpr)
 library(DBI)
 library(sf)
 library(mapview)
 library(tidyverse)
-
 ```
 
-```{r}
-
+```{r conn}
 # connect to the database
 # another function that is def no fish passage reporting specific
 conn <- fpr_db_conn()
 
+# define the file we are reading
+path <- "~/Projects/gis/sern_simpcw_2023/data_field/2023/form_pscis_2023.gpkg"
+
+
 # read in the geopackage with most param options set to FALSE
 dat <- fpr_sp_gpkg_backup(
-  path_gpkg = "~/Projects/gis/sern_simpcw_2023/data_field/2023/form_pscis_2023.gpkg",
+  path_gpkg = path,
   update_utm = FALSE,
   update_site_id = FALSE,
   write_back_to_path = FALSE,
@@ -95,7 +111,7 @@ dat <- fpr_sp_gpkg_backup(
 Then we load our data to our remote database. We can only write to the `working` schema for security reasons
 so we do that here.   
 
-```{r}
+```{r load}
 # load to database
 sf::st_write(obj = dat, 
              dsn = conn, 
@@ -110,7 +126,7 @@ and schema name.  We don't really need ot use sf::st_write here - we could use `
 We also assign a primary key and a spatial index to the table because sf doesn't automagically do it for us.
 
 
-```{r}
+```{r idx}
 # sf doesn't automagically create a spatial index or a primary key
 res <- dbSendQuery(conn, "CREATE INDEX ON working.misc USING GIST (geom)")
 dbClearResult(res)
@@ -138,7 +154,7 @@ https://chat.openai.com/share/5d6f2541-0d0f-43a4-8ee9-d7c1c3aa03c8
 If we want to see the primary key and the spatial index we can do that with the following queries.
 
 
-```{r}
+```{r q-idx}
 fpr_db_query(query <- "SELECT c.column_name, c.data_type
 FROM information_schema.table_constraints tc 
 JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_name) 
@@ -163,8 +179,8 @@ Now - here is the common example of data retrieval from the database.  We are ma
 modeled crossing using a spatial join.  This allows us to get all sort of useful information about our sites like the
 type of species known upstream, names of streams and roads, amount of habitat modeled by species, etc. etc. etc.
 
-```{r}
-crossings <- fpr_db_query("SELECT
+```{r q-c1}
+crossings_db <- fpr_db_query("SELECT
   a.misc_point_id, a.pscis_crossing_id, a.my_crossing_reference,
   b.*,
   ST_Distance(ST_Transform(a.geom,3005), b.geom) AS distance
@@ -181,17 +197,20 @@ CROSS JOIN LATERAL
 
 Have a look
 
-```{r}
-crossings |> 
+```{r ct}
+crossings_db |> 
   fpr::fpr_kable(font = 12)
 ```
 
+<br>
 
 Note that this gives us the geometry of our closest crossings found in the database and does not return our original geometry from our field data.  If we want the geometry of our field crossing locations returned we need to 
 include that column in our query.  We can do that a number of ways but choose:
 
-```{r}
-crossings_actual_raw <- fpr_db_query("SELECT
+<br>
+
+```{r q-c2}
+crossings_field_raw <- fpr_db_query("SELECT
   a.misc_point_id, a.pscis_crossing_id, a.my_crossing_reference, a.geom as misc_geom,
   b.*,
   ST_Distance(ST_Transform(a.geom,3005), b.geom) AS distance
@@ -205,9 +224,13 @@ CROSS JOIN LATERAL
    LIMIT 1) AS b")
 ```
 
+<br>
+
 Now - a bit about `SQL`.  We cannot use `SELECT *` in our query because we have two columns with the same name.  Also
 there is no way to select all columns from a table and then select only the columns we want.  We have to list all the
 columns we want. 
+
+<br>
 
 
 There are two ways we can deal with this.  
@@ -215,16 +238,18 @@ There are two ways we can deal with this.
 
 1. We can assign the geometry to the `sf` object:
 
-```{r}
-crossings_actual <- crossings_actual_raw |>
+```{r geom}
+crossings_field <- crossings_field_raw |>
   sf::st_as_sf(coords = c("misc_geom", "geom"))
 ```
+
+<br>
 
 
 2. Manually specify the columns we want.
 
 
-```{r}
+```{r q-c3 }
 crossings3 <- fpr_db_query("SELECT
   a.misc_point_id, a.pscis_crossing_id, a.my_crossing_reference, a.geom,
   b.aggregated_crossings_id, b.gnis_stream_name, b.observedspp_upstr, co_rearing_km,  
@@ -243,34 +268,41 @@ crossings3 |>
 ```
 
 
+<br>
+
 3. get all our table column names from a query, remove the ones we don't want (ex. `dplyr::select(-geom)` and then use that to supply to our spatial query.  This will be more involved and can include building a function using `glue::glue` 
 to insert a list of values so we will leave that for another time. I have begun building functions for this and have
 made lots of progress but need a bit more time to finish first drafts.  Should happen soon.
 
+<br>
 
-We can view the difference between crossings generated in option 1 and option 2 on a map. `mapview` is a sick little package - https://r-spatial.github.io/mapview/index.html .
 
-```{r}
-crossings |> 
+We can view the difference between crossings_db generated in option 1 and option 2 on a map. `mapview` is a sick little package - https://r-spatial.github.io/mapview/index.html .
+
+```{r map1}
+crossings_db |> 
   mapview::mapview() +
-  mapview::mapview(crossings_actual, col.regions= "red", col = "red", alpha.regions = 0.5)
+  mapview::mapview(crossings_field, col.regions= "red", col = "red", alpha.regions = 0.5)
 
 ```
 
 
 
-# Objective 1  - Get specific road info from the database related to our field data and join in to our field data to complete our dataset
+# Objective 1  - Get specific road tenure info from the database related to our field data and join in to our field data to complete our dataset
 
-First we want to know the names of the columms we want
+Forest road info is not that straight forward due to multiple road layers in the same spot - sometimes with different tenure holders.
+First we want to know the names of the columms we want.
 
-```{r}
+```{r cols}
 fpr_db_query(fpr_dbq_lscols(schema = "whse_forest_tenure", table = "ften_road_section_lines_svw")) %>% 
   fpr::fpr_kable(font = 12)
 ```
 
+<br>
+
 So we can write our query like this:
 
-```{r}
+```{r q-rd}
 dat_info <- fpr_db_query("SELECT
   a.misc_point_id, a.pscis_crossing_id, a.my_crossing_reference, a.geom,
   b.life_cycle_status_code, client_name, map_label,
@@ -287,12 +319,15 @@ CROSS JOIN LATERAL
 
 ```
 
+<br>
 
 Why do we transform the geometry to `3005` in `ST_Transform(a.geom,3005)`.  Well - we don't need to!! That was dirty old code (useful somewhere I'm sure - but not here) Since our `fpr::fpr_sp_assign_sf_from_utm()` function already made sure it was in 3005 (*aside* - we could change the output of `fpr::fpr_sp_assign_sf_from_utm()`of course by adjusting the `crs_return` param). Let's test whether our results are equivalent though to be sure.
 
-Note that we don't need to give the assigned name of the `table` if the `column` name is unique.
+<br>
 
-```{r}
+Note that we don't need to give the assigned name of the `table` if the `column` name is unique (ex. `client_name`, `map_label`).
+
+```{r q-rd2}
 dat_info2 <- fpr_db_query("SELECT
   a.misc_point_id, a.pscis_crossing_id, a.my_crossing_reference, a.geom,
   b.life_cycle_status_code, client_name, map_label,
@@ -311,7 +346,11 @@ CROSS JOIN LATERAL
 identical(dat_info, dat_info2)
 ```
 
+<br>
+
 Yes. Anyway. I digress.
+
+<br>
 
 So - everything is perfect now right? Well - not quite.  We have a challenge.  There are many roads that are close to our
 crossings with lots of them that overlap.  Also, we want to "hand pick" our tenure holder because often those are great
@@ -320,10 +359,16 @@ match.  Let's try 10 then narrow down our matches in R.  We are going to use opt
 all our columns manually). EXCEPT - this time we are not going to grab a geometry at all. Why? Because we don't need it.
 We can join the info to our table after and we already have the geometry in our field data! 
 
+<br>
+
 Note that we change the `LIMIT` field to get 10 crossings. 
 
-```{r}
-rd_raw <- fpr_db_query("SELECT
+```{r q-rd3}
+
+limit <- 10
+
+rd_raw <- fpr_db_query(
+  glue::glue("SELECT
   a.misc_point_id, a.pscis_crossing_id, a.my_crossing_reference,
   b.life_cycle_status_code, client_name, map_label,
   ST_Distance(a.geom, b.geom) AS distance
@@ -335,26 +380,38 @@ CROSS JOIN LATERAL
   WHERE life_cycle_status_code = 'ACTIVE'  
    ORDER BY
      a.geom <-> geom
-   LIMIT 10) AS b")
+   LIMIT {limit}) AS b")
+)
 ```
 
-Ok - now let's do some basic filtering to get rid of the roads that are not close to our crossings.  We will use a distance
-of 50m as our cutoff.  
+<br>
 
-```{r}
+Ok - now let's do some basic filtering to get rid of the roads that are not close to our crossings.  We will use a cutoff
+distnace in meters (30m?).
+
+<br>
+
+```{r filter}
+# set 
+distance_cutoff <- 30
+
 rd_prep <- rd_raw |>
-  dplyr::filter(distance < 50)
+  dplyr::filter(distance < distance_cutoff)
 
 rd_prep |>
   fpr::fpr_kable(font = 12)
 
 ```
 
+<br>
 
 Lovely.  Hmm.  Do we need to choose between which road matches which crossing and/or which road matches which tenure holder?
-Let's check 
+Let's check... 
 
-```{r}
+<br>
+
+
+```{r check}
 rd_prep |>
   dplyr::distinct(misc_point_id, client_name, map_label) |>
   dplyr::count(misc_point_id, client_name, map_label) |>
@@ -367,14 +424,25 @@ identical(nrow(rd_prep), length(unique(rd_prep$misc_point_id)))
 
 ```
 
+<br>
+
 No!  
 
+<br>
+
+
 What would we do it we did? I would think that we would `dplyr::pivot_wider` to get everything from the same crossing into
-the same row and then do a series of `dplyr;:case_when`s.
+the same row and then do a series of `dplyr::case_when`s.
 
-For now we want to clean up our data (make the names tile case and shorter for reporting) and join the road data to the crossings.  
+<br>
 
-```{r}
+
+For now we want to clean up our data (make the names tile case and shorter for reporting) and join the road data to the crossings. 
+
+<br>
+
+
+```{r clean}
 rd <- rd_prep |>
   dplyr::mutate(client_name_abb = stringr::str_replace_all(client_name, "CANADIAN FOREST PRODUCTS LTD.", "Canfor"),
                 client_name_abb = stringr::str_replace_all(client_name_abb, "CARRIER LUMBER LTD.", "Carrier"),
@@ -388,9 +456,16 @@ rd |>
 
 ```
 
+<br>
+
+Hmm - `MT653-301.00` seems a bit excessive. We might consider removing anything after a hyphen at some point (maybe after
+we understand the provincial dataset a bit better....)
+
+<br>
+
 Now lets join it to what we have now from our original data:
 
-```{r}
+```{r join}
 dat_rd_raw <- dplyr::left_join(
   dat |> select(misc_point_id, pscis_crossing_id, my_crossing_reference, road_tenure), 
   rd, 
@@ -402,18 +477,39 @@ dat_rd_raw |>
 
   
 ```
-Use a spatial join to get the road data.  This is a good idea but we need to be careful about how we do it.  We need to
+
+<br>
+
+
 Looking at the descrepencies between the `road_tenure` and `my_road_tenure` columns we can see that we have some issues. 
 Looking at those descrepencies in QGIS we can see some of the complexity that we are dealing with and start thinking
 about options for a solution.  Options:
 
-1. Fill in the `road_tenure` data fully in the field.  Sounds reasonable but with so many overlapping layers in merginj
+1. Fill in the `road_tenure` data fully in the field.  Sounds reasonable but not only is field time super tight with 
+tons to do already, with so many overlapping layers in mergin
 and the degree of technical know how and "know what to do" involved it is not really practical.
-2.Just do the road data by hand in the office.  This will work fine but requires some documentation of what it is that we are doing. Was hoping that this tutorial would be a good way to do that but it will require many many hours to get done properlyso looks like that should be done somewhere too. Start here.
+
+2. Do the road data by hand in the office.  This will work fine but requires some better documentation of what it is 
+that we are doing. 
+
+3. Thinking the best way to do this is likely to just use the `bcfishpass.crossings_vw` table for getting almost everything
+done already and use `ften_forest_file_id` for the road tenure doing no queries of our own. I believe everything we need
+for the MoTi and municiple roads is all there already and we have documentation of case-whens to grab those. We try to 
+overlap the road cost info as much as possible with the `road_tenure` stuff.  Then - we look into
+our best sites by hand when we are QAing and look for other tenure holders. If a site isn't looking that promising then
+why bother with all this.  In the mean time we can request that `map_label`
+or `road_section_id` gets added to the `bcfishpass.crossings_vw` table.  We can also develop this template to be more robust and use it to 
+test the results from the `bcfishpass.crossings_vw` table with what we get and just look at things when there are multiple
+`ACTIVE` tenure holders.
+
+
+<br>
+
 
 What is `road_tenure`
 
- * For forest tenure roads it is the active tenure holder besides MoF if there is one concatenated with map_label
+ * For forest tenure roads it is the active tenure holder besides MoF if there is one concatenated with `map_label`
+ * `map_label` is just `ften_client_name` (alias for `client_name`) and `ften_road_section_id` (future alias for `road_section_id`)
  * If a road is in a municipality that is the tenure holder (unless it is a highway).  
  * MoTi if it is a MoTi road. Can visualize sometimes because there is a MoTi culvert (insert the `schema.table` name of that layer.
 
@@ -424,15 +520,33 @@ mentioning and looking into. There was a bunch of confusion about this before du
 I included the surface info for MoTi and municipal roads but whatever.
 
   * there are oil and gas road layers too!
+  
+  * the MoTi roads - Digital Road Atlas stuff still needs to be gathered.
+  
+
 
 # Conclusion
 We can really do anything programatically but it is not always worth it and can be full of major issues. Trying to explain
 something can take a long time but exposes a lot of what is happening and allows adaptive management going forward.
 
+<br>
+
+
+
 
 Always disconnect from the database when you are done.  
 
-```{r}
+```{r disconnect}
 DBI::dbDisconnect(conn)
+```
+
+<br>
+
+In order to render this document we need a work around from the standard bookdown method. We run this command below
+by hand in the console to render the document.
+
+```{r render-manual, eval = FALSE}
+rmarkdown::render("scripts/tutorials/road_tenure.Rmd", output_file = "road_tenure.html", output_dir = "scripts/tutorials")
+
 ```
 
