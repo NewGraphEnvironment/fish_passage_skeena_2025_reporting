@@ -47,7 +47,7 @@ preview_chapter('0100-intro.Rmd')
 
 
 # define the _bookfile_name from _bookdown.yml
-filename_html <- 'mybookdown_template'
+filename_html <- 'fish_passage_template'
 
 {
 
