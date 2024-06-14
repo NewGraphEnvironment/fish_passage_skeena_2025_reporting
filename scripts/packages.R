@@ -12,7 +12,10 @@ pkgs_cran <- c(
 )
 
 pkgs_gh <- c(
-  "newgraphenvironment/fpr"
+  "newgraphenvironment/fpr",
+  # watch for issues in the future with this particular pin to deal with black captions
+  # https://github.com/NewGraphEnvironment/mybookdown-template/issues/50
+  "haozhu233/kableExtra@a9c509a"
 )
 
 pkgs_all <- c(pkgs_cran,
@@ -20,8 +23,10 @@ pkgs_all <- c(pkgs_cran,
 
 
 # install or upgrade all the packages with pak
-lapply(pkgs_all,
-       pak::pkg_install, ask = FALSE)
+# install or upgrade all the packages with pak
+if(params$update_packages){
+  lapply(pkgs_all, pak::pkg_install, ask = FALSE)
+}
 
 # load all the packages
 pkgs_ld <- c(pkgs_cran,

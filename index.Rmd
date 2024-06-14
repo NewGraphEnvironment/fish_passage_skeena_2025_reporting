@@ -22,6 +22,7 @@ output:
 params:
   repo_url: 'https://github.com/NewGraphEnvironment/mybookdown-template/'
   report_url: 'https://newgraphenvironment.github.io/mybookdown-template'
+  update_packages: FALSE
 nocite: |
   @tidyverse2019
 documentclass: book
