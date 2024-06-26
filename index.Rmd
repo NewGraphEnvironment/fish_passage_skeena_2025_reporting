@@ -24,9 +24,9 @@ params:
   report_url: 'https://newgraphenvironment.github.io/mybookdown-template'
   update_packages: FALSE
 nocite: |
-  @tidyverse2019
+  @irvine2024NewGraphEnvironmentfpr
 documentclass: book
-bibliography: [packages.bib, references.bib]
+bibliography: "`r rbbt::bbt_write_bib('references.bib', overwrite = TRUE)`"
 biblio-style: apalike
 link-citations: no
 github-repo: rstudio/bookdown-demo

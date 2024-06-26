@@ -19,7 +19,11 @@ It may be a bit confusing to follow but we try to document it just the same. Tas
 -   Resize photos to be under 1mb as per PSCIS requirements.
 -   Rename jpg and jpeg to JPG to simplify reporting and eliminate issues with PSCIS upload.
 -   Build directories of folders related to each site based on PSCIS input spreadsheet site ids.
--   Do an initial drop of photos into the generated site folders based on dates, times and surveyor.
--   QA renamed photos to determine that all 5 photos (upstream, downstream, inlet, outlet, barrel) required for PSCIS as well as a road photo are present.
--   Generate an amalgamated photo for each site containing all 6 of the previously mentioned photos. If there is no road over the crossing then use picture from nearest road with site card in corner.
+-   Sort into directories and rename photos uploaded to mergin during field collection on phones.
+-   ##THIS NEEDS UPDATING## Do an initial drop of photos into the generated site folders based on dates, times and surveyor. 
+-   **QA renamed photos** -  to determine that all 5 photos (upstream, downstream, inlet, outlet, barrel) required for PSCIS as well as a road photo are present.
+-   **Build photo amalgamation for each site** - containing all 6 of the previously mentioned photos. If there is no road over the crossing then use picture from nearest road with site card in corner.
+-   Phase 2 photo directory generation - After Phase 1 data submission - duplicate directories for Phase 1 sites that where Phase 2 was also conducted and rename to reflect assigned Phase 2 PSCIS ID
+
+
 -   Generate a csv file that contains the locations and names of all photos after they are sorted and renamed to facilitate reproducability.
