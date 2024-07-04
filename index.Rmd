@@ -70,8 +70,8 @@ font_set <- 9
 
 ```{r source}
 source('scripts/packages.R')
-# library(magrittr)  #put this here so we can turn off packages.R call on turn this on when testing to save time
 source('scripts/functions.R')
+source('scripts/staticimports.R')
 
 ```
 

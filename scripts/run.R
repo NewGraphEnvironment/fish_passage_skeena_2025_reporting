@@ -7,8 +7,10 @@ preview_chapter('0100-intro.Rmd')
 
 # add/update the NEWS.md to the book as an appendix and build the gitbook
 {
-  source('scripts/functions.R')
-  news_to_appendix()
+  # update util file functions from staticeimports
+  staticimports::import()
+  source('scripts/staticimports.R')
+  my_news_to_appendix()
 
   rmarkdown::render_site(output_format = 'bookdown::gitbook',
                          encoding = 'UTF-8')
