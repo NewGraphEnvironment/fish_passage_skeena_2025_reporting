@@ -151,31 +151,21 @@ fs::file_copy(path = path_in,
 
 <br>
 
-Now we reorganize it so that we have one location per site in `step_1_ref_and_loc_info`
-that is a minimum of 100m long.  So - all the info we have been collecting as separate electrofishing sites
-needs to be combined into one site.  How we will do this by sheet in the workbook:
+Now we reorganize our spreadsheet so that we remove `step_4_stream_site_data` when our sites are just small electrofishing 
+sites.  We also want there to link our `alias_local_name` to the user so they can link our reporting to provincial datasets.
+How we will do this by sheet in the workbook:
 
-- `step_1_ref_and_loc_info`
-  + filter out sites with `ef` in the location column generated from the `alias_local_name` column
 
 - `step_2_fish_coll_data`
-  + replace `method_number` for each site with number appended to `_ef` portion of the `alias_local_name` (ex. the `1` 
-  becomes the method number extracted from `alias_local_name` = `125231_us_ef1` and `2` becomes the method number extracted from `125231_us_ef2`).
   + Append comments from `step_4_stream_site_data` to the comments column.
-  + replace the existing `reference_number` for all `*_ef*` sites with the `reference_number` of the site that the `alias_local_name` is associated with.
 
-- `step_3_individual_fish_data`
-  + replace the existing `reference_number` for all `*_ef*` sites with the `reference_number` of the site that the `alias_local_name` is associated with.
-  + replace `method_number` for each site with number appended to `_ef` portion of the `alias_local_name` as per `step_2_fish_coll_data`.
-  
 - `step_4_stream_site_data`
-  + Append `alias_local_name` to the comments column.
   + remove all `*_ef*` sites. This will require erasing everything and then pasting back in the data from the dataframe.
   
 
 ### `step_4_stream_site_data` - Copy the `alias_local_name` to `comments` 
 
-We now do all work on the `data/permit_submission/{permit_number}_data.xls` file.
+**We now do all work on the `data/permit_submission/{permit_number}_data.xls` file.**
 
 <br>
 
@@ -200,18 +190,18 @@ Now we do the hand work to copy-paste-special-values this data over to the `data
 
 <br>
 
-### `step_2_fish_coll_data` - Transfer comments and `UTMs` from `step_4_stream_site_data`, extract `method_number` and re-assign `reference_number`.
-We also add all comments (now with site ids included) along with the site UTMs to the comments of the `step_2_fish_coll_data` sheet of the fds because IF WE HAVE A 100m+ HABITAT SITE - one of our next steps is to remove the `_ef*` sites from `step_4_stream_site_data` we want to link the electrofishing site ids and comments with the fish collection sites (only place where that info can now live....). It's going to result in redundant
-comments and may not end up accessible in the data layers we pull from BC Data Catalogue but we do it in case it is helpful.
+### `step_2_fish_coll_data` - add all comments (now with site ids included) to the comments 
+Because one of our next steps is to remove the `_ef*` sites from `step_4_stream_site_data` so now this is the
+only place where our comments can now live....). It may not end up accessible in the data layers we pull from BC Data 
+Catalogue but we do it in case it is helpful.
 
 
 <br>
 
-First we run a test to see if we need to update `reference numbers `and `method_number.`  If there is an `ef` in the `alias_local_name` column AND
-there is an associated site that has the same "12345_us` but does not have the "_ef*" in the `alias_local_name`
-then we will update the reference number for the ef site to the reference number of the non-ef site. If there is no
-associated us or ds site then we will leave the reference number as is.  We need the `alias_local_name` column
-from step 1 of the form.  First step is just to answer the question of which sites have a non-ef site associated with them.
+First we run a test to see if there is an `ef` in the `alias_local_name` column AND
+there is an associated site that has the same "12345_us` but does not have the "_ef*" in the `alias_local_name`.
+First step is just to answer the question of which sites have a non-ef site associated with them. We do not use this
+information in the final product but it is maybe useful to know.
 
 ```{r test-reference-update}
 
@@ -239,15 +229,6 @@ site_match_na_ef_yes <- site_match_na_ef |>
 
 ```
 
-<br>
-
-Ok - the script below works because we do not have any reference numbers to update. It does update the `method_number`
-part but not the `reference_number` (didn't get that far before realizing we had no matches for Peace. If we actually do need to update the
-`reference_number` (Zymoetz crossing from Skeena 2023) and the `method_number`  then we will need to script in the
-part to update the `reference_number`. May be a pain but should be doable. Hard to know if hand-bombing will be much simpler. 
-It may be so perhaps that is the route we wil go. This whole thing is only happening for two files so already we are probably
-past the threshold of all this scripting being worth it. dang.
-
 
 ```{r copy-comments-step2}
 
@@ -263,16 +244,9 @@ step_2_prep <- hab_con |>
       #tidyr::replace_na with "" so we don't get NAs
       tidyr::replace_na(list(comments_step2 = ""))
 
-site_comments_step2_prep <- dplyr::left_join(
+site_comments_step2 <- dplyr::left_join(
   
-  if(nrow(site_match_na_ef_yes) > 0){
-    step_2_prep |> 
-      tidyr::separate(local_name, into = c('site', 'location', 'ef'), remove = F) |>
-      # sub in the haul_number_pass_number for the method_number appended to the end of ef
-      dplyr::mutate(ef = stringr::str_replace(ef, "ef", ""),
-                    method_number = ef) 
-  } else {
-    step_2_prep},
+    step_2_prep,
     
     site_comments_prep,
     
@@ -280,26 +254,6 @@ site_comments_step2_prep <- dplyr::left_join(
   dplyr::mutate(comments_step2 = dplyr::case_when(!is.na(comments_step2) ~ paste(comments, comments_step2, sep = " "),
                                                   TRUE ~ comments)) |> 
   dplyr::select(reference_number, local_name, method_number, comments_step2)
-
-#now we need the utms for the comments if we ARE ammending reference numbers
-
-
-site_comments_step2 <- if(nrow(site_match_na_ef_yes) > 0){
-  
-  dplyr::left_join(
-  
-  site_comments_step2_prep,
-  
-  hab_con |> 
-  purrr::pluck("step_1_ref_and_loc_info") |> 
-  dplyr::select(reference_number, utm_zone, utm_easting, utm_northing),
-  
-  by = 'reference_number') |>
-  dplyr::mutate(comments_step2 = paste(comments_step2, "UTM:", utm_zone, utm_easting, utm_northing, sep = " "))
-} else {
-  
-  site_comments_step2_prep
-}
 
 # burn out our csv with the updated comments (and method number and utms if necessary)
 site_comments_step2 |> 
@@ -327,12 +281,14 @@ step_4_prep <- hab_con |>
 
 # burn out our csv so we can hand-bomb
 step_4_prep |> 
-  readr::write_csv(fs::path(stub_out_csv, "hab_con_step4_no_ef.csv"))
+  readr::write_csv(fs::path(stub_out_csv, "hab_con_step4_no_ef.csv"), na = "")
 
 
 ```
 
 <br>
 
-Might be a better way but removed all sites and copy pasted back in the data from the csv.  Now we have a clean `step_4_stream_site_data` sheet.
+Removed data for all sites and copy pasted special back in the data from the `data/inputs_extracted/hab_con_step4_no_ef.csv` 
+to `step_4_stream_site_data` sheet.  Need to pull up the formulas for averages and deal with `ph` significant digits but
+other than that it seemed to work fine.
 
