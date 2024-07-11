@@ -3,7 +3,7 @@ These are the procedures for 2023 data.
 
 First we need to fill in everything in the Step 1 sheet. 
 
-Project Title: Same as report - "Restoring Fish Passage in the Peace Region - 2023"
+Project Title: Same as report - "Restoring Fish Passage in the Skeena Region - 2023"
 Company/Agency: Other
 Company/Agency (Other): New Graph Environment Ltd.
 Spreadsheet Recorder(s): Allan Irvine or Lucy Schick
@@ -21,8 +21,8 @@ Some of this could move to params in the future but for now we will just define 
 
 ```{r}
 #location of the data
-repo_name <- "fish_passage_peace_2023_reporting"
-permit_id <- 'PG23-813101'
+repo_name <- "fish_passage_skeena_2023_reporting"
+permit_id <- 'SM23-814011'
 
 stub_repo <- fs::path("~/Projects/repo", repo_name)
 
@@ -102,6 +102,8 @@ DBI::dbDisconnect(conn)
 Now make csv with watershed codes and and burn to file - so we can copy and paste into the spreadsheet. We need to
 QA this data using the `whse_fish.wdic_waterbody_route_line_svw` layer.  This layer has now been added the
 2023 QGIS shared projects for Skeena and Peace:
+
+*****`whse_fish.wdic_waterbody_route_line_svw` LAYER NOT PRESENT IN SKEENA OR PEACE QGIS PROJECT YET
 
 ```{r csv-wsc}
 
