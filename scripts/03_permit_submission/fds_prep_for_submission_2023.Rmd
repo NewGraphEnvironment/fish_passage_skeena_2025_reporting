@@ -309,6 +309,6 @@ step_4_prep |>
 <br>
 
 Removed data for all sites and copy pasted special back in the data from the `data/inputs_extracted/hab_con_step4_no_ef.csv` 
-to `step_4_stream_site_data` sheet.  Need to pull up the formulas for averages and deal with `ph` significant digits but
+to `step_4_stream_site_data` sheet of `data/permit_submission/{permit_number}_data.xls`.  Need to pull up the formulas for averages and deal with `ph` significant digits but
 other than that it seemed to work fine.
 
