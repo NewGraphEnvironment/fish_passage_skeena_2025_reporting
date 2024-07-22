@@ -87,7 +87,7 @@ wscodes <- fpr::fpr_db_query(
     b.blue_line_key_50k,
     b.watershed_key_50k,
     b.match_type
-    FROM bcfishpass.crossings a
+    FROM bcfishpass.crossings_vw a
     LEFT OUTER JOIN whse_basemapping.fwa_streams_20k_50k b
     ON a.linear_feature_id = b.linear_feature_id_20k
     WHERE a.stream_crossing_id IN ({ids*})
@@ -250,7 +250,6 @@ site_match_na_ef_yes <- site_match_na_ef |>
 site_comments_prep <- site_comments |> 
     dplyr::select(reference_number, comments) |>
   #tidyr::replace_na with "" so we don't get NAs
-  ## This line doesn't seem to do anything because even if the comments are NA, the site_id and or time stamp is always present, so     ## its never NA
   tidyr::replace_na(list(comments = ""))
 
 step_2_prep <- hab_con |> 
@@ -287,6 +286,9 @@ For these we will leave all the locational information in the `step_1_ref_and_lo
 This way we will at least not clutter the database with information that is not required or desired. We will leave the 
 `step_3_individual_fish_data` sheet even though it is not actually required because it seems useful.
 
+
+!!NOTE!! - code in above chunk should be used.  Can be moved to below.  can add new comments as same time as removeing ef sites but want to have procedures to remove NA when present and case_when for eliminating unesessary white space. 
+
 ```{r remove-ef-sites}
 
 # now we remove the ef sites from the step_4_stream_site_data sheet
@@ -312,3 +314,7 @@ Removed data for all sites and copy pasted special back in the data from the `da
 to `step_4_stream_site_data` sheet of `data/permit_submission/{permit_number}_data.xls`.  Need to pull up the formulas for averages and deal with `ph` significant digits but
 other than that it seemed to work fine.
 
+
+<br>
+
+Be sure to run `fpr::fpr_import_hab_con(row_empty_remove = T)` so we have record of changes viewable on github.
