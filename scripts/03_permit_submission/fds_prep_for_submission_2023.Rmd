@@ -318,3 +318,29 @@ other than that it seemed to work fine.
 <br>
 
 Be sure to run `fpr::fpr_import_hab_con(row_empty_remove = T)` so we have record of changes viewable on github.
+
+<br>
+
+File "should" be QA'd with the submission QA tool.  This however requires windows. For Peace will copy to 
+onedrive. Transfer to local windows machine. Run QA, record issues and then copy back over. This will cause
+divergence with `habitat_confirmations.xls` file that should perhaps be remedied.
+
+<br>
+
+Copy data to onedrive to get to windows machine.
+
+```{r}
+fs::file_copy(path = "/Users/airvine/Projects/repo/fish_passage_peace_2023_reporting/data/permit_submission/PG23-813101_data.xls",
+              new_path = "/Users/airvine/Library/CloudStorage/OneDrive-Personal/Projects/submissions/fish_data/2023/PG23-813101_data.xls",
+              overwrite = TRUE)
+```
+
+Run the QA tool.  Record issues with github and fix in repo permit copy. 
+
+
+**Still to do**
+
+Fix in habitat_confirmations.xls - Rerun `fpr::fpr_import_hab_con(row_empty_remove = T)` and push to github.
+
+
+
