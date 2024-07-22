@@ -3,7 +3,7 @@ These are the procedures for 2023 data.
 
 First we need to fill in everything in the Step 1 sheet. 
 
-Project Title: Same as report - "Restoring Fish Passage in the Peace Region - 2023"
+Project Title: Same as report - "Restoring Fish Passage in the Skeena Region - 2023"
 Company/Agency: Other
 Company/Agency (Other): New Graph Environment Ltd.
 Spreadsheet Recorder(s): Allan Irvine or Lucy Schick
@@ -21,8 +21,8 @@ Some of this could move to params in the future but for now we will just define 
 
 ```{r}
 #location of the data
-repo_name <- "fish_passage_peace_2023_reporting"
-permit_id <- 'PG23-813101'
+repo_name <- "fish_passage_skeena_2023_reporting"
+permit_id <- 'SM23-814011'
 
 stub_repo <- fs::path("~/Projects/repo", repo_name)
 
@@ -51,13 +51,15 @@ ids <- hab_con |>
   purrr::pluck("step_1_ref_and_loc_info") |> 
   tidyr::separate(alias_local_name, into = c('site', 'location', 'ef'), remove = F) |>
   dplyr::distinct(site) |> 
-  dplyr::pull(site)  
+  dplyr::pull(site)
 
 ```
 
 ## Query database to get 1:50,000 watershed codes
 Really kind of humorous that we are getting 1:50,000 watershed codes from the database then the province turns around
 and converts them back to 1:20,000 (pers. comm. Dave McEwan - Fisheries Standards Biologist - 778 698-4010 - Dave.McEwan@gov.bc.ca).
+
+Some sites are missing in bcfishpass so they are not returned in the following query. The missing sites are delt with in the next section `csv-wsc`. The missing sites are (123377,124500, 58067). Why aren't they in bcfishpass mmmm.... odd that they are all in the BULK watershed...
 
 ```{r get-wsc}
 conn <- fpr::fpr_db_conn()
@@ -96,12 +98,12 @@ wscodes <- fpr::fpr_db_query(
 DBI::dbDisconnect(conn)
 ```
 
-
 <br>
 
 Now make csv with watershed codes and and burn to file - so we can copy and paste into the spreadsheet. We need to
 QA this data using the `whse_fish.wdic_waterbody_route_line_svw` layer.  This layer has now been added the
 2023 QGIS shared projects for Skeena and Peace:
+
 
 ```{r csv-wsc}
 
@@ -117,16 +119,27 @@ wsc_join <- dplyr::left_join(
   by = c('site' = 'stream_crossing_id')) |> 
   
   dplyr::select(reference_number, gazetted_name, alias_local_name, site, location, watershed_code_50k, watershed_group_code) |> 
+  ## Here are some hand bomb corrections for the sites that were missing from bcfishpass. We need to add the watershed_group_code so    ## that the waterbody_id can be created
+  # mutate(watershed_group_code = case_when(
+  #   site == 123377 ~ 'BULK',
+  #   site == 124500 ~ 'BULK',
+  #   site == 58067 ~ 'BULK',
+  #   T ~ watershed_group_code)) |>
   dplyr::mutate(alias_corrected = NA_character_,
          waterbody_id = paste0('00000', watershed_group_code),
          waterbody_type = 'stream') |> 
   # QA in QGIS using the wdic_waterbody_route_line_svw layer in postgres db, this layer comes from:
   # https://catalogue.data.gov.bc.ca/dataset/wsa-stream-routes-50-000/resource/d694884b-97a6-4d34-9ece-263aa46974f5
-  # here are some hand bomb corrections
+  # here are some hand bomb corrections for the watershed_code_50k
   # mutate(watershed_code_50k = case_when(
-  #   site == 197974 ~ '460-829700-20600-00000-0000-0000-000-000-000-000-000-000',
-  #   site == 198066 ~ '460-517700-00000-00000-0000-0000-000-000-000-000-000-000',
-  #   T ~ watershed_code_50k)) %>%
+  #   site == 197360 ~ '460-600600-23900-95600-0000-0000-000-000-000-000-000-000',
+  #   site == 123377 ~ '460-517700-00000-00000-0000-0000-000-000-000-000-000-000',
+  #   site == 198217 ~ '400-448500-00000-00000-0000-0000-000-000-000-000-000-000',
+  #   site == 198022 ~ '460-600600-44500-00000-0000-0000-000-000-000-000-000-000',
+  #   site == 124500 ~ '460-437000-00000-00000-0000-0000-000-000-000-000-000-000',
+  #   site == 198934 ~ '460-600600-17000-18900-0000-0000-000-000-000-000-000-000',
+  #   site == 58067 ~ '460-223800-00000-00000-0000-0000-000-000-000-000-000-000',
+  #   T ~ watershed_code_50k)) |>
   dplyr::select(reference_number, alias_local_name, site, location, gazetted_name, alias_corrected, waterbody_type, waterbody_id, watershed_code_50k)
 
 
@@ -186,26 +199,27 @@ site_comments |>
 
 <br>
 
-Now we do the hand work to copy-paste-special-values this data over to the `data/permit_submission/{permit_number}_data.xls` file.  
+Since we redo `step_4_stream_site_data` anyways to remove the ef sites (at the end), we should just add the updated comments then.
+<!-- Now we do the hand work to copy-paste-special-values the comments from `hab_con_alias_local_name_relocate.csv` over to `step_4_stream_site_data` of the `data/permit_submission/{permit_number}_data.xls` file.   -->
 
 <br>
 
 ### `step_2_fish_coll_data` - add all comments (now with site ids included) to the comments 
-Because one of our next steps is to remove the `_ef*` sites from `step_4_stream_site_data` so now this is the
-only place where our comments can now live....). It may not end up accessible in the data layers we pull from BC Data 
+Because one of our next steps is to remove the `_ef*` sites from `step_4_stream_site_data`, `step_2_fish_coll_data` will now be the
+only place where our comments now live. It may not end up accessible in the data layers we pull from BC Data 
 Catalogue but we do it in case it is helpful.
 
 
 <br>
 
 First we run a test to see if there is an `ef` in the `alias_local_name` column AND
-there is an associated site that has the same "12345_us` but does not have the "_ef*" in the `alias_local_name`.
+if there is an associated site that has the same "12345_us` but does not have the "_ef*" in the `alias_local_name`.
 First step is just to answer the question of which sites have a non-ef site associated with them. We do not use this
 information in the final product but it is maybe useful to know.
 
 ```{r test-reference-update}
 
-# these sites have no ef
+# separate the alias_local_name
 site_match_prep <-   hab_con |> 
     purrr::pluck("step_1_ref_and_loc_info") |> 
     dplyr::select(reference_number, alias_local_name) |> 
@@ -236,6 +250,7 @@ site_match_na_ef_yes <- site_match_na_ef |>
 site_comments_prep <- site_comments |> 
     dplyr::select(reference_number, comments) |>
   #tidyr::replace_na with "" so we don't get NAs
+  ## This line doesn't seem to do anything because even if the comments are NA, the site_id and or time stamp is always present, so     ## its never NA
   tidyr::replace_na(list(comments = ""))
 
 step_2_prep <- hab_con |> 
@@ -263,7 +278,7 @@ site_comments_step2 |>
 
 <br>
 
-Ok - now we do the hand work to transfer `data/inputs_extracted/hab_con_method_comments_step2.csv` to the `data/permit_submission/{permit_number}_data.xls` file.
+Ok - now we do the hand work to transfer `data/inputs_extracted/hab_con_method_comments_step2.csv` to `step_2_fish_coll_data` of the `data/permit_submission/{permit_number}_data.xls` file.
 
 
 ### Remove `step_4_stream_site_data` sites that are `_ef*` sites 
@@ -277,7 +292,12 @@ This way we will at least not clutter the database with information that is not 
 # now we remove the ef sites from the step_4_stream_site_data sheet
 step_4_prep <- hab_con |> 
   purrr::pluck("step_4_stream_site_data") |> 
-  dplyr::filter(!grepl("ef", local_name))
+  dplyr::filter(!grepl("ef", local_name)) |> 
+  #remove the old comments
+  select(-comments) |> 
+  #add the new comments
+  left_join(site_comments_prep, 
+             by = 'reference_number')
 
 # burn out our csv so we can hand-bomb
 step_4_prep |> 
@@ -289,6 +309,6 @@ step_4_prep |>
 <br>
 
 Removed data for all sites and copy pasted special back in the data from the `data/inputs_extracted/hab_con_step4_no_ef.csv` 
-to `step_4_stream_site_data` sheet.  Need to pull up the formulas for averages and deal with `ph` significant digits but
+to `step_4_stream_site_data` sheet of `data/permit_submission/{permit_number}_data.xls`.  Need to pull up the formulas for averages and deal with `ph` significant digits but
 other than that it seemed to work fine.
 
