@@ -7,6 +7,7 @@ output:
 params:
   repo_owner: "NewGraphEnvironment"
   repo_name: "fish_passage_skeena_2023_reporting"
+  gis_name: "sern_peace_fwcp_2023"
 ---
 
 ```{r setup, echo=TRUE, include = TRUE}
@@ -38,8 +39,8 @@ path.expand('~/')
 <br>
 
 ```{r def-var, eval = TRUE}
-dir_photos_shared = "~/Library/CloudStorage/OneDrive-Personal/Projects/2023_data/skeena/photos/"
-dir_project <- '~/Projects/gis/sern_skeena_2023'
+dir_photos_shared = "/Users/airvine/Projects/gis/sern_peace_fwcp_2023/ignore_mobile/photos_resized"
+dir_project <- '~/Projects/gis/sern_peace_fwcp_2023'
 file_in <- 'scripts/01_prep_inputs/0120-photos.Rmd'
 # This assumes we use the same directory for the output file as the input file
 file_out <- '0120-photos.html'
@@ -51,9 +52,9 @@ Now we import our field data. We turn on the `update_site_id`, `write_to_csv` an
 
 ```{r import, eval = TRUE}
 form_pscis <- fpr::fpr_sp_gpkg_backup(
-  path = paste0(dir_project, '/data_field/2023/form_pscis_2023.gpkg'),
+  path = fs::path(dir_project, 'form_pscis.gpkg'),
   # we walk the path back a couple steps to accommodate using Rmd vs R file
-  dir_backup = "../../data/backup/",
+  dir_backup = fs::path(here::here(), 'data', "backup"),
   update_site_id = TRUE,
   update_utm = TRUE,
   write_to_csv = TRUE,
@@ -68,7 +69,7 @@ form_pscis <- fpr::fpr_sp_gpkg_backup(
 Create the data and photos folder in shared file location. Onedrive for the time being.
 
 ```{r dir-create1}
-dir.create(dir_photos_shared, recursive = T)
+fs::dir_create(dir_photos_shared, recursive = T)
 ```
 
 We do a bit of QA on our data.
@@ -134,17 +135,19 @@ Resize the photos and keep them on the server for now for collaboration with fol
 ```{r resize-mergin}
 
 fpr_photo_resize_batch(
-  dir_source = '/Users/airvine/Projects/gis/sern_skeena_2023/ignore_mobile/photos/',
-  dir_target = '/Users/airvine/Projects/gis/sern_skeena_2023/ignore_mobile/photos_resized/')
+  dir_source = fs::path(path.expand('~/'), 'Projects/gis', params$gis_name, 'ignore_mobile/photos/'),
+  dir_target = fs::path(path.expand('~/'), 'Projects/gis', params$gis_name, 'ignore_mobile/photos_resized/')
+)
 
 # could erase photos here but will do by hand for safety
 # recreate the photos.txt file so the form still works
-file.create('/Users/airvine/Projects/gis/sern_skeena_2023/ignore_mobile/photos/photos.txt')
+fs::file_create('/Users/airvine/Projects/gis', params$gis_name, 'ignore_mobile/photos/photos.txt')
 
 # back the photos up to onedrive (should remove all from mergin)
 fpr::fpr_photo_resize_batch(
-  dir_source = '/Users/airvine/Projects/gis/sern_skeena_2023/ignore_mobile/photos/photos_resized/',
-  dir_target = '/Users/airvine/Library/CloudStorage/OneDrive-Personal/Projects/repo/fish_passage_skeena_2023_reporting/data/photos/mergin/')
+  dir_source = fs::path(path.expand('~/'), 'Projects/gis/sern_skeena_2023/ignore_mobile/photos/photos_resized/'),
+  dir_target = fs::path(path.expand('~/'), 'Library/CloudStorage/OneDrive-Personal/Projects/repo/fish_passage_skeena_2023_reporting/data/photos/mergin/')
+)
 ```
 
 When the above script was done - I deleted all the orignal `ignore_mobile/photos/` and added back the `photos.txt` so the fieldform is still functional - that should be scripted next time this is done.
@@ -163,9 +166,10 @@ When a photo is renamed using `fpr::fpr_photo_rename` the photo renamed is not d
 ```{r rename}
 fpr::fpr_photo_rename(
   dat = form_fiss_site_raw,
-  dir_from_stub = '/Users/airvine/Library/CloudStorage/OneDrive-Personal/Projects/repo/fish_passage_skeena_2023_reporting/data/photos/mergin/',
-  dir_to_stub = '/Users/airvine/Library/CloudStorage/OneDrive-Personal/Projects/repo/fish_passage_skeena_2023_reporting/data/photos/sorted/',
+  dir_from_stub = fs::path(path.expand('~/'), 'Library/CloudStorage/OneDrive-Personal/Projects/repo/fish_passage_skeena_2023_reporting/data/photos/mergin/'),
+  dir_to_stub = fs::path(path.expand('~/'), 'Library/CloudStorage/OneDrive-Personal/Projects/repo/fish_passage_skeena_2023_reporting/data/photos/sorted/',
   col_string_add = TRUE)
+)
 
 # used fpr_photo_remove_dupes to get rid of the first dupes
 photos_dry_run <- fpr::fpr_photo_remove_dupes(
