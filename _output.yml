@@ -9,8 +9,6 @@ bookdown::gitbook:
         <li><a href="https://github.com/NewGraphEnvironment/mybookdown-template" target="blank">Scripts and Data</a></li>
       collapse: section
     download: ["fish_passage_template.pdf", "fish_passage_template.html"]
-    includes:
-      in_header: shinylive-dependencies.html
     fontsettings:
       theme: night
       family: sans
