@@ -34,6 +34,7 @@ dir_photos_originals <- fs::path_expand(fs::path("~/Library/CloudStorage/OneDriv
 dir_photos_onedrive <- fs::path_expand(fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects", params$job_name, "data/photos/"))
 ```
 
+# Resize
 
 ```{r dir-create}
 # we are going to resize the original photos and move them to onedrive just in case we need to do homework
@@ -65,6 +66,7 @@ fs::dir_delete(fs::path(dir_photos_originals,"ls/originals"))
 
 
 ```
+
 
 ```{r gis-resize}
 # QGIS mergin photos-----------------------------------------------------------------------------------------------------
@@ -219,7 +221,7 @@ test <- fpr::fpr_photo_qa(dat = form_pscis_photos_raw) |>
 ```
 
 
-# Rename the photos from the FISS cards and remove duplicates
+# FISS Site - Rename the photos from the FISS cards and remove duplicates
 
 CANT USUALLY DO THIS UNTILL WE SUBMIT THE DATA AND GET THE PSCIS IDS BUT WE HAVE NO NEW SITES IN THE PEACE SO WE ALREADY HAVE THE IDS...
 
@@ -242,7 +244,7 @@ form_fiss_photos_raw <- fpr::fpr_sp_gpkg_backup(
   write_back_to_path = FALSE,
   return_object = TRUE,
   col_easting = "utm_easting",
-  col_northing = "utm_northing",
+  col_northing = "utm_northing"
 ) 
 
 
@@ -297,6 +299,85 @@ fpr::fpr_photo_rename(
   col_string_add = TRUE,
   # we just made this column
   col_string_append = photo_tag_site
+)
+
+```
+
+
+```{r}
+# quick check to see if the photos are all accounted for
+identical(
+  # 189
+  length(
+    fs::dir_ls(dir_photos_mergin_raw, recurse = T)),
+  # 202 - there were a few photos in the "Photos" directory from a mistake in one of the forms... Can't rememver 
+  length(
+    fs::dir_ls(dir_photos_mergin_resized, recurse = T))
+)
+```
+
+# Monitoring Form
+
+
+```{r dir-site-create-pscis}
+form_raw <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_name, 'form_monitoring.gpkg'))
+form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_name, 'data_field/2024/form_monitoring_2024.gpkg'))
+
+fs::dir_create(fs::path_dir(form_new))
+
+# copy the form to the new field directory
+fs::file_copy(
+  form_raw,
+  form_new,
+  overwrite = T
+)
+
+form_photos_raw <- fpr::fpr_sp_gpkg_backup(
+  form_new,
+  update_site_id = TRUE,
+  # turned this off for now but was on first time
+  write_back_to_path = FALSE,
+  return_object = TRUE,
+  col_easting = "utm_easting",
+  col_northing = "utm_northing"
+) 
+
+# check for duplicate sites
+form_photos_raw |>
+  dplyr::filter(!is.na(site_id)) |>
+  group_by(site_id) |>
+  dplyr::filter(n()>1) |>
+  nrow()
+
+# check for empty sites
+form_photos_raw |>
+  dplyr::filter(is.na(site_id)) |>
+  nrow()
+
+# create site photo directories right on mergin to make them easy to share...
+form_photos_raw |>
+  dplyr::pull(site_id) |>
+  as.character() |>
+  purrr::map(
+    fpr::fpr_photo_folders, path = dir_photos_mergin_raw
+  )
+
+# also create on onedrive
+form_photos_raw |>
+  dplyr::pull(site_id) |>
+  as.character() |>
+  purrr::map(
+    fpr::fpr_photo_folders, path = paste0(dir_photos_onedrive, "/")
+  )
+```
+
+```{r rename-monitoring}
+
+# NOTE - needed to add a / to the end of the dir names for now untill we update fpr::fpr_photo_rename with fs functions
+fpr::fpr_photo_rename(
+  dat = form_photos_raw,
+  dir_from_stub = "/Users/airvine/Projects/gis/sern_peace_fwcp_2023b/photos/",
+  dir_to_stub = "/Users/airvine/Projects/gis/sern_peace_fwcp_2023b/photos/"
 )
 
 ```
