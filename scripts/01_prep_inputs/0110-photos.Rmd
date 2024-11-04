@@ -7,8 +7,8 @@ output:
 params:
   repo_owner: "NewGraphEnvironment"
   repo_name: "fish_passage_peace_2024_reporting"
-  gis_name: "sern_peace_fwcp_2023"
-  job_name: "2024-073-sern-peace-fish-passage"
+  gis_name: "sern_skeena_2023"
+  job_name: "2024-072-sern-skeena-fish-passage"
 ---
 
 
@@ -54,16 +54,20 @@ fpr::fpr_photo_resize_batch(
 )
 
 # move the originals off of onedrive to the local computer to manage storage space
-fs::dir_copy(fs::path(dir_photos_originals,"ai/originals"),
-             "/Users/airvine/Projects/current/2024-073-sern-peace-fish-passage/data/photos/ai")
 
-fs::dir_copy(fs::path(dir_photos_originals,"ls/originals"),
-             "/Users/airvine/Projects/current/2024-073-sern-peace-fish-passage/data/photos/ls")
+dir_to <- fs::path("/Users/airvine/Projects/current", params$job_name, "data/photos/ai")
+dir_from<- fs::path(dir_photos_originals,"ai/originals")
+fs::dir_create(dir_to, recurse = TRUE)
+fs::dir_copy(dir_from,
+             dir_to)
+fs::dir_delete(dir_from)
 
-# remove the originals from onedrive
-fs::dir_delete(fs::path(dir_photos_originals,"ai/originals"))
-fs::dir_delete(fs::path(dir_photos_originals,"ls/originals"))
-
+dir_to <- fs::path("/Users/airvine/Projects/current", params$job_name, "data/photos/ls")
+dir_from <- fs::path(dir_photos_originals,"ls/originals")
+fs::dir_create(dir_to, recurse = TRUE)
+fs::dir_copy(dir_from,
+             dir_to)
+fs::dir_delete(dir_from)
 
 ```
 
@@ -73,6 +77,12 @@ fs::dir_delete(fs::path(dir_photos_originals,"ls/originals"))
 ## Clean up the mergin file----------------------------------------------------------------------------------------------------
 # remove photos.txt file included in project when created (was to allow mergin git to see the photos dir) but needs
 # to be removed or ignored to not break fpr_photo_resize_batch
+
+fpr::fpr_photo_resize_convert(
+  photo = "/Users/airvine/Library/CloudStorage/OneDrive-Personal/Projects/2024-072-sern-skeena-fish-passage/data/photos/ls/originals/IMG_3344.HEIC",
+  path = "~/Projects"
+)
+
 
 ###!!! make sure you are synced with the server here 
 fs::file_delete(
