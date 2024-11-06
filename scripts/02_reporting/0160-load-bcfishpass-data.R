@@ -23,9 +23,9 @@ bcfishpass <- fpr::fpr_db_query(
 # grab the bcfishpass spawning and rearing table and put in the database so it can be used to populate the methods
 # like solutions provided here https://github.com/smnorris/bcfishpass/issues/490
 bcfishpass_spawn_rear_model <- fpr::fpr_db_query(
-  query = "SELECT * FROM bcfishpass.parameters_habitat_thresholds_log
+  query = "SELECT * FROM bcfishpass.log_parameters_habitat_thresholds
   WHERE model_run_id = (SELECT MAX(model_run_id)
-  FROM bcfishpass.parameters_habitat_thresholds_log);"
+  FROM bcfishpass.log_parameters_habitat_thresholds);"
 )
 
 # get all the pscis data for the watershed from the database which is updated weekly on our server
