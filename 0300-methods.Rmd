@@ -119,7 +119,8 @@ To obtain estimates of channel width upstream of crossing locations, where avail
 
 <br>
 
-<!-- Turn on once 0160-load-bcfishpass-data has been run  -->
+<!-- Turn on once tables.R has been run  -->
+<!-- Project specific fish species in this code, must customize to repo -->
 ```{r tab-fish-spawning-rearing, eval=F}
 #`r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br><br><br>")}`
 bcfishpass_spawn_rear_model %>%
@@ -153,7 +154,7 @@ bcfishpass_spawn_rear_model %>%
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\newpage")`
 
-<!-- This table has not been included in the most recent reports (skeena and peace 2023). Maybe because we now use 8.5% for ST rearing habitat, which is not whats referenced in this table (they said 7.5) -->
+<!-- This table has not been included in the most recent reports (skeena and peace 2023). Maybe because we now use 8.5% for ST rearing habitat, which is not what is referenced in this table (they said 7.5) -->
 ```{r tab-fish-spawning-rearing-references, eval = F}
 # bcfishpass_spawn_rear_model_references <- readr::read_csv(file = 'data/width_modelling/model_spawning_rearing_habitat.csv')
 bcfishpass_spawn_rear_model_references <- readr::read_csv(file = 'data/inputs_raw/model_spawning_rearing_habitat.csv')
@@ -356,8 +357,9 @@ community access, cost, constructability, fish bearing status and environmental 
 
 <br>
 
-```{r tab-moti-params, eval=FALSE}
-xref_moti_climate_names %>%
+
+```{r tab-moti-params, eval=T}
+xref_moti_climate_names  %>%
   slice(7:nrow(.)) %>%
   select(spdsht, report) %>%
   rename(Parameter = spdsht, Description = report) %>%
