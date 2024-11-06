@@ -683,6 +683,17 @@ hab_site_priorities <- left_join(
 
 # bcfishpass modelling table setup for reporting --------------------------
 
+##### HACK - Thinking we can just do this instead??
+#Read in tibble
+xref_bcfishpass_names_new <- fpr::fpr_xref_crossings
+
+# When we need to update our column names according to the new output from bcfishpass.crossings, use
+# https://github.com/NewGraphEnvironment/fpr/blob/main/data-raw/fpr_xref_crossings.R
+
+##### END HACK
+
+
+# Leaving old code here in case we can't do whats above.
 
 # When we need to update our column names according to the new output from bcfishpass.crossings...
 bcfishpass_names_updated_prep <- names(bcfishpass) %>%
@@ -946,6 +957,7 @@ xref_bcfishpass_names <- tibble::tribble(
   "wscode_ltree",                                                 "Wscode Ltree",       NA,       NA,                                                                                                                                                                                                                                                       NA
 
 )
+
 
 
 ####-----------overview table------------
