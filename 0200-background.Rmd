@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Background
 
 The study area includes the Bulkley River, Zymoetz River, Kispiox River, Morice River and Kitsumkalum River watershed groups (Figure \@ref(fig:overview-map)) and is within the traditional territories of the Wet'suwet'en, Gitxsan and Tsimshian.
@@ -118,7 +123,7 @@ knitr::include_graphics("fig/hydrograph_08EB004.png")
 
 ## Kitsumkalum River
 
-The Kitsumkalum River is a sixth order stream that flows east from the Coast Mountains to Kitsumkalum lake then south to Terrace where it joins the Skeena River, draining an area of 2289km^2^. Major tributaries to the Kitsumkalum River include the Cedar River, Nelson River, Mayo Creek, Goat Creek, Lean-To Creek and Deep Creek [@mcelhanney2022KitsumkalumRiver]. Peak flows occur in May-June from snow melt with subsequent peaks the fall from rain events [@mcelhanney2022KitsumkalumRiver]. There is one hydrometric station below Kitsumkalum lake which has been active since 2018, and has a mean annual discharge of `round(fasstr::calc_longterm_mean(station_number = "08EG019")$LTMAD,0)`m^3^/s (Figure \@ref(fig:hydrology-plot5)). From 1929-1954, there was a hydrometric station near Terrace, which estimated the mean annual discharge to be `r round(fasstr::calc_longterm_mean(station_number = "08EG006")$LTMAD,0)`m^3^/s.
+The Kitsumkalum River is a sixth order stream that flows east from the Coast Mountains to Kitsumkalum lake then south to Terrace where it joins the Skeena River, draining an area of 2289km^2^. Major tributaries to the Kitsumkalum River include the Cedar River, Nelson River, Mayo Creek, Goat Creek, Lean-To Creek and Deep Creek [@mcelhanney2022KitsumkalumRiver]. Peak flows occur in May-June from snow melt with subsequent peaks the fall from rain events [@mcelhanney2022KitsumkalumRiver]. There is one hydrometric station below Kitsumkalum lake which has been active since 2018, and has a mean annual discharge of `r round(fasstr::calc_longterm_mean(station_number = "08EG019")$LTMAD,0)` m^3^/s (Figure \@ref(fig:hydrology-plot5)). From 1929-1954, there was a hydrometric station near Terrace, which estimated the mean annual discharge to be `r round(fasstr::calc_longterm_mean(station_number = "08EG006")$LTMAD,0)`m^3^/s.
 
 
 <br>
