@@ -20,8 +20,9 @@ output:
           includes:
             in_header: header.html
 params:
-  repo_url: 'https://github.com/NewGraphEnvironment/mybookdown-template/'
-  report_url: 'https://newgraphenvironment.github.io/mybookdown-template'
+  repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_template_reporting'
+  report_url: 'https://www.newgraphenvironment.com/fish_passage_template_reporting/'
+  job_name: 'fish_passage_template_reporting'
   update_packages: FALSE
 nocite: |
   @irvine2024NewGraphEnvironmentfpr
