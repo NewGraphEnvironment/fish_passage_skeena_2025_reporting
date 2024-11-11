@@ -25,7 +25,15 @@ params:
   job_name: 'fish_passage_template_reporting'
   update_packages: FALSE
 nocite: |
-  @irvine2024NewGraphEnvironmentfpr
+  @busch_etal2011LandscapeLevelModela, 
+  @woll_etal2017SalmonEcological,
+  @kirsch_etal2014Fishinventory,
+  @cooney_holzer2006AppendixInterior,
+  @roberge_etal2002LifeHistory,
+  @sloat_etal2017Streamnetwork,
+  @woll_etal2017SalmonEcological,
+  @porter_etal2008DevelopingFish,
+  @rosenfeld_etal2000Habitatfactors
 documentclass: book
 bibliography: "`r rbbt::bbt_write_bib('references.bib', overwrite = TRUE)`"
 biblio-style: apalike
@@ -73,6 +81,7 @@ font_set <- 9
 source('scripts/packages.R')
 source('scripts/functions.R')
 source('scripts/staticimports.R')
+source('scripts/tables.R')
 
 ```
 
