@@ -359,6 +359,10 @@ community access, cost, constructability, fish bearing status and environmental 
 
 
 ```{r tab-moti-params, eval=T}
+
+# This line can be removed once Table.R is run. Just a work around for now. 
+xref_moti_climate_names <- sfpr_xref_moti_climate_names()
+
 xref_moti_climate_names  %>%
   slice(7:nrow(.)) %>%
   select(spdsht, report) %>%
