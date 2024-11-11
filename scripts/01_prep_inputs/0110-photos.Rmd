@@ -394,5 +394,33 @@ When a photo is renamed using `fpr::fpr_photo_rename` the photo renamed is not d
 
 ```{r remove-dupes}
 
+# use fpr_photo_remove_dupes to see the duplicated photos
+photos_dry_run <- fpr::fpr_photo_remove_dupes(
+  '/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-073-sern-peace-fish-passage/data/photos/sorted')
+
+# use fpr_photo_remove_dupes to see the triplicated photos
+photos_dry_run3 <- fpr::fpr_photo_remove_dupes(
+  '/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-073-sern-peace-fish-passage/data/photos/sorted',
+                                               min_replicates = 3)
+
+
+# # actually run the removal of the first un-renamed photo
+# fpr::fpr_photo_remove_dupes('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-073-sern-peace-fish-passage/data/photos/sorted',
+#                             dry_run = F)
+
+# now there should only be photos that had triplets. The un-renamed photos have been removed so there will only be duplicates of renamed photos. These should be same photos as in photos_dry_run3.
+photos_dry_run_after <- fpr::fpr_photo_remove_dupes('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-073-sern-peace-fish-passage/data/photos/sorted')
+
+# # now run the removal of the duplicated renamed photos (photos that had triplets)
+# fpr::fpr_photo_remove_dupes('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-073-sern-peace-fish-passage/data/photos/sorted',
+#                             dry_run = F, remove_renamed = TRUE)
+
+# Now there should be no duplicated of any kind, this object should be empty. 
+photos_dry_run_after <- fpr::fpr_photo_remove_dupes('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-073-sern-peace-fish-passage/data/photos/sorted')
+                                                  
+
+# backup the dry runs to a csv so we can track which photos were removed.
+readr::write_csv(photos_dry_run, "data/inputs_extracted/photo_duplicate_rm_log.csv" )
+
 ```
 
