@@ -146,6 +146,10 @@ fs::dir_delete("/Users/airvine/Projects/gis/sern_peace_fwcp_2023/photos")
 form_raw <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_name, 'form_pscis.gpkg'))
 form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_name, 'data_field/2024/form_pscis_2024.gpkg'))
 
+#this can be run for the ow photos once the issue with ids is resolved
+# form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_name, 'data_field/2024/form_pscis_ow_2024.gpkg'))
+
+
 fs::dir_create(fs::path_dir(form_new))
 
 # copy the form to the new field directory
@@ -184,6 +188,7 @@ form_pscis_photos_raw |>
   )
 
 # also create on onedrive
+#!didn't do this for ow skeena phtos 2024!!!
 form_pscis_photos_raw |>
   dplyr::pull(site_id) |>
   as.character() |>
