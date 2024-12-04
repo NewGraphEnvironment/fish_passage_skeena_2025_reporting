@@ -100,7 +100,7 @@ form_pscis <- form_pscis |>
 
 We need to fix the times because they are in UTC and we need them in PDT. This issue is documented here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/18
 
-For peace 2024, this is not an issue, move on.
+For peace 2024, the times are correct in form_pscis but are incorrect (in UTC) when form_pscis_2024 gets read in in Q. Will deal with this in the next step when the QA'd data gets processed. The following script was not run for Peace 2024.
 
 
 ```{r time-fix}
@@ -134,7 +134,7 @@ form_pscis_cleaned <- form_pscis |>
 
   #split date time column into date and time
   dplyr::mutate(
-    date_time_start = lubridate::ymd_hms(date_time_start),
+    date_time_start = lubridate::ymd_hms(date_time_start, tz = "America/Vancouver"),
     date = lubridate::date(date_time_start),
     time = hms::as_hms(date_time_start),
     
