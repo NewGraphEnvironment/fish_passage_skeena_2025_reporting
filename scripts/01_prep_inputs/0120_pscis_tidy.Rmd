@@ -20,7 +20,9 @@ options(knitr.kable.NAN = '--')
 
 # Purpose of this script
 
-This scripts is used to prepare data for QA in QGIS. It 
+This scripts is used to prepare data for QA in QGIS. 
+
+This script is currently being used to clean the 2024 Peace `form_pscis_2024.gpkg` file.
 
 First we load the necessary packages.
 ```{r}
@@ -34,46 +36,29 @@ source('scripts/packages.R')
 Name the project directory we are pulling from and import the data. We use `fpr_sp_gpkg_backup` to import and backup the data, as well as update the UTMS. We will also write the data to a csv and Rdata file and commit for version control using git.
 
 ```{r import}
-path <- "~/Projects/gis/sern_simpcw_2023"
+path <- "~/Projects/gis/sern_peace_fwcp_2023"
 
 form_pscis <- fpr_sp_gpkg_backup(
-  path_gpkg = paste0(path, "/data_field/2023/form_pscis_2023.gpkg"),
-  dir_backup = "data/backup/simpcw/",
+  path_gpkg = paste0(path, "/data_field/2024/form_pscis_2024.gpkg"),
+  dir_backup = "data/backup/",
   update_utm = TRUE,
   update_site_id = F,
   write_back_to_path = FALSE,
   write_to_csv = TRUE,
   write_to_rdata = TRUE,
   return_object = TRUE)
-
-# pscic_2023 <- sf::st_read('/Users/lucyschick/Projects/gis/sern_simpcw_2023/data_field/2023/form_pscis_2023.gpkg') |> 
-#   arrange(my_crossing_reference)
-# 
-# pscic_old <- sf::st_read('/Users/lucyschick/Projects/gis/sern_simpcw_2023/form_pscis.gpkg') |> 
-#   arrange(my_crossing_reference)|> 
-#   slice(2:(nrow(pscic_old) - 1)) |> 
-#   mutate(my_crossing_reference = case_when(
-#     my_crossing_reference == 1300094 ~ 13900094,
-#     TRUE ~ my_crossing_reference
-#   )) |> 
-#   arrange(my_crossing_reference)
-# 
-# 
-# setdiff(unique(pscic_2023$my_crossing_reference), unique(pscic_old$my_crossing_reference))
-# 
-# waldo::compare(pscic_2023, pscic_old, max_diffs = Inf)
   
 ```
 
 
 ## Clean and QA the data
 
-First we check for duplicated sites. In this case, there are too sites with `my_crossing_reference` = 13905538, but they are not duplicates, just two crossings at the same location.
+First we check for duplicated sites. No duplicates were found.
 
 ```{r dups}
-form_pscis %>%
-  filter(!is.na(my_crossing_reference)) %>%
-  group_by(my_crossing_reference) %>%
+form_pscis |> 
+  filter(!is.na(my_crossing_reference)) |>
+  group_by(my_crossing_reference) |>
   filter(n()>1)
 ```
 
@@ -87,8 +72,10 @@ We need to check for sites that have a culvert length (length_or_width_meters) o
 form_pscis |> 
   filter(length_or_width_meters > 99.9 | fill_depth_meters > 9.9)
 
+## No sites were found. Sweet, move on.
+
 # Now we will change them to 99.9 and 9.9, respectively, and will append a note to the assessment comments.
-form_pscis <- form_pscis %>%
+form_pscis <- form_pscis |>
   dplyr::mutate(
     assessment_comment = case_when(
       length_or_width_meters > 99.9 ~ paste0(assessment_comment, 'Culvert length ', length_or_width_meters, 'm but changed to 99.9m to meet submission requirements.'),
@@ -110,9 +97,13 @@ form_pscis <- form_pscis %>%
 
 ```
 
+
 We need to fix the times because they are in UTC and we need them in PDT. This issue is documented here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/18
 
-```{r}
+For peace 2024, this is not an issue, move on.
+
+
+```{r time-fix}
 
 form_pscis <- form_pscis |> 
 # make a new column for the time as is with different name then mutate to PST
@@ -132,56 +123,37 @@ form_pscis <- form_pscis |>
 Now we will:
 - remove the site used to make the form
 - split date time column into date and time
-- Change all yes_no columns that have NA values to 'No', This should be done in the form as per https://github.com/NewGraphEnvironment/dff-2022/issues/119#issuecomment-1781242709
+- Fix some vocabulary
 - back up the original assessment comments so we can redo this amalgamation of text if we need to
-- Add additional columns and rearrange. In future we should have all of these columns already in the form as per https://github.com/NewGraphEnvironment/dff-2022/issues/119#issuecomment-1781242709
+- reorder the columns for easy QA in Q
 
-```{R }
-form_pscis_cleaned <- form_pscis %>%
+```{r clean-up }
+form_pscis_cleaned <- form_pscis |>
   # remove the site used to make the form
-  filter(site_id != '12345' | !is.na(date_time_start)) %>%
+  filter(site_id != '12345' | !is.na(date_time_start)) |>
 
   #split date time column into date and time
   dplyr::mutate(
     date_time_start = lubridate::ymd_hms(date_time_start),
     date = lubridate::date(date_time_start),
     time = hms::as_hms(date_time_start),
-
-    # This should be done in the form as per https://github.com/NewGraphEnvironment/dff-2022/issues/119#issuecomment-1781242709
-    across(contains('yes_no'), ~replace_na(.,'No')),
-
-    # some numeric fields for CBS have NA values when a user input 0 https://github.com/NewGraphEnvironment/dff-2022/issues/119#issuecomment-1781242709
-    # this could lead to errors as is. Should be fixed in form if possible
-    across(c(outlet_drop_meters, outlet_pool_depth_0_01m, culvert_slope_percent, stream_slope),
-           ~case_when(
-             crossing_type == 'Closed Bottom Structure' ~
-               replace_na(.,0),
-             TRUE ~ .
-           )),
+    
+  # Fix the vocabulary
     stream_name = str_replace_all(stream_name, 'Trib ', 'Tributary '),
     road_name = str_replace_all(road_name, 'Hwy ', 'Highway '),
-    # back up the original assessment comments so we can redo this amalgamation of text if we need to
-    assessment_comment_og = assessment_comment,
-  ) %>%
-  select(-time) %>%
+    crew_members = toupper(crew_members),
   
-  # In the future we should have all of these columns already in the form as per https://github.com/NewGraphEnvironment/dff-2022/issues/119#issuecomment-1781242709
-  dplyr::mutate(
-    # we need more MoTi sturcture columns so that we can add multiple structure IDs in Q
-    moti_chris_culvert_id2 = NA_integer_,
-    moti_chris_culvert_id3 = NA_integer_,
-    # we may as well have a place for priority follow up ranking and citation keys too.
-    # Priority ranking are no fix, low, medium and high, then justify why in the assessment comments
-    my_priority = NA_character_,
-    my_citation_key1 = NA_character_,
-    my_citation_key2 = NA_character_,
-    my_citation_key3 = NA_character_) %>%
+  # back up the original assessment comments so we can redo this amalgamation of text if we need to
+    assessment_comment_og = assessment_comment,
+  ) |>
+  select(-time) |>
 
   # we want these new columns to land at a logical place in the table so we will reorder them
   dplyr::select(
-    site_id,
-    crew_members,
     date_time_start,
+    crew_members,
+    pscis_crossing_id,
+    my_crossing_reference,
     my_priority,
     assessment_comment,
     contains("_notes"),
@@ -193,17 +165,17 @@ form_pscis_cleaned <- form_pscis %>%
 
 ## Backup and burn back to geopackage
 
-Now we burn the cleaned copy to QGIS project as new file in the `/data_field/2023/form_pscis_2023.gpkg' format. Finally, we backup the cleaned data to a csv and Rdata file and commit for version control using git.
+Now we burn the cleaned copy to QGIS project as new file in the `/data_field/2024/form_pscis_2024.gpkg` format. Finally, we backup the cleaned data to a csv and Rdata file and commit for version control using git.
 
 ```{r backup}
 # burn the cleaned copy to QGIS project as new file
 form_pscis_cleaned %>%
-  sf::st_write(paste0(path, '/data_field/2023/form_pscis_2023.gpkg'), append=F, delete_dsn=T)
+  sf::st_write(paste0(path, '/data_field/2024/form_pscis_2024.gpkg'), append=F, delete_dsn=T)
 
 #backup the cleaned data to a csv and Rdata and commit for version control using git
 fpr_sp_gpkg_backup(
-  path_gpkg = paste0(path, "/data_field/2023/form_pscis_2023.gpkg"),
-  dir_backup = "data/backup/simpcw/",
+  path_gpkg = paste0(path, '/data_field/2024/form_pscis_2024.gpkg'),
+  dir_backup = "data/backup/",
   update_utm = TRUE,
   update_site_id = TRUE,
   write_back_to_path = FALSE,
