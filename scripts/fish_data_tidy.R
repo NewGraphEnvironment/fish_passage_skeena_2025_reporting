@@ -5,26 +5,30 @@ source('scripts/packages.R')
 
 # Pit Tags ------
 #import the pit tag csv
-# because we are working in a project our working directory is the root folder so all paths are
-# relative to that
-path <- 'data/dff/tag_01_01.csv'
+# Pit tag data is currently being stored on OneDrive until the 2024 repository has been made.
+path_tag <- '/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-072-sern-skeena-fish-passage/data/tag_01_04.csv'
 
-# using readr is better than read.csv
-# looks like tag_01_01 reads in with a column named tag but tag_01_02 does not have a column name
-# for that reason the call to read_csv needs to be different (change col_names to F for that file). W
-pit_tag <- readr::read_csv(path, col_names = T) %>%
+# tag_01_04 does not have a column name so for that reason the call to read_csv needs to be different (change col_names to F for that file) and
+# the column name will default to X1.
+pit_tag <- readr::read_csv(path_tag, col_names = F) |>
   #separate the pit tag out from the rest of the info in the pit tag csv
   # https://stackoverflow.com/questions/66696779/separate-by-pattern-word-in-tidyr-and-dplyr
-  tidyr::separate(col=tag, into=c('date', 'tag_id'), sep='\\s*TAG\\s*') %>%
+  tidyr::separate(col=X1, into=c('date', 'tag_id'), sep='\\s*TAG\\s*') |>
   tibble::rowid_to_column()
 
 
 #import csv with fish data
-path2 <- 'data/dff/fish_data.csv'
+path_fish <- '/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish_data_raw.xlsx'
 
-fish <- readr::read_csv(path2) %>%
-  mutate(tag_row = tag_row - 1)
-  # readr::write_csv('data/inputs_raw/fish_data.csv', na = '')
+# Read and clean the data
+fish <- readxl::read_xlsx(path_fish, sheet = "fish_data") |>
+  # remove the dates added by excel, they are wrong. We only want the time segments
+  mutate(across(c(site_start_time, site_end_time,segment_start_time, segment_end_time, photo_time_start, photo_time_end),
+                ~ format(., "%H:%M:%S")))
+
+# Unsure if this will still be nessissary
+  # mutate(row_id = tag_row - 1)
+  # # readr::write_csv('data/inputs_raw/fish_data.csv', na = '')
 
 #join fish csv with pit tag csv based on tag row number
 fish_tags <- dplyr::left_join(fish,
