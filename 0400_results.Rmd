@@ -2,7 +2,7 @@
 
 Here we will grab all the phase 2 sites from past work in northern BC and amalgamate into a table
 
-```{r}
+```{r eval = FALSE}
 # these are the fraser sites not yet in pscis
 # grab a list of the phase 1 crossings surveyed to date
 site_ids <- fpr::fpr_import_pscis(dir_root = "~/Projects/repo/fish_passage_fraser_2023_reporting/data") |> 
@@ -13,7 +13,7 @@ print(site_ids_string)
 ```
 
 This is a file that can be used to represent phase 2 sites.
-```{r}
+```{r eval = FALSE}
 dir_paths <- c(
   "~/Projects/repo/fish_passage_bulkley_2020_reporting/data",
   "~/Projects/repo/fish_passage_skeena_2021_reporting/data",
@@ -100,7 +100,7 @@ print(site_ids_string)
 ```
 
 
-```{r}
+```{r eval = FALSE}
 #we want to know all the sites where designs were done.  this will help us with our submissions too
 p3_ls <- c(
   # skeena
