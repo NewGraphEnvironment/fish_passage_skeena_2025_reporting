@@ -121,13 +121,20 @@ To obtain estimates of channel width upstream of crossing locations, where avail
 
 <!-- Turn on once tables.R has been run  -->
 <!-- Project specific fish species in this code, must customize to repo -->
-```{r tab-fish-spawning-rearing, eval=F}
+```{r tab-fish-spawning-rearing, eval=TRUE}
 #`r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br><br><br>")}`
-bcfishpass_spawn_rear_model %>%
-  filter(species_code %in% c('BT','GR')) %>%
+
+species <- c('BT','GR')
+
+text_footnote <- ""
+  #"Models for RB, GR and KO are under a process of development and have not yet been released.  All models parameters are preliminary and subject to collaborative development."
+
+
+bcfishpass_spawn_rear_model |> 
+  filter(species_code %in% species) |>
   mutate(Species = fishbc::fbc_common_name(species_code),
          spawn_gradient_max = round(spawn_gradient_max * 100 ,1),
-         rear_gradient_max = round(rear_gradient_max * 100 ,1)) %>%
+         rear_gradient_max = round(rear_gradient_max * 100 ,1)) |>
   select(Species,
          `Spawning Gradient  Max (%)`= spawn_gradient_max,
          `Spawning Width Min (m)` = spawn_channel_width_min,
@@ -135,17 +142,17 @@ bcfishpass_spawn_rear_model %>%
          # `Spawning Width Max (m)` = spawn_channel_width_max,
          # `Spawning MAD Min (m3/s)` = spawn_mad_min,
          # `Spawning MAD Max (m3/s)` = spawn_mad_max,
-         `Rearing Gradient Max (%)` = rear_gradient_max) %>%
+         `Rearing Gradient Max (%)` = rear_gradient_max) |>
          # `Rearing MAD Min (m3/s)` = rear_mad_min,
          # `Rearing MAD Max (m3/s)` = rear_mad_max,
          # `Rearing Wetland Multiplier` = rear_wetland_multiplier,
-         # `Rearing Lake Multiplier` = rear_lake_multiplier) %>%
-  t() %>%
-  as_tibble(rownames = "row_names") %>%
-  janitor::row_to_names(row_number = 1) %>%
-  rename(Variable = Species) %>%
+         # `Rearing Lake Multiplier` = rear_lake_multiplier) |>
+  t() |>
+  as_tibble(rownames = "row_names") |>
+  janitor::row_to_names(row_number = 1) |>
+  rename(Variable = Species) |>
   fpr::fpr_kable(caption_text = 'Stream gradient and channel width thresholds used to model potentially highest value fish habitat.',
-                 footnote_text = 'Models for RB, GR and KO are under a process of development and have not yet been released.  All models parameters are preliminary and subject to collaborative development.',
+                 footnote_text = text_footnote,
                  scroll = F,
                  scroll_box_height = '300px')
 
@@ -155,30 +162,30 @@ bcfishpass_spawn_rear_model %>%
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\newpage")`
 
 <!-- This table has not been included in the most recent reports (skeena and peace 2023). Maybe because we now use 8.5% for ST rearing habitat, which is not what is referenced in this table (they said 7.5) -->
-```{r tab-fish-spawning-rearing-references, eval = F}
+```{r tab-fish-spawning-rearing-references, eval = TRUE}
 # bcfishpass_spawn_rear_model_references <- readr::read_csv(file = 'data/width_modelling/model_spawning_rearing_habitat.csv')
-bcfishpass_spawn_rear_model_references <- readr::read_csv(file = 'data/inputs_raw/model_spawning_rearing_habitat.csv')
+bcfishpass_spawn_rear_model_references <- readr::read_csv(file = 'data/inputs_raw/bcfishpass_spawn_rear_model_ref.csv')
   # select(species_code, contains('ref'), -contains(c('multiplier','mad')))
 
-bcfishpass_spawn_rear_model_references %>%
-  mutate(Species = fishbc::fbc_common_name(species_code)) %>%
+bcfishpass_spawn_rear_model_references |>
+  mutate(Species = fishbc::fbc_common_name(species_code)) |>
   select(Species,
          `Spawning Gradient  Max (%)`= spawn_gradient_max,
          `Spawning Width Min (m)` = spawn_channel_width_min,
          # `Spawning Width Max (m)` = spawn_channel_width_max_ref,
          # `Spawning MAD Min (m3/s)` = spawn_mad_min,
          # `Spawning MAD Max (m3/s)` = spawn_mad_max,
-         `Rearing Gradient Max (%)` = rear_gradient_max) %>%
+         `Rearing Gradient Max (%)` = rear_gradient_max) |>
          # `Rearing Wetland Multiplier` = rear_wetland_multiplier,
-         # `Rearing Lake Multiplier` = rear_lake_multiplier) %>%
+         # `Rearing Lake Multiplier` = rear_lake_multiplier) |>
          # `Rearing MAD Min (m3/s)` = rear_mad_min,
-         # `Rearing MAD Max (m3/s)` = rear_mad_max) %>%
-  t() %>%
-  as_tibble(rownames = "row_names") %>%
-  janitor::row_to_names(row_number = 1) %>%
-  rename(Variable = Species) %>%
-  fpr::fpr_kable(caption_text = 'References for stream gradient and channel width thresholds used to model potentially highest value fish habitat. Preliminary and subject to revisions.',
-                 footnote_text = 'The maximum gradient for steelhead rearing has been adjusted to 8.5% based on professional judgment, although references indicate 7.49%',
+         # `Rearing MAD Max (m3/s)` = rear_mad_max) |>
+  t() |>
+  as_tibble(rownames = "row_names") |>
+  janitor::row_to_names(row_number = 1) |>
+  rename(Variable = Species) |>
+  fpr::fpr_kable(caption_text = 'References considered for stream gradient and channel width thresholds used to model potentially highest value fish habitat. Preliminary and subject to revisions.',
+                 # footnote_text = 'The maximum gradient for steelhead rearing has been adjusted to 8.5% based on professional judgment, although references indicate 7.49%',
                  scroll = F)
 ```
 
@@ -186,11 +193,11 @@ bcfishpass_spawn_rear_model_references %>%
 <br>
 
 <!-- Turn on once tables.R has been run  -->
-```{r tab-bcfp-def, eval = F}
-xref_bcfishpass_names %>%
-  filter(id_side == 1) %>%
-  arrange(id_join) %>%
-  select(Attribute = report, Definition = column_comment) %>%
+```{r tab-bcfp-def, eval = TRUE}
+fpr::fpr_xref_crossings |>
+  filter(id_side == 1) |>
+  arrange(id_join) |>
+  select(Attribute = report, Definition = column_comment) |>
   fpr::fpr_kable(caption_text = 'bcfishpass outputs and associated definitions',
                  footnote_text = 'Bull trout model uses a gradient threshold of maximum 25% to determine if access if likely possible',
                  scroll = gitbook_on)
@@ -210,7 +217,7 @@ xref_bcfishpass_names %>%
 table_thresh_average <- tibble::tibble(`Gradient` = c('0 - 5%', '5 - 15%', '15 - 20%', '>20%'),
                                        `Channel Type` = c('Riffle and cascade pool', 'Step pool', 'Step pool - very steep', 'Non fish habitat'))
 
-table_thresh_average %>% 
+table_thresh_average |> 
     fpr::fpr_kable(caption_text = 'Stream gradient categories (threshold and average) and associated channel type.')
 
 ```
@@ -225,9 +232,9 @@ In the field, crossings prioritized for follow-up were first assessed for fish p
 
 
 ```{r tab-hab-value}
-fpr_table_habvalue %>%
-  knitr::kable(caption = 'Habitat value criteria (Fish Passage Technical Working Group, 2011).', booktabs = T) %>%
-    kableExtra::column_spec(column = 1, width_min = '1.5in') %>%
+fpr_table_habvalue |>
+  knitr::kable(caption = 'Habitat value criteria (Fish Passage Technical Working Group, 2011).', booktabs = T, label = NA) |>
+    kableExtra::column_spec(column = 1, width_min = '1.5in') |>
     kableExtra::kable_styling(c("condensed"), full_width = T, font_size = font_set)
 
 ```
@@ -241,14 +248,14 @@ Fish passage potential was determined for each stream crossing identified as a c
 <br>
 
 ```{r tab-barrier-scoring, eval=T}
-tab <- as_tibble(t(fpr_table_barrier_scoring)) %>%
-  mutate(V4 = names(fpr_table_barrier_scoring)) %>%
-  select(V4, everything()) %>%
-  janitor::row_to_names(1) %>%  ##turn the table sideways
+tab <- as_tibble(t(fpr_table_barrier_scoring)) |>
+  mutate(V4 = names(fpr_table_barrier_scoring)) |>
+  select(V4, everything()) |>
+  janitor::row_to_names(1) |>  ##turn the table sideways
   mutate(Risk = case_when(Risk == 'Value' ~ '  Value',
                           T ~ Risk))
 
-tab %>%
+tab |>
   fpr::fpr_kable(caption_text = 'Fish Barrier Risk Assessment (MoE 2011).', scroll = F)
 
 ```
@@ -257,7 +264,7 @@ tab %>%
 
 
 ```{r tab-barrier-result}
-fpr_table_barrier_result %>%
+fpr_table_barrier_result |>
   fpr::fpr_kable(caption_text = 'Fish Barrier Scoring Results (MoE 2011).', scroll = F)
 
 ```
@@ -292,9 +299,26 @@ Base costs for installation of bridges on forest service roads and permit roads 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 <!-- Turn on once tables.R has been run  -->
-```{r tab-cost-mult, eval = F}
-tab_cost_rd_mult_report |>
-  # filter(Class != 'FSR' & Surface != 'Paved') %>%
+```{r tab-cost-mult, eval = TRUE}
+
+sfpr_xref_road_cost() |>
+  mutate(cost_m_1000s_bridge = formatC(cost_m_1000s_bridge * 15000, format="d", big.mark=",")) |>
+  mutate(cost_embed_cv = formatC(cost_embed_cv * 1000, format="d", big.mark=",")) |>
+  rename(
+    Class = my_road_class,
+    Surface = my_road_surface,
+    `Class Multiplier` = road_class_mult,
+    `Surface Multiplier` = road_surface_mult,
+    `Bridge $/15m` = cost_m_1000s_bridge,
+    `Streambed Simulation $` = cost_embed_cv
+  ) |>
+  dplyr::filter(!is.na(Class)) |>
+  mutate(Class =case_when(
+    Class == 'fsr' ~ str_to_upper(Class),
+    TRUE ~ stringr::str_to_title(Class)),
+    Surface = stringr::str_to_title(Surface)
+  ) |> 
+  # filter(Class != 'FSR' & Surface != 'Paved') |>
   fpr::fpr_kable(caption_text = 'Cost multiplier table based on road class and surface type.', scroll = F)
 ```
 
@@ -359,10 +383,14 @@ community access, cost, constructability, fish bearing status and environmental 
 
 
 ```{r tab-moti-params, eval=T}
+
+# This line can be removed once Table.R is run. Just a work around for now. 
+xref_moti_climate_names <- sfpr_xref_moti_climate_names()
+
 xref_moti_climate_names  %>%
-  slice(7:nrow(.)) %>%
-  select(spdsht, report) %>%
-  rename(Parameter = spdsht, Description = report) %>%
+  slice(7:nrow(.)) |>
+  select(spdsht, report) |>
+  rename(Parameter = spdsht, Description = report) |>
   fpr::fpr_kable(caption_text = 'Climate change data collected at MoTi culvert sites', scroll = gitbook_on)
 
 ```
