@@ -73,8 +73,8 @@ Peace 2024 - No duplicate sites found
 
 ```{r duplicates}
 dups <- form_fiss_site_raw  |> 
-  filter(!is.na(local_name)) %>%
-  group_by(local_name) %>%
+  filter(!is.na(local_name)) |> 
+  group_by(local_name) |> 
   filter(n()>1)
 ```
 
@@ -83,49 +83,36 @@ dups <- form_fiss_site_raw  |>
 
 ```{r clean-form}
 # clean up the form
-form_fiss_site_cleaned <- form_fiss_site_raw %>%
-  st_transform(crs = 26900 + utm) %>%
-  mutate(
-    utm_easting = round(sf::st_coordinates(.)[,1]),
-    utm_northing = round(sf::st_coordinates(.)[,2]),
-    utm_zone = utm) %>%
-  # get a site_id and a location that we can use to make photo directories and tag photos respectively
-  # with fpr_photo_rename - however don't think `location` is used and we could prob just build `site_id` from `local_name`
-  # without needing to add columns to our form.....
-  tidyr::separate(local_name, into = c('site_id', 'location'), remove = F, extra = "merge") %>%
-  #need to rename the photo columns
-  dplyr::rename(photo_extra1 = photo_extra_1,
-                photo_extra2 = photo_extra_2,
-                photo_extra1_tag = photo_extra_1_tag,
-                photo_extra2_tag = photo_extra_2_tag,
-                photo_typical1 = photo_typical_1,
-                photo_typical2 = photo_typical_2) %>%
-  # is filter by no date_time necessary?
-  # dplyr::filter(!is.na(date_time_start)) %>%
+form_fiss_site_cleaned <- form_fiss_site_raw |> 
+  # split the local_name into the site_id and the location
+  tidyr::separate(local_name, into = c('site_id', 'location'), remove = F, extra = "merge") |> 
   # split out the date and the time - change type of column first
   dplyr::mutate(date_time_start = lubridate::ymd_hms(date_time_start),
                 survey_date = lubridate::date(date_time_start),
-                time = hms::as_hms(date_time_start)) %>%
-  # change "trib" to long version "Tributary"
-  mutate(gazetted_names = str_replace_all(gazetted_names, 'Trib ', 'Tributary ')) %>%
-  # fill in text columns from spreadsheet that will likely never change
-  mutate(waterbody_type = 'stream',
-         method_for_channel_width = 'metre tape',
-         method_for_wetted_width = 'metre tape',
-         method_for_residual_pool_depth = 'metre stick',
-         method_for_bankfull_depth = 'metre stick',
-         method_for_gradient = 'clinometer',
-         method_for_temperature = 'recording meter',
-         method_for_conductivity = 'recording meter',
-         method_for_p_h = 'pH meter (general)') %>%
+                time = hms::as_hms(date_time_start), 
+                # Fix some vocabulary. Change "trib" to long version "Tributary" etc.
+                gazetted_names = str_replace_all(gazetted_names, 'Trib ', 'Tributary '),
+                crew_members = toupper(crew_members),
+                # fill in text columns from spreadsheet that will likely never change, ADD UTM method!!
+                waterbody_type = 'stream',
+                method_for_channel_width = 'metre tape',
+                method_for_wetted_width = 'metre tape',
+                method_for_residual_pool_depth = 'metre stick',
+                method_for_bankfull_depth = 'metre stick',
+                method_for_gradient = 'clinometer',
+                method_for_temperature = 'recording meter',
+                method_for_conductivity = 'recording meter',
+                method_for_p_h = 'pH meter (general)') |> 
   # arrange by surveyor and date/time
-  dplyr::arrange(mergin_user, date_time_start) %>%
-  #
+  dplyr::arrange(mergin_user, date_time_start) |> 
+  
+  ####  HAVE ONLY UPDATED TO HERE! 
+  
   dplyr::mutate(comments = case_when(
     !is.na(comments_2) ~ paste0(comments, comments_2, time),
-    T ~ paste0(comments, time))) %>%
+    T ~ paste0(comments, time))) |> 
   # ditch the commments2 and time since we don't need anymore. Time was dropped on gpkg creation due to type conflict
-  select(-comments_2, -time) %>%
+  select(-comments_2, -time) |> 
   #give each row and index so we can filter - note: Nov 2023 - don't see this used currently
   tibble::rowid_to_column()
 
@@ -136,7 +123,7 @@ form_fiss_site_cleaned <- form_fiss_site_raw %>%
 
 ```{r burn-form-fiss-site}
 # Burn cleaned copy to the QGIS project - utm crs with coords -
-form_fiss_site_cleaned %>%
+form_fiss_site_cleaned |> 
   sf::st_write(path_form_fiss_site, append=FALSE, delete_dsn = T)
 ```
 
@@ -147,7 +134,7 @@ form_fiss_site_cleaned %>%
 
 # -----------------read in form after review and finalization in QGIS------------------
 # read in the form
-form_fiss_site_raw <- sf::st_read(dsn= paste0('../../gis/', dir_gis, '/data_field/2023/form_fiss_site_2023.gpkg')) %>%
+form_fiss_site_raw <- sf::st_read(dsn= paste0('../../gis/', dir_gis, '/data_field/2023/form_fiss_site_2023.gpkg')) |> 
   # need to convert date type b/c gpkg and excel import differently
   mutate(survey_date = lubridate::as_date(survey_date))
 
@@ -174,17 +161,17 @@ names(form_fiss_site_raw)
 # there is lots of work to do to pull out all the information we can use so we will start with one small step at a time
 # lets just populate the location and site info pages.
 form_raw_names_site <- fpr::fpr_import_hab_con(backup = F,
-  row_empty_remove = T) %>%
+  row_empty_remove = T) |> 
   # pull out just the site info page for now
-  pluck(4) %>%
+  pluck(4) |> 
   # only keep the names of the columns
   names()
 
 # location names
 form_raw_names_location <- fpr::fpr_import_hab_con(backup = F,
-  row_empty_remove = T) %>%
+  row_empty_remove = T) |> 
   # pull out just the site info page for now
-  pluck(1) %>%
+  pluck(1) |> 
   # only keep the names of the columns
   names()
 
@@ -199,7 +186,7 @@ form_raw_names_sl <- c(form_raw_names_location,
 
 
 # tidy our populated table to PASTE SPECIAL value only!!! to our template. Might need to be in chunks but so be it
-form_site_info_prep <- form_fiss_site_raw %>%
+form_site_info_prep <- form_fiss_site_raw |> 
   dplyr::select(rowid,
                 mergin_user,
                 date_time_start,
@@ -211,20 +198,20 @@ form_fiss_loc <- bind_rows(
 
   # we need the raw form or we don't have all the right columns
   fpr::fpr_import_hab_con(backup = F,
-                          row_empty_remove = T) %>%
+                          row_empty_remove = T) |> 
     # pull out just the site info page for now
-    pluck("step_1_ref_and_loc_info") %>%
-    mutate(survey_date = lubridate::as_date(survey_date)) %>%
-    slice(0) %>%
+    pluck("step_1_ref_and_loc_info") |> 
+    mutate(survey_date = lubridate::as_date(survey_date)) |> 
+    slice(0) |> 
     mutate(dewatered_dry_int_channel = as.character(dewatered_dry_int_channel)),
 
-  form_site_info_prep %>%
-    sf::st_drop_geometry() %>%
+  form_site_info_prep |> 
+    sf::st_drop_geometry() |> 
     # alias local name and gazetted_name is not called the same in both sheets so rename
     rename(alias_local_name = local_name,
-           gazetted_name = gazetted_names) %>%
-    mutate(utm_method = as.character(utm_method)) %>%
-    select(rowid, dplyr::any_of(form_raw_names_location))) %>%
+           gazetted_name = gazetted_names) |> 
+    mutate(utm_method = as.character(utm_method)) |> 
+    select(rowid, dplyr::any_of(form_raw_names_location))) |> 
   mutate(site_number = dplyr::row_number(),
          reference_number = dplyr::row_number())
 
@@ -235,35 +222,35 @@ form_fiss_site <- bind_rows(
 
   # we need the raw form or we don't have all the right columns
   a <- fpr::fpr_import_hab_con(backup = F,
-    row_empty_remove = T) %>%
+    row_empty_remove = T) |> 
     # pull out just the site info page for now
-    pluck("step_4_stream_site_data") %>%
-    slice(0) %>%
+    pluck("step_4_stream_site_data") |> 
+    slice(0) |> 
     mutate(feature_height_length_method = as.character(feature_height_length_method),
            utm_method = as.character(utm_method)),
 
-  form_site_info_prep %>%
-    sf::st_drop_geometry() %>%
+  form_site_info_prep |> 
+    sf::st_drop_geometry() |> 
     mutate(morphology = as.character(morphology),
-           utm_method = as.character(utm_method)) %>%
+           utm_method = as.character(utm_method)) |> 
     select(rowid,
            dplyr::any_of(form_raw_names_site),
            # add the time to help put the puzzle together after)
            survey_date)
-) %>%
+) |> 
   select(rowid, everything())
 
 # burn to file
 # The following fields need to be added by hand in the spreadsheet:
 # UTM method, No Visible Channel, Waterbody (ID) Identifier (this should be scripted eventually)
-form_fiss_loc %>%
+form_fiss_loc |> 
   readr::write_csv(paste0(
     'data/inputs_extracted/form_fiss_loc_tidy',
     '.csv'),
     na = '')
 
 
-form_fiss_site %>%
+form_fiss_site |> 
   readr::write_csv(paste0(
     'data/inputs_extracted/form_fiss_site_tidy',
     '.csv'),
