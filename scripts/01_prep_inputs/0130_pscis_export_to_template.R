@@ -96,10 +96,14 @@ pscis_export <- pscis_export_raw %>%
                  crew_members,
                  date_time_start)
 
-# write to the imports_extracted directory. This is data we import to the project but they are extracted from other places.
+# write to the `imports_extracted` directory. This is data we import to the project but they are extracted from other places.
 dir.create("data/inputs_extracted")
 pscis_export %>%
   readr::write_csv('data/inputs_extracted/pscis_export_submission.csv', na='')
+
+
+## For Peace 2024 we have phase 1, phase 2, and reassessment data
+
 
 # Now copy/paste all phase 1, phase 2, and reassessment data from `pscis_export_submission.csv` into separate pscis spreadsheets
 # (For example: pscis_phase1.xlsm, pscis_phase2.xlsm, pscis_reassessments.xlsm) which can be downloaded here
@@ -107,17 +111,20 @@ pscis_export %>%
 
 
 # After the data has been copy/pasted from `pscis_export_submission.csv` into the appropriate pscis spreadsheet, we can
-# calculate the structure, type, and size `sfpr_structure_size_type`.
-# Finally, copy/paste the data from `str_type_pscis1.csv`, `str_type_pscis2.csv`, and `str_type_pscis_reassessments.csv`
-# back into the appropriate pscis spreadsheet
+# calculate the recommended replacement structure, type, and size using `sfpr_structure_size_type`.
 
-## Add Structure, type, and size
-# fpr_import_pscis_all backs up to flatfile (csv)
+# `fpr_import_pscis_all` reads and backups all pscis spreadsheets but you only need to run `sfpr_structure_size_type` for the
+# assessment phases you have.
 pscis_list <- fpr_import_pscis_all()
 pscis_phase1 <- pscis_list %>% pluck('pscis_phase1')
 pscis_phase2 <- pscis_list %>% pluck('pscis_phase2')
 pscis_reassessments <- pscis_list %>% pluck('pscis_reassessments')
 
-# Get structure, type, and size
+# `sfpr_structure_size_type` burns the structure, type, and size to a csv called `str_type_{your_assessment_phase}.csv`
 sfpr_structure_size_type(pscis_phase1)
+sfpr_structure_size_type(pscis_phase2)
+sfpr_structure_size_type(pscis_reassessments)
+
+# Finally, copy/paste the data from `str_type_pscis1.csv`, `str_type_pscis2.csv`, and `str_type_pscis_reassessments.csv`
+# back into the appropriate pscis spreadsheet
 
