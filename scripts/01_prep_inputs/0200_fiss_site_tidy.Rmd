@@ -23,12 +23,12 @@ options(knitr.kable.NAN = '--')
 
 # Purpose of this script
 
-This scripts is used to prepare fiss site data for QA in QGIS. 
+This scripts is used to prepare fiss site data (phase 2) for submission to the province. 
 
 This script is currently being used to clean the 2024 Peace `form_fiss_site_2024.gpkg` file.
 
 
-# Clean the data 
+# Clean the data in preparation for QA in QGIS 
 
 ## Set up the parameters
 
@@ -60,7 +60,6 @@ form_fiss_site_raw <- fpr::fpr_sp_gpkg_backup(
   col_easting = "utm_easting",
   col_northing = "utm_northing"
 ) 
-
 ```
 
 
@@ -93,8 +92,9 @@ form_fiss_site_cleaned <- form_fiss_site_raw |>
                 # Fix some vocabulary. Change "trib" to long version "Tributary" etc.
                 gazetted_names = str_replace_all(gazetted_names, 'Trib ', 'Tributary '),
                 crew_members = toupper(crew_members),
-                # fill in text columns from spreadsheet that will likely never change, ADD UTM method!!
+                # fill in text columns from spreadsheet that will likely never change
                 waterbody_type = 'stream',
+                method_for_utm = 'GPS general',
                 method_for_channel_width = 'metre tape',
                 method_for_wetted_width = 'metre tape',
                 method_for_residual_pool_depth = 'metre stick',
@@ -105,16 +105,18 @@ form_fiss_site_cleaned <- form_fiss_site_raw |>
                 method_for_p_h = 'pH meter (general)') |> 
   # arrange by surveyor and date/time
   dplyr::arrange(mergin_user, date_time_start) |> 
-  
-  ####  HAVE ONLY UPDATED TO HERE! 
-  
-  dplyr::mutate(comments = case_when(
-    !is.na(comments_2) ~ paste0(comments, comments_2, time),
-    T ~ paste0(comments, time))) |> 
-  # ditch the commments2 and time since we don't need anymore. Time was dropped on gpkg creation due to type conflict
-  select(-comments_2, -time) |> 
-  #give each row and index so we can filter - note: Nov 2023 - don't see this used currently
-  tibble::rowid_to_column()
+  dplyr::mutate(comments = paste0(comments, time)) |> 
+  # ditch the time since we don't need anymore. Time was dropped on gpkg creation due to type conflict
+  select(-time) |> 
+  # rearrange the columns for easier QA in QGIS.
+  dplyr::select(
+    date_time_start,
+    local_name,
+    gazetted_names,
+    crew_members,
+    comments,
+    everything()) |> 
+  arrange(crew_members, date_time_start)
 
 ```
 
@@ -122,13 +124,19 @@ form_fiss_site_cleaned <- form_fiss_site_raw |>
 ## Burn a cleaned copy to the QGIS project for QA
 
 ```{r burn-form-fiss-site}
-# Burn cleaned copy to the QGIS project - utm crs with coords -
+# Burn cleaned copy to the QGIS project
 form_fiss_site_cleaned |> 
   sf::st_write(path_form_fiss_site, append=FALSE, delete_dsn = T)
 ```
 
+Now open QGIS and re-add the `form_fiss_site_2024` layer. Check to see the form is updated with the changes made here. Copy/paste all
+`styles` from the old layer to the new layer you just added.  Lastly, you can delete the old layer and start QAing `form_fiss_site_2024.` 
 
 
+
+# Prepare the data for copy/paste into submission spreadsheet
+
+After QAing the data in QGIS, now we will prepare it for copy/paste into submission spreadsheet.
 
 ```{r}
 
