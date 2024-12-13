@@ -117,7 +117,7 @@ form_fiss_site_cleaned <- form_fiss_site_raw |>
     crew_members,
     comments,
     everything()) |> 
-  arrange(crew_members, date_time_start)
+  arrange(date_time_start)
 
 ```
 
