@@ -87,6 +87,7 @@ form_fiss_site_cleaned <- form_fiss_site_raw |>
   tidyr::separate(local_name, into = c('site_id', 'location'), remove = F, extra = "merge") |> 
   # split out the date and the time - change type of column first
   dplyr::mutate(date_time_start = lubridate::ymd_hms(date_time_start),
+                date_time_start = lubridate::floor_date(date_time_start, unit = "second"),  # Remove microseconds
                 survey_date = lubridate::date(date_time_start),
                 time = hms::as_hms(date_time_start), 
                 # Fix some vocabulary. Change "trib" to long version "Tributary" etc.
@@ -107,7 +108,7 @@ form_fiss_site_cleaned <- form_fiss_site_raw |>
   dplyr::arrange(mergin_user, date_time_start) |> 
   dplyr::mutate(comments = paste0(comments, time)) |> 
   # ditch the time since we don't need anymore. Time was dropped on gpkg creation due to type conflict
-  select(-time) |> 
+  select(-time) |>
   # rearrange the columns for easier QA in QGIS.
   dplyr::select(
     date_time_start,
