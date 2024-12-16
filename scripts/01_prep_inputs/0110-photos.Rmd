@@ -429,3 +429,44 @@ readr::write_csv(photos_dry_run, "data/inputs_extracted/photo_duplicate_rm_log.c
 
 ```
 
+The following is a special workflow to deal with this issue https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/49
+unique to the peace 2024 data.
+
+```{r site-125161-only-remove-dups}
+
+# use fpr_photo_remove_dupes to see the duplicated photos in just the 125261 folder
+photos_dry_run <- fpr::fpr_photo_remove_dupes(
+  '/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-073-sern-peace-fish-passage/data/photos/125261')
+
+# use fpr_photo_remove_dupes to see the triplicated photos in just the 125261 folder
+photos_dry_run3 <- fpr::fpr_photo_remove_dupes(
+  '/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-073-sern-peace-fish-passage/data/photos/125261',
+                                               min_replicates = 3)
+
+# There are no triplicated photos in the 125261 folder
+
+# actually run the removal of the first un-renamed photo
+fpr::fpr_photo_remove_dupes('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-073-sern-peace-fish-passage/data/photos/125261',
+dry_run = F)
+
+# Now there should be no duplicated of any kind in the 125261 folder, this object should be empty. 
+photos_dry_run_after <- fpr::fpr_photo_remove_dupes('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024-073-sern-peace-fish-passage/data/photos/125261')
+
+# Empty, sweet.
+
+# Now join the site 125261 specific dry run data to the photo_duplicate_rm_log.csv so we can track which photos were removed.
+
+# read `photo_duplicate_rm_log.csv` which tracks which photos were removed
+photo_duplicate_rm_log <- readr::read_csv("data/inputs_extracted/photo_duplicate_rm_log.csv")
+
+# now join the site 125261 specific dry run data to the photo_duplicate_rm_log.csv so we can see these changes
+test_photo_duplicate_rm_log <- photos_dry_run |> 
+  bind_rows(photo_duplicate_rm_log) 
+  
+# Check to see it worked. looks good, now burn over photo_duplicate_rm_log.csv
+test_photo_duplicate_rm_log |> 
+  readr::write_csv("data/inputs_extracted/photo_duplicate_rm_log.csv" )
+
+```
+
+
