@@ -4,13 +4,13 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Fish Passage Template</a></li>
+        <li><a href="./">Fish Passage Reporting Template</a></li>
       after: |
         <li><a href="https://github.com/NewGraphEnvironment/fish_passage_template_reporting" target="blank">Scripts and Data</a></li>
       collapse: section
     download: ["fish_passage_template.pdf", "fish_passage_template.html"]
     fontsettings:
-      theme: night
+      theme: white
       family: sans
 pagedown::html_paged:
   front_cover: "fig/new graph text only.png"

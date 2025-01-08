@@ -311,24 +311,24 @@ gantt_raw <- read_csv("data/inputs_raw/fish_species_life_history_gantt.csv")
 # ungroup()
 ##start with just the morice to keep it simple
 gantt <- gantt_raw %>%
-  select(Species,
+  dplyr::select(Species,
          life_stage,
          morice_start2,
          morice_end2) %>%
-  filter(
+  dplyr::filter(
     life_stage != 'Rearing' &
       life_stage != 'Upstream fry migration' &
       !is.na(life_stage),
     !is.na(morice_start2)
   )%>%
-  mutate(
+  dplyr::mutate(
     morice_start2 = lubridate::as_date(morice_start2),
     morice_end2 = lubridate::as_date(morice_end2),
     life_stage = factor(life_stage, levels =
                           c('Migration', 'Overwintering', 'Spawning', 'Incubation', 'Emergence', 'Outmigration')),
     life_stage = forcats::fct_rev(life_stage) ##last line was upside down!
   ) %>%
-  filter(life_stage != 'Overwintering')
+  dplyr::filter(life_stage != 'Overwintering')
 
 
 ##make a plot
@@ -359,7 +359,7 @@ fiss_sum_width <- readr::read_csv(file = 'data/inputs_extracted/fiss_sum_width.c
 ```{r fish-plot-grad, out.width = photo_width, fig.cap= 'Summary of historic salmonid observations vs. stream gradient category for the Bulkley River watershed group.', eval=T}
 ##bar graph
 plot_grad <- fiss_sum_grad %>% 
-  filter(gradient_id != 99) %>% 
+  dplyr::filter(gradient_id != 99) %>% 
   ggplot(aes(x = Gradient, y = Percent)) +
   geom_bar(stat = "identity")+
   facet_wrap(~species_code, ncol = 2)+
@@ -374,7 +374,7 @@ plot_grad
 ```{r fish-plot-width, out.width = photo_width, fig.cap= 'Summary of historic salmonid observations vs. channel width category for the Bulkley River watershed group.', eval=T}
 ##bar graph
 plot_width <- fiss_sum_width %>% 
-  filter(!is.na(width_id)) %>%
+  dplyr::filter(!is.na(width_id)) %>%
   ggplot(aes(x = Width, y = Percent)) +
   geom_bar(stat = "identity")+
   facet_wrap(~species_code, ncol = 2)+
@@ -388,7 +388,7 @@ plot_width
 ```{r fish-plot-wshed, out.width = photo_width, fig.cap= 'Summary of historic salmonid observations vs. watershed size category for the Bulkley River watershed group.', eval=F}
 ##bar graph
 fiss_sum_wshed_filter <- fiss_sum %>% 
-  filter(upstream_area_ha < 5000) %>% 
+  dplyr::filter(upstream_area_ha < 5000) %>% 
   mutate(upstream_area_km = upstream_area_ha/100)
 
 bin_1 <- 0
@@ -435,7 +435,7 @@ plot_wshed_hist
 
 
 ```{r}
-##`r pscis_historic_phase1 %>% filter(watershed_group_code %ilike% 'BULK' & assessment_date < '2020-01-01') %>% nrow()`
+##`r pscis_historic_phase1 %>% dplyr::filter(watershed_group_code %ilike% 'BULK' & assessment_date < '2020-01-01') %>% nrow()`
 ### Bulkley River
 
 # There is a rich history of fish passage restoration planning in the Bulkley River watershed group with not all the work documented in the PSCIS system. A non-exhaustive list of historic fish passage reports for the watershed includes @wilson_rabnett2007FishPassage, @mccarthy_fernando20152015Inventory,@smith2018AssessingBarriers @casselman_stanley2010BulkleyFulton and @irvine2018AnalysisPriority.
@@ -453,5 +453,5 @@ plot_wshed_hist
 
 
 ```{r}
-##`r pscis_historic_phase1 %>% filter(watershed_group_code %ilike% 'MORR' & assessment_date < '2020-01-01') %>% nrow()`
+##`r pscis_historic_phase1 %>% dplyr::filter(watershed_group_code %ilike% 'MORR' & assessment_date < '2020-01-01') %>% nrow()`
 ```

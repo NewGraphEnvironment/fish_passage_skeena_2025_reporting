@@ -8,10 +8,12 @@ my_dt_table <-   function(dat,
                           page_length = 10,
                           col_align = 'dt-center', #'dt-right',
                           font_size = '11px',
-                          style_input = 'bootstrap'){
+                          style_input = 'bootstrap',
+                          ...){
 
   dat |>
     DT::datatable(
+      ...,
       # style = style_input,
       class = 'cell-border stripe', #'dark' '.table-dark',
       #https://stackoverflow.com/questions/36062493/r-and-dt-show-filter-option-on-specific-columns
@@ -70,6 +72,7 @@ my_news_to_appendix <- function(
 
 #https://stackoverflow.com/questions/49819892/cross-referencing-dtdatatable-in-bookdown
 my_tab_caption <- function(caption_text = my_caption) {
+  # requires results="asis" in chunk header and only works in rmarkdown and not quarto
   cat(
     "<table>",
     paste0(
@@ -240,6 +243,19 @@ sfpr_xref_road_cost <- function(){
        "highway",          "paved",              15L,                 2L,                 750L,          1500L,
           "rail",           "rail",              15L,                 2L,                 750L,          1500L
   )
+}
+
+# not sure if we should implement this in ngr yet due to httr2 dependency. leaving here for now
+sngr_chk_url_response <- function(url, url_response = 200) {
+  response <- tryCatch(
+    httr2::request(url) |>
+      httr2::req_perform(),
+    error = function(e) e
+  )
+  if (inherits(response, "error")) {
+    return(FALSE)
+  }
+  httr2::resp_status(response) == url_response
 }
 
 str_replace <- function(text, pattern, replacement) {
