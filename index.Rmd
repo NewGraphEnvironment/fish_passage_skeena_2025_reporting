@@ -1,14 +1,21 @@
 --- 
-title: "My Bookdown Template"
+title: "Fish Passage Reporting Template"
 author: |
  |
  | Prepared for
-
+ | Habitat Conservation Trust Foundation - CAT23-6-288
+ | BC Fish Passage Remediation Program
+ | Ministry of Transportation and Infrastructure
+ | Fish and Wildlife Compensation Program - Peace Region
  |
  |
  | Prepared by
  | Al Irvine, B.Sc., R.P.Bio. and Lucy Schick, B.Sc.
  | New Graph Environment Ltd.
+ |
+ |on behalf of 
+ |
+ |Society for Ecosystem Restoration in Northern British Columbia
 
 date: |
  |
@@ -24,6 +31,7 @@ params:
   report_url: 'https://www.newgraphenvironment.com/fish_passage_template_reporting/'
   job_name: 'fish_passage_template_reporting'
   update_packages: FALSE
+  update_gis: FALSE
 nocite: |
   @busch_etal2011LandscapeLevelModela, 
   @woll_etal2017SalmonEcological,
@@ -102,6 +110,7 @@ Modern civilization has a long journey ahead to acknowledge and address the hist
 
 ```{js, logo-header, echo = FALSE, eval= T}
 title=document.getElementById('header');
-title.innerHTML = '<img src="fig/nge-full_white.png" alt="NewGraph">' + title.innerHTML
+title.innerHTML = '<img src="fig/logo_sern/SERNbc-Logo-HALF.jpg" alt="NewGraph">' + title.innerHTML 
+
 ```
 
