@@ -277,7 +277,7 @@ sites_p2 <- dplyr::bind_rows(
 
 # quick veiw to see if our phase info is half correct
 t <- sites_p2 |> 
-  select(1:4, stream_name, road_name, assess_type_phase1, assess_type_phase2, assess_type_reassessment, assessment_comment, fish_sampling, source_repo, source_gis)
+  dplyr::select(1:4, stream_name, road_name, assess_type_phase1, assess_type_phase2, assess_type_reassessment, assessment_comment, fish_sampling, source_repo, source_gis)
  
 
 # sites_p2 |> 
@@ -414,8 +414,8 @@ fish_sampling_raw_repo <- lfpr_import_fish_repo(
 #   purrr::set_names(nm = basename(dir_paths_gis)) 
 
 # compare types
-types_fish_gis <- ngr::ngr_tidy_cols_type_compare(form_fiss_2024_raw_test) |> 
-  dplyr::filter(consistent == FALSE)
+# types_fish_gis <- ngr::ngr_tidy_cols_type_compare(form_fiss_2024_raw_test) |> 
+#   dplyr::filter(consistent == FALSE)
 
 
 # read them in, address type conflicts and join
@@ -587,7 +587,7 @@ sites_repo_p2 <- sites_pscis_raw  |>
   # need to arrang for the fill to work
   dplyr::arrange(pscis_crossing_id) |> 
   dplyr::group_by(pscis_crossing_id) |> 
-  tidyr::fill(reassessment:fish_sampling, .direction = "downup") |> 
+  tidyr::fill(reassessment:fish_sampling, .direction = "downup") 
   # regroup to get ready to pivot the unique links
 
 
@@ -699,7 +699,7 @@ ids_repo_p1_no_stream_xing_id <- sites_repo_p1 |>
     is.na(stream_crossing_id)
   )
 
-# we have a ghost crossing in the mix without either ID - likely due to incorrect type (string) in my_crossing_reference
+# we have a ghost crossing in the mix without either ID -  due to incorrect type (string) in my_crossing_reference
 # will need to remove
 ids_repo_p2_no_stream_xing_id  <- sites_repo_p2 |> 
   dplyr::filter(
@@ -827,7 +827,7 @@ query <- ngr::ngr_dbqs_filter_predicate(
 sites_all_prep4 <- fpr::fpr_db_query(query) |> 
   # need to remove 197488 since the utm is incorrect https://github.com/smnorris/PSCIS_datafixes/issues/22
   dplyr::filter(stream_crossing_id != 197488) |> 
-  dplyr::select(-idx) 
+  dplyr::select(-idx)
 
 DBI::dbDisconnect(conn)
 
@@ -874,7 +874,25 @@ sites_all <- sites_all_prep5 |>
 ```
 
 
-```{r summarize}
+```{r summarize-sites}
+
+# unique(sites_all$watershed_group_name)
+# 
+# # here is a list of SERN wtershed groups
+# wsg_skeena <- c("Bulkley River",
+#               "Zymoetz River",
+#               "Kispiox River", 
+#               "Kalum River", 
+#               "Morice River", 
+#               "Parsnip River",
+#               "Carp Lake", 
+#               "Crooked River")
+
+# wsg_peace <- c(
+#               "Parsnip River",
+#               "Carp Lake",
+#               "Crooked River"
+#               )
 
 # more straight forward is new graph only watersheds
 wsg_ng <- "Elk River"
@@ -899,13 +917,17 @@ sites_all_summary <- sites_all |>
   dplyr::rename_with(~ stringr::str_replace_all(., "_", " ") |> 
                        stringr::str_to_title()) |> 
   # annoying special case
-  dplyr::rename(UAV = Uav) |> 
+  dplyr::rename(
+    `Drone Imagery` = Uav) |> 
   janitor::adorn_totals()
 ```
 
+```{r tab-sites-sum-cap, results="asis"}
+my_caption = "Summary of fish passage assessment procedures conducted in northern British Columbia through SERNbc."
+my_tab_caption()
+```
 
 ```{r tab-sites-sum}
-# left this here to view results
 sites_all_summary |> 
   my_dt_table(
     page_length = 20,
@@ -913,18 +935,36 @@ sites_all_summary |>
               )
 ```
 
+<br>
+
+
+```{r tab-sites-cap, results="asis"}
+my_caption = "Details of fish passage assessment procedures conducted in northern British Columbia through SERNbc."
+my_tab_caption()
+```
+
 ```{r tab-sites-all}
-# left this here to view results
-sites_all |> 
-  sf::st_drop_geometry() |> 
+sites_all |>
+  sf::st_drop_geometry() |>
+  dplyr::relocate(watershed_group, .after = my_crossing_reference) |> 
+  dplyr::select(-idx) |>
+  # make pretty names
+  dplyr::rename_with(~ . |>
+                       stringr::str_replace_all("_", " ") |>
+                       stringr::str_replace_all("repo", "Report") |>
+                       stringr::str_replace_all("uav", "Drone") |>
+                       stringr::str_to_title()) |> 
+  # dplyr::arrange(desc(stream_crossing_id)) |> 
+  
   my_dt_table(
     cols_freeze_left = 1,
     escape = FALSE
-    )
+  )
 ```
 
 
-```{r write-db}
+```{r write-db, eval = FALSE}
+# have this turned off untill we want to rewrite. will require some thought on how we will work updates
 # burn table into working schema of remote db for now to allow access from wherever
 # burn sites_pscis into the project as 3005 spatial object (it is already)
 conn = fpr::fpr_db_conn()
@@ -952,7 +992,7 @@ DBI::dbDisconnect(conn)
 ```
 
 
-```{r track-ids-p2-missing}
+```{r track-ids-p2-missing, eval = FALSE}
 ################################################################################################################
 #---------leaving below to track how we got ids_p2_missing---------------------------------------------------
 ################################################################################################################
@@ -1070,47 +1110,6 @@ t2 <- dplyr::left_join(
 #         stream_crossing_id %in% ids_remediation ~ TRUE,
 #         T ~ NA)
 #   ) 
-# 
-# 
-# # add the urls for the uav flights
-# t5 <- dplyr::left_join(
-#   
-#   t4,  
-#   
-#   uav_raw |> 
-#     dplyr::filter(!is.na(stream_crossing_id)) |>
-#     dplyr::mutate(year = lubridate::year(date)) |>
-#     dplyr::select(
-#       year,
-#       stream_crossing_id, 
-#       link_uav
-#     ) ,
-#   
-#   by = c("stream_crossing_id")
-# ) |> 
-#   dplyr::group_by(stream_crossing_id) |> 
-#   dplyr::mutate(link_number = dplyr::row_number()) |> 
-#   tidyr::pivot_wider(
-#     names_from = link_number,
-#     values_from = link_uav,
-#     names_glue = "link_uav{link_number}"
-#   )
-# 
-# # add the fish tags
-# 
-# t6 <- dplyr::left_join()
-# 
-# test <- t5 |> 
-#   dplyr::filter(!is.na(link_uav1))
-# 
-# test <- t |> 
-#   dplyr::filter(stream_name == "Richfield Creek")
-# 
-# test <- sites_pscis_raw |> 
-#   dplyr::filter(stream_name == "Richfield Creek")
-#   
-# 
-# 
-#   
+
 ```
 
