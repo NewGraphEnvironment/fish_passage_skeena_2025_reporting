@@ -5,12 +5,18 @@ editor_options:
 ---
 # Background
 
-The study area includes the Bulkley River, Zymoetz River, Kispiox River, Morice River and Kitsumkalum River watershed groups (Figure \@ref(fig:overview-map)) and is within the traditional territories of the Wet'suwet'en, Gitxsan and Tsimshian.
+The Skeena study area includes the Bulkley River, Zymoetz River, Kispiox River, Morice River and Kitsumkalum River watershed groups (Figure \@ref(fig:overview-map)) and is within the traditional territories of the Wet'suwet'en, Gitxsan and Tsimshian.
 
 <br>
 
-```{r overview-map, fig.cap = 'Overview map of Study Areas',eval=T}
-knitr::include_graphics("fig/fishpassage_overview.png")
+```{r overview-map, fig.cap = 'Overview map of Study Areas in the Skeena, Fraser and Mackenzie (FWCP Peace) watersheds',eval=T}
+# grab the latest version when updates happen
+# fs::file_copy(
+#   path = "~/Projects/gis/restoration_bc_2024/exports/maps/fishpassage_2024_sern_summary.jpeg",
+#   new_path = "fig/fishpassage_2024_sern_summary.jpeg",
+#   overwrite = TRUE
+# )
+knitr::include_graphics("fig/fishpassage_2024_sern_summary.jpeg")
 ```
 
 
