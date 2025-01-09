@@ -53,7 +53,8 @@ sites_all_summary <- sites_all |>
   dplyr::rename_with(~ stringr::str_replace_all(., "_", " ") |> 
                        stringr::str_to_title()) |> 
   # annoying special case
-  dplyr::rename(UAV = Uav) |> 
+  dplyr::rename(
+    `Drone Imagery` = Uav) |> 
   janitor::adorn_totals()
 ```
 
@@ -79,13 +80,21 @@ my_tab_caption()
 ```
 
 ```{r tab-sites-all}
-sites_all |> 
-  sf::st_drop_geometry() |> 
+sites_all |>
+  sf::st_drop_geometry() |>
+  dplyr::relocate(watershed_group, .after = my_crossing_reference) |> 
+  dplyr::select(-idx) |>
+  # make pretty names
+  dplyr::rename_with(~ . |>
+                       stringr::str_replace_all("_", " ") |>
+                       stringr::str_replace_all("repo", "Report") |>
+                       stringr::str_replace_all("uav", "Drone") |>
+                       stringr::str_to_title()) |> 
   # dplyr::arrange(desc(stream_crossing_id)) |> 
-  dplyr::select(-idx) |> 
+  
   my_dt_table(
     cols_freeze_left = 1,
     escape = FALSE
-    )
+  )
 ```
 
