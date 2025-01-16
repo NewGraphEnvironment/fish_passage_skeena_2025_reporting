@@ -1,13 +1,11 @@
 # Results
 
 ```{r ld-db}
-conn = fpr::fpr_db_conn()
 
 sites_all <- fpr::fpr_db_query(
   query = "SELECT * FROM working.fp_sites_tracking"
 )
 
-DBI::dbDisconnect(conn)
 ```
 
 ```{r summarize-sites}
@@ -65,6 +63,7 @@ my_tab_caption()
 
 ```{r tab-sites-sum}
 sites_all_summary |> 
+  dplyr::mutate(dplyr::across(everything(), as.character)) |> 
   my_dt_table(
     page_length = 20,
     cols_freeze_left = 0
@@ -82,6 +81,7 @@ my_tab_caption()
 ```{r tab-sites-all}
 sites_all |>
   sf::st_drop_geometry() |>
+  dplyr::mutate(dplyr::across(everything(), as.character)) |> 
   dplyr::relocate(watershed_group, .after = my_crossing_reference) |> 
   dplyr::select(-idx) |>
   # make pretty names
