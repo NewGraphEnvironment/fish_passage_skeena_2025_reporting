@@ -189,7 +189,11 @@ sites_pscis_raw <- purrr::map2_df(
   }
 ) |> 
   # Make it spatial
-  fpr::fpr_sp_assign_sf_from_utm()
+  fpr::fpr_sp_assign_sf_from_utm() |> 
+  # to avoid type conflicts turn pscis_crossing_id numeric
+  dplyr::mutate(
+    pscis_crossing_id = as.numeric(pscis_crossing_id)
+  )
 
 
 
@@ -275,11 +279,6 @@ sites_p2 <- dplyr::bind_rows(
     sf::st_drop_geometry()
 )
 
-# quick veiw to see if our phase info is half correct
-t <- sites_p2 |> 
-  dplyr::select(1:4, stream_name, road_name, assess_type_phase1, assess_type_phase2, assess_type_reassessment, assessment_comment, fish_sampling, source_repo, source_gis)
- 
-
 # sites_p2 |> 
 #   sf::st_write(
 #     dsn = fs::path_expand("~/Projects/gis/data/fish_passage/fish_passage_summary.gpkg"),
@@ -320,7 +319,6 @@ sites_reassess_unsubmitted <-  dplyr::left_join(
 sites_reassess_summary <- sites_reassess_unsubmitted |> 
   dplyr::group_by(source_repo) |> 
   dplyr::summarise(n = dplyr::n())
-
 
 ```
 
@@ -523,22 +521,24 @@ uav_dupes <- janitor::get_dupes(uav_raw, stream_crossing_id)
 # ids_p2_missing <- t2 |> dplyr::pull(external_crossing_reference)
 ids_p2_missing <- c("BR1","BR2","CV1","16602686","1802374")
 
+
 # was sites_pscis_assigned
-sites_repo_p2 <- sites_pscis_raw  |> 
+sites_repo_p2_prep <- sites_pscis_raw  |> 
   # add the missing p2 ids
   dplyr::mutate(
     source = 
       dplyr::case_when(
-        my_crossing_reference %in% ids_p2_missing ~ "phase2",
+        !is.na(my_crossing_reference) & my_crossing_reference %in% ids_p2_missing ~ "phase2",
         T ~ source
       )
   ) |> 
   # drop this b/c we need some raw coords from 2024 data anyway
   sf::st_drop_geometry() |> 
-  # here we are dropping the phase 1s!!
-  dplyr::filter(
-    stringr::str_detect(source, "phase2|reassessment")
-  ) |>
+  # here we were dropping the phase 1s but then we couldn't match all the crossings b/c sites_pscis_raw comes from the 
+  # P1 spreadsheets for the fraser so we need those my_crossing_ids!!
+  # dplyr::filter(
+  #   stringr::str_detect(source, "phase2|reassessment")
+  # ) |>
   dplyr::mutate(
   #   assessment =
   #     dplyr::case_when(
@@ -552,19 +552,22 @@ sites_repo_p2 <- sites_pscis_raw  |>
     habitat_confirmation = 
       dplyr::case_when(
         stringr::str_detect(source, "phase2") | 
-          pscis_crossing_id %in% unique(sites_p2$pscis_crossing_id)  ~ "yes",
+          # watch out for matching nas!!!
+          !is.na(pscis_crossing_id) & pscis_crossing_id %in% unique(sites_p2$pscis_crossing_id) |
+        !is.na(my_crossing_reference) &  my_crossing_reference %in% unique(sites_p2$my_crossing_reference)
+        ~ "yes",
         T ~ NA_character_),
     design =
       dplyr::case_when(
-        pscis_crossing_id %in% ids_design ~ "yes",
+        !is.na(pscis_crossing_id) & pscis_crossing_id %in% ids_design ~ "yes",
         T ~ NA_character_),
     remediation =
       dplyr::case_when(
-        pscis_crossing_id %in% ids_remediation ~ "yes",
+        !is.na(pscis_crossing_id) & pscis_crossing_id %in% ids_remediation ~ "yes",
         T ~ NA_character_),
     fish_sampling = 
       dplyr::case_when(
-        pscis_crossing_id %in% unique(fish_sampling$site) ~ "yes",
+        !is.na(pscis_crossing_id) & pscis_crossing_id %in% unique(fish_sampling$site) ~ "yes",
         T ~ NA_character_),
     link_repo = ngr::ngr_str_link_url(
       url_resource = source_repo
@@ -580,15 +583,42 @@ sites_repo_p2 <- sites_pscis_raw  |>
       # utm_zone,
       # easting,
       # northing,
-      # my_crossing_reference,
+      my_crossing_reference,
       reassessment:fish_sampling,
       link_repo
   ) |> 
-  # need to arrang for the fill to work
+  # need to arrang for the fill to work due to duplicated ids
   dplyr::arrange(pscis_crossing_id) |> 
-  dplyr::group_by(pscis_crossing_id) |> 
-  tidyr::fill(reassessment:fish_sampling, .direction = "downup") 
-  # regroup to get ready to pivot the unique links
+  dplyr::group_by(
+    pscis_crossing_id, 
+    my_crossing_reference
+    ) |> 
+  tidyr::fill(reassessment:fish_sampling, .direction = "downup")
+
+# we need the pscis ids for the PAW sites then we drop the my_crossing_ref so we can continue with our workflow
+xref_p2 <- dplyr::left_join(
+  sites_repo_p2_prep |> 
+    dplyr::filter(habitat_confirmation == "yes") |> 
+    dplyr::ungroup() |>
+    dplyr::filter(is.na(pscis_crossing_id) & !is.na(my_crossing_reference)) |> 
+    dplyr::select(my_crossing_reference),
+  sites_p2 |> dplyr::select(pscis_crossing_id_sub = pscis_crossing_id, my_crossing_reference),
+  by = "my_crossing_reference"
+) 
+
+sites_repo_p2 <- dplyr::left_join(
+  sites_repo_p2_prep |> 
+    dplyr::ungroup(),
+  xref_p2,
+  by = "my_crossing_reference"
+) |> 
+  dplyr::mutate(
+    pscis_crossing_id = dplyr::case_when(
+      !is.na(pscis_crossing_id_sub) ~ pscis_crossing_id_sub,
+      TRUE ~ pscis_crossing_id
+    )
+  ) |> 
+  dplyr::select(-pscis_crossing_id_sub, -my_crossing_reference)
 
 
 sites_repo_p1_prep<- sites_pscis_raw  |> 
@@ -792,8 +822,9 @@ dupes_sites_all_prep3 <- sites_all_prep3 |>
 
 ## Get the watershed groups for each crossing -----------------------------------------------------------------------------------------------------
 # burn sites_pscis into the project as 3005 spatial object (it is already)
-conn = fpr::fpr_db_conn()
-
+conn <- fpr::fpr_db_conn()
+  
+  
 # create a unique id 
 sites_db <- sites_all_prep3 |> 
   tibble::rowid_to_column("idx") 
@@ -830,6 +861,7 @@ sites_all_prep4 <- fpr::fpr_db_query(query) |>
   dplyr::select(-idx)
 
 DBI::dbDisconnect(conn)
+
 
 
 #UAV urls-----------------------------------------------------------------------------------------------------
@@ -869,7 +901,18 @@ sites_all <- sites_all_prep5 |>
   ) |> 
   dplyr::arrange(stream_crossing_id)
 
-
+# wsgf <- c(
+#   "Lower Chilako River",
+#   "Willow River",
+#   "Tabor River",
+#   "Upper Fraser River",
+#   "Nechako River",
+#   "Morkill River",
+#   "Francois Lake"
+# )
+# t <- sites_all |> 
+#   dplyr::filter(watershed_group %in% wsgf) |> 
+#   dplyr::filter(habitat_confirmation == 'yes')
   
 ```
 
@@ -947,7 +990,7 @@ my_tab_caption()
 sites_all |>
   sf::st_drop_geometry() |>
   dplyr::relocate(watershed_group, .after = my_crossing_reference) |> 
-  dplyr::select(-idx) |>
+  # dplyr::select(-idx) |>
   # make pretty names
   dplyr::rename_with(~ . |>
                        stringr::str_replace_all("_", " ") |>
