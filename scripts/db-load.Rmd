@@ -322,7 +322,7 @@ sites_reassess_summary <- sites_reassess_unsubmitted |>
 
 ```
 
-```{r ld-design, eval = FALSE}
+```{r ld-design}
 #we want to know all the sites where designs were done.  this will help us with our submissions too
 ids_design <- c(
   # skeena
