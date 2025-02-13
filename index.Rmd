@@ -30,7 +30,11 @@ params:
   repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_template_reporting'
   report_url: 'https://www.newgraphenvironment.com/fish_passage_template_reporting/'
   job_name: 'fish_passage_template_reporting'
+  gis_project_name: "sern_peace_fwcp_2023"
+  model_species: "bt"
   update_packages: FALSE
+  update_form_pscis: FALSE
+  update_form_fiss_site: FALSE
   update_gis: FALSE
 nocite: |
   @busch_etal2011LandscapeLevelModela, 
