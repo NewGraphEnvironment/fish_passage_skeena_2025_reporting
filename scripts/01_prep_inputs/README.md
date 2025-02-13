@@ -19,7 +19,6 @@ These are designed to be self-sufficient scripts with everything in them necessa
 - Resizes and renames all OneDrive photos
 - Moves and organizes all photos into site-specific directories and ensures compliance with PSCIS size requirements
 - Removes duplicate photos
-- Builds the amalgamated photo set for reporting
 
 ### 0120_pscis_backup.Rmd
 
