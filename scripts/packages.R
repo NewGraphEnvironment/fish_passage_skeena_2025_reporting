@@ -8,11 +8,14 @@ pkgs_cran <- c(
   'pagedown',
   'readwritesqlite',
   'RPostgres',
-  'sf'
+  'sf',
+  "ggdark"
 )
 
 pkgs_gh <- c(
   "newgraphenvironment/fpr",
+  "newgraphenvironment/ngr",
+  "newgraphenvironment/staticimports",
   # watch for issues in the future with this particular pin to deal with black captions
   # https://github.com/NewGraphEnvironment/mybookdown-template/issues/50
   "haozhu233/kableExtra@a9c509a"

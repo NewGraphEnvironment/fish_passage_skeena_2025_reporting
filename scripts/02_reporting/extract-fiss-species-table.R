@@ -1,3 +1,6 @@
+# This script is used to overcome the issue documented here https://github.com/NewGraphEnvironment/fish_passage_fraser_2023_reporting/issues/75
+
+
 source('scripts/packages.R')
 
 wshd_codes <- c('MORR', 'ZYMO', 'KISP', 'BULK', 'KLUM')

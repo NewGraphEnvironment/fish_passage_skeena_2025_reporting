@@ -6,9 +6,9 @@ output:
     code_folding: "hide"
 params:
   repo_owner: "NewGraphEnvironment"
-  repo_name: "fish_passage_peace_2024_reporting"
-  gis_name: "sern_skeena_2023"
-  job_name: "2024-072-sern-skeena-fish-passage"
+  repo_name: "fish_passage_template_reporting"
+  gis_name: "sern_peace_fwcp_2023"
+  job_name: "2024-073-sern-peace-fish-passage"
 ---
 
 
@@ -392,6 +392,8 @@ fpr::fpr_photo_rename(
 
 ```
 
+
+# Remove duplicates
 
 After we sort the photos that came off the camera by hand into their directories we can amalgamate with the renamed photos.
 

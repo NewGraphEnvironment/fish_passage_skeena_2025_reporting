@@ -1,18 +1,10 @@
-# mybookdown-template 0.0.4
+# fish_passage_reporting_template 0.0.1
 
-  * 20240410
-  * add fpr::fpr_kable to intro
-  * remove `getwd` from `run.R`
-  * stop keeping the `merged_file` (`mybookdown_template.Rmd`)
-  * packages.R now uses `pak`
+- *2025-02-13*  
+  - Added 2025 data process scripts (01_prep_inputs).
+  - Added of 2025 reporting scripts (02_reporting).
+  - Added 2024 Peace data so report builds
+  - Updated script readmes
 
 
-# mybookdown-template 0.0.2
 
-  * 20220516
-  * add references.bib
-  * add `NEWS.md` file
-  * update `README.md`
-  * update logos
-  * put date on line with version numbers
-  * tighten packages and functions

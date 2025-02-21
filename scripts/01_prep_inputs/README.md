@@ -1,29 +1,67 @@
-Workflows for pre-processing of field data so it aligns with requirements for PSCIS upload, bcfishpass outputs and what is needed to complete reporting. These are often 2 way workflows where we use output csv spreadsheets to update our raw input datasheets through a manual copy-paste-special. These are designed to be self sufficient scripts with everything in them necessary to do there specific task with a clean working environment.
+Workflows for pre-processing of field data so it aligns with our reporting and fits the requirements for data submission.
+
+These are designed to be self sufficient scripts with everything in them necessary to do there specific task with a clean working environment.
 
 <br>
 
+# Pre-Processing Inputs
 
-It may be a bit confusing to follow but we try to document it just the same. Tasks completed include:
+Workflows for pre-processing of field data so it aligns with our reporting and fits the requirements for PSCIS uploads.
 
-# 0100-extract-inputs.R
+These are often two-way workflows where we use output CSV spreadsheets to update our raw input datasheets through a manual copy-paste-special. 
 
--   Get UTMs of PSCIS, modelled crossing and dam sites from bcfishpass generated database when field survey indicates correct location.
--   Find road tenure information from bcfishpass.
--   Summarize fish sizes. When inputting data from the field, only one row needs to be inputted for each site in "Step 2 (Fish Coll. Data)". Once the script is run it processes the fish data and burns to a csv ready to copy-paste-special into Step 2.   
--   Determine replacement structure type and size based on field measured metrics.
--   Find the PSCIS reference ID for crossings that underwent Phase 1 assessments within the same program and cross-reference to Phase 2 data.
-
-# 0120-photos.R
-
--   Backup original photos on a remote drive or server.
--   Resize photos to be under 1mb as per PSCIS requirements.
--   Rename jpg and jpeg to JPG to simplify reporting and eliminate issues with PSCIS upload.
--   Build directories of folders related to each site based on PSCIS input spreadsheet site ids.
--   Sort into directories and rename photos uploaded to mergin during field collection on phones.
--   ##THIS NEEDS UPDATING## Do an initial drop of photos into the generated site folders based on dates, times and surveyor. 
--   **QA renamed photos** -  to determine that all 5 photos (upstream, downstream, inlet, outlet, barrel) required for PSCIS as well as a road photo are present.
--   **Build photo amalgamation for each site** - containing all 6 of the previously mentioned photos. If there is no road over the crossing then use picture from nearest road with site card in corner.
--   Phase 2 photo directory generation - After Phase 1 data submission - duplicate directories for Phase 1 sites that where Phase 2 was also conducted and rename to reflect assigned Phase 2 PSCIS ID
+These are designed to be self-sufficient scripts with everything in them necessary to do their specific task with a clean working environment.
 
 
--   Generate a csv file that contains the locations and names of all photos after they are sorted and renamed to facilitate reproducability.
+### 0110-photos.Rmd
+
+- Resizes and renames all Mergin photos
+- Resizes and renames all OneDrive photos
+- Moves and organizes all photos into site-specific directories and ensures compliance with PSCIS size requirements
+- Removes duplicate photos
+
+### 0120_pscis_backup.Rmd
+
+- Creates a backup of raw PSCIS data before the data is QAed. 
+
+### 0130_pscis_wrangle.Rmd
+
+- Imports the QAed cleaned data and further cleans it, then burns to a new geopackage
+- After the data has been submitted to the province, it adds PSCIS ids to the form and burns back to PSCIS geopackage
+- This script is still a WIP and there is an issue about what still needs to be added here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/56 
+
+### 0140_pscis_export_to_template.Rmd
+
+- Prepares PSCIS data for copy and paste into PSCIS submission spreadsheet
+- Exports PSCIS data to a csv for cut and paste into PSCIS submission spreadsheet
+- Determines the replacement structure, size, and type and burns it to a csv for copy and paste into PSCIS submission spreadsheet
+
+
+### 0150_pscis_export_submission.R
+
+- Moves photos and files to OneDrive for PSCIS submission
+- QAs photos before submission
+
+### 0200_fiss_backup.Rmd
+
+- Creates a backup of raw FISS site data before the data is QAed. 
+
+### 0205_fiss_wrangle.Rmd
+
+- Imports the QAed FISS site data and further cleans it:
+    - Adds the watershed codes
+    - Calculates the average of the numeric columns
+    - General cleaning
+- Burns it back to a new geopackage
+
+### 0210_fiss_export_to_template.Rmd
+
+- Prepares FISS Site data for copy and paste into fish data submission spreadsheet (NewGraph calls this spreadsheet `habitat_confirmations.xls`)
+- Exports FISS data to csv for copy and paste into the fish data submission spreadsheet 
+
+### 0220_fish_data_tidy.R
+
+- Joins PIT tag data to the raw fish data
+- Prepares fish data for copy and paste into fish data submission spreadsheet (NewGraph calls this spreadsheet `habitat_confirmations.xls`)
+- Exports fish data to csv for copy and paste into the fish data submission spreadsheet
+

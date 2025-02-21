@@ -6,4 +6,6 @@
 #  sfpr_xref_road_cost
 #  sfpr_xref_moti_climate_names
 #  sfpr_create_hydrograph
-#  sngr_chk_url_response
+#  sfpr_structure_size_type
+#  sfpr_xref_rd_tenure_names
+#  sngr_get_elev
