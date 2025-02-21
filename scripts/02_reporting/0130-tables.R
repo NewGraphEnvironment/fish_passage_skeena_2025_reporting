@@ -9,7 +9,7 @@ path_form_pscis <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024
 path_form_fiss_site <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_fiss_site_2024.gpkg')
 
 # path to the fish data with the pit tags joined.
-path_fish_tags_joined <-  fs::path_expand('~/Projects/repo/fish_passage_peace_2024_reporting/data/fish_data_tags_joined.csv')
+path_fish_tags_joined <-  fs::path_expand('~/Projects/repo/fish_passage_template_reporting/data/fish_data_tags_joined.csv')
 
 # specify which project data we want. for this case `2024-073-sern-peace-fish-passage`
 project = "2024-073-sern-peace-fish-passage"
