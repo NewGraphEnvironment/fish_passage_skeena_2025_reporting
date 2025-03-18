@@ -686,13 +686,26 @@ dupes_pscis_all <- sites_repo_p1_prep2 |>
   dplyr::group_by(my_crossing_reference) |> 
   dplyr::mutate(dupe_number = dplyr::row_number()) |> 
   dplyr::arrange(my_crossing_reference, stream_crossing_id) |> 
+  # this was backwards so now have switched (F for T)
   dplyr::mutate(remove = dplyr::case_when(
-    dupe_number == 2 ~ TRUE,
-    T ~ FALSE
+    dupe_number == 2 ~ FALSE,
+    T ~ TRUE
   )) |> 
   readr::write_csv("data/qa/duplicates_pscis.csv", na = "")
 
-# now we actually remove those dupes
+# hashed out to test smarter dupe removal
+# # now we actually remove those dupes
+# sites_repo_p1 <-  sites_repo_p1_prep2 |>
+#   dplyr::arrange(my_crossing_reference, stream_crossing_id) |> 
+#   # we remove these then get them from PSCIS at the end to avoid issues with multiple stream/road names for same site
+#   dplyr::select(
+#     -stream_name,
+#     -road_name
+#     ) |>
+#   dplyr::distinct(my_crossing_reference, .keep_all = T)
+
+dupes_pull <- dupes_pscis_all |> dplyr::filter(remove == TRUE) |> dplyr::pull(stream_crossing_id)
+
 sites_repo_p1 <-  sites_repo_p1_prep2 |>
   dplyr::arrange(my_crossing_reference, stream_crossing_id) |> 
   # we remove these then get them from PSCIS at the end to avoid issues with multiple stream/road names for same site
@@ -700,7 +713,10 @@ sites_repo_p1 <-  sites_repo_p1_prep2 |>
     -stream_name,
     -road_name
     ) |>
-  dplyr::distinct(my_crossing_reference, .keep_all = T)
+  dplyr::filter(
+    !stream_crossing_id %in% dupes_pull
+  )
+
 
 #----- Test dupe removal-----------------------------------------------------------------------------------------------------
 
@@ -988,6 +1004,7 @@ my_tab_caption()
 
 ```{r tab-sites-all}
 sites_all |>
+  dplyr::mutate(stream_crossing_id = as.character(stream_crossing_id))|> 
   sf::st_drop_geometry() |>
   dplyr::relocate(watershed_group, .after = my_crossing_reference) |> 
   # dplyr::select(-idx) |>
@@ -1019,7 +1036,8 @@ sites_all_db <- sites_all |>
 sf::st_write(
   obj = sites_all_db, 
              dsn = conn, 
-             DBI::Id(schema= "working", table = "fp_sites_tracking"))
+             DBI::Id(schema= "working", table = "fp_sites_tracking"),
+  delete_dsn = TRUE)
 # sf doesn't automagically create a spatial index or a primary key
 DBI::dbExecute(
   conn, 

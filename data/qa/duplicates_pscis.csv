@@ -1,21 +1,21 @@
 my_crossing_reference,stream_crossing_id,stream_name,road_name,dupe_number,remove
-17501664,198380,Five Mile Creek,Highway 97,1,FALSE
-17501664,198400,Five Mile Creek,Highway 97,2,TRUE
-1801071,198100,Perow Creek,Transmission Line,1,FALSE
-1801071,198109,Perow Creek,Transmission Line,2,TRUE
-1802069,198104,Johnny David Creek,Spur,1,FALSE
-1802069,198113,Johnny David Creek,Spur,2,TRUE
-1802798,198102,Coffin Creek,Spur,1,FALSE
-1802798,198111,Coffin Creek,Spur,2,TRUE
-1805507,198103,Stock Creek,CN Railway,1,FALSE
-1805507,198112,Stock Creek,CN Railway,2,TRUE
-2022083001,198105,Stock Creek,Private,1,FALSE
-2022083001,198114,Stock Creek,Private,2,TRUE
-2022083050,198101,Stock Creek,Private,1,FALSE
-2022083050,198110,Stock Creek,Private,2,TRUE
-2022091001,198106,Waterfall Creek,13 Avenue,1,FALSE
-2022091001,198115,Waterfall Creek,13 Avenue,2,TRUE
-2022091002,198107,Waterfall Creek,Highway 16,1,FALSE
-2022091002,198116,Waterfall Creek,Highway 16,2,TRUE
-2022091003,198108,Waterfall Creek,9th Avenue,1,FALSE
-2022091003,198117,Waterfall Creek,9th Avenue,2,TRUE
+17501664,198380,Five Mile Creek,Highway 97,1,TRUE
+17501664,198400,Five Mile Creek,Highway 97,2,FALSE
+1801071,198100,Perow Creek,Transmission Line,1,TRUE
+1801071,198109,Perow Creek,Transmission Line,2,FALSE
+1802069,198104,Johnny David Creek,Spur,1,TRUE
+1802069,198113,Johnny David Creek,Spur,2,FALSE
+1802798,198102,Coffin Creek,Spur,1,TRUE
+1802798,198111,Coffin Creek,Spur,2,FALSE
+1805507,198103,Stock Creek,CN Railway,1,TRUE
+1805507,198112,Stock Creek,CN Railway,2,FALSE
+2022083001,198105,Stock Creek,Private,1,TRUE
+2022083001,198114,Stock Creek,Private,2,FALSE
+2022083050,198101,Stock Creek,Private,1,TRUE
+2022083050,198110,Stock Creek,Private,2,FALSE
+2022091001,198106,Waterfall Creek,13 Avenue,1,TRUE
+2022091001,198115,Waterfall Creek,13 Avenue,2,FALSE
+2022091002,198107,Waterfall Creek,Highway 16,1,TRUE
+2022091002,198116,Waterfall Creek,Highway 16,2,FALSE
+2022091003,198108,Waterfall Creek,9th Avenue,1,TRUE
+2022091003,198117,Waterfall Creek,9th Avenue,2,FALSE
