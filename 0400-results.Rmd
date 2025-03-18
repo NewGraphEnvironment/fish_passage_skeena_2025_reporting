@@ -75,7 +75,7 @@ sites_all_summary |>
 
 ```{r tab-sites-cap, results="asis"}
 my_caption = "Details of fish passage assessment procedures conducted in northern British Columbia through SERNbc."
-my_tab_caption()
+my_tab_caption(tip_flag = FALSE)
 ```
 
 ```{r tab-sites-all}
