@@ -50,7 +50,7 @@ dir_paths_repo_raw <- c(
   "~/Projects/repo/fish_passage_skeena_2022_reporting/data",
   "~/Projects/repo/fish_passage_bulkley_2022_reporting/data",
   "~/Projects/repo/fish_passage_skeena_2023_reporting/data",
-  # "~/Projects/repo/fish_passage_skeena_2024_reporting/data",
+  "~/Projects/repo/fish_passage_skeena_2024_reporting/data",
   
   # this is a huge repo so to just grab the files in the data directory we run in the cmd
   # mkdir -p Parsnip_Fish_Passage/data then downloaded the file into there from github
@@ -607,19 +607,18 @@ xref_p2 <- dplyr::left_join(
 ) 
 
 sites_repo_p2 <- dplyr::left_join(
-  sites_repo_p2_prep |> 
+  sites_repo_p2_prep |>
     dplyr::ungroup(),
   xref_p2,
   by = "my_crossing_reference"
-) |> 
+) |>
   dplyr::mutate(
     pscis_crossing_id = dplyr::case_when(
       !is.na(pscis_crossing_id_sub) ~ pscis_crossing_id_sub,
       TRUE ~ pscis_crossing_id
     )
-  ) |> 
+  ) |>
   dplyr::select(-pscis_crossing_id_sub, -my_crossing_reference)
-
 
 sites_repo_p1_prep<- sites_pscis_raw  |> 
   # drop this b/c we need some raw coords from 2024 data anyway
@@ -1015,6 +1014,8 @@ sites_all |>
                        stringr::str_replace_all("uav", "Drone") |>
                        stringr::str_to_title()) |> 
   # dplyr::arrange(desc(stream_crossing_id)) |> 
+  # make all the columns strings so we can filter them
+  dplyr::mutate(across(everything(), as.character)) |> 
   
   my_dt_table(
     cols_freeze_left = 1,
