@@ -26,7 +26,7 @@ tfpr_photo_change_name <- function(filenames_to_change = filestocopy_list){
 
 
 name_repo <- basename(params$repo_url)
-name_pdf <- 'fish_passage_peace_2024_reporting.pdf' #see the output.yml
+name_pdf <- fs::path(basename(params$repo_url), ext = "pdf")
 url_github <- 'https://github.com/NewGraphEnvironment/'
 url_gitpages <- 'https://newgraphenvironment.github.io/'
 
