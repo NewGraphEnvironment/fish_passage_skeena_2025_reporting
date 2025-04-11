@@ -396,7 +396,7 @@ Table \@ref(tab:tab-monitoring-metrics)) outlines the monitoring metrics used.
 
 <br>
 
-```{r tab-monitoring-metrics, eval = F}
+```{r tab-monitoring-metrics, eval = TRUE}
 readr::read_csv('data/inputs_raw/form_monitoring_desc.csv') |> 
  mutate(Parameter = stringr::str_to_title(Parameter)) |> 
   mutate(Parameter = case_when( Parameter == "Uav_flight" ~ "UAV Flight",
