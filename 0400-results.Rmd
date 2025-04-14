@@ -4,7 +4,7 @@
 
 <br>
 
-```{r map-interactive, fig.cap='Map of fish passage and habitat confirmation results', eval=F}
+```{r map-interactive, fig.cap='Map of fish passage and habitat confirmation results', eval=gitbook_on}
 
 ##make colors for the priorities
 pal <- 
@@ -22,9 +22,9 @@ map <- leaflet::leaflet(height=500, width=780) |>
   # leaflet::addProviderTiles(providers$"Esri.DeLorme") |> 
   leaflet::addProviderTiles("Esri.WorldTopoMap", group = "Topo") |>
   leaflet::addProviderTiles("Esri.WorldImagery", group = "ESRI Aerial") |> 
-  # leaflet::addPolygons(data = wshd_study_areas, color = "#F29A6E", weight = 1, smoothFactor = 0.5,
-  #             opacity = 1.0, fillOpacity = 0,
-  #             fillColor = "#F29A6E", label = wshd_study_areas$watershed_group_name) |>
+  leaflet::addPolygons(data = wshd_study_areas, color = "#F29A6E", weight = 1, smoothFactor = 0.5,
+              opacity = 1.0, fillOpacity = 0,
+              fillColor = "#F29A6E", label = wshd_study_areas$watershed_group_name) |>
   leaflet::addPolygons(data = wshds, color = "#0859C6", weight = 1, smoothFactor = 0.5,
               opacity = 1.0, fillOpacity = 0.25,
               fillColor = "#00DBFF",
@@ -299,13 +299,13 @@ readwritesqlite::rws_disconnect(conn)
 
 ```
 
-```{r tab-uav-imagery-cap, results="asis", eval= F}
+```{r tab-uav-imagery-cap, results="asis", eval= gitbook_on}
 my_caption <- "Drone imagery download and viewer links."
 
 my_tab_caption()
 ```
 
-```{r tab-uav-imagery, eval= F}
+```{r tab-uav-imagery, eval= gitbook_on}
 project_uav |> 
   my_dt_table(cols_freeze_left = 2, escape = FALSE)
 ```
