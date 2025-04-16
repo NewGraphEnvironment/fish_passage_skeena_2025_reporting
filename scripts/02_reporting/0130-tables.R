@@ -3,13 +3,16 @@
 # Parameters -------------------------------------------------
 
 # path to form_pscis_2024
-path_form_pscis <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_pscis_2024.gpkg')
+path_form_pscis <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_pscis_2024.gpkg"))
 
 # path to NEW `form_fiss_site_2024` made from `0205_fiss_extract_inputs.Rmd`
-path_form_fiss_site <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_fiss_site_2024.gpkg')
+path_form_fiss_site <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_fiss_site_2024.gpkg"))
+
+# path to NEW `form_fiss_site_2024` made from `0205_fiss_extract_inputs.Rmd`
+path_form_monitoring <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_monitoring_2024.gpkg"))
 
 # path to the fish data with the pit tags joined.
-path_fish_tags_joined <-  fs::path_expand('~/Projects/repo/fish_passage_template_reporting/data/fish_data_tags_joined.csv')
+path_fish_tags_joined <-  fs::path_expand('~/Projects/repo/fish_passage_peace_2024_reporting/data/fish_data_tags_joined.csv')
 
 # specify which project data we want. for this case `2024-073-sern-peace-fish-passage`
 project = "2024-073-sern-peace-fish-passage"
@@ -29,16 +32,13 @@ repo_name <- "fish_passage_peace_2024_reporting"
 model_species_name <- dplyr::case_when(params$model_species == "bt" ~ "Bull trout",
                                        params$model_species == "st" ~ "Steelhead")
 
+
 # Network/access model caption
+sp_network_gradient <- dplyr::case_when(params$model_species == "bt" ~ "25",
+                                        params$model_species == "st" ~ "20")
 
-# Hard coding these for now, not ideal but will do.
-bt_network_gradient <- "25"
-st_network_gradient <- "20"
-
-sp_network_caption <- dplyr::case_when(params$model_species == "bt" ~ paste0(model_species_name," network model used for habitat estimates (total length of stream network <",
-                                                                             bt_network_gradient, "% gradient)."),
-                                       params$model_species == "st" ~ paste0(model_species_name," network model used for habitat estimates (total length of stream network <",
-                                                                             st_network_gradient, "% gradient)."))
+sp_network_caption <- paste0(model_species_name," network model used for habitat estimates (total length of stream network <",
+                             sp_network_gradient, "% gradient).")
 
 #Rearing model caption
 
@@ -60,7 +60,7 @@ spawn_gradient <- bcfishpass_spawn_rear_model |>
 
 # Load data -------------------------------------------------
 
-## Reload form_pscis -------------------------------------------------
+## Update form_pscis -------------------------------------------------
 
 # form_pscis gets read in from `02_reporting/0165-read-sqlite.R`
 
@@ -86,7 +86,7 @@ if (params$update_form_pscis) {
 }
 
 
-## Reload form_fiss_site -------------------------------------------------
+## Update form_fiss_site -------------------------------------------------
 
 # form_fiss_site data gets read in from `02_reporting/0165-read-sqlite.R`
 
@@ -106,9 +106,9 @@ if (params$update_form_fiss_site) {
     sf::st_drop_geometry()
 
 
-# Peace 2024 - times in `form_fiss_site_raw` are wrong in R and Q!
-#
-# We need to fix the times because they are in UTC and we need them in PDT. This issue is documented here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/18
+  # Peace 2024 - times in `form_fiss_site_raw` are wrong in R and Q!
+  #
+  # We need to fix the times because they are in UTC and we need them in PDT. This issue is documented here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/18
   form_fiss_site_clean_times <- form_fiss_site |>
     # make a new column for the time as is with different name then mutate to PST
     # we don't need the new column but will leave here for now so we can visualize and confirm the time is correct
@@ -133,6 +133,35 @@ if (params$update_form_fiss_site) {
   rm(form_fiss_site_clean_times)
 }
 
+
+
+## Update form_monitoring  -------------------------------------------------
+
+# form_monitoring data gets read in from `02_reporting/0165-read-sqlite.R`
+
+# If update_form_monitoring = TRUE then load form_monitoring to sqlite - need to load the params from `index.Rmd`
+if (params$update_form_monitoring) {
+  form_monitoring <- fpr::fpr_sp_gpkg_backup(
+    path_gpkg = path_form_monitoring,
+    dir_backup = "data/backup/",
+    update_utm = TRUE,
+    update_site_id = TRUE,
+    write_back_to_path = FALSE,
+    return_object = TRUE,
+    write_to_csv = FALSE,
+    write_to_rdata = FALSE,
+    col_easting = "utm_easting",
+    col_northing = "utm_northing")
+
+
+  # Now burn to the sqlite
+  conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
+  # won't run on first build if the table doesn't exist
+  readwritesqlite::rws_drop_table("form_monitoring", conn = conn)
+  readwritesqlite::rws_write(form_monitoring, exists = F, delete = TRUE,
+                             conn = conn, x_name = "form_monitoring")
+  readwritesqlite::rws_disconnect(conn)
+}
 
 
 ## Load PSCIS spreadsheets -------------------------------------------------
@@ -165,6 +194,8 @@ pscis_all <- dplyr::left_join(
 
 fish_data_complete <- readr::read_csv(file = path_fish_tags_joined) |>
   janitor::clean_names() |>
+  # if we wanted to pull the first site where we reapeated the sampling
+  # dplyr::filter(local_name != "125180_ds_ef1") |>
   #filter for peace 2024
   dplyr::filter(project_name == project)
 
@@ -408,28 +439,28 @@ hab_site <- form_fiss_site
 tab_hab_summary <- form_fiss_site |>
   dplyr::filter(is.na(ef)) |>
   dplyr::select(local_name,
-           site,
-           location,
-           avg_channel_width_m,
-           avg_wetted_width_m,
-           average_residual_pool_depth_m,
-           average_gradient_percent,
-           total_cover,
-           site_length,
-           habitat_value_rating) |>
+                site,
+                location,
+                avg_channel_width_m,
+                avg_wetted_width_m,
+                average_residual_pool_depth_m,
+                average_gradient_percent,
+                total_cover,
+                site_length,
+                habitat_value_rating) |>
   dplyr::mutate(location = dplyr::case_when(location == "us" ~ stringr::str_replace_all(location, 'us', 'Upstream'),
-    TRUE ~ stringr::str_replace_all(location, 'ds', 'Downstream')
-    )) |>
+                                            TRUE ~ stringr::str_replace_all(location, 'ds', 'Downstream')
+  )) |>
   dplyr::arrange(site, location) |>
   dplyr::select(Site = site,
-         Location = location,
-         `Length Surveyed (m)` = site_length,
-         `Average Channel Width (m)` = avg_channel_width_m,
-         `Average Wetted Width (m)` = avg_wetted_width_m,
-         `Average Pool Depth (m)` = average_residual_pool_depth_m,
-         `Average Gradient (%)` = average_gradient_percent,
-         `Total Cover` = total_cover,
-         `Habitat Value` = habitat_value_rating)
+                Location = location,
+                `Length Surveyed (m)` = site_length,
+                `Average Channel Width (m)` = avg_channel_width_m,
+                `Average Wetted Width (m)` = avg_wetted_width_m,
+                `Average Pool Depth (m)` = average_residual_pool_depth_m,
+                `Average Gradient (%)` = average_gradient_percent,
+                `Total Cover` = total_cover,
+                `Habitat Value` = habitat_value_rating)
 
 
 
@@ -559,10 +590,10 @@ tab_fish_sites_sum <- dplyr::left_join(fish_data_complete |>
                                          dplyr::filter(!is.na(ef)) |>
                                          dplyr::select(local_name, gazetted_names, site_length, avg_wetted_width_m) |>
                                          dplyr::mutate(gazetted_names = stringr::str_trim(gazetted_names),
-                                                        gazetted_names = stringr::str_to_title(gazetted_names)) ,
+                                                       gazetted_names = stringr::str_to_title(gazetted_names)) ,
                                        by = "local_name"
 
-  ) |>
+) |>
   dplyr::distinct(local_name, .keep_all = TRUE) |>
   dplyr::rename(ef_length_m = site_length, ef_width_m = avg_wetted_width_m) |>
   dplyr::mutate(area_m2 = round(ef_length_m * ef_width_m,1)) |>
@@ -614,7 +645,7 @@ fish_abund <- dplyr::left_join(
     dplyr::select(local_name, site, location, site_length, avg_wetted_width_m),
 
   by = "local_name"
-  ) |>
+) |>
 
   dplyr::rename(ef_length_m = site_length, ef_width_m = avg_wetted_width_m, species_code = species) |>
   dplyr::mutate(area_m2 = round(ef_length_m * ef_width_m,1),
@@ -840,8 +871,8 @@ rm(tab_cost_est_prep,
 tab_map_phase_1_prep <- dplyr::left_join(form_pscis |>
                                            dplyr::select(-c(barrier_result, source)),
                                          pscis_all |>
-                                   dplyr::select(pscis_crossing_id, barrier_result, source),
-                                 by = c('pscis_crossing_id')) |>
+                                           dplyr::select(pscis_crossing_id, barrier_result, source),
+                                         by = c('pscis_crossing_id')) |>
   dplyr::select(pscis_crossing_id,
                 my_crossing_reference,
                 utm_zone,
@@ -862,7 +893,7 @@ tab_map_phase_1_prep <- dplyr::left_join(form_pscis |>
 
 tab_map_phase_1 <- tab_map_phase_1_prep |>
   dplyr::mutate(priority_phase1 = dplyr::case_when(priority_phase1 == 'mod' ~ 'moderate',
-                                     TRUE ~ priority_phase1),
+                                                   TRUE ~ priority_phase1),
                 priority_phase1 = stringr::str_to_title(priority_phase1)) |>
   dplyr::mutate(data_link = paste0('<a href =', 'sum/cv/', pscis_crossing_id, '.html ', 'target="_blank">Culvert Data</a>')) |>
   dplyr::mutate(photo_link = dplyr::case_when(is.na(my_crossing_reference) ~ paste0('<a href =', 'https://raw.githubusercontent.com/NewGraphEnvironment/', repo_name, '/main/data/photos/', pscis_crossing_id, '/crossing_all.JPG ',
@@ -916,3 +947,24 @@ tab_map_phase_2 <- dplyr::left_join(
       'target="_blank">Culvert Photos</a>'
     )
   )
+
+
+# Monitoring --------------------------------------------------------------
+
+# clean up the monitoring form so we can display it in a table
+# tab_monitoring <- form_monitoring |>
+#   dplyr::select(
+#     pscis_crossing_id,
+#     stream_name,
+#     road_name,
+#     crossing_subtype,
+#     `span` = diameter_or_span_meters,
+#     `width` = length_or_width_meters,
+#     assessment_comment,
+#     dplyr::matches("_notes$"),
+#     -condition_notes,
+#     -climate_notes,
+#     -priority_notes
+#   ) |>
+#   janitor::clean_names(case = "title")
+
