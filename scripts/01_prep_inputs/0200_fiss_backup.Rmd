@@ -36,7 +36,8 @@ Name the project directory we are pulling from and import the data. We use `fpr_
 `update_site_id = TRUE` now checks for duplicate sites.
 
 ```{r import}
-path_form_fiss_site_raw <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_fiss_site_2024_raw.gpkg')
+path_form_fiss_site_raw <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, 'form_fiss_site_2024.gpkg'))
+
 
 form_fiss_site_raw <- fpr::fpr_sp_gpkg_backup(
   path_gpkg = path_form_fiss_site_raw,
@@ -81,7 +82,7 @@ The following should be done in QGIS:
 
 This is code to load an an old old version of a form and reburn to a geopackage 
 
-```{r load-from-backup}
+```{r load-from-backup, eval = F}
 
 # Load the backup .Rdata file for the old version of the form
 load("/Users/lucyschick/Projects/current/temp_fiss_backup/form_fiss_site_2024.RData")
