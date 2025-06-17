@@ -4,11 +4,6 @@ date: "Created: 2025-02-13 | Updated: `r format(Sys.Date(), '%Y-%m-%d')`"
 output: 
   html_document:
     code_folding: "hide"
-params:
-  repo_owner: "NewGraphEnvironment"
-  repo_name: "fish_passage_template_reporting"
-  gis_name: "sern_peace_fwcp_2023"
-  job_name: "2024-073-sern-peace-fish-passage"
 editor_options: 
   chunk_output_type: console
 ---
@@ -20,15 +15,13 @@ Add columns to `form_pscis_2024` and then burn back a NEW geopackage.
 
 This script is still a WIP and there is an issue about what still needs to be added here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/56
 
+```{r paths}
+# path to raw form_pscis after QA
+path_form_pscis_raw <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, '/form_pscis_2024_raw.gpkg'))
 
-```{r params}
-# path to raw form_fiss_site after QA
-path_form_pscis_raw <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_pscis_2024_raw.gpkg')
-
-#NEW geopcackage path for the form after we have added columns as per this script
-path_form_pscis <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_pscis_2024.gpkg')
+# path to NEW geopackage which is cleaned and contains added columns as per this script
+path_form_pscis <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, 'form_pscis_2024.gpkg'))
 ```
-
 
 
 ## Backup the form after the QA
@@ -44,6 +37,7 @@ We use `fpr_sp_gpkg_backup` to import and backup the data, as well as update the
 # backup to csv and rdata
 form_pscis_raw <- fpr::fpr_sp_gpkg_backup(
   path_gpkg = path_form_pscis_raw,
+  dir_backup = paste0(here::here("data", "backup"), "/"), #need to specify root directory if we want to render this script form the tables.R script, or else it sets the CWD to 01_prep_inputs and makes another data/backup folder there
   update_utm = TRUE,
   update_site_id = FALSE, ## Turn this off after adding pscis ids
   write_back_to_path = FALSE,
@@ -71,8 +65,7 @@ For peace 2024, the times are correct in `form_pscis` but are incorrect (in UTC)
                date_time_start = lubridate::with_tz(date_time_start, tzone = "UTC"))
 
 
-### IF RUN, must update code below with pscis_export_raw_clean2
-
+form_pscis_raw <- form_pscis_time_fix
 ```
 
 
@@ -90,7 +83,7 @@ form_pscis_clean <- form_pscis_raw |>
   
   # add in pscis phase
   ## DOUBLE CHECK IF THERE ARE ANY SITES THAT ARE PHASE 1 AND 2 SITES!!! FIRST TIME HAB CON SITES
-  dplyr::mutate(pscis_phase = case_when(
+  dplyr::mutate(pscis_phase = dplyr::case_when(
     assess_type_phase1 == "Yes" ~ "phase 1",
     assess_type_phase2 == "Yes" ~ "phase 2",
     assess_type_reassessment == "Yes" ~ "reassessment"),
@@ -124,6 +117,7 @@ form_pscis_clean |>
 
 fpr::fpr_sp_gpkg_backup(
   path_gpkg = path_form_pscis,
+  dir_backup = paste0(here::here("data", "backup"), "/"), #need to specify root directory if we want to render this script form the tables.R script, or else it sets the CWD to 01_prep_inputs and makes another data/backup folder there
   update_utm = FALSE,
   update_site_id = FALSE, ## Turn this off after adding pscis ids
   write_back_to_path = FALSE,

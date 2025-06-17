@@ -10,3 +10,6 @@ rsconnect
 
 *_attachments.zip
 *.qgs~
+
+scripts/02_reporting/0130_pscis_wrangle.html
+scripts/02_reporting/0205_fiss_wrangle.html

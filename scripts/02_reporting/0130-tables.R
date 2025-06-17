@@ -60,10 +60,16 @@ spawn_gradient <- bcfishpass_spawn_rear_model |>
 
 ## Update form_pscis -------------------------------------------------
 
-# form_pscis gets read in from `02_reporting/0165-read-sqlite.R`
+# If update_form_pscis = FALSE, form_pscis gets read in from `02_reporting/0165-read-sqlite.R`
 
-# If update_form_pscis = TRUE then load form_pscis to sqlite - need to load the params from `index.Rmd`
+# If update_form_pscis = TRUE then re-run 0130_pscis_wrangle.Rmd and re-burn form_pscis to sqlitee
 if (params$update_form_pscis) {
+
+  # Run 0130_pscis_wrangle.Rmd which cleans up the form then burns back to geopackage.
+  rmarkdown::render('scripts/01_prep_inputs/0130_pscis_wrangle.Rmd')
+  usethis::use_git_ignore('scripts/02_reporting/0130_pscis_wrangle.html')
+
+  # re-burn form_pscis to sqlitee
   form_pscis <- fpr::fpr_sp_gpkg_backup(
     path_gpkg = path_form_pscis,
     dir_backup = "data/backup/",
@@ -86,9 +92,9 @@ if (params$update_form_pscis) {
 
 ## Update form_fiss_site -------------------------------------------------
 
-# form_fiss_site data gets read in from `02_reporting/0165-read-sqlite.R`
+# If update_form_fiss_site = FALSE, form_fiss gets read in from `02_reporting/0165-read-sqlite.R`
 
-# If update_form_fiss_site = TRUE then load form_fiss_site to sqlite - need to load the params from `index.Rmd`
+# If update_form_fiss_site = TRUE then re-run 0205_fiss_wrangle.Rmd and re-burn form_pscis to sqlite
 if (params$update_form_fiss_site) {
 
   # Run 0205_fiss_wrangle.Rmd which cleans up the form then burns back to geopackage.
