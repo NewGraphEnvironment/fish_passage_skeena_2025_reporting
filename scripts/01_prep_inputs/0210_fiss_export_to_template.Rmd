@@ -18,7 +18,7 @@ editor_options:
 Export fiss site data to csv for cut and paste into the fish data submission spreadsheet (habitat_confirmations.xls). This script has been updated so that the csv contains as much of the data as possible, so that only a few copy/pastes are required. We are trying to move away from all the back and forths between the spreadsheet, R, and Q. 
 
 ```{r params}
-path_form_fiss_site <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, 'form_fiss_site_2024.gpkg'))
+path_form_fiss_site <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, paste0("form_fiss_site_", params$project_year, ".gpkg")))
 ```
 
 

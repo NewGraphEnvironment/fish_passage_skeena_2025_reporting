@@ -21,7 +21,7 @@ This scripts is used to export pscis data to a csv for cut and paste into PSCIS 
 Name the project directory we are pulling from and import the form.
 
 ```{r import}
-path_form_pscis <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, 'form_pscis_2024.gpkg'))
+path_form_pscis <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, paste0("form_pscis_", params$project_year, ".gpkg")))
 
 # read in cleaned form from Q after review and finalization
 # backup to csv and rdata

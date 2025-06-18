@@ -14,10 +14,10 @@ Add columns to `form_fiss_site_2024` and then burn back a geopackage.
 
 ```{r paths}
 # path to raw form_fiss_site after QA
-path_form_fiss_site_raw <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, '/form_fiss_site_2024_raw.gpkg'))
+path_form_fiss_site_raw <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, paste0("form_fiss_site_raw_", params$project_year, ".gpkg")))
 
 #NEW geopcackage path for the form after we have added columns as per this script
-path_form_fiss_site <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, 'form_fiss_site_2024.gpkg'))
+path_form_fiss_site <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, paste0("form_fiss_site_", params$project_year, ".gpkg")))
 ```
 
 

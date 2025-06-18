@@ -17,10 +17,10 @@ This script is still a WIP and there is an issue about what still needs to be ad
 
 ```{r paths}
 # path to raw form_pscis after QA
-path_form_pscis_raw <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, '/form_pscis_2024_raw.gpkg'))
+path_form_pscis_raw <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, paste0("form_pscis_raw_", params$project_year, ".gpkg")))
 
 # path to NEW geopackage which is cleaned and contains added columns as per this script
-path_form_pscis <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, 'form_pscis_2024.gpkg'))
+path_form_pscis <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, paste0("form_pscis_", params$project_year, ".gpkg")))
 ```
 
 

@@ -36,7 +36,7 @@ Name the project directory we are pulling from and import the data. We use `fpr_
 `update_site_id = TRUE` now checks for duplicate sites.
 
 ```{r import}
-path_form_fiss_site_raw <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, 'form_fiss_site_2024.gpkg'))
+path_form_fiss_site_raw <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, paste0("form_fiss_site_", params$project_year, ".gpkg")))
 
 
 form_fiss_site_raw <- fpr::fpr_sp_gpkg_backup(
