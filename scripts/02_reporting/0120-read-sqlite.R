@@ -23,7 +23,7 @@ xref_pscis_my_crossing_modelled <- readwritesqlite::rws_read_table("xref_pscis_m
 # Table containing rd cost multiplier
 rd_class_surface <- readwritesqlite::rws_read_table("rd_class_surface", conn = conn)
 
-# Table containing photo metadata. Used in the interactive map
+# Table containing photo metadata. Used in the iteractive map
 photo_metadata <- readwritesqlite::rws_read_table("photo_metadata", conn = conn)
 
 #Read in the form_pscis
@@ -31,6 +31,18 @@ form_pscis <- readwritesqlite::rws_read_table("form_pscis", conn = conn)
 
 #Read in the form_fiss_site
 form_fiss_site <- readwritesqlite::rws_read_table("form_fiss_site", conn = conn)
+
+#Read in the form_monitoring
+form_monitoring <- readwritesqlite::rws_read_table("form_monitoring", conn = conn)
+
+#Read in the cleaned habitat confirmation gps tracks
+habitat_confirmation_tracks <- readwritesqlite::rws_read_table("habitat_confirmation_tracks", conn = conn)
+
+#Read in the uav imagery table
+project_uav <- readwritesqlite::rws_read_table("project_uav", conn = conn)
+
+#Read in the watershed polygons for the watersheds included in the project study area
+wshd_study_areas <- readwritesqlite::rws_read_table("wshd_study_areas", conn = conn)
 
 
 # You must run `0170-load-wshd_stats.R` at before this

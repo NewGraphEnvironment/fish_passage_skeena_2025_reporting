@@ -3,30 +3,27 @@ source('scripts/packages.R')
 
 # Paths ------------------------------------------------------
 # Pit tag data for ALL years is currently being stored on OneDrive .
-path_tag <- fs::path('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish/tag_01_05.csv')
+path_tag <- fs::path_expand(fs::path('~/Library/CloudStorage/OneDrive-Personal/Projects/', paste0(params$project_year, "_data"), '/fish/tag_01_05.csv'))
 
 # Raw fish data stored in Onedrive
-path_fish <-  fs::path('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish/fish_data_raw.xlsx')
+path_fish <-  fs::path_expand(fs::path('~/Library/CloudStorage/OneDrive-Personal/Projects/', paste0(params$project_year, "_data"), '/fish/fish_data_raw.xlsx'))
 
 # path for form_fiss_site geopackage
-path_form_fiss_site <- fs::path('~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/form_fiss_site_2024.gpkg')
+path_form_fiss_site <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/", params$project_year, paste0("form_fiss_site_", params$project_year, ".gpkg")))
 
 # Onedrive path where to store the fish data with the pit tags joined.
-path_onedrive_tags_joined <-  fs::path('/Users/lucyschick/Library/CloudStorage/OneDrive-Personal/Projects/2024_data/fish/fish_data_tags_joined.csv')
+path_onedrive_tags_joined <-  fs::path_expand(fs::path('~/Library/CloudStorage/OneDrive-Personal/Projects/', paste0(params$project_year, "_data"), '/fish/fish_data_tags_joined.csv'))
 
 # Repo path to individual fish data ready to c/p into `step_3_individual_fish_data`
 path_repo_fish_data_ind <-  fs::path('data/inputs_raw/fish_data_ind.csv')
 
-# Repo path to individual fish data ready to c/p into `step_2_fish_coll_data`
+# Repo path to fisheries collected data ready to c/p into `step_2_fish_coll_data`
 path_repo_fish_data_coll <-  fs::path('data/inputs_raw/fish_data_coll.csv')
-
-# specify which project data we want. for this case `2024-073-sern-peace-fish-passage`
-project = "2024-073-sern-peace-fish-passage"
-
 
 
 # Pit Tags ------------------------------------------------------
 # combining pit tag data to individual fish data so that we can copy and paste directly into submission template
+# This only needs to be run once.
 
 # import the pit tag csv
 # tag_01_05 does not have a column name so for that reason the call to read_csv needs to be different (change col_names to F for that file) and
@@ -49,9 +46,9 @@ fish <- readxl::read_xlsx(path_fish, sheet = "fish_data") |>
 
 #join fish csv with pit tag csv based on tag row ID |>
 fish_data_tags <- dplyr::left_join(fish,
-                              pit_tag |>
-                                dplyr::select(rowid, tag_id),
-                              by = c("row_id" = "rowid")) |>
+                                   pit_tag |>
+                                     dplyr::select(rowid, tag_id),
+                                   by = c("row_id" = "rowid")) |>
   # arrange columns
   dplyr::mutate(pit_tag_id = tag_id) |>
   dplyr::select(-tag_id) |>
@@ -92,14 +89,14 @@ fish_data_tags |>
 fish_data_complete <- readr::read_csv(file = path_onedrive_tags_joined) |>
   janitor::clean_names() |>
   #filter for peace 2024
-  dplyr::filter(project_name == project)
+  dplyr::filter(project_name == params$job_name)
 
 # cross reference with step 1 of hab con sheet to get reference numbers
-ref_names <- left_join(
+ref_names <- dplyr::left_join(
   fish_data_complete,
-  fpr_import_hab_con(backup = F, row_empty_remove = T, col_filter_na = T) |>
-    pluck("step_1_ref_and_loc_info") |>
-    select(reference_number, alias_local_name),
+  fpr::fpr_import_hab_con(backup = F, row_empty_remove = T, col_filter_na = T) |>
+    purrr::pluck("step_1_ref_and_loc_info") |>
+    dplyr::select(reference_number, alias_local_name),
   by = c('local_name' = 'alias_local_name')
 ) |>
   relocate(reference_number, .before = 'local_name')
@@ -150,7 +147,7 @@ fish_coll_data <- dplyr::left_join(
                   avg_wetted_width_m),
   by = ('local_name')
 
-  ) |>
+) |>
   # add in make, model, and extra empty columns for easy c/p
   dplyr::mutate(model = case_when(stringr::str_like(local_name, '%ef%') ~ 'halltech HT2000'),
                 make = case_when(stringr::str_like(local_name, '%ef%') ~ 'other'),
@@ -175,15 +172,15 @@ fish_coll_data <- dplyr::left_join(
     T ~ NA),
   # refactor (needed later in the plot)
   life_stage = fct_relevel(life_stage,
-                                  'fry',
-                                  'parr',
-                                  'juvenile',
-                                  'adult')) |>
+                           'fry',
+                           'parr',
+                           'juvenile',
+                           'adult')) |>
   #group by life stage
   dplyr::group_by(dplyr::across(-all_of(c('length', 'weight')))) |>
   dplyr::summarise(min_length = min(length),
-            max_length = max(length),
-            total_num = length(length)) |>
+                   max_length = max(length),
+                   total_num = length(length)) |>
   # reorder for easy c/p into `step_2_fish_coll_data`
   dplyr::select(reference_number,
                 local_name,
@@ -218,4 +215,26 @@ fish_coll_data |>
   readr::write_csv(file = path_repo_fish_data_coll, na = '')
 
 
+
+# Backup spreadsheet
+
+fpr::fpr_import_hab_con(row_empty_remove = T, col_filter_na = T)
+
+
+
+
+
+
+
+
+# This code does not have to do with reporting -------------------------
+
+# search the fish data for species captured at the specific site
+fish_data_complete <- readr::read_csv(file = path_onedrive_tags_joined) |>
+  janitor::clean_names()
+
+species_caught <- fish_data_complete |>
+  dplyr::filter(stringr::str_like(local_name, "%58264_ds%")) |>
+  dplyr::distinct(species) |>
+  pull(species)
 

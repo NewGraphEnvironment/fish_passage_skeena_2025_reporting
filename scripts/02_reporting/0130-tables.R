@@ -8,17 +8,14 @@ path_form_pscis <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_projec
 # path to NEW `form_fiss_site_2024` made from `0205_fiss_extract_inputs.Rmd`
 path_form_fiss_site <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_fiss_site_2024.gpkg"))
 
-# path to NEW `form_fiss_site_2024` made from `0205_fiss_extract_inputs.Rmd`
+# path to monitoring form
 path_form_monitoring <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_monitoring_2024.gpkg"))
 
-# path to the fish data with the pit tags joined.
-path_fish_tags_joined <-  fs::path_expand('~/Projects/repo/fish_passage_peace_2024_reporting/data/fish_data_tags_joined.csv')
+# Repo path to the fish data with the pit tags joined.
+path_fish_tags_joined <-  fs::path_expand(fs::path("~/Projects/repo/", params$repo_name ,"/data/fish_data_tags_joined.csv"))
 
 # specify which project data we want. for this case `2024-073-sern-peace-fish-passage`
-project = "2024-073-sern-peace-fish-passage"
-
-# specify the repo
-repo_name <- "fish_passage_peace_2024_reporting"
+project <- "2024-073-sern-peace-fish-passage"
 
 
 # Generate dynamic captions -------------------------------------------------
@@ -32,13 +29,13 @@ repo_name <- "fish_passage_peace_2024_reporting"
 model_species_name <- dplyr::case_when(params$model_species == "bt" ~ "Bull trout",
                                        params$model_species == "st" ~ "Steelhead")
 
-
 # Network/access model caption
 sp_network_gradient <- dplyr::case_when(params$model_species == "bt" ~ "25",
                                         params$model_species == "st" ~ "20")
 
-sp_network_caption <- paste0(model_species_name," network model used for habitat estimates (total length of stream network <",
+sp_network_caption <- paste0(model_species_name," network model used for habitat estimates (total length of stream network &lt;",
                              sp_network_gradient, "% gradient).")
+
 
 #Rearing model caption
 
@@ -48,7 +45,7 @@ rear_gradient <- bcfishpass_spawn_rear_model |>
   dplyr::mutate(rear_gradient_max = round((rear_gradient_max*100), 1)) |>
   dplyr::pull(rear_gradient_max)
 
-sp_rearing_caption <- paste0(model_species_name," rearing model used for habitat estimates (total length of stream network <", rear_gradient, "% gradient).")
+sp_rearing_caption <- paste0(model_species_name," rearing model used for habitat estimates (total length of stream network &lt;", rear_gradient, "% gradient).")
 
 
 #pull out the max spawning gradient as well, used in the caption for plot-model-all
@@ -58,14 +55,21 @@ spawn_gradient <- bcfishpass_spawn_rear_model |>
   dplyr::pull(spawn_gradient_max)
 
 
+
 # Load data -------------------------------------------------
 
 ## Update form_pscis -------------------------------------------------
 
-# form_pscis gets read in from `02_reporting/0165-read-sqlite.R`
+# If update_form_pscis = FALSE, form_pscis gets read in from `02_reporting/0165-read-sqlite.R`
 
-# If update_form_pscis = TRUE then load form_pscis to sqlite - need to load the params from `index.Rmd`
+# If update_form_pscis = TRUE then re-run 0130_pscis_wrangle.Rmd and re-burn form_pscis to sqlitee
 if (params$update_form_pscis) {
+
+  # Run 0130_pscis_wrangle.Rmd which cleans up the form then burns back to geopackage.
+  rmarkdown::render('scripts/01_prep_inputs/0130_pscis_wrangle.Rmd')
+  usethis::use_git_ignore('scripts/02_reporting/0130_pscis_wrangle.html')
+
+  # re-burn form_pscis to sqlitee
   form_pscis <- fpr::fpr_sp_gpkg_backup(
     path_gpkg = path_form_pscis,
     dir_backup = "data/backup/",
@@ -88,13 +92,19 @@ if (params$update_form_pscis) {
 
 ## Update form_fiss_site -------------------------------------------------
 
-# form_fiss_site data gets read in from `02_reporting/0165-read-sqlite.R`
+# If update_form_fiss_site = FALSE, form_fiss gets read in from `02_reporting/0165-read-sqlite.R`
 
-# If update_form_fiss_site = TRUE then load form_fiss_site to sqlite - need to load the params from `index.Rmd`
+# If update_form_fiss_site = TRUE then re-run 0205_fiss_wrangle.Rmd and re-burn form_pscis to sqlite
 if (params$update_form_fiss_site) {
+
+  # Run 0205_fiss_wrangle.Rmd which cleans up the form then burns back to geopackage.
+  rmarkdown::render('scripts/01_prep_inputs/0205_fiss_wrangle.Rmd')
+  usethis::use_git_ignore('scripts/02_reporting/0205_fiss_wrangle.html')
+
+
+  #Now read and backup the form
   form_fiss_site <- fpr::fpr_sp_gpkg_backup(
     path_gpkg = path_form_fiss_site,
-    dir_backup = "data/backup/",
     update_utm = TRUE,
     update_site_id = FALSE,
     write_back_to_path = FALSE,
@@ -104,7 +114,6 @@ if (params$update_form_fiss_site) {
     col_easting = "utm_easting",
     col_northing = "utm_northing") |>
     sf::st_drop_geometry()
-
 
   # Peace 2024 - times in `form_fiss_site_raw` are wrong in R and Q!
   #
@@ -134,7 +143,6 @@ if (params$update_form_fiss_site) {
 }
 
 
-
 ## Update form_monitoring  -------------------------------------------------
 
 # form_monitoring data gets read in from `02_reporting/0165-read-sqlite.R`
@@ -162,6 +170,7 @@ if (params$update_form_monitoring) {
                              conn = conn, x_name = "form_monitoring")
   readwritesqlite::rws_disconnect(conn)
 }
+
 
 
 ## Load PSCIS spreadsheets -------------------------------------------------
@@ -194,9 +203,6 @@ pscis_all <- dplyr::left_join(
 
 fish_data_complete <- readr::read_csv(file = path_fish_tags_joined) |>
   janitor::clean_names() |>
-  # if we wanted to pull the first site where we reapeated the sampling
-  # dplyr::filter(local_name != "125180_ds_ef1") |>
-  #filter for peace 2024
   dplyr::filter(project_name == project)
 
 
@@ -431,7 +437,14 @@ xref_bcfishpass_names <- tibble::tribble(
 # Habitat Summaries -------------------------------------------------
 
 ## Build hab_site object for fpr_my_habitat_info() ------------------
-hab_site <- form_fiss_site
+
+# arrange so hab con sites (ef = NA) come before the electrofishing sites - this is needed to that `fpr_my_habitat_info`
+# pulls the hab con sites not the ef sites
+hab_site <- form_fiss_site |>
+  dplyr::group_by(site) |>
+  dplyr::arrange(site, dplyr::desc(is.na(ef)), ef, .by_group = TRUE)
+
+
 
 
 ## Build tab_hab_summary object for tables --------------------------
@@ -439,28 +452,28 @@ hab_site <- form_fiss_site
 tab_hab_summary <- form_fiss_site |>
   dplyr::filter(is.na(ef)) |>
   dplyr::select(local_name,
-                site,
-                location,
-                avg_channel_width_m,
-                avg_wetted_width_m,
-                average_residual_pool_depth_m,
-                average_gradient_percent,
-                total_cover,
-                site_length,
-                habitat_value_rating) |>
+           site,
+           location,
+           avg_channel_width_m,
+           avg_wetted_width_m,
+           average_residual_pool_depth_m,
+           average_gradient_percent,
+           total_cover,
+           site_length,
+           habitat_value_rating) |>
   dplyr::mutate(location = dplyr::case_when(location == "us" ~ stringr::str_replace_all(location, 'us', 'Upstream'),
-                                            TRUE ~ stringr::str_replace_all(location, 'ds', 'Downstream')
-  )) |>
+    TRUE ~ stringr::str_replace_all(location, 'ds', 'Downstream')
+    )) |>
   dplyr::arrange(site, location) |>
   dplyr::select(Site = site,
-                Location = location,
-                `Length Surveyed (m)` = site_length,
-                `Average Channel Width (m)` = avg_channel_width_m,
-                `Average Wetted Width (m)` = avg_wetted_width_m,
-                `Average Pool Depth (m)` = average_residual_pool_depth_m,
-                `Average Gradient (%)` = average_gradient_percent,
-                `Total Cover` = total_cover,
-                `Habitat Value` = habitat_value_rating)
+         Location = location,
+         `Length Surveyed (m)` = site_length,
+         `Average Channel Width (m)` = avg_channel_width_m,
+         `Average Wetted Width (m)` = avg_wetted_width_m,
+         `Average Pool Depth (m)` = average_residual_pool_depth_m,
+         `Average Gradient (%)` = average_gradient_percent,
+         `Total Cover` = total_cover,
+         `Habitat Value` = habitat_value_rating)
 
 
 
@@ -575,6 +588,7 @@ tab_fish_summary <- fish_data_complete |>
                   sampling_method,
                   species) |>
   dplyr::summarise(count_fish = n()) |>
+  dplyr::mutate(count_fish = case_when(species == "NFC" ~ 0, T ~ count_fish)) |>
   dplyr::arrange(site_id, species, ef)
 
 
@@ -590,10 +604,10 @@ tab_fish_sites_sum <- dplyr::left_join(fish_data_complete |>
                                          dplyr::filter(!is.na(ef)) |>
                                          dplyr::select(local_name, gazetted_names, site_length, avg_wetted_width_m) |>
                                          dplyr::mutate(gazetted_names = stringr::str_trim(gazetted_names),
-                                                       gazetted_names = stringr::str_to_title(gazetted_names)) ,
+                                                        gazetted_names = stringr::str_to_title(gazetted_names)) ,
                                        by = "local_name"
 
-) |>
+  ) |>
   dplyr::distinct(local_name, .keep_all = TRUE) |>
   dplyr::rename(ef_length_m = site_length, ef_width_m = avg_wetted_width_m) |>
   dplyr::mutate(area_m2 = round(ef_length_m * ef_width_m,1)) |>
@@ -645,7 +659,7 @@ fish_abund <- dplyr::left_join(
     dplyr::select(local_name, site, location, site_length, avg_wetted_width_m),
 
   by = "local_name"
-) |>
+  ) |>
 
   dplyr::rename(ef_length_m = site_length, ef_width_m = avg_wetted_width_m, species_code = species) |>
   dplyr::mutate(area_m2 = round(ef_length_m * ef_width_m,1),
@@ -871,8 +885,8 @@ rm(tab_cost_est_prep,
 tab_map_phase_1_prep <- dplyr::left_join(form_pscis |>
                                            dplyr::select(-c(barrier_result, source)),
                                          pscis_all |>
-                                           dplyr::select(pscis_crossing_id, barrier_result, source),
-                                         by = c('pscis_crossing_id')) |>
+                                   dplyr::select(pscis_crossing_id, barrier_result, source),
+                                 by = c('pscis_crossing_id')) |>
   dplyr::select(pscis_crossing_id,
                 my_crossing_reference,
                 utm_zone,
@@ -893,12 +907,12 @@ tab_map_phase_1_prep <- dplyr::left_join(form_pscis |>
 
 tab_map_phase_1 <- tab_map_phase_1_prep |>
   dplyr::mutate(priority_phase1 = dplyr::case_when(priority_phase1 == 'mod' ~ 'moderate',
-                                                   TRUE ~ priority_phase1),
+                                     TRUE ~ priority_phase1),
                 priority_phase1 = stringr::str_to_title(priority_phase1)) |>
   dplyr::mutate(data_link = paste0('<a href =', 'sum/cv/', pscis_crossing_id, '.html ', 'target="_blank">Culvert Data</a>')) |>
-  dplyr::mutate(photo_link = dplyr::case_when(is.na(my_crossing_reference) ~ paste0('<a href =', 'https://raw.githubusercontent.com/NewGraphEnvironment/', repo_name, '/main/data/photos/', pscis_crossing_id, '/crossing_all.JPG ',
+  dplyr::mutate(photo_link = dplyr::case_when(is.na(my_crossing_reference) ~ paste0('<a href =', 'https://raw.githubusercontent.com/NewGraphEnvironment/', params$repo_name, '/main/data/photos/', pscis_crossing_id, '/crossing_all.JPG ',
                                                                                     'target="_blank">Culvert Photos</a>'),
-                                              TRUE ~ paste0('<a href =', 'https://raw.githubusercontent.com/NewGraphEnvironment/', repo_name, '/main/data/photos/', my_crossing_reference, '/crossing_all.JPG ',
+                                              TRUE ~ paste0('<a href =', 'https://raw.githubusercontent.com/NewGraphEnvironment/', params$repo_name, '/main/data/photos/', my_crossing_reference, '/crossing_all.JPG ',
                                                             'target="_blank">Culvert Photos</a>'))) |>
   dplyr::mutate(model_link = paste0('<a href =', 'sum/bcfp/', pscis_crossing_id, '.html ', 'target="_blank">Model Data</a>')) |>
   dplyr::distinct(site_id, .keep_all = TRUE) #just for now
@@ -942,7 +956,7 @@ tab_map_phase_2 <- dplyr::left_join(
   dplyr::mutate(
     photo_link = paste0(
       '<a href =',
-      'https://raw.githubusercontent.com/NewGraphEnvironment/', repo_name,'/main/data/photos/',
+      'https://raw.githubusercontent.com/NewGraphEnvironment/', params$repo_name, '/main/data/photos/',
       pscis_crossing_id, '/crossing_all.JPG ',
       'target="_blank">Culvert Photos</a>'
     )
@@ -953,6 +967,7 @@ tab_map_phase_2 <- dplyr::left_join(
 
 # clean up the monitoring form so we can display it in a table
 # tab_monitoring <- form_monitoring |>
+#   sf::st_drop_geometry() |>
 #   dplyr::select(
 #     pscis_crossing_id,
 #     stream_name,
@@ -967,4 +982,3 @@ tab_map_phase_2 <- dplyr::left_join(
 #     -priority_notes
 #   ) |>
 #   janitor::clean_names(case = "title")
-
