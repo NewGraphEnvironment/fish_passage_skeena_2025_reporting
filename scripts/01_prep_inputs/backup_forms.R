@@ -44,5 +44,29 @@ for (i in seq_along(dir_in)) {
 }
 
 
+# back up all gpkg in the data_field directories
+# ###NOTE that this backs up as is and does not update the easting and northing . prob fine since we have the
+# Loop through each project directory, create a year/project-specific backup folder,
+# then back up every .gpkg file within it for versioned storage.
+for (i in seq_along(name_projects)) {
+
+  dir_backup <- fs::path("data/backup", year, name_projects[i])
+  # fs::dir_create(dir_backup)
+
+  path_gpkgs <- fs::dir_ls(dir_out[i], glob = "*.gpkg")
+
+  for (path_gpkg in path_gpkgs) {
+    fpr::fpr_sp_gpkg_backup(
+      path_gpkg = path_gpkg,
+      dir_backup = dir_backup,
+      update_utm = TRUE,
+      update_site_id = FALSE,  # checks for duplicates
+      write_back_to_path = FALSE,
+      write_to_csv = TRUE,
+      write_to_rdata = TRUE,
+      return_object = FALSE
+    )
+  }
+}
 
 
