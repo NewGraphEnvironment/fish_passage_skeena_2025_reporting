@@ -69,7 +69,7 @@ for (i in seq_along(name_projects)) {
   }
 }
 
-# combine all forms together and backup
+# combine all forms together and backup -NEED TO CLOSE Q PROJECTs IF THE FORMA ARE ACTIVE
 names_forms <- c("form_edna", "form_fiss", "form_pscis", "form_monitoring")
 
 
