@@ -72,11 +72,6 @@ for (i in seq_along(name_projects)) {
 # combine all forms together and backup
 names_forms <- c("form_edna", "form_fiss", "form_pscis", "form_monitoring")
 
-# back up the combined forms in 2025
-d |>
-  readr::write_csv(
-    fs::path("data/backup", year, "form_edna", "_", year, ext = "csv")
-  )
 
 for (name_form in names_forms) {
 
