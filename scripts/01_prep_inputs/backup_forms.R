@@ -69,4 +69,30 @@ for (i in seq_along(name_projects)) {
   }
 }
 
+# combine all forms together and backup
+names_forms <- c("form_edna", "form_fiss", "form_pscis", "form_monitoring")
+
+# back up the combined forms in 2025
+d |>
+  readr::write_csv(
+    fs::path("data/backup", year, "form_edna", "_", year, ext = "csv")
+  )
+
+for (name_form in names_forms) {
+
+  d <- fs::dir_ls(dir_out, glob = paste0("*", name_form, "*")) |>
+    purrr::map(\(path) {
+      sf::st_read(path, quiet = TRUE) |>
+        dplyr::mutate(source = fs::path("~", fs::path_rel(path, start = fs::path_home())))
+    }) |>
+    purrr::list_rbind()
+
+  dir_backup <- fs::path("data/backup", year)
+  # fs::dir_create(dir_backup)
+
+  readr::write_csv(
+    d,
+    fs::path(dir_backup, paste0(name_form, "_", year, ".csv"))
+  )
+}
 
