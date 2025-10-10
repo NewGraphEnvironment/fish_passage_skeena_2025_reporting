@@ -10,9 +10,9 @@ d <- readr::read_csv(
   dplyr::select(
     site_id,
     # date_time_sample,
-    species_target
+    species_target,
     # makes it easier to see where manual changes are helpful
-    # source
+    source
   ) |>
   dplyr::mutate(
     # Replace commas and periods with spaces
@@ -25,6 +25,13 @@ d <- readr::read_csv(
       stringr::str_to_upper()
   ) |>
   dplyr::arrange(site_id)
+
+# # Split, reorder by priority (fct_order), and collapse back
+# species_target = purrr::map_chr(
+#   stringr::str_split(species_target, " "),
+#   \(x) paste(intersect(fct_order, x), collapse = " ")
+# )
+# )
 
 
 # burn to the repo so we can point the lab to it
