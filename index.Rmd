@@ -29,10 +29,10 @@ output:
 params:
   repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_template_reporting'
   report_url: 'https://www.newgraphenvironment.com/fish_passage_template_reporting/'
-  job_name: 'fish_passage_template_reporting'
-  repo_name: "fish_passage_peace_2024_reporting" # Set to peace for loading data
+  job_name: '2025-077-sern-peace-fish-passage'
+  repo_name: "fish_passage_peace_2025_reporting" # Set to peace for loading data
   gis_project_name: "sern_peace_fwcp_2023" # Set to peace for loading data
-  project_year: "2024"
+  project_year: "2025"
   model_species: "bt"
   update_packages: FALSE
   update_form_pscis: FALSE
