@@ -263,15 +263,16 @@ form_fiss_photos |>
   dplyr::filter(is.na(local_name)) |>
   nrow()
 
+# We didn't do this in 2024, instead only sorted the photos on Onedrive. Not running for now, Oct 2025. 
 # create site photo directories right on mergin to make them easy to share...
-form_fiss_photos |>
-  dplyr::pull(site) |>
-  as.character() |>
-  purrr::map(
-    fpr::fpr_photo_folders, path = dir_photos_mergin_raw
-  )
+# form_fiss_photos |>
+#   dplyr::pull(site) |>
+#   as.character() |>
+#   purrr::map(
+#     fpr::fpr_photo_folders, path = dir_photos_mergin_raw
+#   )
 
-# also create the directories on onedrive
+# create site photo directories on onedrive
 form_fiss_photos |>
   dplyr::pull(site) |>
   as.character() |>
@@ -290,7 +291,7 @@ fpr::fpr_photo_rename(
   # we need to pick the correct column for this dataframe
   col_directories = site,
   dir_from_stub = paste0(dir_photos_mergin_resized, "/"),
-  dir_to_stub = paste0(dir_photos_mergin_raw, "/"),
+  dir_to_stub = paste0(dir_photos_onedrive, "/"),
   col_string_add = TRUE,
   # we just made this column
   col_string_append = photo_tag_site
