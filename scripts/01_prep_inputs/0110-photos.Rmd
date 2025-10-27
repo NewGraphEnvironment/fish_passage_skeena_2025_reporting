@@ -331,7 +331,7 @@ fs::file_copy(
   overwrite = T
 )
 
-form_photos_raw <- fpr::fpr_sp_gpkg_backup(
+form_mon_photos_raw <- fpr::fpr_sp_gpkg_backup(
   form_new,
   update_site_id = TRUE,
   # turned this off for now but was on first time
@@ -342,20 +342,20 @@ form_photos_raw <- fpr::fpr_sp_gpkg_backup(
 ) 
 
 # check for duplicate sites
-form_photos_raw |>
+form_mon_photos_raw |>
   dplyr::filter(!is.na(site_id)) |>
   dplyr::group_by(site_id) |>
   dplyr::filter(n()>1) |>
   nrow()
 
 # check for empty sites
-form_photos_raw |>
+form_mon_photos_raw |>
   dplyr::filter(is.na(site_id)) |>
   nrow()
 
 # We didn't do this in 2024, instead only sorted the photos on Onedrive. Not running for now, Oct 2025. 
 # create site photo directories right on mergin to make them easy to share...
-# form_photos_raw |>
+# form_mon_photos_raw |>
 #   dplyr::pull(site_id) |>
 #   as.character() |>
 #   purrr::map(
@@ -363,7 +363,7 @@ form_photos_raw |>
 #   )
 
 # create site photo directories on onedrive
-form_photos_raw |>
+form_mon_photos_raw |>
   dplyr::pull(site_id) |>
   as.character() |>
   purrr::map(
@@ -375,9 +375,90 @@ form_photos_raw |>
 
 # NOTE - needed to add a / to the end of the dir names for now until we update fpr::fpr_photo_rename with fs functions
 fpr::fpr_photo_rename(
-  dat = form_photos_raw,
+  dat = form_mon_photos_raw,
   dir_from_stub = paste0(dir_photos_mergin_resized, "/"),
   dir_to_stub = paste0(dir_photos_onedrive, "/"),
+)
+
+```
+
+
+# eDNA site - Rename and move eDNA site photos
+
+```{r create-edna-site-dir}
+form_raw <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, 'form_edna.gpkg'))
+form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, '/data_field/', params$project_year, paste0("form_edna_", params$project_year, ".gpkg")))
+
+fs::dir_create(fs::path_dir(form_new))
+
+# copy the form to the new field directory
+fs::file_copy(
+  form_raw,
+  form_new,
+  overwrite = T
+)
+
+form_edna_photos_raw <- fpr::fpr_sp_gpkg_backup(
+  form_new,
+  update_site_id = FALSE,
+  # turned this off for now but was on first time
+  write_back_to_path = FALSE,
+  return_object = TRUE,
+  col_easting = "utm_easting",
+  col_northing = "utm_northing"
+)
+
+# Separate out the side name and create the photo_tag_site column for the photos 
+form_edna_photos <- form_edna_photos_raw |> 
+  dplyr::mutate(site_id = stringr::str_to_lower(site_id)) |> 
+  tidyr::separate(site_id, into = c('site', 'photo_tag_site'),
+                  extra = "merge", 
+                  fill = "right", 
+                  remove = FALSE) |> 
+  tidyr::separate(site_id, into = c('site', 'location', 'ed'), remove = FALSE)
+
+
+# check for duplicate sites
+form_edna_photos |>
+  dplyr::filter(!is.na(site_id)) |>
+  dplyr::group_by(site_id) |>
+  dplyr::filter(n()>1) |>
+  nrow()
+
+# check for empty sites
+form_edna_photos |>
+  dplyr::filter(is.na(site_id)) |>
+  nrow()
+
+# We didn't do this in 2024, instead only sorted the photos on Onedrive. Not running for now, Oct 2025. 
+# create site photo directories right on mergin to make them easy to share...
+# form_edna_photos_raw |>
+#   dplyr::pull(site_id) |>
+#   as.character() |>
+#   purrr::map(
+#     fpr::fpr_photo_folders, path = dir_photos_mergin_raw
+#   )
+
+# create site photo directories on onedrive
+form_edna_photos |>
+  dplyr::pull(site) |>
+  as.character() |>
+  purrr::map(
+    fpr::fpr_photo_folders, path = paste0(dir_photos_onedrive, "/")
+  )
+```
+
+```{r rename-edna}
+
+# NOTE - needed to add a / to the end of the dir names for now until we update fpr::fpr_photo_rename with fs functions
+fpr::fpr_photo_rename(
+  dat = form_edna_photos,
+  col_directories = site,
+  dir_from_stub = paste0(dir_photos_mergin_resized, "/"),
+  dir_to_stub = paste0(dir_photos_onedrive, "/"),
+  col_string_add = TRUE,
+  # we just made this column
+  col_string_append = photo_tag_site
 )
 
 ```
@@ -387,7 +468,7 @@ fpr::fpr_photo_rename(
 
 After we sort the photos that came off the camera by hand into their directories we can amalgamate with the renamed photos.
 
-When a photo is renamed using `fpr::fpr_photo_rename` the photo renamed is not duplicated. However, we take many more photos on our phones than we upload to `Mergin` via our field forms. We subsequently transfer all of our field photos off of our phones onto company drives. Because we use the gallery to upload our photos to `Mergin` (an important procedure so we don't lose photos when `mergin` glitches) we have a lot of duplicates. We use the `fpr::fpr_photo_remove_dupes` function to remove duplicates. We also have a `min_replicates` argument that allows us to remove photos that are not duplicated at least `n` times.
+When a photo is renamed using `fpr::fpr_photo_rename` the photo renamed is not duplicated. However, we take many more photos on our phones than we upload to `Mergin` via our field forms. We subsequently transfer all of our field photos off of our phones onto company drives. Because we use the gallery to upload our photos to `Mergin` (an important procedure so we don't lose photos when `mergin` glitches) we have a lot of duplicates. We use the `fpr::fpr_photo_remove_dupes` function to remove duplicate s. We also have a `min_replicates` argument that allows us to remove photos that are not duplicated at least `n` times.
 
 ```{r remove-dupes}
 
