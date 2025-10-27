@@ -17,7 +17,7 @@ dir_photos_originals <- fs::path_expand(fs::path("~/Library/CloudStorage/OneDriv
 dir_photos_onedrive <- fs::path_expand(fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects", params$job_name, "data/photos/"))
 ```
 
-# Resize
+# Resize all
 
 We are going to resize the original photos on onedrive. For 2025, all the extra photos are store together in `OneDrive-Personal/Projects/2025_data/photos`, so we will just resize them and then sort them into there project specific folders after. Last year we sorted first then resized, but doing it the other way around means we only have to run the resize script once. 
 
@@ -114,22 +114,24 @@ fs::file_create(
 
 # push to mergin - record version number of mergin project in issue to track
 
-##!!!!!!!!!!!!!!!!!!!! special case start
-#not sure why this extra dir is here but will put photos with  rest
+##!!!!!!!!!!!!!!!!!!!! special case start see issue https://github.com/NewGraphEnvironment/dff-2022/issues/183
+# run in October 2025 to deal with issued linked above
 fpr::fpr_photo_resize_batch(
-  dir_source = "/Users/airvine/Projects/gis/sern_peace_fwcp_2023/photos",
+  dir_source = paste0("~/Projects/gis/", params$gis_project_name ,"/photos"),
   dir_target = fs::path(dir_photos_mergin_resized)
 )
 
-fs::dir_delete("/Users/airvine/Projects/gis/sern_peace_fwcp_2023/photos")
+fs::dir_delete(paste0("~/Projects/gis/", params$gis_project_name ,"/photos"))
 # push to mergin - record version number of mergin project in issue to track
 ##!!!!!!!!!!!!!!!!!!!! special case end
 ```
 
-```{r create-site-dir-pscis}
+# PSCIS site - Rename and move pscis site photos
+
+```{r create-pscis-site-dir}
 
 form_raw <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, 'form_pscis.gpkg'))
-form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, 'data_field/2025/form_pscis_2025.gpkg'))
+form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, '/data_field/', params$project_year, paste0("form_pscis_", params$project_year, ".gpkg")))
 
 #this can be run for the ow photos once the issue with ids is resolved
 # form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, 'data_field/2024/form_pscis_ow_2024.gpkg'))
@@ -216,15 +218,15 @@ test <- fpr::fpr_photo_qa(dat = form_pscis_photos_raw) |>
 ```
 
 
-# FISS Site - Rename the photos from the FISS cards and remove duplicates
+# FISS Site - Rename and move Fiss site photos
 
 CANT USUALLY DO THIS UNTILL WE SUBMIT THE DATA AND GET THE PSCIS IDS BUT WE HAVE NO NEW SITES IN THE PEACE SO WE ALREADY HAVE THE IDS...
 
-```{r dir-site-create-fiss}
+```{r create-fiss-site-dir}
 
 # copy the gpkg to the new location - this is just as easily done by hand. Named it weird
 form_raw <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, 'form_fiss_site.gpkg'))
-form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, 'data_field/2025/form_fiss_site_2025.gpkg'))
+form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, '/data_field/', params$project_year, paste0("form_fiss_site_", params$project_year, ".gpkg")))
 
 fs::dir_create(fs::path_dir(form_new))
 
@@ -312,12 +314,13 @@ identical(
 )
 ```
 
-# Monitoring Form
 
 
-```{r dir-site-create-pscis}
+# Monitoring site - Rename and move Monitoring site photos
+
+```{r create-mon-site-dir}
 form_raw <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, 'form_monitoring.gpkg'))
-form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, 'data_field/2024/form_monitoring_2024.gpkg'))
+form_new <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, '/data_field/', params$project_year, paste0("form_monitoring_", params$project_year, ".gpkg")))
 
 fs::dir_create(fs::path_dir(form_new))
 
@@ -341,7 +344,7 @@ form_photos_raw <- fpr::fpr_sp_gpkg_backup(
 # check for duplicate sites
 form_photos_raw |>
   dplyr::filter(!is.na(site_id)) |>
-  group_by(site_id) |>
+  dplyr::group_by(site_id) |>
   dplyr::filter(n()>1) |>
   nrow()
 
@@ -350,15 +353,16 @@ form_photos_raw |>
   dplyr::filter(is.na(site_id)) |>
   nrow()
 
+# We didn't do this in 2024, instead only sorted the photos on Onedrive. Not running for now, Oct 2025. 
 # create site photo directories right on mergin to make them easy to share...
-form_photos_raw |>
-  dplyr::pull(site_id) |>
-  as.character() |>
-  purrr::map(
-    fpr::fpr_photo_folders, path = dir_photos_mergin_raw
-  )
+# form_photos_raw |>
+#   dplyr::pull(site_id) |>
+#   as.character() |>
+#   purrr::map(
+#     fpr::fpr_photo_folders, path = dir_photos_mergin_raw
+#   )
 
-# also create on onedrive
+# create site photo directories on onedrive
 form_photos_raw |>
   dplyr::pull(site_id) |>
   as.character() |>
@@ -369,11 +373,11 @@ form_photos_raw |>
 
 ```{r rename-monitoring}
 
-# NOTE - needed to add a / to the end of the dir names for now untill we update fpr::fpr_photo_rename with fs functions
+# NOTE - needed to add a / to the end of the dir names for now until we update fpr::fpr_photo_rename with fs functions
 fpr::fpr_photo_rename(
   dat = form_photos_raw,
-  dir_from_stub = "/Users/airvine/Projects/gis/sern_peace_fwcp_2023b/photos/",
-  dir_to_stub = "/Users/airvine/Projects/gis/sern_peace_fwcp_2023b/photos/"
+  dir_from_stub = paste0(dir_photos_mergin_resized, "/"),
+  dir_to_stub = paste0(dir_photos_onedrive, "/"),
 )
 
 ```
