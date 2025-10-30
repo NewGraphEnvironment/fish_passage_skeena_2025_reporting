@@ -78,7 +78,10 @@ for (name_form in names_forms) {
   d <- fs::dir_ls(dir_out, glob = paste0("*", name_form, "*")) |>
     purrr::map(\(path) {
       sf::st_read(path, quiet = TRUE) |>
-        dplyr::mutate(source = fs::path("~", fs::path_rel(path, start = fs::path_home())))
+        dplyr::mutate(source = fs::path("~", fs::path_rel(path, start = fs::path_home()))) |>
+        # b/c the monitoring form schemas are not the same we need to have way to turn back into sf object if
+        # we want to burn to geojson.  gpkg burn is smarter but geoj needs to be a sf object
+        fpr::fpr_sp_assign_utm()
     }) |>
     purrr::list_rbind()
 
@@ -89,5 +92,27 @@ for (name_form in names_forms) {
     d,
     fs::path(dir_backup, paste0(name_form, "_", year, ".csv"))
   )
+  # also backup as gpkg that can be tracked with mergin
+  sf::st_write(
+    d,
+    dsn   = fs::path(dir_backup, "forms.gpkg"),
+    layer = paste0(name_form, "_", year),
+    append = TRUE,             # add/update layers in the same GPKG
+    delete_layer = TRUE        # overwrite layer if it already exists
+  )
+  # also backup as geojson that can be viewed natively on Github
+  # fix geometry issues, ensure valid 2D shapes in WGS84, and write as GeoJSON
+  d |>
+    fpr::fpr_sp_assign_sf_from_utm() |>
+    # sf::st_as_sf(coords) |>
+    # sf::st_make_valid() |>                      # fix any invalid geometries (common after edits/merges)
+    sf::st_transform(4326) |>                       # GeoJSON requires coordinates in WGS84 (EPSG:4326)
+    # sf::st_zm(drop = TRUE) |>                       # drop Z/M dimensions (GeoJSON supports 2D only)
+    # sf::st_cast(unique(sf::st_geometry_type(d))[1]) |> # ensure single consistent geometry type (no mixes)
+    sf::st_write(                                   # finally write valid, web-friendly GeoJSON
+      fs::path(dir_backup, paste0(name_form, "_", year, ".geojson")),
+      append = FALSE, delete_dsn = TRUE
+    )
 }
+
 
