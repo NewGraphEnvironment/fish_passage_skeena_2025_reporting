@@ -1,5 +1,4 @@
 site_id,species_target,source
-124231_ds_ed1b,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 125000_ds_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 125000_ds_ed1a,BT RB,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 125000_us_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
@@ -10,13 +9,13 @@ site_id,species_target,source
 125180_ds_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 125180_us_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 125194_ds_ed1a,BT RB,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
-125194_us_ed1b,BT RB,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
+125194_ds_ed1b,BT RB,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 125231_ds_ed1a,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
-125231_ds_ed1b,BT RB GR KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 125231_ds_ed1c,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 125231_us_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 125261_ds_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 125261_us_ed1a,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
+125261_us_ed1b,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 126158_ds_ed1,CH CO BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 126158_us_ed1,CH CO BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 126349_ds_ed1,BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
@@ -26,9 +25,12 @@ site_id,species_target,source
 16401519_ds_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 16401519_us_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 196076_ds_ed1a,CH CO BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
+196076_ds_ed1b,CH CO BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 196076_ds_ed2a,BT RB CH BB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
+196076_ds_ed2b,BT RB CH BB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 196085_ds_ed1,CH SK BT BB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 196085_us_ed1a,BT CH RB BB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
+196085_us_ed1b,BT CH RB BB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 196209_us_ed1,CH CO SK BT,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 196332_ds_ed1,BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 196332_us_ed1,BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
@@ -42,7 +44,7 @@ site_id,species_target,source
 197378_ds_ed1b,BT CT CH CO,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
 197379_ds_ed,BT RB CH CO,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
 197379_us_ed1,BT CO RB CT,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
-197960_ds_ed1,CO CH SK PK,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
+197960_ds_ed1,CO CH SK BT PK,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
 197962_ds_ed,CO CH SO CT,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
 197962_us_ed,SK BT CH CO,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
 198692_ds_ed1a,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
@@ -51,11 +53,11 @@ site_id,species_target,source
 198692_us_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 199171_ds_ed1,CH SK RB BT,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 199171_us_ed1,CH SK BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
-199173_ds1,CH CO BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
+199173_ds_ed1,CH CO BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 199173_us_ed1,CH CO BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 199174_us_ed1,CH RB CO BT,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 199190_ds_ed1,CH SK RB BT,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
-199190_ds_ed1,CH BT CO RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
+199190_us_ed1,CH BT CO RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 199237_ds_ed1,CH CO SK BT,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 199237_us_ed1,CH CO SK BT,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 199267_ds_ed1,CH CO BT SK,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
@@ -68,18 +70,18 @@ site_id,species_target,source
 199663_us_ed1,BT RB GR BB,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 20251005_ds_ed,CH CO BT RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 20251005_us_ed1,BT CH CO RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
-23913_ds_ed1a,CH SK BT CO,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
-23919_ed1b,CH SK BT CO,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
+23919_ds_ed1a,CH SK BT CO,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
+23919_ds_ed1b,CH SK BT CO,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 24403467_ds_ed1,CH BT CO RB,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 24715757_ds_ed1,CH BT,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg
 24718557_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 57690_ds_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 57690_us_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
-57695_DS_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
+57695_ds_ed1,BT GR RB KO,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 57695_us_ed1,BT RB,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 57696_ds_ed1,BT RB,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
 57696_us_ed1,BT RB,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg
-58067_ds_ed1,CO CH BT RB,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
+58067_ds_ed1,CO CH BT DV,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
 8525_ds_ed1,BT CT CO CH,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
 8525_us_ed1,BT CT CO CH,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
 8525_us_ed2,BT CT CO CH,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
@@ -88,3 +90,5 @@ site_id,species_target,source
 8547_ds_ed1,BT CO CH SK,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
 8547_ds_ed2,CO CT SK DV,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
 8547_us_ed1,CO CH DV SK,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
+bulkley_falls_ds_ed1,CO CH DV SK,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
+bulkley_falls_ds_ed2,CO CH DV SK,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg
