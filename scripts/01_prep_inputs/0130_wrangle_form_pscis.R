@@ -65,7 +65,8 @@ for (i in seq_along(name_projects)) {
                                 ~ stringr::str_trim(.x))) |>
 
     # Add in the scores using the new xfm_ functions
-    fpr::fpr_xfm_paw_all_scores_result()
+    fpr::fpr_xfm_paw_all_scores_result() |>
+    fpr::fpr_xfm_paw_xing_fix_size()
 
 
 
