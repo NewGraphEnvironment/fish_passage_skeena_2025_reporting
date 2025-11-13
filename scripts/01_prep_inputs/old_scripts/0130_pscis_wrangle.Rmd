@@ -16,12 +16,25 @@ Add columns to `form_pscis_2024` and then burn back a NEW geopackage.
 This script is still a WIP and there is an issue about what still needs to be added here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/56
 
 ```{r paths}
-# path to raw form_pscis after QA
-path_form_pscis_raw <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, paste0("form_pscis_raw_", params$project_year, ".gpkg")))
 
 # path to NEW geopackage which is cleaned and contains added columns as per this script
 path_form_pscis <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, paste0("form_pscis_", params$project_year, ".gpkg")))
 ```
+
+# Rename 
+Rename `form_pscis_{year}.gpkg` to `form_pscis_qa_{year}.gpkg` as we will save the name `form_pscis_{year}.gpkg` for when the form is fianlized and ready to use int he report.
+
+```{r rename_form}
+
+# this is what we will rename form_pscis after QA to - `form_pscis_qa_{year}.gpkg`
+path_form_pscis_qa <- fs::path_expand(fs::path('~/Projects/gis/', params$gis_project_name ,'/data_field/', params$project_year, paste0("form_pscis_qa_", params$project_year, ".gpkg")))
+
+fs::file_copy(path_form_pscis,
+              path_form_pscis_qa,
+              overwrite = TRUE)
+
+```
+
 
 
 ## Backup the form after the QA
@@ -36,10 +49,10 @@ We use `fpr_sp_gpkg_backup` to import and backup the data, as well as update the
 # read in cleaned form from Q after review and finalization
 # backup to csv and rdata
 form_pscis_raw <- fpr::fpr_sp_gpkg_backup(
-  path_gpkg = path_form_pscis_raw,
+  path_gpkg = path_form_pscis_qa,
   dir_backup = paste0(here::here("data", "backup"), "/"), #need to specify root directory if we want to render this script form the tables.R script, or else it sets the CWD to 01_prep_inputs and makes another data/backup folder there
   update_utm = TRUE,
-  update_site_id = FALSE, ## Turn this off after adding pscis ids
+  update_site_id = TRUE, ## Turn this off after adding pscis ids
   write_back_to_path = FALSE,
   write_to_csv = TRUE,
   write_to_rdata = TRUE,
@@ -49,11 +62,13 @@ form_pscis_raw <- fpr::fpr_sp_gpkg_backup(
 
 ## Fix times
 
+- NOT NEEDED for Fraser 2025.
+
 This is not always applicable and we will hopefully have a permanent fix soon.
 
 We need to fix the times because they are in UTC and we need them in PDT. This issue is documented here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/18
 
-For peace 2024, the times are correct in `form_pscis` but are incorrect (in UTC) when `form_pscis_2024` gets read in in Q.
+The times are correct in `form_pscis` but are incorrect (in UTC) when `form_pscis_2024` gets read in in Q.
 
 
 ```{r time-fix, eval F}
@@ -79,14 +94,15 @@ Do some more cleaning
 
 form_pscis_clean <- form_pscis_raw |>
   dplyr::mutate(date_time_start = lubridate::ymd_hms(date_time_start, tz = "America/Vancouver"),
-                date = lubridate::date(date_time_start)) |>
+                date = lubridate::date(date_time_start),
   
-  # add in pscis phase
-  ## DOUBLE CHECK IF THERE ARE ANY SITES THAT ARE PHASE 1 AND 2 SITES!!! FIRST TIME HAB CON SITES
-  dplyr::mutate(pscis_phase = dplyr::case_when(
-    assess_type_phase1 == "Yes" ~ "phase 1",
-    assess_type_phase2 == "Yes" ~ "phase 2",
-    assess_type_reassessment == "Yes" ~ "reassessment"),
+  # we already have columns specifying the phase so moving away from this now. 
+  # # add in pscis phase
+  # ## DOUBLE CHECK IF THERE ARE ANY SITES THAT ARE PHASE 1 AND 2 SITES!!! FIRST TIME HAB CON SITES
+  # dplyr::mutate(pscis_phase = dplyr::case_when(
+  #   assess_type_phase1 == "Yes" ~ "phase 1",
+  #   assess_type_phase2 == "Yes" ~ "phase 2",
+  #   assess_type_reassessment == "Yes" ~ "reassessment"),
     
     # Fix the vocabulary
     stream_name = stringr::str_replace_all(stream_name, 'Trib ', 'Tributary '),
@@ -95,7 +111,8 @@ form_pscis_clean <- form_pscis_raw |>
     road_name = stringr::str_replace_all(road_name, 'Hwy', 'Highway '),
     road_name = stringr::str_replace_all(road_name, 'Fsr', 'FSR'),
     road_name = stringr::str_replace_all(road_name, 'Rd', 'Road '),
-    crew_members = stringr::str_to_upper(crew_members))
+    crew_members = stringr::str_to_upper(crew_members),
+    assessment_comment = stringr::str_squish(assessment_comment))
 
 ```
 
@@ -124,6 +141,13 @@ fpr::fpr_sp_gpkg_backup(
   write_to_csv = TRUE,
   write_to_rdata = TRUE,
   return_object = FALSE)
+
+
+ rfp::rfp_fs_backup(
+      path_dir_in = path_form_pscis,
+      path_in_file = f,
+      path_dir_out = dir_out[i],
+      stamp = "2025")
 ```
 
 
