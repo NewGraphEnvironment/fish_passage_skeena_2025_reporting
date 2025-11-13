@@ -1,16 +1,6 @@
 # copy all forms to data_field_{year} directory
 year <- 2025
 
-# name your files
-name_f <- c(
-  "form_edna.gpkg",
-  "form_pscis.gpkg",
-  "form_fiss_site.gpkg",
-  "form_monitoring.gpkg"
-)
-
-name_form <- "form_edna.gpkg"
-
 path_gis <- "/Users/lucy/Projects/gis"
 
 # list projects
@@ -31,6 +21,9 @@ dir_in <- fs::path(
 
 
 ### Wrangle PSCIS forms ------------------------
+
+# initialize a list to store the results
+results <- list()
 
 for (i in seq_along(name_projects)) {
 
@@ -69,7 +62,10 @@ for (i in seq_along(name_projects)) {
                   # remove white space from comments
                   assessment_comment = stringr::str_squish(assessment_comment),
                   dplyr::across(tidyselect::matches("assessment_comment|_notes"),
-                                ~ stringr::str_trim(.x)))
+                                ~ stringr::str_trim(.x))) |>
+
+    # Add in the scores using the new xfm_ functions
+    fpr::fpr_xfm_paw_all_scores_result()
 
 
 
@@ -78,6 +74,9 @@ for (i in seq_along(name_projects)) {
     sf::st_write(dsn = path_form_pscis,
                  append = FALSE,
                  delete_dsn = TRUE)
+
+  # add cleaned pscis df to results so we can check to make sure everything looks good.
+  results[[name_projects[i]]] <- form_pscis_clean
 }
 
 
