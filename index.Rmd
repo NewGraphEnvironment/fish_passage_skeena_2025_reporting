@@ -1,25 +1,26 @@
 --- 
-title: "Fish Passage Reporting Template"
+title: "Restoring Fish Passage in the Fraser Region - 2025"
 author: |
  |
  | Prepared for
- | Habitat Conservation Trust Foundation - CAT23-6-288
- | BC Fish Passage Remediation Program
  | Ministry of Transportation and Infrastructure
- | Fish and Wildlife Compensation Program - Peace Region
+ |
+ | and
+ |
+ | Society for Ecosystem Restoration in Northern BC (SERNbc)
  |
  |
  | Prepared by
  | Al Irvine, B.Sc., R.P.Bio. and Lucy Schick, B.Sc.
  | New Graph Environment Ltd.
  |
- |on behalf of 
- |
- |Society for Ecosystem Restoration in Northern British Columbia
+ | on behalf of
+ | 
+ | Society for Ecosystem Restoration in Northern BC (SERNbc)
 
 date: |
  |
- | Version 0.0.4 `r format(Sys.Date(), "%Y-%m-%d")`
+ | Version 0.0.1 `r format(Sys.Date(), "%Y-%m-%d")`
 toc-title: Table of Contents
 site: bookdown::bookdown_site
 output: 
