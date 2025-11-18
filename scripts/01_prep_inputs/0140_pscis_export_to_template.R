@@ -34,25 +34,19 @@ max_cul_leng_fill_dpt <- list()
 
 for (i in seq_along(name_projects)) {
 
-  # Path to the data/backup dir
-  dir_backup <- fs::path("data/backup", year, name_projects[i])
-
   # Path to the pscis form to backup
   path_form_pscis <- fs::path(dir_out[i], paste0("form_pscis_", year, ".gpkg"))
 
 
   #read in cleaned form from Q after review and finalization
-  # backup to csv and rdata
   pscis_export_raw <- fpr::fpr_sp_gpkg_backup(
     path_gpkg = path_form_pscis,
-    dir_backup = dir_backup,
     update_utm = TRUE,
     update_site_id = TRUE, ## Turn this off after adding pscis ids
     write_back_to_path = FALSE,
     write_to_csv = FALSE,
     write_to_rdata = FALSE,
     return_object = TRUE)
-
 
   # check for sites that have a culvert length (`length_or_width_meters`) over 99.9 or a fill depth (`fill_depth_meters`) over 9.9
   max_cul_leng_fill_dpt[[name_projects[i]]] <- pscis_export_raw |>
@@ -141,6 +135,9 @@ for (i in seq_along(name_projects)) {
 
   # add pscis export df to results so we can check to make sure everything looks good.
   results[[name_projects[i]]] <- pscis_export
+
+  # Backup our changes
+  source("scripts/01_prep_inputs/0100_backup_forms.R")
 
 }
 
