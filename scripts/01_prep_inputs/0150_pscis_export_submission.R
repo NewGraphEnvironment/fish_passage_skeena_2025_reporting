@@ -19,7 +19,7 @@ tfpr_filter_list <- function(idx){
 }
 
 tfpr_photo_change_name <- function(filenames_to_change = filestocopy_list){
-  gsub(filenames_to_change, pattern = path_photos, replacement = targetdir)
+  gsub(x = filenames_to_change, pattern = path_photos, replacement = targetdir)
 }
 
 # Params -----------------------------------------------------------------
@@ -44,10 +44,15 @@ fs::dir_create(targetdir)
 
 
 # use the pscis spreadsheet to make the folders to copy the photos to.
+# for skeena and fraser
+# path_photos <- fs::path_expand(fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects/", params$job_name, "/data/photos/", params$project_region, "renamed"))
 
-path_photos <- fs::path_expand(fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects/", params$job_name, "/data/photos/"))
+# for peace
+path_photos <- fs::path_expand(fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects/", params$job_name, "/data/photos/renamed"))
 
-d <- fpr::fpr_import_pscis(workbook_name = 'pscis_phase1.xlsm')
+
+d <- fpr::fpr_import_pscis(workbook_name = 'pscis_phase1.xlsm',
+                           dir_root = fs::path("data/spreadsheets", params$project_year, params$gis_project_name))
 
 
 folderstocopy<- d$my_crossing_reference |> as.character()
@@ -84,13 +89,13 @@ photo_sort_tracking <- path_to_photos |>
 ##here we back up a csv that gives us the new location and name of the original JPG photos.
 
 ##burn to csv
-fs::dir_create("data/photos")
 photo_sort_tracking |>
-  readr::write_csv(file = 'data/backup/photo_sort_tracking_phase1.csv')
+  readr::write_csv(file = fs::path('data/backup/', params$project_year, params$gis_project_name,'photo_sort_tracking_phase1.csv'))
 
 ## change path name so we can paste to folders
 filestopaste_list <- filestocopy_list |>
   map(tfpr_photo_change_name)
+
 
 ##!!!!!!!!!!!!!!!copy over the photos!!!!!!!!!!!!!!!!!!!!!!!
 mapply(fs::file_copy,
@@ -107,7 +112,7 @@ t <- fpr::fpr_photo_qa_df(dat = d, dir_photos = paste0(targetdir, "/"))
 ## Move Pscis file -------------
 
 ##also move over the pscis file
-fs::file_copy(path = fs::path('data', name_submission),
+fs::file_copy(path = fs::path("data/spreadsheets", params$project_year, params$gis_project_name, name_submission),
               new_path = fs::path(targetdir, name_submission),
               overwrite = T)
 
