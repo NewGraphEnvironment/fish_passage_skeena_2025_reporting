@@ -265,7 +265,7 @@ print(plot1$`Long-term_Monthly_Statistics`)
 
 ## Lower Salmon River
 
-The Salmon River is a tributary of the Fraser River located north of Prince George, British Columbia. The system drains a low-lying lake district and enters the Fraser River just north of the city. The watershed is characterized by predominantly low-relief terrain, with agricultural and residential land use near the confluence. This project focused on the lower Salmon River watershed, defined as the area downstream of the confluence of the Muskeg River and the Salmon River. An active hydrometric station is located approximately 10km upstream of the Fraser River confluence and has a mean annual discharge of `r round(fasstr::calc_longterm_mean(station_number = "08KC001")$LTMAD,1)`m^3^/s (Figure \@ref(fig:hydrograph-salmon)).
+The Salmon River is a tributary of the Fraser River located north of Prince George, British Columbia. The system drains a low-lying lake district and enters the Fraser River just north of Prince George. The watershed is characterized by predominantly low-relief terrain, with agricultural and residential land use near the confluence. This project focused on the lower Salmon River watershed, defined as the area downstream of the confluence of the Muskeg River and the Salmon River. An active hydrometric station is located approximately 10km upstream of the Fraser River confluence and has a mean annual discharge of `r round(fasstr::calc_longterm_mean(station_number = "08KC001")$LTMAD,1)`m^3^/s (Figure \@ref(fig:hydrograph-salmon)).
 
 <br>
 
@@ -366,28 +366,33 @@ nuseds <- rgovcan::govcan_search(keywords = c("Fraser NuSEDS"), records = 150, f
   pull(resources) %>% 
   bind_rows()
 
-# Load the most recent Nuseds - currently 20250103 (update july 2025 - looks like that file vanished and now we need nuseds_all_20250513.csv )
-url <- "https://api-proxy.edh.azure.cloud.dfo-mpo.gc.ca/catalogue/records/c48669a3-045b-400d-b730-48aafe8c5ee6/attachments/All%20Areas%20NuSEDS_20250513.csv"
+# Load the most recent Nuseds - currently 20251103 (update Nov 2025)
+url <- "https://api-proxy.edh-cde.dfo-mpo.gc.ca/catalogue/records/c48669a3-045b-400d-b730-48aafe8c5ee6/attachments/All%20Areas%20NuSEDS_20251103.zip"
+
+
 # burn directly without bringing into memory
-ckanr::ckan_fetch(url, store = "disk", path = "data/inputs_raw/nuseds_all_20250513.csv") 
+nuseds_all_20251103.csv
+ckanr::ckan_fetch(url, store = "disk", path = "data/inputs_raw/nuseds_all_20251103.zip") 
 
 # ignore the huge file
-usethis::use_git_ignore("data/inputs_raw/nuseds_all_20250513.csv")
+usethis::use_git_ignore("data/inputs_raw/nuseds_all_20251103.csv")
 
 #read it in
-all_area_nuseds <- readr::read_csv('data/inputs_raw/nuseds_all_20250513.csv')
+all_area_nuseds <- readr::read_csv('data/inputs_raw/nuseds_all_20251103.csv')
+
+form_pscis_2025 <- read.csv("~/Projects/repo/fish_passage_template_reporting/data/backup/2025/sern_fraser_2024/form_pscis_2025.csv")
 
 
-# Big study area so lets filter using the stream names from `form_pscis` (which is the 2024 and 2024 form pscis combined)
-stream_names <- form_pscis |> 
+# Big study area so lets filter using the stream names from `form_pscis`
+stream_names <- form_pscis_2025 |> 
   dplyr::pull(stream_name) |> 
   stringr::str_trim() |> 
   # Must be upper case to match those in Nuseds
   stringr::str_to_upper() |> 
   unique()
 
-# we also need to add in these waterbodies that we didn't explicilty sample but are that heavy hitters in the project area
-major_streams <- "NECHAKO|CHILAKO|ENDAKO|FRANÇOIS LAKE|FRASER RIVER|MORKILL RIVER"
+# we also need to add in these waterbodies that we didn't explicitly sample but are that heavy hitters in the project area
+major_streams <- "NECHAKO|CHILAKO|ENDAKO|FRANÇOIS LAKE|FRASER RIVER|MORKILL RIVER|WILLOW RIVER|TABOR RIVER|SALMON RIVER"
 
 # Combine into one regex pattern
 stream_names_regex <- c(stream_names, major_streams) |> 
@@ -397,7 +402,8 @@ stream_names_regex <- c(stream_names, major_streams) |>
 study_area_streams <- all_area_nuseds |> 
   dplyr::filter(stringr::str_detect(WATERBODY, stream_names_regex)) |> 
   # We have some duplicate streams so remove streams with SHORE in the name which are in the Sushwap area
-  dplyr::filter(!stringr::str_detect(WATERBODY, "SHORE")) |> 
+  # also remove big and little salmon rivers becasue not in study area
+  dplyr::filter(!stringr::str_detect(WATERBODY, "SHORE|BIG|LITTLE")) |>
   janitor::clean_names() |> 
   dplyr::arrange(waterbody)
 
