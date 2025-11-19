@@ -9,7 +9,10 @@ wshd_codes <- c(
   'NECR',
   'FRAN',
   # "MORK",
-  "UFRA"
+  "UFRA",
+  'WILL',
+  'TABR',
+  'LSAL'
 )
 
 conn <- fpr::fpr_db_conn()
