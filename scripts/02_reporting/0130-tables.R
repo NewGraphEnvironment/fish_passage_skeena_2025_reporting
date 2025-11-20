@@ -2,20 +2,41 @@
 
 # Parameters -------------------------------------------------
 
-# path to form_pscis_2024
-path_form_pscis <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_pscis_2024.gpkg"))
+# path to form_pscis_<year>
+path_form_pscis <- fs::path(
+  "~/Projects/gis/",
+  params$gis_project_name,
+  "/data_field/",
+  params$project_year,
+  paste0("form_pscis_", params$project_year, ".gpkg")
+)
 
-# path to NEW `form_fiss_site_2024` made from `0205_fiss_extract_inputs.Rmd`
-path_form_fiss_site <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_fiss_site_2024.gpkg"))
+# path to form_fiss_site_<year>
+path_form_fiss_site <- fs::path(
+  "~/Projects/gis/",
+  params$gis_project_name,
+  "/data_field/",
+  params$project_year,
+  paste0("form_fiss_site_", params$project_year, ".gpkg")
+)
 
 # path to monitoring form
-path_form_monitoring <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_monitoring_2024.gpkg"))
+path_form_monitoring <- fs::path(
+  "~/Projects/gis/",
+  params$gis_project_name,
+  "/data_field/",
+  params$project_year,
+  paste0("form_monitoring_", params$project_year, ".gpkg")
+)
 
 # Repo path to the fish data with the pit tags joined.
-path_fish_tags_joined <-  fs::path_expand(fs::path("~/Projects/repo/", params$repo_name ,"/data/fish_data_tags_joined.csv"))
+path_fish_tags_joined <- fs::path(
+  "~/Projects/repo/",
+  params$repo_name,
+  "/data/fish_data_tags_joined.csv"
+)
 
-# specify which project data we want. for this case `2024-073-sern-peace-fish-passage`
-project <- "2024-073-sern-peace-fish-passage"
+
 
 
 # Generate dynamic captions -------------------------------------------------
@@ -65,9 +86,9 @@ spawn_gradient <- bcfishpass_spawn_rear_model |>
 # If update_form_pscis = TRUE then re-run 0130_pscis_wrangle.Rmd and re-burn form_pscis to sqlitee
 if (params$update_form_pscis) {
 
-  # Run 0130_pscis_wrangle.Rmd which cleans up the form then burns back to geopackage.
-  rmarkdown::render('scripts/01_prep_inputs/0130_pscis_wrangle.Rmd')
-  usethis::use_git_ignore('scripts/02_reporting/0130_pscis_wrangle.html')
+  # # Run 0130_pscis_wrangle.Rmd which cleans up the form then burns back to geopackage.
+  # rmarkdown::render('scripts/01_prep_inputs/0130_pscis_wrangle.Rmd')
+  # usethis::use_git_ignore('scripts/02_reporting/0130_pscis_wrangle.html')
 
   # re-burn form_pscis to sqlitee
   form_pscis <- fpr::fpr_sp_gpkg_backup(
@@ -97,9 +118,9 @@ if (params$update_form_pscis) {
 # If update_form_fiss_site = TRUE then re-run 0205_fiss_wrangle.Rmd and re-burn form_pscis to sqlite
 if (params$update_form_fiss_site) {
 
-  # Run 0205_fiss_wrangle.Rmd which cleans up the form then burns back to geopackage.
-  rmarkdown::render('scripts/01_prep_inputs/0205_fiss_wrangle.Rmd')
-  usethis::use_git_ignore('scripts/02_reporting/0205_fiss_wrangle.html')
+  # # Run 0205_fiss_wrangle.Rmd which cleans up the form then burns back to geopackage.
+  # rmarkdown::render('scripts/01_prep_inputs/0205_fiss_wrangle.Rmd')
+  # usethis::use_git_ignore('scripts/02_reporting/0205_fiss_wrangle.html')
 
 
   #Now read and backup the form
@@ -115,21 +136,6 @@ if (params$update_form_fiss_site) {
     col_northing = "utm_northing") |>
     sf::st_drop_geometry()
 
-  # Peace 2024 - times in `form_fiss_site_raw` are wrong in R and Q!
-  #
-  # We need to fix the times because they are in UTC and we need them in PDT. This issue is documented here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/18
-  form_fiss_site_clean_times <- form_fiss_site |>
-    # make a new column for the time as is with different name then mutate to PST
-    # we don't need the new column but will leave here for now so we can visualize and confirm the time is correct
-    dplyr::mutate(date_time_start_raw = date_time_start,
-                  date_time_start = lubridate::force_tz(date_time_start_raw, tzone = "America/Vancouver"),
-                  date_time_start = lubridate::with_tz(date_time_start, tzone = "UTC")) |>
-    dplyr::relocate(date_time_start_raw, .after = date_time_start)
-
-  ## Double check the time is correct and now remove the date_time_start_raw column
-  form_fiss_site <- form_fiss_site_clean_times |>
-    select(-date_time_start_raw)
-
 
   # Now burn to the sqlite
   conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
@@ -138,8 +144,6 @@ if (params$update_form_fiss_site) {
   readwritesqlite::rws_write(form_fiss_site, exists = F, delete = TRUE,
                              conn = conn, x_name = "form_fiss_site")
   readwritesqlite::rws_disconnect(conn)
-  # remove the object to avoid issues if something breaks
-  rm(form_fiss_site_clean_times)
 }
 
 
@@ -149,6 +153,7 @@ if (params$update_form_fiss_site) {
 
 # If update_form_monitoring = TRUE then load form_monitoring to sqlite - need to load the params from `index.Rmd`
 if (params$update_form_monitoring) {
+
   form_monitoring <- fpr::fpr_sp_gpkg_backup(
     path_gpkg = path_form_monitoring,
     dir_backup = "data/backup/",
@@ -203,7 +208,7 @@ pscis_all <- dplyr::left_join(
 
 fish_data_complete <- readr::read_csv(file = path_fish_tags_joined) |>
   janitor::clean_names() |>
-  dplyr::filter(project_name == project)
+  dplyr::filter(params$job_name == project)
 
 
 # Bcfishpass modelling table setup for reporting --------------------------
