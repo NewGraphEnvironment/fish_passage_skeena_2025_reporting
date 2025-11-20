@@ -390,6 +390,8 @@ Fish with a fork length greater than 60 mm and belonging to species approved und
 
 ### Environmental DNA (eDNA) sampling
 
+#### eDNA Sampling and Filtration
+
 Environmental DNA (eDNA) samples were collected using two approaches: in-stream filtration with a Haltech EMOS eDNA sampler and a grab-and-go bottle collection method following @hobbs_etal2025EnvironmentalDNA. For both approaches, all water collected at a site (typically 1–3L) was treated as a single sample and filtered onto one MCE filter, resulting in one eDNA replicate per site. Typically, one sample was collected upstream and one downstream of the road–stream crossing, although in some cases only a downstream sample was collected. Field blanks were collected at the start of each sampling day using distilled water.
 
 
@@ -405,6 +407,10 @@ At sites where the grab-and-go method was used, stream water was collected in sa
 
 
 All eDNA samples were shipped frozen to the University of Northern British Columbia (UNBC) laboratory for analysis.
+
+#### eDNA Extraction
+
+eDNA was extracted in the dedicated eDNA lab at UNBC and analysed with the protocols developed by @murray_booth2023Report2023. 
 
 
 ### Aerial Imagery
