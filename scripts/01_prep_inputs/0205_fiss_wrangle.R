@@ -37,7 +37,6 @@ form_fiss_site_raw <- form_fiss_site_time_fix |>
 
 # clean up the form -----------------------
 form_fiss_site_prep1 <- form_fiss_site_raw |>
-  dplyr::filter(gazetted_names != "Robert Hatch") |>
   # split the local_name into the site, location, and ef
   tidyr::separate(local_name, into = c("site", "location", "ef"), remove = FALSE) |>
   dplyr::mutate(local_name = stringr::str_trim(local_name)) |>
