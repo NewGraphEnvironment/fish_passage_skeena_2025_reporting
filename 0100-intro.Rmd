@@ -4,7 +4,7 @@
 
 `r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br>")}`
 
-```{r proj-partners-text, results='asis'}
+```{r proj-partners-text-into, results='asis'}
 
 project_partners_text <- dplyr::case_when(params$project_region == "fraser" ~ "Since 2023, the Society for Ecosystem Restoration Northern British Columbia (SERNbc), with support from the Ministry of Transportation and Infrastructure, has been actively involved in planning, coordinating, and conducting fish passage restoration efforts within the Nechako River, Lower Chilako River, Morkhill River, Upper Fraser River, and François Lake watershed groups which are sub-basins of the Upper Fraser River watershed. ",
                                           params$project_region == "peace" ~ "The Society for Ecosystem Restoration in Northern BC (SERNbc) is working together with the McLeod Lake Indian Band, the Peace Region Fish and Wildlife Compensation Program (FWCP), the Provincial Fish Passage Technical Working Group (FPTWG), road/rail tenure holders and other stakeholders/partners to prioritize, plan and fund the restoration of fish passage at road crossing structure barriers within the Parsnip River, Carp River and Crooked River watershed groups. ",
@@ -21,7 +21,7 @@ The primary objective of this project is to identify and prioritize fish passage
 
 <br>
 
-```{r previous-work, results='asis'}
+```{r previous-work-intro, results='asis'}
 if (params$project_region == "peace") {
 
   cat("
