@@ -35,11 +35,13 @@ params:
   gis_project_name: "sern_fraser_2024" 
   project_region: "fraser"
   project_year: "2025"
+  project_start_year: "2023"
   model_species: "st"
   update_packages: FALSE
   update_form_pscis: FALSE
   update_form_fiss_site: FALSE
   update_form_monitoring: FALSE
+  update_form_enda: FALSE
   update_gis: FALSE
 nocite: |
   @busch_etal2011LandscapeLevelModela, 
