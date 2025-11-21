@@ -6,7 +6,7 @@ knitr::opts_chunk$set(fig.path = "fig/background/", dev = "png")
 
 ## Project Location
 
-The study area spans from Burns Lake to Valemount, British Columbia, and includes the Nechako River, Lower Chilako River, François Lake, Morkhill River, and Upper Fraser River watershed groups. In 2025 the study area was expanded to include the Tabor River, Willow River, and Lower Salmon River watershed groups.
+The study area spans from Burns Lake to Valemount, British Columbia, and includes the `r knitr::asis_output(wsg_names |> knitr::combine_words()` watershed groups. In 2025 the study area was expanded to include the Tabor River, Willow River, and Lower Salmon River watershed groups.
 
 
 <br>
@@ -469,8 +469,15 @@ A review of available fisheries data, for the Upper Fraser River, Nechako River,
 ```{r fiss-species-table}
 fiss_species_table <- readr::read_csv('data/inputs_extracted/fiss_species_table.csv')
 
-fiss_species_table %>% 
-  fpr::fpr_kable(caption_text = 'Fish species recorded in the Upper Fraser River, Nechako River, Lower Chilako River, Willow River, Lower Salmon River, Tabor Creek, and François Lake watershed groups.', 
+my_caption <- paste0(
+  "Fish species recorded in the ", 
+  # provided they are all making the table which prob doesn't work with tons of wsg
+  knitr::asis_output(wsg_names) |> knitr::combine_words(), 
+  " watershed groups."
+  )
+
+fiss_species_table |> 
+  fpr::fpr_kable(caption_text = my_caption, 
                  footnote_text = 'COSEWIC abbreviations : 
                  SC - Special concern 
                  DD - Data deficient
