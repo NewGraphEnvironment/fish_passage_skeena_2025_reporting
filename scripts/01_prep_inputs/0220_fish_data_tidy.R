@@ -3,61 +3,82 @@ source('scripts/packages.R')
 
 # Paths ------------------------------------------------------
 # Pit tag data for ALL years is currently being stored on OneDrive .
-path_tag <- fs::path_expand(fs::path('~/Library/CloudStorage/OneDrive-Personal/Projects/', paste0(params$project_year, "_data"), '/fish/tag_01_05.csv'))
+path_tag_previous_years <- fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects/pit_tag_data/pit_tag_data_all_years.csv")
+
+path_tag_project_year <- fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects/", paste0(params$project_year, "_data"), "fish", paste0("fish_pit_tags_", params$project_year, ".csv"))
 
 # Raw fish data stored in Onedrive
-path_fish <-  fs::path_expand(fs::path('~/Library/CloudStorage/OneDrive-Personal/Projects/', paste0(params$project_year, "_data"), '/fish/fish_data_raw.xlsx'))
+path_fish <-  fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects/", paste0(params$project_year, "_data"), "fish", paste0("fish_data_raw_", params$project_year, ".xlsx"))
 
 # path for form_fiss_site geopackage
-path_form_fiss_site <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/", params$project_year, paste0("form_fiss_site_", params$project_year, ".gpkg")))
+path_form_fiss_site <- fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/", params$project_year, paste0("form_fiss_site_", params$project_year, ".gpkg"))
 
-# Onedrive path where to store the fish data with the pit tags joined.
-path_onedrive_tags_joined <-  fs::path_expand(fs::path('~/Library/CloudStorage/OneDrive-Personal/Projects/', paste0(params$project_year, "_data"), '/fish/fish_data_tags_joined.csv'))
+# Path for where to store the fish data with the pit tags joined.
+path_onedrive_tags_joined <-  fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects/", paste0(params$project_year, "_data"), "fish", paste0("fish_data_tags_joined_", params$project_year,".csv"))
+
+pit_tag
 
 # Repo path to individual fish data ready to c/p into `step_3_individual_fish_data`
-path_repo_fish_data_ind <-  fs::path('data/inputs_raw/fish_data_ind.csv')
+path_repo_fish_data_ind <-  fs::path("data/inputs_raw/fish_data_ind.csv")
 
 # Repo path to fisheries collected data ready to c/p into `step_2_fish_coll_data`
-path_repo_fish_data_coll <-  fs::path('data/inputs_raw/fish_data_coll.csv')
+path_repo_fish_data_coll <-  fs::path("data/inputs_raw/fish_data_coll.csv")
+
 
 
 # Pit Tags ------------------------------------------------------
-# combining pit tag data to individual fish data so that we can copy and paste directly into submission template
-# This only needs to be run once.
+# First we need to update the csv that contains the pit tag data from ALL YEAR with the tag data from 2025. The csv needs to contains ALL YEARS of data for the correct tag_row_id to be assigned.
 
-# import the pit tag csv
-# tag_01_05 does not have a column name so for that reason the call to read_csv needs to be different (change col_names to F for that file) and
-# the column name will default to X1.
-pit_tag <- readr::read_csv(path_tag, col_names = F) |>
+
+pit_tag_2025 <- readr::read_csv(path_tag_project_year, col_names = F)
+pit_tag_previous_years <- readr::read_csv(path_tag_previous_years, col_names = F)
+
+
+pit_tag_all_years <- dplyr::bind_rows(pit_tag_previous_years, pit_tag_2025) |>
   #separate the pit tag out from the rest of the info in the pit tag csv
   # https://stackoverflow.com/questions/66696779/separate-by-pattern-word-in-tidyr-and-dplyr
   tidyr::separate(col=X1, into=c('date', 'tag_id'), sep='\\s*TAG\\s*') |>
-  tibble::rowid_to_column() |>
-  dplyr::filter(str_like(date, '%2024%'))
+  tibble::rowid_to_column()
+
+# and burn back and override last years file on onedrive
+pit_tag_all_years |> readr::write_csv(path_tag_previous_years, append = FALSE)
 
 
+
+
+
+
+# Now combine pit tag data to individual fish data so that we can copy and paste directly into submission template
+# This only needs to be run once.
 
 # Read and clean the raw fish data
-fish <- readxl::read_xlsx(path_fish, sheet = "fish_data") |>
+fish_data <- readxl::read_xlsx(path_fish, sheet = "fish_data") |>
   # remove the dates added by excel, they are wrong. We only want the time segments
-  mutate(across(c(site_start_time, site_end_time,segment_start_time, segment_end_time, photo_time_start, photo_time_end),
+  dplyr::mutate(across(c(site_start_time, site_end_time,segment_start_time, segment_end_time, photo_time_start, photo_time_end),
                 ~ format(., "%H:%M:%S")))
 
 
-#join fish csv with pit tag csv based on tag row ID |>
-fish_data_tags <- dplyr::left_join(fish,
-                                   pit_tag |>
-                                     dplyr::select(rowid, tag_id),
-                                   by = c("row_id" = "rowid")) |>
+#join fish csv with pit tag csv based on tag row ID
+fish_data_tags_joined <- dplyr::left_join(
+  fish_data,
+  pit_tag_all_years |>
+    dplyr::select(rowid, tag_id),
+  by = c("row_id" = "rowid")
+) |>
   # arrange columns
   dplyr::mutate(pit_tag_id = tag_id) |>
   dplyr::select(-tag_id) |>
   dplyr::relocate(row_id, .after = pit_tag_id) |>
-  # add a period, a space and the row number to the pit tag to go in the comments to make it easy to pull anything out we want later
-  dplyr::mutate(comments = case_when(
-    !is.na(pit_tag_id) ~ paste0(comments,". Pit Tag ID: ", pit_tag_id, ". Row ID: ", row_id, ". "),
-    T ~ comments))
-
+  # add pit tag info into comments
+  dplyr::mutate(
+    comments = dplyr::case_when(
+      !is.na(pit_tag_id) & is.na(comments) ~
+        paste0("Pit Tag ID: ", pit_tag_id, ". Row ID: ", row_id, ". "),
+      !is.na(pit_tag_id) ~
+        paste0(comments, ". Pit Tag ID: ", pit_tag_id, ". Row ID: ", row_id, ". "),
+      TRUE ~ comments
+    )
+  )
 
 
 # select a subsample of fish (lets go 15% since the sample size is small) to review manually to be sure the
@@ -65,19 +86,17 @@ fish_data_tags <- dplyr::left_join(fish,
 # set seed for reproducible sample - try running it again without setting the seed immediately before and see how it differs
 set.seed(1234)
 
-qa <- fish_data_tags |>
-  filter(!is.na(row_id)) |>
-  slice_sample(prop = 0.15) |>
-  select(local_name, project_name, row_id, pit_tag_id, length, weight) |>
-  arrange(row_id)
-
+qa <- fish_data_tags_joined |>
+  dplyr::filter(!is.na(row_id)) |>
+  dplyr::slice_sample(prop = 0.15) |>
+  dplyr::select(local_name, project_name, row_id, pit_tag_id, length, weight) |>
+  dplyr::arrange(row_id)
 
 
 # burn the csv to the repo for cut and paste and to OneDrive for backup
-fish_data_tags |>
+fish_data_tags_joined |>
   readr::write_csv(path_onedrive_tags_joined,
                    na = "" )
-
 
 
 
