@@ -45,10 +45,10 @@ fs::dir_create(targetdir)
 
 # use the pscis spreadsheet to make the folders to copy the photos to.
 # for skeena and fraser
-# path_photos <- fs::path_expand(fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects/", params$job_name, "/data/photos/", params$project_region, "renamed"))
+path_photos <- fs::path_expand(fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects/", params$job_name, "/data/photos/", params$project_region, "renamed"))
 
 # for peace
-path_photos <- fs::path_expand(fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects/", params$job_name, "/data/photos/renamed"))
+# path_photos <- fs::path_expand(fs::path("~/Library/CloudStorage/OneDrive-Personal/Projects/", params$job_name, "/data/photos/renamed"))
 
 
 d <- fpr::fpr_import_pscis(workbook_name = 'pscis_phase1.xlsm',
@@ -100,7 +100,8 @@ filestopaste_list <- filestocopy_list |>
 ##!!!!!!!!!!!!!!!copy over the photos!!!!!!!!!!!!!!!!!!!!!!!
 mapply(fs::file_copy,
        path =  filestocopy_list,
-       new_path = filestopaste_list)
+       new_path = filestopaste_list,
+       overwrite = TRUE)
 
 
 ## QA photos -------------
