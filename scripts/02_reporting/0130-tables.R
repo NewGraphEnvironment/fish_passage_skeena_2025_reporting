@@ -218,6 +218,19 @@ if (params$update_form_edna) {
 
 ## Load PSCIS spreadsheets -------------------------------------------------
 
+# first we need to move the spreadsheets to the main data folder. We can't just tell `fpr_import_pscis_all`() to look somewhere else because `fpr_import_pscis_all` doesn't allow us to pass arguments to `fpr_import_pscis` which ultimately decides the path to look for the spreadsheets.
+
+files_to_copy <- fs::dir_ls(
+  fs::path("data/spreadsheets", params$project_year, params$gis_project_name),
+  type = "file"
+)
+
+fs::file_copy(
+  path = files_to_copy,
+  new_path = "data",
+  overwrite = TRUE
+)
+
 # For now, import data and build tables we for reporting
 pscis_list <- fpr::fpr_import_pscis_all()
 pscis_phase1 <- pscis_list |> purrr::pluck('pscis_phase1')
