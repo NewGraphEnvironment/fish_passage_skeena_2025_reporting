@@ -114,12 +114,12 @@ map
 
 ## Site Assessment Data 
 
-Fish passage assessment procedures conducted through SERNbc since 2020 are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap)")}`.
+Fish passage assessment procedures conducted through SERNbc since `r cat(params$project_start_year)` are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap)")}`.
 
 <br>
 
 
-Since 2020, orthoimagery and elevation model rasters have been generated and stored as Cloud Optimized Geotiffs on a cloud service provider (AWS) with select imagery linked to in the collaborative GIS project. Additionally - a tile service has been set up to facilitate viewing and downloading of individual images, provided `r knitr::asis_output(if (gitbook_on) "in Table \\@ref(tab:tab-uav-imagery-cap)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "results-and-discussion.html", anchor_text = paste0("at", params$report_url, "/results-and-discussion.html")))`. 
+Since `r cat(params$project_start_year)`, orthoimagery and elevation model rasters have been generated and stored as Cloud Optimized Geotiffs on a cloud service provider (AWS) with select imagery linked to in the collaborative GIS project. Additionally - a tile service has been set up to facilitate viewing and downloading of individual images, provided `r knitr::asis_output(if (gitbook_on) "in Table \\@ref(tab:tab-uav-imagery-cap)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "results-and-discussion.html", anchor_text = paste0("at", params$report_url, "/results-and-discussion.html")))`. 
 
 `r if(gitbook_on){knitr::asis_output("<br>")}`
 
@@ -313,7 +313,7 @@ project_uav |>
 
 ## Collaborative GIS Environment
 
-In addition to numerous layers documenting fieldwork activities since 2019, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the time of writing (`r format(lubridate::now(), "%Y-%m-%d")`) are included `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-rfp-tracking).")}`
+In addition to numerous layers documenting fieldwork activities since `r cat(params$project_start_year)`, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the time of writing (`r format(lubridate::now(), "%Y-%m-%d")`) are included `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-rfp-tracking).")}`
 
 <br>
 
@@ -390,9 +390,11 @@ actions in areas of highest potential for positive impacts on fisheries values (
 where water temperatures are likely too cold to support fish production) are detailed in @hill_etal2024Spatialstream which is 
 included as [Attachment - Water Temperature Modelling](#attach-bayes).
 
+
+
 ## Fish Passage Assessemnts
 
-Field assessments were conducted between `r format(min(pscis_all$date), format="%B %d, %Y")` and `r format(max(pscis_all$date), format="%B %d, %Y")` by Allan Irvine, R.P.Bio. and Lucy Schick, B.Sc., Bianca Prince, and Jillian Isadore. A total of `r pscis_all |> filter(source != 'pscis_phase2.xlsm') |> nrow()` Fish Passage Assessments were completed, including `r n_distinct(pscis_phase1$my_crossing_reference)` Phase 1 assessments and `r pscis_reassessments |> nrow()` reassessments. In 2024, field efforts prioritized revisiting previously assessed sites for monitoring rather than evaluating new Fish Passage Assessment locations.
+Field assessments were conducted between `r format(min(pscis_all$date), format="%B %d, %Y")` and `r format(max(pscis_all$date), format="%B %d, %Y")` by Allan Irvine, R.P.Bio. and Lucy Schick, B.Sc. A total of `r pscis_all |> filter(source != 'pscis_phase2.xlsm') |> nrow()` Fish Passage Assessments were completed, including `r n_distinct(pscis_phase1$my_crossing_reference)` Phase 1 assessments and `r pscis_reassessments |> nrow()` reassessments. In 2024, field efforts prioritized revisiting previously assessed sites for monitoring rather than evaluating new Fish Passage Assessment locations.
 
 <br>
 
@@ -432,11 +434,11 @@ The "Barrier" and "Potential Barrier" rankings used in this project followed @mo
 
 ## Habitat Confirmation Assessments
 
-During the 2024 field assessments, habitat confirmation assessments were conducted at two sites within the Carp River and Crooked River watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed. Electrofishing surveys were conducted at both habitat confirmation sites. Georeferenced field maps are provided in [Attachment - Maps](#attach-maps).
+During the `r cat(params$project_year)` field assessments, habitat confirmation assessments were conducted at `r form_fiss_site |> dplyr::distinct(site) |> nrow()` sites within the Tabor River and Willow River watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed. Electrofishing surveys were conducted at both habitat confirmation sites. Georeferenced field maps are provided in [Attachment - Maps](#attach-maps).
 
 <br>
 
-As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Tables \@ref(tab:tab-overview) - \@ref(fig:plot-fish-all) with raw habitat and fish sampling data included in [Attachment - Data](#attach-dat). A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments (including maps) are presented within site-specific appendices to this document.
+As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Table \@ref(tab:tab-overview) with raw habitat `r if (exists("fish_data_complete")) "and fish sampling " else ""` data included in [Attachment - Data](#attach-dat). A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments (including maps) are presented within site-specific appendices to this document.
 
 `r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
 
@@ -573,29 +575,34 @@ bcfishpass_phase2_plot_prep |>
 
 ```
 
+```{r fish-sampling-text, eval = F}
 
-### Fish Sampling
+# ### Fish Sampling
+# 
+# Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in [Attachment - Data](#attach-dat). A summary of density results is also presented in Figure \@ref(fig:plot-fish-all).
+# 
+# <br>
+# 
+# Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) and clicking the _Link Report_")}`.
+# 
+# <br>
+# 
+# `r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
+# 
+# <br>
 
-Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in [Attachment - Data](#attach-dat). A summary of density results is also presented in Figure \@ref(fig:plot-fish-all).
 
-<br>
+```
 
-Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) and clicking the _Link Report_")}`.
 
-<br>
-
-`r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
-
-<br>
-
-```{r tab-fish-site-summary}
+```{r tab-fish-site-summary, eval=FALSE}
 tab_fish_sites_sum |> 
   fpr::fpr_kable(caption_text = 'Summary of electrofishing sites.')
 ```
 
 <br>
 
-```{r plot-fish-all, fig.cap='Boxplots of densities (fish/100m2) of fish captured downstream (ds) and upstream (us) by electrofishing.', eval=T}
+```{r plot-fish-all, fig.cap='Boxplots of densities (fish/100m2) of fish captured downstream (ds) and upstream (us) by electrofishing.', eval=FALSE}
 
 plot_fish_box_all <- fish_abund |> 
   dplyr::filter(
@@ -623,7 +630,7 @@ plot_fish_box_all
 
 <br>
 
-```{r fish-histogram, fig.cap= 'Histograms of fish lengths by species.  Fish captured by electrofishing during habitat confirmation assessments.', eval = T}
+```{r fish-histogram, fig.cap= 'Histograms of fish lengths by species.  Fish captured by electrofishing during habitat confirmation assessments.', eval = FALSE}
 
 # Fish histogram -----------------------------------------------------------------------
 bin_1 <- floor(min(fish_data_complete$length, na.rm = TRUE) / 5) * 5
@@ -650,34 +657,65 @@ plot_fish_hist
 
 ```
 
-## Engineering Design
 
-No new designs were commissioned in 2024 due to uncertainty related to forest harvesting activities and lack of funding
-for the 50% costs of replacing structures.  All sites with a design for remediation of fish passage can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) by filtering using Design = yes")}`.
+### Environmental DNA (eDNA) sampling
 
-
-
-## Remediations
-
-In 2024, remediation of fish passage was completed at PSCIS crossing 125231, located on Tributary to Table River at km 21 
-on the Chuchinka-Table FSR. The crossing was replaced with a clear-span bridge by Canfor with environmental oversight and engineering from DWB Consulting Services Ltd. Half the total funding for the project was provided by FWCP through coordination from SERNbc. More information regarding the crossing can be found within this report [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/tributary-to-the-table-river---125231---appendix.html).  
+New in 2025, environmental DNA (eDNA) sampling was incorporated into the program at both previously assessed and newly added sites. A total of `r form_edna |> nrow()` samples were collected across `r form_edna |> dplyr::distinct(stream_name) |> nrow()` streams.
 
 <br>
 
-All sites where remediation of fish passage has been completed can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) by filtering using Remediation = yes")}`. 
+INCLUDE LAB RESULTS
 
+<br>
+
+## Engineering Design
+
+MIGHT NEED TO UPDATE
+
+No new designs were commissioned in `r cat(params$project_year)` due to uncertainty related to forest harvesting activities and lack of funding
+for the 50% costs of replacing structures.  All sites with a design for remediation of fish passage can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) by filtering using Design = yes")}`.
+
+
+```{r remediations-text, eval=F}
+
+# ## Remediations
+# 
+# In 2024, remediation of fish passage was completed at PSCIS crossing 125231, located on Tributary to Table River at km 21 
+# on the Chuchinka-Table FSR. The crossing was replaced with a clear-span bridge by Canfor with environmental oversight and engineering from DWB Consulting Services Ltd. Half the total funding for the project was provided by FWCP through coordination from SERNbc. More information regarding the crossing can be found within this report [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/tributary-to-the-table-river---125231---appendix.html).  
+# 
+# <br>
+# 
+# All sites where remediation of fish passage has been completed can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) by filtering using Remediation = yes")}`. 
+
+```
 
 
 ## Monitoring
 
-In 2024, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through baseline fish sampling and aquistion of aerial imagery at four sites:
+In `r cat(params$project_year)`, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through baseline fish sampling and aquistion of aerial imagery at the following sites:
 
-- Effectiveness monitoring was conducted on a Tributary to Missinka (PSCIS crossing 125179) on Chuchinka-Missinka FSR which was replaced in 2022. Background can be reviewed [here](https://www.newgraphenvironment.com/fish_passage_peace_2022_reporting/) with results of the monitoring presented within this report in [Tributary to Missinka River - 125179 - Appendix](#trib-to-missinka).
+- Effectiveness monitoring was conducted on Tabor Creek (PSCIS crossing 196085) on Willow-Cale FRS which was replaced in XXXX.
 
-- In the summer of 2024, Tributary to Table crossing (PSCIS crossing 125131) on Chuchinka-Table FSR was replaced, with effectiveness monitoring conducted in the fall. The initial habitat confirmation for the site is documented in @irvine2020ParsnipRiver [here](https://www.newgraphenvironment.com/Parsnip_Fish_Passage/). Baseline monitoring in 2023 along with the results of 2024 effectiveness monitoring (updated reporting) can be reviewed in  [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/tributary-to-the-table-river---125231---appendix.html).
+- Effectiveness monitoring was conducted on Bittner Creek (PSCIS crossing 196200) on Foreman Road which was replaced in XXXX.
 
-- Baseline fish sampling was conducted at PSCIS crossing 125261 located on Fern Creek near the 2.1km mark of the Chuchinka-Table FSR. Although restoration of this site (in collaboration with Canfor) had been planned for 2025 - remediation has been delayed due to uncertainty regarding forest harvest activities within the greater Table River watershed.  Fish sampling activities including PIT tagging were conducted in 2024 to compliment fish data aquired in 2023.  Documentation is provided in @irvine_winterscheidt2024RestoringFish [here](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting/).
 
-- Baseline fish sampling and acquisition of aerial imagery was conducted at PSCIS crossings 198692 is located on Tributary to Kerry Lake, at kilometer 7 of Kerry Lake FSR. Documentation is provided within this report [Tributary to Kerry Lake - 198692 - Appendix](#trib-to-kerry). 
+```{r tab-mon-overview, eval = FALSE}
+# started but not sure if this is going to be helpful. 
+form_monitoring |> 
+ dplyr::select(
+    `PSCIS ID` = pscis_crossing_id,
+    Stream = stream_name,
+    Road = road_name,
+    `Crossing type` = crossing_type,
+    `Crossing subtype` = crossing_subtype,
+    `Diameter or span (m)` = diameter_or_span_meters,
+    `Length or width (m)` = length_or_width_meters,
+    `Assessment comments` = assessment_comment
+  ) |> 
+   fpr::fpr_kable(caption_text = 'Summary of monitoring details.', scroll = T)
+  
+
+```
+
 
 

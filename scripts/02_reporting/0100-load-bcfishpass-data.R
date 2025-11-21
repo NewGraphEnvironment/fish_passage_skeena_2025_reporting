@@ -2,14 +2,15 @@
 
 # The data must be submitted to the province first before proceeding with this script.
 
+# Params ----------
 # this is the name of the funding project we used to submit our phase 1 data to the province.  we use it to filter the raw
 # pscis data for our entire study area to obtain just the data we submitted. We use it to filter xref_pscis_my_crossing_modelled
 # but not sure that filtering is actually necessary - we could test and remove if it is not
-my_funding_project_number = "peace_2024_Phase1"
+my_funding_project_number = "fraser_2025_Phase1"
 
 
 # name the watershed groups in our study area
-wsg <- c('PARS', 'CARP', 'CRKD')
+wsg <- c("LCHL", "NECR", "FRAN", "MORK", "UFRA", "WILL", "TBAR", "")
 
 
 # this object should be called bcfishpass_crossings_vw or something that better reflects what it is
@@ -52,6 +53,20 @@ xref_pscis_my_crossing_modelled <- pscis_assessment_svw |>
   dplyr::mutate(external_crossing_reference = as.numeric(external_crossing_reference)) |>
   dplyr::arrange(external_crossing_reference) |>
   sf::st_drop_geometry()
+
+
+# Load the cleaned habitat_confirmations tracks for this project
+# Forgot to duplicate/rename the layer to for 2025 the layer name is `gps_tracks_2025_ai`
+gps_layer_name <- paste0("gps_tracks_", params$project_year, "_ai")
+
+path_tracks <- fs::path(
+  "~/Library/CloudStorage/OneDrive-Personal/Projects", paste0(params$project_year, "_data"), "gps", paste0("gps_", params$project_year, ".gpkg")
+)
+
+habitat_confirmation_tracks <- sf::st_read(dsn = path_tracks,
+                                           layer = gps_layer_name) |>
+  dplyr::filter(repo == params$repo_name & cleaned == TRUE)
+
 
 
 # Initiliaze the database-----------------------------------------------------------------------------------------------------

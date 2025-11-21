@@ -2,20 +2,50 @@
 
 # Parameters -------------------------------------------------
 
-# path to form_pscis_2024
-path_form_pscis <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_pscis_2024.gpkg"))
+# path to form_pscis_<year>
+path_form_pscis <- fs::path(
+  "~/Projects/gis/",
+  params$gis_project_name,
+  "/data_field/",
+  params$project_year,
+  paste0("form_pscis_", params$project_year, ".gpkg")
+)
 
-# path to NEW `form_fiss_site_2024` made from `0205_fiss_extract_inputs.Rmd`
-path_form_fiss_site <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_fiss_site_2024.gpkg"))
+# path to form_fiss_site_<year>
+path_form_fiss_site <- fs::path(
+  "~/Projects/gis/",
+  params$gis_project_name,
+  "/data_field/",
+  params$project_year,
+  paste0("form_fiss_site_", params$project_year, ".gpkg")
+)
 
 # path to monitoring form
-path_form_monitoring <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_monitoring_2024.gpkg"))
+path_form_monitoring <- fs::path(
+  "~/Projects/gis/",
+  params$gis_project_name,
+  "/data_field/",
+  params$project_year,
+  paste0("form_monitoring_", params$project_year, ".gpkg")
+)
+
+# path to edna form
+path_form_edna <- fs::path(
+  "~/Projects/gis/",
+  params$gis_project_name,
+  "/data_field/",
+  params$project_year,
+  paste0("form_edna_", params$project_year, ".gpkg")
+)
 
 # Repo path to the fish data with the pit tags joined.
-path_fish_tags_joined <-  fs::path_expand(fs::path("~/Projects/repo/", params$repo_name ,"/data/fish_data_tags_joined.csv"))
+path_fish_tags_joined <- fs::path(
+  "~/Projects/repo/",
+  params$repo_name,
+  "/data/fish_data_tags_joined.csv"
+)
 
-# specify which project data we want. for this case `2024-073-sern-peace-fish-passage`
-project <- "2024-073-sern-peace-fish-passage"
+
 
 
 # Generate dynamic captions -------------------------------------------------
@@ -65,9 +95,9 @@ spawn_gradient <- bcfishpass_spawn_rear_model |>
 # If update_form_pscis = TRUE then re-run 0130_pscis_wrangle.Rmd and re-burn form_pscis to sqlitee
 if (params$update_form_pscis) {
 
-  # Run 0130_pscis_wrangle.Rmd which cleans up the form then burns back to geopackage.
-  rmarkdown::render('scripts/01_prep_inputs/0130_pscis_wrangle.Rmd')
-  usethis::use_git_ignore('scripts/02_reporting/0130_pscis_wrangle.html')
+  # # Run 0130_pscis_wrangle.Rmd which cleans up the form then burns back to geopackage.
+  # rmarkdown::render('scripts/01_prep_inputs/0130_pscis_wrangle.Rmd')
+  # usethis::use_git_ignore('scripts/02_reporting/0130_pscis_wrangle.html')
 
   # re-burn form_pscis to sqlitee
   form_pscis <- fpr::fpr_sp_gpkg_backup(
@@ -97,9 +127,9 @@ if (params$update_form_pscis) {
 # If update_form_fiss_site = TRUE then re-run 0205_fiss_wrangle.Rmd and re-burn form_pscis to sqlite
 if (params$update_form_fiss_site) {
 
-  # Run 0205_fiss_wrangle.Rmd which cleans up the form then burns back to geopackage.
-  rmarkdown::render('scripts/01_prep_inputs/0205_fiss_wrangle.Rmd')
-  usethis::use_git_ignore('scripts/02_reporting/0205_fiss_wrangle.html')
+  # # Run 0205_fiss_wrangle.Rmd which cleans up the form then burns back to geopackage.
+  # rmarkdown::render('scripts/01_prep_inputs/0205_fiss_wrangle.Rmd')
+  # usethis::use_git_ignore('scripts/02_reporting/0205_fiss_wrangle.html')
 
 
   #Now read and backup the form
@@ -115,21 +145,6 @@ if (params$update_form_fiss_site) {
     col_northing = "utm_northing") |>
     sf::st_drop_geometry()
 
-  # Peace 2024 - times in `form_fiss_site_raw` are wrong in R and Q!
-  #
-  # We need to fix the times because they are in UTC and we need them in PDT. This issue is documented here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/18
-  form_fiss_site_clean_times <- form_fiss_site |>
-    # make a new column for the time as is with different name then mutate to PST
-    # we don't need the new column but will leave here for now so we can visualize and confirm the time is correct
-    dplyr::mutate(date_time_start_raw = date_time_start,
-                  date_time_start = lubridate::force_tz(date_time_start_raw, tzone = "America/Vancouver"),
-                  date_time_start = lubridate::with_tz(date_time_start, tzone = "UTC")) |>
-    dplyr::relocate(date_time_start_raw, .after = date_time_start)
-
-  ## Double check the time is correct and now remove the date_time_start_raw column
-  form_fiss_site <- form_fiss_site_clean_times |>
-    select(-date_time_start_raw)
-
 
   # Now burn to the sqlite
   conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
@@ -138,8 +153,6 @@ if (params$update_form_fiss_site) {
   readwritesqlite::rws_write(form_fiss_site, exists = F, delete = TRUE,
                              conn = conn, x_name = "form_fiss_site")
   readwritesqlite::rws_disconnect(conn)
-  # remove the object to avoid issues if something breaks
-  rm(form_fiss_site_clean_times)
 }
 
 
@@ -149,6 +162,7 @@ if (params$update_form_fiss_site) {
 
 # If update_form_monitoring = TRUE then load form_monitoring to sqlite - need to load the params from `index.Rmd`
 if (params$update_form_monitoring) {
+
   form_monitoring <- fpr::fpr_sp_gpkg_backup(
     path_gpkg = path_form_monitoring,
     dir_backup = "data/backup/",
@@ -172,8 +186,50 @@ if (params$update_form_monitoring) {
 }
 
 
+## Update edna form  -------------------------------------------------
+
+# form_edna data gets read in from `02_reporting/0165-read-sqlite.R`
+
+# If update_form_edna = TRUE then load form_edna to sqlite - need to load the params from `index.Rmd`
+if (params$update_form_edna) {
+
+  form_edna <- fpr::fpr_sp_gpkg_backup(
+    path_gpkg = path_form_edna,
+    dir_backup = "data/backup/",
+    update_utm = TRUE,
+    update_site_id = FALSE,
+    write_back_to_path = FALSE,
+    return_object = TRUE,
+    write_to_csv = FALSE,
+    write_to_rdata = FALSE,
+    col_easting = "utm_easting",
+    col_northing = "utm_northing")
+
+
+  # Now burn to the sqlite
+  conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
+  # won't run on first build if the table doesn't exist
+  readwritesqlite::rws_drop_table("form_edna", conn = conn)
+  readwritesqlite::rws_write(form_edna, exists = F, delete = TRUE,
+                             conn = conn, x_name = "form_edna")
+  readwritesqlite::rws_disconnect(conn)
+}
+
 
 ## Load PSCIS spreadsheets -------------------------------------------------
+
+# first we need to move the spreadsheets to the main data folder. We can't just tell `fpr_import_pscis_all`() to look somewhere else because `fpr_import_pscis_all` doesn't allow us to pass arguments to `fpr_import_pscis` which ultimately decides the path to look for the spreadsheets.
+
+files_to_copy <- fs::dir_ls(
+  fs::path("data/spreadsheets", params$project_year, params$gis_project_name),
+  type = "file"
+)
+
+fs::file_copy(
+  path = files_to_copy,
+  new_path = "data",
+  overwrite = TRUE
+)
 
 # For now, import data and build tables we for reporting
 pscis_list <- fpr::fpr_import_pscis_all()
@@ -201,9 +257,11 @@ pscis_all <- dplyr::left_join(
 
 ## Load fish data -------------------------------------------------
 
-fish_data_complete <- readr::read_csv(file = path_fish_tags_joined) |>
-  janitor::clean_names() |>
-  dplyr::filter(project_name == project)
+# NO fish data for Fraser 2025
+
+# fish_data_complete <- readr::read_csv(file = path_fish_tags_joined) |>
+#   janitor::clean_names() |>
+#   dplyr::filter(params$job_name == project)
 
 
 # Bcfishpass modelling table setup for reporting --------------------------
@@ -576,95 +634,95 @@ rm(tab_overview_prep1, tab_overview_prep2)
 
 # Fish sampling ----------------------------------------------
 
-## Fish sampling results condensed ----------------------------------------------
-# tab_fish_summary
-tab_fish_summary <- fish_data_complete |>
-  # exclude visual observations
-  dplyr::filter(sampling_method == "electrofishing") |>
-  tidyr::separate(local_name, into = c("site_id", "location", "ef")) |>
-  dplyr::mutate(site_id = paste0(site_id, "_", location)) |>
-  dplyr::group_by(site_id,
-                  ef,
-                  sampling_method,
-                  species) |>
-  dplyr::summarise(count_fish = n()) |>
-  dplyr::mutate(count_fish = case_when(species == "NFC" ~ 0, T ~ count_fish)) |>
-  dplyr::arrange(site_id, species, ef)
-
-
-
-## Fish sampling site summary ------------------------------
-# `tab_fish_sites_sum` object for `fpr_table_fish_site()`
-tab_fish_sites_sum <- dplyr::left_join(fish_data_complete |>
-                                         dplyr::group_by(local_name) |>
-                                         dplyr::mutate(pass_total = max(pass_number)) |>
-                                         dplyr::ungroup() |>
-                                         dplyr::select(local_name, pass_total, enclosure),
-                                       form_fiss_site |>
-                                         dplyr::filter(!is.na(ef)) |>
-                                         dplyr::select(local_name, gazetted_names, site_length, avg_wetted_width_m) |>
-                                         dplyr::mutate(gazetted_names = stringr::str_trim(gazetted_names),
-                                                        gazetted_names = stringr::str_to_title(gazetted_names)) ,
-                                       by = "local_name"
-
-  ) |>
-  dplyr::distinct(local_name, .keep_all = TRUE) |>
-  dplyr::rename(ef_length_m = site_length, ef_width_m = avg_wetted_width_m) |>
-  dplyr::mutate(area_m2 = round(ef_length_m * ef_width_m,1)) |>
-  dplyr::select(site = local_name, stream = gazetted_names, passes = pass_total, ef_length_m, ef_width_m, area_m2, enclosure)
-
-
-## Fish sampling density results ------------------------------
-# `fish_abund` object for `fpr_table_fish_density()` and `fpr_plot_fish_box()`
-fish_abund <- dplyr::left_join(
-  fish_data_complete |>
-    # exclude visual observations
-    dplyr::filter(sampling_method == "electrofishing") |>
-    # Add life_stage and pass_total
-    dplyr::mutate(
-      life_stage = case_when(
-        length <= 65 ~ 'fry',
-        length > 65 & length <= 110 ~ 'parr',
-        length > 110 & length <= 140 ~ 'juvenile',
-        length > 140 ~ 'adult',
-        TRUE ~ NA_character_
-      ),
-      life_stage = case_when(
-        stringr::str_like(species, '%sculpin%') ~ NA_character_,
-        TRUE ~ life_stage
-      ),
-      # Add pass_total here
-      pass_total = max(pass_number)
-    ) |>
-    # Group and summarize
-    dplyr::group_by(local_name, species, life_stage, pass_number,pass_total) |>
-    dplyr::summarise(
-      catch = n(),
-      .groups = "drop" # Ensures the grouping is removed after summarizing
-    ) |>
-    # Add nfc_pass
-    dplyr::mutate(
-      catch = case_when(species == 'NFC' ~ 0L, TRUE ~ catch),
-      nfc_pass = case_when(
-        species != 'NFC' & pass_number == pass_total ~ FALSE,
-        TRUE ~ TRUE
-      ),
-      nfc_pass = case_when(
-        species == 'NFC' ~ TRUE,
-        TRUE ~ nfc_pass
-      )),
-
-  form_fiss_site |>
-    dplyr::filter(!is.na(ef)) |>
-    dplyr::select(local_name, site, location, site_length, avg_wetted_width_m),
-
-  by = "local_name"
-  ) |>
-
-  dplyr::rename(ef_length_m = site_length, ef_width_m = avg_wetted_width_m, species_code = species) |>
-  dplyr::mutate(area_m2 = round(ef_length_m * ef_width_m,1),
-                density_100m2 = round(catch/area_m2 * 100,1)) |>
-  dplyr::select(local_name, site, location, species_code, life_stage, catch, density_100m2, nfc_pass)
+# ## Fish sampling results condensed ----------------------------------------------
+# # tab_fish_summary
+# tab_fish_summary <- fish_data_complete |>
+#   # exclude visual observations
+#   dplyr::filter(sampling_method == "electrofishing") |>
+#   tidyr::separate(local_name, into = c("site_id", "location", "ef")) |>
+#   dplyr::mutate(site_id = paste0(site_id, "_", location)) |>
+#   dplyr::group_by(site_id,
+#                   ef,
+#                   sampling_method,
+#                   species) |>
+#   dplyr::summarise(count_fish = n()) |>
+#   dplyr::mutate(count_fish = case_when(species == "NFC" ~ 0, T ~ count_fish)) |>
+#   dplyr::arrange(site_id, species, ef)
+#
+#
+#
+# ## Fish sampling site summary ------------------------------
+# # `tab_fish_sites_sum` object for `fpr_table_fish_site()`
+# tab_fish_sites_sum <- dplyr::left_join(fish_data_complete |>
+#                                          dplyr::group_by(local_name) |>
+#                                          dplyr::mutate(pass_total = max(pass_number)) |>
+#                                          dplyr::ungroup() |>
+#                                          dplyr::select(local_name, pass_total, enclosure),
+#                                        form_fiss_site |>
+#                                          dplyr::filter(!is.na(ef)) |>
+#                                          dplyr::select(local_name, gazetted_names, site_length, avg_wetted_width_m) |>
+#                                          dplyr::mutate(gazetted_names = stringr::str_trim(gazetted_names),
+#                                                         gazetted_names = stringr::str_to_title(gazetted_names)) ,
+#                                        by = "local_name"
+#
+#   ) |>
+#   dplyr::distinct(local_name, .keep_all = TRUE) |>
+#   dplyr::rename(ef_length_m = site_length, ef_width_m = avg_wetted_width_m) |>
+#   dplyr::mutate(area_m2 = round(ef_length_m * ef_width_m,1)) |>
+#   dplyr::select(site = local_name, stream = gazetted_names, passes = pass_total, ef_length_m, ef_width_m, area_m2, enclosure)
+#
+#
+# ## Fish sampling density results ------------------------------
+# # `fish_abund` object for `fpr_table_fish_density()` and `fpr_plot_fish_box()`
+# fish_abund <- dplyr::left_join(
+#   fish_data_complete |>
+#     # exclude visual observations
+#     dplyr::filter(sampling_method == "electrofishing") |>
+#     # Add life_stage and pass_total
+#     dplyr::mutate(
+#       life_stage = case_when(
+#         length <= 65 ~ 'fry',
+#         length > 65 & length <= 110 ~ 'parr',
+#         length > 110 & length <= 140 ~ 'juvenile',
+#         length > 140 ~ 'adult',
+#         TRUE ~ NA_character_
+#       ),
+#       life_stage = case_when(
+#         stringr::str_like(species, '%sculpin%') ~ NA_character_,
+#         TRUE ~ life_stage
+#       ),
+#       # Add pass_total here
+#       pass_total = max(pass_number)
+#     ) |>
+#     # Group and summarize
+#     dplyr::group_by(local_name, species, life_stage, pass_number,pass_total) |>
+#     dplyr::summarise(
+#       catch = n(),
+#       .groups = "drop" # Ensures the grouping is removed after summarizing
+#     ) |>
+#     # Add nfc_pass
+#     dplyr::mutate(
+#       catch = case_when(species == 'NFC' ~ 0L, TRUE ~ catch),
+#       nfc_pass = case_when(
+#         species != 'NFC' & pass_number == pass_total ~ FALSE,
+#         TRUE ~ TRUE
+#       ),
+#       nfc_pass = case_when(
+#         species == 'NFC' ~ TRUE,
+#         TRUE ~ nfc_pass
+#       )),
+#
+#   form_fiss_site |>
+#     dplyr::filter(!is.na(ef)) |>
+#     dplyr::select(local_name, site, location, site_length, avg_wetted_width_m),
+#
+#   by = "local_name"
+#   ) |>
+#
+#   dplyr::rename(ef_length_m = site_length, ef_width_m = avg_wetted_width_m, species_code = species) |>
+#   dplyr::mutate(area_m2 = round(ef_length_m * ef_width_m,1),
+#                 density_100m2 = round(catch/area_m2 * 100,1)) |>
+#   dplyr::select(local_name, site, location, species_code, life_stage, catch, density_100m2, nfc_pass)
 
 
 

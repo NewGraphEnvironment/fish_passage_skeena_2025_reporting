@@ -1,25 +1,26 @@
 --- 
-title: "Fish Passage Reporting Template"
+title: "Restoring Fish Passage in the Fraser Region - 2025"
 author: |
  |
  | Prepared for
- | Habitat Conservation Trust Foundation - CAT23-6-288
- | BC Fish Passage Remediation Program
  | Ministry of Transportation and Infrastructure
- | Fish and Wildlife Compensation Program - Peace Region
+ |
+ | and
+ |
+ | Society for Ecosystem Restoration in Northern BC (SERNbc)
  |
  |
  | Prepared by
  | Al Irvine, B.Sc., R.P.Bio. and Lucy Schick, B.Sc.
  | New Graph Environment Ltd.
  |
- |on behalf of 
- |
- |Society for Ecosystem Restoration in Northern British Columbia
+ | on behalf of
+ | 
+ | Society for Ecosystem Restoration in Northern BC (SERNbc)
 
 date: |
  |
- | Version 0.0.4 `r format(Sys.Date(), "%Y-%m-%d")`
+ | Version 0.0.1 `r format(Sys.Date(), "%Y-%m-%d")`
 toc-title: Table of Contents
 site: bookdown::bookdown_site
 output: 
@@ -27,18 +28,20 @@ output:
           includes:
             in_header: header.html
 params:
-  repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_template_reporting'
-  report_url: 'https://www.newgraphenvironment.com/fish_passage_template_reporting/'
+  repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_fraser_2025_reporting'
+  report_url: 'https://www.newgraphenvironment.com/fish_passage_fraser_2025_reporting/'
   job_name: '2025-076-sern-skeena-fraser-fish-passage'
   repo_name: "fish_passage_fraser_2025_reporting" 
   gis_project_name: "sern_fraser_2024" 
   project_region: "fraser"
   project_year: "2025"
-  model_species: "bt"
+  project_start_year: "2023"
+  model_species: "st"
   update_packages: FALSE
   update_form_pscis: FALSE
   update_form_fiss_site: FALSE
   update_form_monitoring: FALSE
+  update_form_enda: FALSE
   update_gis: FALSE
 nocite: |
   @busch_etal2011LandscapeLevelModela, 
@@ -97,7 +100,7 @@ font_set <- 9
 source('scripts/packages.R')
 source('scripts/staticimports.R')
 source("scripts/02_reporting/0120-read-sqlite.R")
-source('scripts/02_reporting/0130-tables.R')
+# source('scripts/02_reporting/0130-tables.R')
 
 ```
 
