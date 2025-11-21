@@ -471,7 +471,8 @@ fiss_species_table <- readr::read_csv('data/inputs_extracted/fiss_species_table.
 
 my_caption <- paste0(
   "Fish species recorded in the ", 
-  # provided they are all making the table which prob doesn't work with tons of wsg
+  # provided they are all making the table which prob doesn't work with tons of wsg. Could consider removing wsg in this chunk
+  # vs the build of the table...
   knitr::asis_output(wsg_names) |> knitr::combine_words(), 
   " watershed groups."
   )
@@ -509,7 +510,12 @@ fiss_sum_wshed <- readr::read_csv(file = 'data/inputs_extracted/fiss_sum_wshed.c
 ```
 
 ```{r tab-fish-grad}
-my_caption <- 'Summary of historic fish observations vs. stream gradient category for the Nechako River, Lower Chilako River, François Lake, Morkill River and Upper Fraser River watershed groups.'
+my_caption <- paste0(
+  "Summary of historic fish observations vs. stream gradient category for the ", 
+  knitr::asis_output(wsg_names) |> knitr::combine_words(), 
+  " watershed groups."
+  )
+
 fiss_sum_grad %>% 
   dplyr::select(-gradient_id) |> 
   fpr::fpr_kable(caption_text = my_caption,
@@ -518,7 +524,12 @@ fiss_sum_grad %>%
 
 <br>
 
-```{r fish-plot-grad, out.width = photo_width, fig.cap= 'Summary of historic fish observations vs. stream gradient category for the Nechako River, Lower Chilako River, François Lake, Morkill River and Upper Fraser River watershed groups.', eval=T}
+```{r fish-plot-grad, out.width = photo_width, fig.cap= my_caption, eval=T}
+my_caption <- paste0(
+  "Summary of historic fish observations vs. stream gradient category for the ", 
+  knitr::asis_output(wsg_names) |> knitr::combine_words(), 
+  " watershed groups."
+  )
 
 ## bar graph
 plot_grad <- fiss_sum_grad |>
