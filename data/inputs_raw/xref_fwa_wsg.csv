@@ -1,0 +1,247 @@
+watershed_group_code,watershed_group_name
+ADMS,Adams River
+ALBN,Alberni Inlet
+ATLL,Atlin Lake
+ATNA,Atnarko River
+BABL,Babine Lake
+BABR,Babine River
+BARR,Barrington River
+BBAR,Big Bar Creek
+BEAV,Beaver River
+BELA,Bella Coola River
+BIGC,Big Creek
+BLAR,Blackwater River
+BLUR,Blue River
+BONP,Bonaparte River
+BOWR,Bowron
+BRID,Bridge Creek
+BRKS,Brooks Peninsula
+BULK,Bulkley River
+BULL,Bull River
+CAMB,Campbell River
+CANO,Canoe Reach
+CARP,Carp Lake
+CARR,Cariboo River
+CHES,Cheslatta River
+CHIL,Chilako River
+CHIR,Chilko River
+CHUK,Chukachida River
+CHWK,Chilliwack River
+CLAY,Clayoquot
+CLRH,Columbia Reach
+CLWR,Clearwater River
+COAL,Coal River
+COLR,Columbia River
+COMX,Comox
+COTR,Cottonwood River
+COWN,Cowichan
+CRKD,Crooked River
+CRYL,Cry Lake
+DEAD,Deadman River
+DEAL,Dease Lake
+DEAR,Dease River
+DOGC,Dog Creek
+DRIR,Driftwood River
+DUNC,Duncan Lake
+DUNE,Dunedin River
+ELKR,Elk River
+EUCH,Euchiniko River
+EUCL,Euchiniko Lake
+FINA,Finlay Arm
+FINL,Finlay River
+FIRE,Firesteel River
+FONT,Fontas River
+FOXR,Fox River
+FRAN,Francois Lake
+FRCN,Fraser Canyon
+FROG,Frog River
+GATA,Gataga River
+GLAR,Gladys River
+GOLD,Gold River
+GRAI,Graham Island
+GRNL,Green Lake
+GUIC,Guichon Creek
+HARR,Harrison River
+HAYR,Hay River
+HERR,Herrick Creek
+HOLB,Holberg
+HOMA,Homathko River
+HORS,Horsefly River
+INGR,Ingenika River
+INKR,Inklin River
+ISKR,Iskut River
+JENR,Jennings River
+JERV,Jervis Inlet
+KAHN,Kahntah River
+KAKC,Kakiddi Creek
+KCHL,Kotcho Lake
+KEEC,Keecha Creek
+KETL,Kettle River
+KHOR,Kicking Horse River
+KHTZ,Khutze River
+KINR,Kinskuch River
+KISK,Kiskatinaw River
+KISP,Kispiox River
+KITL,Kitlope River
+KITR,Kitimat River
+KLAR,Klappan River
+KLIN,Klinaklini River
+KLUM,Kalum River
+KNIG,Knight Inlet
+KOTL,Kootenay Lake
+KOTR,Kootenay River
+KSHR,Kshwan River
+KTSU,Kitasu Bay
+KUMR,Kumowdah River
+KUSR,Kusawa River
+LARL,Lower Arrow Lake
+LBIR,Lower Bell -Irving River
+LBTN,Lower Beatton River
+LCHL,Lower Chilako River
+LCHR,Lower Chilcotin River
+LDEN,Lower Dean River
+LEUT,Lower Eutsuk Lake
+LFRA,Lower Fraser
+LFRT,Lower Fort Nelson River
+LHAF,Lower Halfway River
+LIAR,Liard River
+LILL,Lillooet
+LISR,Lower Iskut River
+LKEC,Lower Kechika River
+LKEL,Lakelse
+LMUS,Lower Muskwa River
+LNAR,Lower Nass River
+LNIC,Lower Nicola River
+LNRS,Lower Nechako Reservoir
+LNTH,Lower North Thompson River
+LOMI,Lower Omineca River
+LPCE,Lower Peace River
+LPET,Lower Petitot River
+LPRO,Lower Prophet River
+LRAN,Little Rancheria River
+LRDO,Laredo Inlet
+LSAL,Lower Salmon River
+LSIK,Lower Sikanni Chief River
+LSKE,Lower Skeena River
+LSTR,Lower Stikine River
+LTRE,Lower Trembleur Lake
+MAHD,Mahood Lake
+MBNK,Middle Banks Island
+MCGR,McGregor River
+MDEA,Middle Dease River
+MESC,Mess Creek
+MESI,Mesilinka River
+MFRA,Middle Fraser
+MFRT,Middle Fort Nelson River
+MIDR,Middle River
+MILL,Milligan Creek
+MMUS,Middle Muskwa River
+MORI,Morsby Island
+MORK,Morkill River
+MORR,Morice River
+MPRO,Middle Prophet River
+MSKE,Middle Skeena River
+MSTR,Middle Stikine River
+MURR,Murray River
+MURT,Murtle Lake
+MUSK,Muskeg River
+NAHR,Nahlin River
+NAKR,Nakina River
+NARC,Narcosli Creek
+NASC,Nascall River
+NASR,Nass River
+NATR,Nation River
+NAZR,Nazko River
+NBNK,North Banks Island
+NECL,Necleetsconnay River
+NECR,Nechako River
+NEVI,Northeast Vancouver Island
+NICL,Nicola River
+NIEL,Niel Creek
+NIMP,Nimpkish River
+OKAN,Okanagan River
+OSPK,Ospika River
+OWIK,Owikeno Lake
+PARA,Parsnip Arm
+PARK,Parksville
+PARS,Parsnip River
+PCEA,Peace Arm
+PINE,Pine River
+PITR,Pitman River
+PORI,Porcher Island
+QUES,Quesnel River
+REVL,Revelstoke Lake
+SAHD,Sahdoanah Creek
+SAHT,Sahtaneh River
+SAJR,San Jose River
+SALM,Salmon River
+SALR,Salmon River
+SANJ,San Juan River
+SETN,Seton Lake
+SEYM,Seymour Inlet
+SHEK,Shekilie River
+SHER,Sheslay River
+SHUL,Shuswap Lake
+SIML,Similkameen River
+SKGT,Skagit River
+SLOC,Slocan River
+SMAR,St. Mary River
+SMOK,Smoky River
+SPAT,Spatsizi River
+SQAM,Squamish
+STHM,South Thompson River
+STIR,Stikine River
+STUL,Stuart Lake
+STUR,Stuart River
+SUST,Sustut River
+SWIR,Swift River
+TABR,Tabor River
+TAHR,Tahltan River
+TAHS,Tahsis
+TAKL,Takla Lake
+TASR,Taseko River
+TATR,Tatshenshini River
+TAYR,Taylor River
+TESR,Teslin River
+THOM,Thompson River
+TOAD,Toad River
+TOBA,Toba Inlet
+TOOD,Toodoggone River
+TSAY,Tsaytis River
+TSEA,Tsea River
+TSIT,Tsitika River
+TURN,Turnagain River
+TUTR,Tutshi River
+TUYR,Tuya River
+TWAC,Twan Creek
+UARL,Upper Arrow Lake
+UBIR,Upper Bell -Irving River
+UBTN,Upper Beatton River
+UCHR,Upper Chilcotin River
+UDEN,Upper Dean River
+UEUT,Upper Eutsuk Lake
+UFRA,Upper Fraser River
+UFRT,Upper Fort Nelson River
+UHAF,Upper Halfway River
+UISR,Upper Iskut River
+UJER,Upper Jennings River
+UKEC,Upper Kechika River
+ULRD,Upper Liard River
+UMUS,Upper Muskwa River
+UNAR,Upper Nass River
+UNRS,Upper Nechako Reservoir
+UNTH,Upper North Thompson River
+UNUR,Unuk River
+UOMI,Upper Omineca River
+UPCE,Upper Peace River
+UPET,Upper Petitot River
+UPRO,Upper Prophet River
+USHU,Upper Shuswap
+USIK,Upper Sikanni Chief River
+USKE,Upper Skeena River
+USTK,Upper Stikine River
+UTRE,Upper Trembleur Lake
+VICT,Victoria
+WILL,Willow River
+WORC,Work Channel
+ZYMO,Zymoetz River
