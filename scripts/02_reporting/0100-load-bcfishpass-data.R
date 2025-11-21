@@ -96,6 +96,10 @@ readwritesqlite::rws_drop_table("xref_pscis_my_crossing_modelled", conn = conn)
 readwritesqlite::rws_write(xref_pscis_my_crossing_modelled, exists = F, delete = TRUE,
                            conn = conn, x_name = "xref_pscis_my_crossing_modelled")
 
+readwritesqlite::rws_drop_table("habitat_confirmation_tracks", conn = conn)
+readwritesqlite::rws_write(habitat_confirmation_tracks, exists = F, delete = TRUE,
+                           conn = conn, x_name = "habitat_confirmation_tracks")
+
 readwritesqlite::rws_list_tables(conn)
 readwritesqlite::rws_disconnect(conn)
 
