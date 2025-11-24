@@ -216,44 +216,6 @@ if (params$update_form_edna) {
 }
 
 
-## Load PSCIS spreadsheets -------------------------------------------------
-
-# first we need to move the spreadsheets to the main data folder. We can't just tell `fpr_import_pscis_all`() to look somewhere else because `fpr_import_pscis_all` doesn't allow us to pass arguments to `fpr_import_pscis` which ultimately decides the path to look for the spreadsheets.
-
-files_to_copy <- fs::dir_ls(
-  fs::path("data/spreadsheets", params$project_year, params$gis_project_name),
-  type = "file"
-)
-
-fs::file_copy(
-  path = files_to_copy,
-  new_path = "data",
-  overwrite = TRUE
-)
-
-# For now, import data and build tables we for reporting
-pscis_list <- fpr::fpr_import_pscis_all()
-pscis_phase1 <- pscis_list |> purrr::pluck('pscis_phase1')
-pscis_phase2 <- pscis_list |> purrr::pluck('pscis_phase2') |>
-  dplyr::arrange(pscis_crossing_id)
-pscis_reassessments <- pscis_list |> purrr::pluck('pscis_reassessments')
-pscis_all_prep <- pscis_list |>
-  dplyr::bind_rows()
-
-
-
-# Used in many other parts of the script
-pscis_all <- dplyr::left_join(
-  pscis_all_prep,
-  xref_pscis_my_crossing_modelled,
-  by = c('my_crossing_reference' = 'external_crossing_reference')
-) |>
-  dplyr::mutate(pscis_crossing_id = dplyr::case_when(
-    is.na(pscis_crossing_id) ~ as.numeric(stream_crossing_id),
-    TRUE ~ pscis_crossing_id
-  )) |>
-  dplyr::arrange(pscis_crossing_id)
-
 
 ## Load fish data -------------------------------------------------
 
@@ -262,6 +224,16 @@ pscis_all <- dplyr::left_join(
 # fish_data_complete <- readr::read_csv(file = path_fish_tags_joined) |>
 #   janitor::clean_names() |>
 #   dplyr::filter(params$job_name == project)
+
+
+# Separate form_pscis by assessment type -------------------------------------------------
+
+pscis_phase1 <- form_pscis |> dplyr::filter(assess_type_phase1 == "Yes") |>
+  dplyr::arrange(pscis_crossing_id)
+pscis_phase2 <- form_pscis |> dplyr::filter(assess_type_phase2 == "Yes") |>
+  dplyr::arrange(pscis_crossing_id)
+pscis_reassessments <- form_pscis |> dplyr::filter(assess_type_reassessment == "Yes") |>
+  dplyr::arrange(pscis_crossing_id)
 
 
 # Bcfishpass modelling table setup for reporting --------------------------
@@ -540,9 +512,8 @@ tab_hab_summary <- form_fiss_site |>
 ## make result summary tables for each of the crossings, used to display phase 1 data in the appendix
 
 ## turn spreadsheet into list of data frames
-pscis_phase1_for_tables <- pscis_all |>
-  dplyr::filter(!source == "pscis_phase2.xlsm") |>
-  dplyr::arrange(pscis_crossing_id)
+pscis_phase1_for_tables <- form_pscis |>
+  dplyr::filter(assess_type_phase1 == "Yes" | assess_type_reassessment == "Yes")
 
 pscis_split <- pscis_phase1_for_tables  |>
   dplyr::group_split(pscis_crossing_id) |>
@@ -732,8 +703,9 @@ rm(tab_overview_prep1, tab_overview_prep2)
 # General preparation for cost estimates. Phase 1 and Phase 2 specific code in farther down.
 
 # Step 1: Join the road class and surface data from `rd_class_surface` to the crossings
-tab_cost_est_prep <- dplyr::left_join(
-  pscis_all |>
+tab_cost_est_prep1 <- dplyr::left_join(
+  form_pscis |>
+    sf::st_drop_geometry() |>
     dplyr::select(
       pscis_crossing_id,
       my_crossing_reference,
@@ -745,26 +717,12 @@ tab_cost_est_prep <- dplyr::left_join(
       fill_depth_meters,
       crossing_fix,
       habitat_value,
-      recommended_diameter_or_span_meters,
-      source),
+      recommended_diameter_or_span_meters),
   rd_class_surface |>
     dplyr::select(stream_crossing_id, my_road_class, my_road_surface),
   by = c('pscis_crossing_id' = 'stream_crossing_id')
 )
 
-# Step 2: Add `pscis_crossing_id` from `xref_pscis_my_crossing_modelled`
-tab_cost_est_prep1 <- dplyr::left_join(
-  tab_cost_est_prep,
-  xref_pscis_my_crossing_modelled |>
-    dplyr::select(external_crossing_reference, stream_crossing_id) |>
-    dplyr::mutate(external_crossing_reference = as.numeric(external_crossing_reference)),
-  by = c('my_crossing_reference' = 'external_crossing_reference')
-) |>
-  dplyr::mutate(pscis_crossing_id = dplyr::case_when(
-    is.na(pscis_crossing_id) ~ as.integer(stream_crossing_id),
-    TRUE ~ pscis_crossing_id
-  )) |>
-  dplyr::select(-stream_crossing_id)
 
 # Step 3: Join the bridge costs and embedment costs
 tab_cost_est_prep2 <- dplyr::left_join(
@@ -940,11 +898,7 @@ rm(tab_cost_est_prep,
 
 ## Phase 1 --------------------------------------------------------------
 
-tab_map_phase_1_prep <- dplyr::left_join(form_pscis |>
-                                           dplyr::select(-c(barrier_result, source)),
-                                         pscis_all |>
-                                   dplyr::select(pscis_crossing_id, barrier_result, source),
-                                 by = c('pscis_crossing_id')) |>
+tab_map_phase_1_prep <- form_pscis |>
   dplyr::select(pscis_crossing_id,
                 my_crossing_reference,
                 utm_zone,
@@ -955,8 +909,7 @@ tab_map_phase_1_prep <- dplyr::left_join(form_pscis |>
                 site_id,
                 priority_phase1 = my_priority,
                 habitat_value,
-                barrier_result,
-                source) |>
+                barrier_result) |>
   # we must transform the data to latitude/longitude (CRS 4326)
   sf::st_transform(4326)
 
@@ -1024,19 +977,19 @@ tab_map_phase_2 <- dplyr::left_join(
 # Monitoring --------------------------------------------------------------
 
 # clean up the monitoring form so we can display it in a table
-# tab_monitoring <- form_monitoring |>
-#   sf::st_drop_geometry() |>
-#   dplyr::select(
-#     pscis_crossing_id,
-#     stream_name,
-#     road_name,
-#     crossing_subtype,
-#     `span` = diameter_or_span_meters,
-#     `width` = length_or_width_meters,
-#     assessment_comment,
-#     dplyr::matches("_notes$"),
-#     -condition_notes,
-#     -climate_notes,
-#     -priority_notes
-#   ) |>
-#   janitor::clean_names(case = "title")
+tab_monitoring <- form_monitoring |>
+  sf::st_drop_geometry() |>
+  dplyr::select(
+    pscis_crossing_id,
+    stream_name,
+    road_name,
+    crossing_subtype,
+    `span` = diameter_or_span_meters,
+    `width` = length_or_width_meters,
+    assessment_comment,
+    dplyr::matches("_notes$"),
+    -condition_notes,
+    -climate_notes,
+    -priority_notes
+  ) |>
+  janitor::clean_names(case = "title")
