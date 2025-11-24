@@ -228,11 +228,15 @@ if (params$update_form_edna) {
 
 # Separate form_pscis by assessment type -------------------------------------------------
 
+
 pscis_phase1 <- form_pscis |> dplyr::filter(assess_type_phase1 == "Yes") |>
+  sf::st_drop_geometry() |>
   dplyr::arrange(pscis_crossing_id)
 pscis_phase2 <- form_pscis |> dplyr::filter(assess_type_phase2 == "Yes") |>
+  sf::st_drop_geometry() |>
   dplyr::arrange(pscis_crossing_id)
 pscis_reassessments <- form_pscis |> dplyr::filter(assess_type_reassessment == "Yes") |>
+  sf::st_drop_geometry() |>
   dplyr::arrange(pscis_crossing_id)
 
 
