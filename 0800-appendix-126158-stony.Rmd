@@ -48,12 +48,18 @@ a maximum of `r fpr::fpr_my_wshd(col = 'elev_max')`m to
 
 PSCIS crossing `r as.character(my_site)` was first assessed with a fish passage assessment in 2014 by @hooft2015Fishpassage and ranked as a barrier to fish passage with medium value habitat present. The crossing was reassessed in 2025 and a habitat confirmation assessment was conducted due to the presence of high value habitat and a significant amount of modelled habitat upstream. No fisheries information is documented for the stream; however, downstream in Stony Lake, bull trout and other species have been previously recorded [@norris2024smnorrisbcfishobs; @moe2024KnownBC].  
 
+
+?? Comments say "Bull trout documented downstream of the crossing in 2014." but can't find any evidence of this in modelling. 
+
 <br>
 
 <!-- `r fpr::fpr_my_fish_sp()` have previously been recorded [@norris2024smnorrisbcfishobs; @moe2024KnownBC]. -->
 
 A summary of habitat modelling outputs for the crossing are presented in Table
 \@ref(tab:tab-culvert-bcfp-126158).
+
+
+UPDATED TO HERE ******
 
 <br>
 
@@ -106,27 +112,46 @@ hab_site |>filter(site == my_site & location == 'us') |>pull(comments)
 
 ## Stream Characteristics Downstream of Crossing `r as.character(my_site)` {.unnumbered}
 
-`r fpr_my_survey_dist(loc = 'ds')` `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-126158-01)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-126158-d01))."))` The habitat was rated as `r fpr::fpr_my_priority_info(loc = 'ds') |>stringr::str_to_lower()` value for salmonid spawning and rearing. The stream contained frequent pools suitable for overwintering fish, with abundant cobbles but limited gravels. Evidence of extreme seasonal flows was observed, including large eroding banks, extensive gravel deposits from channel widening (20 – 30m), and significant log jams.  `r fpr_my_habitat_paragraph(loc = 'ds')`
+`r fpr_my_survey_dist(loc = 'ds')` `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-126158-01)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-126158-d01))."))` The habitat was rated as `r fpr::fpr_my_priority_info(loc = 'ds') |>stringr::str_to_lower()` value for salmonid spawning and rearing. Abundant gravels were present throughout with no barriers observed between the road crossing and Stony Lake. The stream was relatively large with good flow, containing occasional shallow pools and sparse large and small woody debris. `r fpr_my_habitat_paragraph(loc = 'ds')`
 
 <br>
 
 ## Stream Characteristics Upstream of Crossing `r as.character(my_site)` {.unnumbered}
 
-`r fpr_my_survey_dist(loc = 'us')` `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-126158-02)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-126158-d01))."))` The habitat was rated as `r fpr::fpr_my_priority_info(loc = 'us') |>stringr::str_to_lower()` value. Although the stream had good flow and provided high-quality habitat for the first 100m, it then transitioning to subsurface flow. Approximately 200m upstream of the highway, adjacent to a quarry, the stream was fully dewatered to the top of the surveyed area. The channel was highly confined, lacked complexity, and consisted primarily of a straight, coarse cobble and boulder substrate. While some small and large woody debris were present, they did not appear to contribute to habitat formation during periods of flow. `r fpr_my_habitat_paragraph(loc = 'us')`
+`r fpr_my_survey_dist(loc = 'us')` `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-126158-02)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-126158-d01))."))` The habitat was rated as `r fpr::fpr_my_priority_info(loc = 'us') |>stringr::str_to_lower()` value. `r fpr_my_habitat_paragraph(loc = 'us')` Low-gradient stream with abundant gravels and diverse cover types including boulders, small and large woody debris, and undercut banks. Good flow with no natural barriers observed within the surveyed area. 
 
 <br>
+
+## eDNA Sampling
+
+eDNA samples were collected both upstream and downstream of crossing `r as.character(my_site)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)`, with sampling techniques summarized in Table \@ref(tab:tab-edna-126158).
+
+<br>
+
+```{r tab-edna-126158}
+my_caption <- paste0("Summary of eDNA samples collected at site ", my_site, ".")
+
+tab_edna |> 
+  dplyr::filter(site == my_site) |> 
+  dplyr::select(-site) |> 
+  fpr_kable(caption_text = my_caption)
+
+```
+
+
  
+<br>
 
 ## Structure Remediation and Cost Estimate {.unnumbered}
 
-Should restoration/maintenance activities proceed, replacement of the `r fpr_my_pscis_info(col_pull = road_name)` crossing (`r as.character(my_site)`) with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)` m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$ `r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
+Should restoration/maintenance activities proceed, replacement of the `r fpr_my_pscis_info(col_pull = road_name)` crossing (`r as.character(my_site)`) with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)`m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$ `r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
 
 <br>
 
 
 ## Conclusion {.unnumbered}
 
-The habitat upstream of PSCIS crossing `r as.character(my_site)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` was documented as low value for salmonid spawning and rearing, and the crossing is rated as a low priority for replacement due to the intermittent nature of the stream approximately 200m upstream of the crossing. The culvert had been recently worked on, with new cement poured inside the pipe and riprap placed at the outlet. However, fish sampling to determine whether fish are utilizing the ~200m of wetted stream upstream of the crossing would still be beneficial.
+The habitat upstream of PSCIS crossing `r as.character(my_site)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` was documented as medium value for salmonid spawning and rearing, and the crossing is rated as a `r fpr_my_pscis_info(col_pull = my_priority, site = my_site)` priority for replacement due to the large outlet drop. 
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
