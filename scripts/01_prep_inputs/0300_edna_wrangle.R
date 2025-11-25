@@ -8,7 +8,7 @@
   # read in the mega form and convert to sf object
   path_form_edna_raw <- fs::path("~/Projects/repo/fish_passage_template_reporting/data/backup/", year, paste0("form_edna_", year, ".csv"))
 
-  form_edna_raw <- readr::read_csv(path_form_edna_site_raw) |>
+  form_edna_raw <- readr::read_csv(path_form_edna_raw) |>
     fpr::fpr_sp_assign_sf_from_utm()
 
 
@@ -41,6 +41,7 @@
     # split the local_name into the site, location, and ef
     tidyr::separate(site_id, into = c("site", "location", "ed"), remove = FALSE) |>
     dplyr::mutate(site_id = stringr::str_trim(site_id),
+                  site = as.integer(site),
                   # Fix some vocabulary. Change "trib" to long version "Tributary" etc.
                   stream_name = stringr::str_to_title(stream_name),
                   stream_name = stringr::str_replace_all(stream_name, 'Trib ', 'Tributary '),
