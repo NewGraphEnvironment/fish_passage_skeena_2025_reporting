@@ -6,7 +6,7 @@ knitr::opts_chunk$set(fig.path = "fig/background/", dev = "png")
 
 ## Project Location
 
-The study area spans from Burns Lake to Valemount, British Columbia, and includes the Nechako River, Lower Chilako River, François Lake, Morkhill River, and Upper Fraser River watershed groups. In 2025 the study area was expanded to include the Tabor River, Willow River, and Lower Salmon River watershed groups.
+The study area spans from Burns Lake to Valemount, British Columbia, and includes the `r knitr::asis_output(wsg_names |> knitr::combine_words()` watershed groups. In 2025 the study area was expanded to include the Tabor River, Willow River, and Lower Salmon River watershed groups.
 
 
 <br>
@@ -469,8 +469,16 @@ A review of available fisheries data, for the Upper Fraser River, Nechako River,
 ```{r fiss-species-table}
 fiss_species_table <- readr::read_csv('data/inputs_extracted/fiss_species_table.csv')
 
-fiss_species_table %>% 
-  fpr::fpr_kable(caption_text = 'Fish species recorded in the Upper Fraser River, Nechako River, Lower Chilako River, Willow River, Lower Salmon River, Tabor Creek, and François Lake watershed groups.', 
+my_caption <- paste0(
+  "Fish species recorded in the ", 
+  # provided they are all making the table which prob doesn't work with tons of wsg. Could consider removing wsg in this chunk
+  # vs the build of the table...
+  knitr::asis_output(wsg_names) |> knitr::combine_words(), 
+  " watershed groups."
+  )
+
+fiss_species_table |> 
+  fpr::fpr_kable(caption_text = my_caption, 
                  footnote_text = 'COSEWIC abbreviations : 
                  SC - Special concern 
                  DD - Data deficient
@@ -502,7 +510,12 @@ fiss_sum_wshed <- readr::read_csv(file = 'data/inputs_extracted/fiss_sum_wshed.c
 ```
 
 ```{r tab-fish-grad}
-my_caption <- 'Summary of historic fish observations vs. stream gradient category for the Nechako River, Lower Chilako River, François Lake, Morkill River and Upper Fraser River watershed groups.'
+my_caption <- paste0(
+  "Summary of historic fish observations vs. stream gradient category for the ", 
+  knitr::asis_output(wsg_names) |> knitr::combine_words(), 
+  " watershed groups."
+  )
+
 fiss_sum_grad %>% 
   dplyr::select(-gradient_id) |> 
   fpr::fpr_kable(caption_text = my_caption,
@@ -511,7 +524,12 @@ fiss_sum_grad %>%
 
 <br>
 
-```{r fish-plot-grad, out.width = photo_width, fig.cap= 'Summary of historic fish observations vs. stream gradient category for the Nechako River, Lower Chilako River, François Lake, Morkill River and Upper Fraser River watershed groups.', eval=T}
+```{r fish-plot-grad, out.width = photo_width, fig.cap= my_caption, eval=T}
+my_caption <- paste0(
+  "Summary of historic fish observations vs. stream gradient category for the ", 
+  knitr::asis_output(wsg_names) |> knitr::combine_words(), 
+  " watershed groups."
+  )
 
 ## bar graph
 plot_grad <- fiss_sum_grad |>

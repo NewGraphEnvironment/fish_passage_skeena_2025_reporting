@@ -93,6 +93,88 @@ my_tab_caption <- function(
   )
 }
 
+##get the observations from the fiss layer
+sfis_tab_sp <- function(
+    wsg_code = NULL,
+    burn = TRUE,
+    path_out = 'data/inputs_extracted/fiss_species_table.csv'
+    ){
+  conn <- fpr::fpr_db_conn()
+  fish_species_watershed <- fpr::fpr_db_query(query = glue::glue_sql("SELECT DISTINCT ws.watershed_group_code, x.species_code,x.species_name
+                   FROM whse_fish.fiss_fish_obsrvtn_pnt_sp x
+                   INNER JOIN
+                   whse_basemapping.fwa_watershed_groups_poly ws
+                   ON ST_intersects(x.geom, ws.geom)
+                   WHERE ws.watershed_group_code IN ({wsg_code*})",
+                                                                     .con = conn))
+
+  DBI::dbDisconnect(conn)
+
+  # split data frame into list of data frames based on watershed group code
+  fish_spp_prep <- fish_species_watershed |>
+    dplyr::group_split(watershed_group_code)
+
+  # grab watershed names from xref table - https://github.com/NewGraphEnvironment/rfp/issues/5
+  xref_wsg <- fpr::fpr_db_query(
+    query= "SELECT watershed_group_code, watershed_group_name
+  FROM whse_basemapping.fwa_watershed_groups_poly"
+  ) |>
+    dplyr::arrange(watershed_group_code)
+
+
+  wshd_names <- xref_wsg |>
+    dplyr::filter(watershed_group_code %in% wsg_code) |>
+    dplyr::pull(watershed_group_name) |>
+    # remove " River" from the names
+    stringr::str_remove(" River")
+
+  names_tbl <- c('species_name', 'species_code', wshd_names)
+
+  #merge all data frames in list
+  fish_spp <- fish_spp_prep |>
+    purrr::reduce(dplyr::full_join, by= c('species_code', 'species_name')) |>
+    dplyr::relocate(c(species_name, species_code), .before = everything()) |>
+    purrr::set_names(names_tbl)
+
+  fish_all <- fishbc::freshwaterfish
+  fish_cdc <- fishbc::cdc
+
+  fish_spp2 <- dplyr::left_join(fish_spp,
+                                fish_all,
+                                by = c("species_code" = "Code")) |>
+    dplyr::filter(!is.na(Class) & !species_code == 'TR') |> ##mottled sculpin has some sort of error going on
+    # mutate(CDCode = case_when(species_code == 'BT' ~ 'F-SACO-11', ##pacific population yo
+    #                           T ~ CDCode)) %>%
+    dplyr::select(species_code,
+                  species_name,
+                  dplyr::all_of(wshd_names),
+                  CDCode)
+
+  fish_spp3 <- dplyr::left_join(
+    fish_spp2,
+    fish_cdc,
+    by = c('CDCode' = 'Species Code')
+  ) |>
+    dplyr::select(`Scientific Name`,
+                  'Species Name' = species_name,
+                  # 'Species Code' = species_code,
+                  `BC List`,
+                  # `Provincial FRPA`,
+                  COSEWIC,
+                  # SARA,
+                  dplyr::all_of(wshd_names)
+    ) |>
+    dplyr::mutate(dplyr::across(dplyr::all_of(wshd_names), ~ifelse(!is.na(.), "Yes", .))) |>
+    dplyr::arrange(`Scientific Name`, `Species Name`)
+
+  ##print your table to input_raw for use in the report
+  if(burn){
+    fish_spp3 |>
+    readr::write_csv(file = path_out)
+  }else
+    fish_spp3
+}
+
 sfpr_create_hydrograph <- function(
     station = NULL,
     pane_hydat = TRUE,
@@ -141,7 +223,7 @@ sfpr_create_hydrograph <- function(
     #Create pane of hydrographs with "Mean", "Minimum", "Maximum", and "Standard Deviation" flows
     hydrograph_stats_print <- fasstr::plot_data_screening(station_number = station, start_year = start_year,
                                                           include_stats = c("Mean", "Minimum", "Maximum", "Standard Deviation"),
-                                                          plot_availability = FALSE)[["Data_Screening"]] + ggdark::dark_theme_bw() ##first version is not dark
+                                                          plot_availability = FALSE)[["Data_Screening"]]
     hydrograph_stats_print
 
     #Save hydrograph pane
@@ -180,13 +262,12 @@ sfpr_create_hydrograph <- function(
     plot <- ggplot2::ggplot()+
       ggplot2::geom_ribbon(data = flow, aes(x = Date, ymax = max,
                                             ymin = min),
-                           alpha = 0.3, linetype = 1)+
+                           alpha = 0.3, linetype = 1, fill = "gray60")+
       ggplot2::scale_x_date(date_labels = "%b", date_breaks = "2 month") +
       ggplot2::labs(x = NULL, y = expression(paste("Mean Daily Discharge (", m^3, "/s)", sep="")))+
-      ggdark::dark_theme_bw() +
+      ggplot2::theme_bw() +
       ggplot2::geom_line(data = flow, aes(x = Date, y = daily_ave),
-                         linetype = 1, linewidth = 0.7) +
-      ggplot2::scale_colour_manual(values = c("grey10", "red"))
+                         linetype = 1, linewidth = 0.5, color = "gray40")
     plot
 
     ggplot2::ggsave(plot = plot, file=paste0("fig/hydrograph_", station, ".png"),

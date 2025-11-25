@@ -1,50 +1,52 @@
-Scientific Name,Species Name,BC List,COSEWIC,Francois Lake,Lower Chilako,Lower Salmon,Nechako,Tabor,Upper Fraser,Willow
-Acipenser transmontanus,White Sturgeon,No Status,E/T (Nov 2012),Yes,Yes,NA,Yes,Yes,NA,NA
-Carassius auratus,Goldfish,Exotic,NA,NA,Yes,NA,NA,NA,NA,NA
-Catostomus catostomus,Longnose Sucker,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes
-Catostomus columbianus,Bridgelip Sucker,Yellow,NA,Yes,NA,Yes,Yes,Yes,NA,NA
-Catostomus commersonii,White Sucker,Yellow,NA,Yes,Yes,Yes,Yes,Yes,NA,Yes
-Catostomus macrocheilus,Largescale Sucker,Yellow,NA,Yes,Yes,Yes,Yes,Yes,NA,Yes
-Catostomus platyrhynchus,Northern Mountain Sucker,Blue,SC (Nov 2010),NA,Yes,NA,NA,NA,NA,NA
-Chrosomus neogaeus,Finescale Dace,Yellow,NA,Yes,NA,NA,NA,NA,NA,NA
-Coregonus clupeaformis,Lake Whitefish,Yellow,NA,Yes,Yes,Yes,Yes,NA,NA,Yes
-Cottus asper,Prickly Sculpin,Yellow,NA,Yes,Yes,Yes,Yes,Yes,NA,Yes
-Cottus cognatus,Slimy Sculpin,Yellow,NA,Yes,Yes,NA,Yes,Yes,Yes,Yes
-Cottus ricei,Spoonhead Sculpin,Yellow,NAR (May 1989),Yes,NA,NA,NA,NA,Yes,NA
-Couesius plumbeus,Lake Chub,Yellow,DD,Yes,Yes,Yes,Yes,Yes,Yes,Yes
-Cyprinus carpio,Carp,Exotic,NA,Yes,NA,NA,NA,NA,NA,NA
-Hybognathus hankinsoni,Brassy Minnow,No Status,NA,Yes,Yes,Yes,Yes,Yes,NA,Yes
-Lota lota,Burbot,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes
-Micropterus salmoides,Largemouth Bass,Exotic,NA,NA,NA,NA,Yes,NA,NA,NA
-Mylocheilus caurinus,Peamouth Chub,Yellow,NA,Yes,Yes,Yes,Yes,Yes,NA,Yes
-Oncorhynchus clarkii,Cutthroat Trout,No Status,NA,Yes,NA,NA,NA,NA,NA,Yes
-Oncorhynchus gorbuscha,Pink Salmon,Yellow,NA,NA,Yes,Yes,NA,NA,NA,Yes
-Oncorhynchus kisutch,Coho Salmon,Yellow,NA,Yes,Yes,NA,Yes,NA,NA,Yes
-Oncorhynchus mykiss,Rainbow Trout,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes
-Oncorhynchus nerka,Kokanee,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes
-Oncorhynchus nerka,Sockeye Salmon,Yellow,NA,Yes,Yes,NA,Yes,NA,Yes,NA
-Oncorhynchus tshawytscha,Chinook Salmon,Yellow,E/T/SC (Dec 2018),Yes,Yes,Yes,Yes,Yes,Yes,Yes
-Prosopium coulterii,Pygmy Whitefish,Yellow,NAR (Nov 2016),NA,Yes,NA,Yes,Yes,Yes,Yes
-Prosopium williamsoni,Mountain Whitefish,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes
-Ptychocheilus oregonensis,Northern Pikeminnow,Yellow,NA,Yes,Yes,Yes,Yes,Yes,NA,Yes
-Rhinichthys cataractae,Longnose Dace,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes
-Rhinichthys falcatus,Leopard Dace,Yellow,NAR (May 1990),Yes,Yes,Yes,Yes,Yes,NA,Yes
-Richardsonius balteatus,Redside Shiner,Yellow,NA,Yes,Yes,Yes,Yes,Yes,NA,Yes
-Salvelinus confluentus,Anadromous Bull Trout,Blue,SC (Nov 2012),NA,NA,NA,Yes,NA,NA,NA
-Salvelinus confluentus,Bull Trout,Blue,SC (Nov 2012),Yes,Yes,NA,Yes,Yes,Yes,Yes
-Salvelinus fontinalis,Brook Trout,Exotic,NA,Yes,Yes,Yes,Yes,Yes,Yes,NA
-Salvelinus malma,Dolly Varden,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes
-Salvelinus namaycush,Lake Trout,Yellow,NA,Yes,Yes,NA,Yes,Yes,Yes,Yes
-NA,All Salmon,NA,NA,NA,Yes,NA,NA,NA,NA,NA
-NA,Arctic Char,NA,NA,NA,NA,NA,NA,NA,NA,Yes
-NA,"Char, General",NA,NA,NA,NA,NA,NA,NA,Yes,NA
-NA,Chub (General),NA,NA,Yes,Yes,Yes,Yes,NA,NA,Yes
-NA,Dace (General),NA,NA,Yes,Yes,Yes,Yes,Yes,NA,NA
-NA,Lamprey (General),NA,NA,NA,NA,Yes,NA,NA,NA,NA
-NA,Minnow (General),NA,NA,Yes,Yes,Yes,Yes,Yes,NA,Yes
-NA,Northern Pearl Dace,NA,NA,Yes,NA,NA,NA,NA,NA,NA
-NA,Salmon (General),NA,NA,NA,Yes,NA,NA,NA,Yes,Yes
-NA,Sculpin (General),NA,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes
-NA,Stickleback (General),NA,NA,NA,NA,NA,NA,Yes,NA,NA
-NA,Sucker (General),NA,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes
-NA,Whitefish (General),NA,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Scientific Name,Species Name,BC List,COSEWIC,Francois Lake,Lower Chilako,Lower Salmon,Morkill,Nechako,Tabor,Upper Fraser,Willow
+Acipenser transmontanus,White Sturgeon,No Status,E/T (Nov 2012),Yes,Yes,NA,Yes,Yes,Yes,NA,NA
+Carassius auratus,Goldfish,Exotic,NA,NA,Yes,NA,NA,NA,NA,NA,NA
+Catostomus bondi,Northern Mountain Sucker,Blue,T (Dec 2022),NA,Yes,NA,NA,NA,NA,NA,NA
+Catostomus catostomus,Longnose Sucker,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Catostomus columbianus,Bridgelip Sucker,Yellow,NA,Yes,NA,Yes,NA,Yes,Yes,NA,NA
+Catostomus commersonii,White Sucker,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,NA,Yes
+Catostomus macrocheilus,Largescale Sucker,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,NA,Yes
+Chrosomus neogaeus,Finescale Dace,Yellow,NA,Yes,NA,NA,NA,NA,NA,NA,NA
+Coregonus clupeaformis,Lake Whitefish,Yellow,NA,Yes,Yes,Yes,NA,Yes,NA,NA,Yes
+Cottus asper,Prickly Sculpin,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,NA,Yes
+Cottus cognatus,Slimy Sculpin,Yellow,NA,Yes,Yes,NA,Yes,Yes,Yes,Yes,Yes
+Cottus ricei,Spoonhead Sculpin,Yellow,NAR (May 1989),Yes,NA,NA,NA,NA,NA,Yes,NA
+Couesius plumbeus,Lake Chub,Yellow,DD,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Cyprinus carpio,Carp,Exotic,NA,Yes,NA,NA,NA,NA,NA,NA,NA
+Hybognathus hankinsoni,Brassy Minnow,No Status,NA,Yes,Yes,Yes,NA,Yes,Yes,NA,Yes
+Lota lota,Burbot,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Micropterus salmoides,Largemouth Bass,Exotic,NA,NA,NA,NA,NA,Yes,NA,NA,NA
+Mylocheilus caurinus,Peamouth Chub,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,NA,Yes
+Oncorhynchus clarkii,Cutthroat Trout,No Status,NA,Yes,NA,NA,NA,NA,NA,NA,Yes
+Oncorhynchus gorbuscha,Pink Salmon,Not Reviewed,NA,NA,Yes,Yes,NA,NA,NA,NA,Yes
+Oncorhynchus kisutch,Coho Salmon,Not Reviewed,NA,Yes,Yes,NA,NA,Yes,NA,NA,Yes
+Oncorhynchus mykiss,Rainbow Trout,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Oncorhynchus mykiss,Steelhead,Yellow,NA,NA,NA,NA,Yes,NA,NA,NA,NA
+Oncorhynchus nerka,Kokanee,Not Reviewed,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Oncorhynchus nerka,Sockeye Salmon,Not Reviewed,NA,Yes,Yes,NA,Yes,Yes,NA,Yes,NA
+Oncorhynchus tshawytscha,Chinook Salmon,Not Reviewed,E/T/SC/DD/NAR (Nov 2020),Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Prosopium coulterii,Pygmy Whitefish,Yellow,NAR (Nov 2016),NA,Yes,NA,NA,Yes,Yes,Yes,Yes
+Prosopium cylindraceum,Round Whitefish,Yellow,NA,NA,NA,NA,Yes,NA,NA,NA,NA
+Prosopium williamsoni,Mountain Whitefish,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Ptychocheilus oregonensis,Northern Pikeminnow,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,NA,Yes
+Rhinichthys cataractae,Longnose Dace,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Rhinichthys falcatus,Leopard Dace,Yellow,NAR (May 1990),Yes,Yes,Yes,NA,Yes,Yes,NA,Yes
+Richardsonius balteatus,Redside Shiner,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,NA,Yes
+Salvelinus confluentus,Anadromous Bull Trout,Blue,SC (Nov 2012),NA,NA,NA,NA,Yes,NA,NA,NA
+Salvelinus confluentus,Bull Trout,Blue,SC (Nov 2012),Yes,Yes,NA,Yes,Yes,Yes,Yes,Yes
+Salvelinus fontinalis,Brook Trout,Exotic,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,NA
+Salvelinus malma,Dolly Varden,Yellow,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Salvelinus namaycush,Lake Trout,Yellow,NA,Yes,Yes,NA,Yes,Yes,Yes,Yes,Yes
+NA,All Salmon,NA,NA,NA,Yes,NA,NA,NA,NA,NA,NA
+NA,Arctic Char,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes
+NA,"Char, General",NA,NA,NA,NA,NA,NA,NA,NA,Yes,NA
+NA,Chub (General),NA,NA,Yes,Yes,Yes,NA,Yes,NA,NA,Yes
+NA,Dace (General),NA,NA,Yes,Yes,Yes,NA,Yes,Yes,NA,NA
+NA,Lamprey (General),NA,NA,NA,NA,Yes,NA,NA,NA,NA,NA
+NA,Minnow (General),NA,NA,Yes,Yes,Yes,Yes,Yes,Yes,NA,Yes
+NA,Northern Pearl Dace,NA,NA,Yes,NA,NA,NA,NA,NA,NA,NA
+NA,Salmon (General),NA,NA,NA,Yes,NA,Yes,NA,NA,Yes,Yes
+NA,Sculpin (General),NA,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+NA,Stickleback (General),NA,NA,NA,NA,NA,NA,NA,Yes,NA,NA
+NA,Sucker (General),NA,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+NA,Whitefish (General),NA,NA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
