@@ -37,7 +37,7 @@ params:
   project_region: "fraser"
   project_year: "2025"
   project_start_year: "2023"
-  model_species: "st"
+  model_species: "bt"
   wsg_code: [LCHL, NECR, FRAN, MORK, UFRA, WILL, TABR, LSAL]
   update_packages: FALSE
   update_form_pscis: FALSE
@@ -103,7 +103,7 @@ staticimports::import()
 source('scripts/staticimports.R')
 source("scripts/02_reporting/0120-read-sqlite.R")
 source("scripts/02_reporting/0105-params-derived.R")
-# source('scripts/02_reporting/0130-tables.R')
+source('scripts/02_reporting/0130-tables.R')
 
 
 
