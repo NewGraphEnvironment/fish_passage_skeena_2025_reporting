@@ -721,7 +721,11 @@ tab_cost_est_prep1 <- dplyr::left_join(
       fill_depth_meters,
       crossing_fix,
       habitat_value,
-      recommended_diameter_or_span_meters),
+      recommended_diameter_or_span_meters,
+      assess_type_phase1,
+      assess_type_phase2,
+      assess_type_reassessment,
+      my_priority),
   rd_class_surface |>
     dplyr::select(stream_crossing_id, my_road_class, my_road_surface),
   by = c('pscis_crossing_id' = 'stream_crossing_id')
@@ -774,38 +778,17 @@ tab_cost_est_prep5 <- dplyr::left_join(
     cost_gross = round(!!sp_network_km * 1000 / cost_est_1000s, 1),
     cost_area_net = round((!!sp_belowupstrbarriers_network_km * 1000 * downstream_channel_width_meters * 0.5) / cost_est_1000s, 1),
     cost_area_gross = round((!!sp_network_km * 1000 * downstream_channel_width_meters * 0.5) / cost_est_1000s, 1),
-    st_network_km = round(!!sp_network_km, 1)
+    "{params$model_species}_network_km" := round(!!sp_network_km, 1)
   )
 
 
-# Step 7: Add the priority from `form_pscis`
-tab_cost_est_prep6 <- dplyr::left_join(
-  tab_cost_est_prep5 |>
-    # only for skeena 2024 where the road names are not capitalized in the spreadsheet because I forgot:/
-    dplyr::select(-road_name),
-  form_pscis |>
-    dplyr::select(pscis_crossing_id, my_priority, road_name),
-  by = 'pscis_crossing_id'
-) |>
-  dplyr::arrange(pscis_crossing_id) |>
-  dplyr::select(
-    pscis_crossing_id,
-    my_crossing_reference,
-    stream_name,
-    road_name,
-    barrier_result,
-    habitat_value,
-    sp_network_km,
-    downstream_channel_width_meters,
-    my_priority,
-    crossing_fix_code,
-    cost_est_1000s,
-    cost_gross, cost_area_gross, source
-  ) |>
-  dplyr::filter(barrier_result != 'Unknown' & barrier_result != 'Passable')
 
 # Step 8: Final adjustments and renaming columns
-tab_cost_est_phase1 <- tab_cost_est_prep6 |>
+tab_cost_est_phase1 <- tab_cost_est_prep5 |>
+  dplyr::arrange(pscis_crossing_id) |>
+  dplyr::filter(barrier_result != 'Unknown' & barrier_result != 'Passable') |>
+  dplyr::filter(assess_type_phase1 == "Yes"|assess_type_reassessment == "Yes") |>
+  dplyr::select(-c(assess_type_phase1, assess_type_reassessment, assess_type_phase2)) |>
   dplyr::rename(
     `PSCIS ID` = pscis_crossing_id,
     `External ID` = my_crossing_reference,
@@ -820,9 +803,7 @@ tab_cost_est_phase1 <- tab_cost_est_prep6 |>
     `Cost Est ( $K)` = cost_est_1000s,
     `Cost Benefit (m / $K)` = cost_gross,
     `Cost Benefit (m2 / $K)` = cost_area_gross
-  ) |>
-  dplyr::filter(!source == "pscis_phase2.xlsm") |>
-  dplyr::select(-source)
+  )
 
 
 
@@ -863,7 +844,8 @@ tab_cost_est_prep8 <- dplyr::left_join(
 
 # Step 3: Filter and select relevant columns for Phase 2 cost estimates
 tab_cost_est_prep9 <- tab_cost_est_prep8 |>
-  dplyr::filter(source == "pscis_phase2.xlsm") |>
+  dplyr::filter(assess_type_phase2 == "Yes") |>
+  dplyr::select(-c(assess_type_phase1, assess_type_reassessment, assess_type_phase2)) |>
   dplyr::select(
     pscis_crossing_id,
     stream_name,
@@ -875,24 +857,20 @@ tab_cost_est_prep9 <- tab_cost_est_prep8 |>
     cost_est_1000s,
     upstream_habitat_length_m,
     cost_net,
-    cost_area_net,
-    source
+    cost_area_net
   )
 
 # Step 4: Prepare the Phase 2 cost estimates for the table
 # Don't rename the columns here because the function `fpr_my_cost_estimate` relies on the column cost_est_1000ss
 tab_cost_est_phase2 <- tab_cost_est_prep9 |>
-  dplyr::arrange(pscis_crossing_id) |>
-  dplyr::select(-source)
+  dplyr::arrange(pscis_crossing_id)
 
 # Clean up unnecessary objects
-rm(tab_cost_est_prep,
-   tab_cost_est_prep1,
+rm(tab_cost_est_prep1,
    tab_cost_est_prep2,
    tab_cost_est_prep3,
    tab_cost_est_prep4,
    tab_cost_est_prep5,
-   tab_cost_est_prep6,
    tab_cost_est_prep7,
    tab_cost_est_prep8)
 
@@ -913,7 +891,10 @@ tab_map_phase_1_prep <- form_pscis |>
                 site_id,
                 priority_phase1 = my_priority,
                 habitat_value,
-                barrier_result) |>
+                barrier_result,
+                assess_type_phase1,
+                assess_type_phase2,
+                assess_type_reassessment) |>
   # we must transform the data to latitude/longitude (CRS 4326)
   sf::st_transform(4326)
 

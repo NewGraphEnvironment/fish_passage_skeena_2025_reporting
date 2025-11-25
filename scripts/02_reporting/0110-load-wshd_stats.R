@@ -1,11 +1,41 @@
-# retrieve the watershed stats and elevations of the pscis sites then burn to the sqlite
+# This script does 2 things watershed-related:
+# 1. Retrieves the watershed polygons for the watersheds included in the project study area (big scale)
+# 2. Retrieves the upstream watershed stats and site elevations for the phase 2 habitat confirmation sites (small scale)
+
 
 # Load required objects -------------------------------------------------
 
 # `0165-read-sqlite.R` reads in the `bcfishpass` object
-source("scripts/02_reporting/0165-read-sqlite.R")
+source("scripts/02_reporting/0120-read-sqlite.R")
 
 
+# 1 - Retrieve the watershed polygons for the watersheds included in the project study area (big scale)  -------------------------------------------------
+
+# Grab the watershed polygons included in the project study area - this is displayed in the interactive map
+wshd_study_areas <- fpr::fpr_db_query(
+  glue::glue( "SELECT * FROM whse_basemapping.fwa_watershed_groups_poly a
+              WHERE a.watershed_group_code IN ({glue::glue_collapse(glue::single_quote(params$wsg_code), sep = ', ')})"
+  )) |>
+  # casts geometries to type "POLYGON" (instead of Multipolygon)
+  sf::st_cast("POLYGON") |>
+  sf::st_transform(crs = 4326)
+
+
+# Add to the sqlite
+conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
+readwritesqlite::rws_list_tables(conn)
+
+# load the watersheds for the  phase 2 habitat confirmation sites
+readwritesqlite::rws_drop_table("wshd_study_areas", conn = conn) ##now drop the table so you can replace it
+readwritesqlite::rws_write(wshd_study_areas, exists = F, delete = TRUE,
+                           conn = conn, x_name = "wshd_study_areas")
+
+readwritesqlite::rws_list_tables(conn)
+readwritesqlite::rws_disconnect(conn)
+
+
+
+# 2 - Retrieve the upstream watershed stats and site elevations for the phase 2 habitat confirmation sites (small scale)  -------------------------------------------------
 
 ## Filter the bcfishpass data to just the phase 2 sites -------------------------------------------------
 bcfishpass_phase2 <- bcfishpass |>
@@ -27,83 +57,6 @@ bcfishpass_phase2_clean <- bcfishpass_phase2 |>
 # for this years data there is none
 bcfishpass_phase2_1st_order <- bcfishpass_phase2 |>
   dplyr::filter(stream_order == 1)
-
-
-
-## Remove first order crossings if needed -------------------------------------------------
-
-# conn <- DBI::dbConnect(
-#   RPostgres::Postgres(),
-#   dbname = dbname,
-#   host = host,
-#   port = port,
-#   user = user,
-#   password = password
-# )
-#
-# dat <- bcfishpass_phase2 |>
-#   filter(stream_order == 1)
-#   # distinct(localcode_ltree, .keep_all = T)
-#
-# # add a unique id - we could just use the reference number
-# dat$misc_point_id <- seq.int(nrow(dat))
-#
-#
-# # # lets get our fist order watersheds
-# # dat <- bcfishpass_phase2 |>
-# #   filter(stream_order == 1)
-#
-# ##pull out the localcode_ltrees we want
-# ids <-  dat |>
-#   pull(localcode_ltree) |>
-#   # unique() |>
-#   as_vector() |>
-#   na.omit()
-#
-# ids2 <- dat |>
-#   pull(wscode_ltree) |>
-#   # unique() |>
-#   as_vector() |>
-#   na.omit()
-#
-# # note that we needed to specifiy the order here.  Not sure that is always going to save us....
-# sql <- glue::glue_sql(
-#
-#                                 "SELECT localcode_ltree, wscode_ltree, area_ha, geom as geometry from whse_basemapping.fwa_watersheds_poly
-#                                 WHERE localcode_ltree IN ({ids*})
-#                                 AND wscode_ltree IN ({ids2*})
-#                                 AND watershed_order = 1
-#                                 ",
-#   .con = conn
-# )
-#
-# wshds_1ord_prep <- sf::st_read(conn,
-#                         query = sql) |>
-#   st_transform(crs = 4326)
-#
-#
-# # test <- wshds_1ord_prep |>
-# #   filter(localcode_ltree == wscode_ltree)
-#
-#
-# # i think we need to be joining in the stream_crossing_id and joining on that....
-#
-# wshds_1ord <- left_join(
-#   dat |>
-#     distinct(stream_crossing_id, .keep_all = T) |>
-#     select(
-#     stream_crossing_id,
-#     localcode_ltree,
-#     wscode_ltree,
-#     stream_order
-#     ) |>
-#     mutate(stream_crossing_id = as.character(stream_crossing_id)),
-#     # filter(stream_order == 1),
-#   wshds_1ord_prep |>
-#     mutate(localcode_ltree = as.character(localcode_ltree),
-#            wscode_ltree = as.character(wscode_ltree)),
-#   by = c('localcode_ltree','wscode_ltree')
-# )
 
 
 
@@ -153,7 +106,7 @@ wshds <-  dplyr::left_join(
 
 
 ## Add to the geopackage -------------------------------------------------
-path_gis_wshds <- fs::path("~/Projects/gis/sern_peace_fwcp_2023/data_field/2024/fishpass_mapping.gpkg")
+path_gis_wshds <- fs::path("~/Projects/gis/", params$gis_project_name, "data_field", params$project_year, "fishpass_mapping.gpkg")
 
 wshds |>
   sf::st_write(dsn = path_gis_wshds,
@@ -165,11 +118,11 @@ wshds |>
 ## Burn to a kml -------------------------------------------------
 #burn to kml as well so we can see elevations
 sf::st_write(wshds |>
-        rename(name = stream_crossing_id),
-         append = F,
-         delete_layer = T,
-         driver = 'kml',
-         dsn = "data/inputs_extracted/wshds.kml")
+               rename(name = stream_crossing_id),
+             append = F,
+             delete_layer = T,
+             driver = 'kml',
+             dsn = "data/inputs_extracted/wshds.kml")
 
 
 
@@ -178,6 +131,6 @@ conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
 readwritesqlite::rws_list_tables(conn)
 readwritesqlite::rws_drop_table("wshds", conn = conn) ##now drop the table so you can replace it
 readwritesqlite::rws_write(wshds, exists = F, delete = TRUE,
-          conn = conn, x_name = "wshds")
+                           conn = conn, x_name = "wshds")
 readwritesqlite::rws_list_tables(conn)
 readwritesqlite::rws_disconnect(conn)

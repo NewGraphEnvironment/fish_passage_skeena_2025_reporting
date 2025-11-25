@@ -41,11 +41,12 @@ map <- leaflet::leaflet(height=500, width=780) |>
     labels = c("High", "Moderate", "Low", 'No fix'), opacity = 1,
     title = "Fish Passage Priorities") |> 
   
-leaflet::addCircleMarkers(data=dplyr::filter(tab_map_phase_1, stringr::str_detect(source, 'phase1') | stringr::str_detect(source, 'pscis_reassessments')),
-                 label = dplyr::filter(tab_map_phase_1, stringr::str_detect(source, 'phase1') | stringr::str_detect(source, 'pscis_reassessments')) |> dplyr::pull(pscis_crossing_id),
+leaflet::addCircleMarkers(data=dplyr::filter(tab_map_phase_1, assess_type_phase1 == "Yes" | assess_type_reassessment == "Yes"),
+                 label = dplyr::filter(tab_map_phase_1, assess_type_phase1 == "Yes" | assess_type_reassessment == "Yes") |>
+                   dplyr::pull(pscis_crossing_id),
                  # label = tab_map_phase_1$pscis_crossing_id,
                  labelOptions = leaflet::labelOptions(noHide = F, textOnly = TRUE),
-                 popup = leafpop::popupTable(x = dplyr::select((tab_map_phase_1 |> sf::st_set_geometry(NULL) |> dplyr::filter(stringr::str_detect(source, 'phase1') | stringr::str_detect(source, 'pscis_reassessments'))),
+                 popup = leafpop::popupTable(x = dplyr::select((tab_map_phase_1 |> sf::st_set_geometry(NULL) |> dplyr::filter(assess_type_phase1 == "Yes" | assess_type_reassessment == "Yes")),
                                                         Site = pscis_crossing_id, Priority = priority_phase1, Stream = stream_name, Road = road_name, `Habitat value`= habitat_value, `Barrier Result` = barrier_result, `Culvert data` = data_link, `Culvert photos` = photo_link, `Model data` = model_link),
                                              feature.id = F,
                                              row.numbers = F),
@@ -61,12 +62,12 @@ leaflet::addCircleMarkers(data=dplyr::filter(tab_map_phase_1, stringr::str_detec
                opacity=0.75, color = '#e216c4',
                fillOpacity = 0.75, weight=5, group = "Phase 2") |>
 
-leaflet::addAwesomeMarkers(
-    lng = as.numeric(photo_metadata$gps_longitude),
-    lat = as.numeric(photo_metadata$gps_latitude),
-    popup = leafpop::popupImage(photo_metadata$url, src = "remote"),
-    clusterOptions = leaflet::markerClusterOptions(),
-    group = "Phase 2") |>
+# leaflet::addAwesomeMarkers(
+#     lng = as.numeric(photo_metadata$gps_longitude),
+#     lat = as.numeric(photo_metadata$gps_latitude),
+#     popup = leafpop::popupImage(photo_metadata$url, src = "remote"),
+#     clusterOptions = leaflet::markerClusterOptions(),
+#     group = "Phase 2") |>
 
 
   leaflet::addCircleMarkers(
@@ -114,12 +115,12 @@ map
 
 ## Site Assessment Data 
 
-Fish passage assessment procedures conducted through SERNbc since `r cat(params$project_start_year)` are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap)")}`.
+Fish passage assessment procedures conducted through SERNbc since `r params$project_start_year` are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap)")}`.
 
 <br>
 
 
-Since `r cat(params$project_start_year)`, orthoimagery and elevation model rasters have been generated and stored as Cloud Optimized Geotiffs on a cloud service provider (AWS) with select imagery linked to in the collaborative GIS project. Additionally - a tile service has been set up to facilitate viewing and downloading of individual images, provided `r knitr::asis_output(if (gitbook_on) "in Table \\@ref(tab:tab-uav-imagery-cap)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "results-and-discussion.html", anchor_text = paste0("at", params$report_url, "/results-and-discussion.html")))`. 
+Since `r params$project_start_year`, orthoimagery and elevation model rasters have been generated and stored as Cloud Optimized Geotiffs on a cloud service provider (AWS) with select imagery linked to in the collaborative GIS project. Additionally - a tile service has been set up to facilitate viewing and downloading of individual images, provided `r knitr::asis_output(if (gitbook_on) "in Table \\@ref(tab:tab-uav-imagery-cap)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "results-and-discussion.html", anchor_text = paste0("at", params$report_url, "/results-and-discussion.html")))`. 
 
 `r if(gitbook_on){knitr::asis_output("<br>")}`
 
@@ -136,7 +137,7 @@ sites_all <- fpr::fpr_db_query(
 # unique(sites_all$watershed_group_name)
 # 
 # # here is a list of SERN wtershed groups
-# wsg_skeena <- c("Bulkley River",
+# wsg <- c("Bulkley River",
 #               "Zymoetz River",
 #               "Kispiox River", 
 #               "Kalum River", 
@@ -145,14 +146,26 @@ sites_all <- fpr::fpr_db_query(
 #               "Carp Lake", 
 #               "Crooked River")
 
-# wsg_peace <- c(
+# wsg <- c(
 #               "Parsnip River",
 #               "Carp Lake",
 #               "Crooked River"
 #               )
 
+wsg <- c(
+  "Lower Chilako River",
+  "Willow River",
+  "Tabor River",
+  "Lower Salmon River",
+  "Upper Fraser River",
+  "Nechako River",
+  "Morkill River",
+  "Francois Lake"
+)
+
+
 # more straight forward is new graph only watersheds
-wsg_ng <- "Elk River"
+# wsg_ng <- "Elk River"
 
 # here is a summary with Elk watershed group removed
 sites_all_summary <- sites_all |> 
@@ -163,7 +176,7 @@ sites_all_summary <- sites_all |>
       T ~ NA_character_
     )) |> 
   # remove the elk counts
-  dplyr::filter(!watershed_group %in% wsg_ng) |>
+  dplyr::filter(watershed_group %in% wsg) |>
   dplyr::group_by(watershed_group) |> 
   dplyr::summarise(
     dplyr::across(assessment:fish_sampling, ~ sum(!is.na(.x))),
@@ -203,6 +216,7 @@ my_tab_caption(tip_flag = FALSE)
 
 ```{r tab-sites-all}
 sites_all |>
+  dplyr::filter(watershed_group %in% wsg) |>
   sf::st_drop_geometry() |>
   dplyr::mutate(dplyr::across(everything(), as.character)) |> 
   dplyr::relocate(watershed_group, .after = my_crossing_reference) |> 
@@ -394,17 +408,17 @@ included as [Attachment - Water Temperature Modelling](#attach-bayes).
 
 ## Fish Passage Assessemnts
 
-Field assessments were conducted between `r format(min(form_pscis$date), format="%B %d, %Y")` and `r format(max(form_pscis$date), format="%B %d, %Y")` by Allan Irvine, R.P.Bio. and Lucy Schick, B.Sc. A total of `r form_pscis |> filter(source != 'pscis_phase2.xlsm') |> nrow()` Fish Passage Assessments were completed, including `r n_distinct(pscis_phase1$my_crossing_reference)` Phase 1 assessments and `r pscis_reassessments |> nrow()` reassessments. In 2024, field efforts prioritized revisiting previously assessed sites for monitoring rather than evaluating new Fish Passage Assessment locations.
+Field assessments were conducted between `r format(min(form_pscis$date), format="%B %d, %Y")` and `r format(max(form_pscis$date), format="%B %d, %Y")` by Allan Irvine, R.P.Bio. and Lucy Schick, B.Sc. A total of `r form_pscis |> filter(assess_type_phase1 == "Yes"|assess_type_reassessment == "Yes") |> nrow()` Fish Passage Assessments were completed, including `r n_distinct(pscis_phase1$my_crossing_reference)` Phase 1 assessments and `r pscis_reassessments |> nrow()` reassessments. In 2024, field efforts prioritized revisiting previously assessed sites for monitoring rather than evaluating new Fish Passage Assessment locations.
 
 <br>
 
-Of the `r form_pscis |> filter(source != 'pscis_phase2.xlsm') |> nrow()` sites where fish passage assessments were completed, `r pscis_phase1 |> nrow()` were not yet inventoried in the PSCIS system.  This included `r pscis_phase1 |> filter(barrier_result == 'Passable') |> nrow()` crossings considered "passable", `r pscis_phase1 |> filter(barrier_result == 'Potential') |> nrow() |> english::as.english()` crossings considered a "potential" barrier, and `r pscis_phase1 |> filter(barrier_result == 'Barrier') |> nrow()` crossings were considered "barriers" according to threshold values based on culvert embedment, outlet drop, slope, diameter (relative to channel size) and length [@moe2011Fieldassessment].
+Of the `r form_pscis |> filter(assess_type_phase1 == "Yes"|assess_type_reassessment == "Yes") |> nrow()` sites where fish passage assessments were completed, `r pscis_phase1 |> nrow()` were not yet inventoried in the PSCIS system.  This included `r pscis_phase1 |> filter(barrier_result == 'Passable') |> nrow()` crossings considered "passable", `r pscis_phase1 |> filter(barrier_result == 'Potential') |> nrow() |> english::as.english()` crossings considered a "potential" barrier, and `r pscis_phase1 |> filter(barrier_result == 'Barrier') |> nrow()` crossings were considered "barriers" according to threshold values based on culvert embedment, outlet drop, slope, diameter (relative to channel size) and length [@moe2011Fieldassessment].
 
 <!-- Additionally, although all were considered fully passable, `r pscis_phase1 |> filter(barrier_result == 'Unknown') |> nrow() |> english::as.english()` crossings assessed were fords and ranked as "unknown" according to the provincial protocol. -->
 
-<br>
+<!-- <br> -->
 
-Reassessments were completed at `r pscis_reassessments |> nrow()` sites where PSICS data required updating.
+<!-- Reassessments were completed at `r pscis_reassessments |> nrow()` sites where PSICS data required updating. -->
 
 <br>
 

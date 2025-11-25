@@ -9,16 +9,12 @@
 my_funding_project_number = "fraser_2025_phase1"
 
 
-# name the watershed groups in our study area
-wsg <- c("LCHL", "NECR", "FRAN", "MORK", "UFRA", "WILL", "TBAR", "")
-
-
 # this object should be called bcfishpass_crossings_vw or something that better reflects what it is
 bcfishpass <- fpr::fpr_db_query(
   glue::glue(
     "SELECT * from bcfishpass.crossings_vw
   WHERE watershed_group_code IN (
-  {glue::glue_collapse(glue::single_quote(wsg), sep = ', ')}
+  {glue::glue_collapse(glue::single_quote(params$wsg_code), sep = ', ')}
   );"
   )
 ) |>
@@ -32,43 +28,43 @@ bcfishpass_spawn_rear_model <- fpr::fpr_db_query(
   FROM bcfishpass.log_parameters_habitat_thresholds);"
 )
 
-# Instead of waiting for the new phase 1 to make it into bcfishpass (rebuilds monday afternoons), lets just pull them from bcdata directly which rebuild nightly (mon to friday)
-
-# get all the pscis data for the watersheds from the bcdata database (rebuild nightly, mon to friday)
-pscis_assessment_svw <- bcdata::bcdc_get_data("WHSE_FISH.PSCIS_ASSESSMENT_SVW")
-
-
-# build a cross reference table for the stream_crossing_id and the external_crossing_reference which is the crossing id we assigned it in the field
-xref_pscis_my_crossing_modelled <- pscis_assessment_svw |>
-  janitor::clean_names() |>
-  dplyr::filter(funding_project_number == my_funding_project_number) |>
-  dplyr::select(external_crossing_reference, stream_crossing_id) |>
-  dplyr::mutate(external_crossing_reference = as.numeric(external_crossing_reference)) |>
-  dplyr::arrange(external_crossing_reference) |>
-  sf::st_drop_geometry()
-
-
-# # get all the pscis data for the watershed from the database which is updated weekly on our server
-# # could consider naming more effectively in the future
-# pscis_assessment_svw <- fpr::fpr_db_query(
-#   glue::glue(
-#     "SELECT p.*, wsg.watershed_group_code
-#    FROM whse_fish.pscis_assessment_svw p
-#    INNER JOIN whse_basemapping.fwa_watershed_groups_poly wsg
-#    ON ST_Intersects(wsg.geom,p.geom)
-#   WHERE wsg.watershed_group_code IN (
-#   {glue::glue_collapse(glue::single_quote(wsg), sep = ', ')}
-#   );"
-#   )
-# )
+# # Instead of waiting for the new phase 1 to make it into bcfishpass (rebuilds monday afternoons), lets just pull them from bcdata directly which rebuild nightly (mon to friday)
+#
+# # get all the pscis data for the watersheds from the bcdata database (rebuild nightly, mon to friday)
+# pscis_assessment_svw <- bcdata::bcdc_get_data("WHSE_FISH.PSCIS_ASSESSMENT_SVW")
+#
 #
 # # build a cross reference table for the stream_crossing_id and the external_crossing_reference which is the crossing id we assigned it in the field
 # xref_pscis_my_crossing_modelled <- pscis_assessment_svw |>
+#   janitor::clean_names() |>
 #   dplyr::filter(funding_project_number == my_funding_project_number) |>
 #   dplyr::select(external_crossing_reference, stream_crossing_id) |>
 #   dplyr::mutate(external_crossing_reference = as.numeric(external_crossing_reference)) |>
 #   dplyr::arrange(external_crossing_reference) |>
 #   sf::st_drop_geometry()
+
+
+# get all the pscis data for the watershed from the database which is updated weekly on our server
+# could consider naming more effectively in the future
+pscis_assessment_svw <- fpr::fpr_db_query(
+  glue::glue(
+    "SELECT p.*, wsg.watershed_group_code
+   FROM whse_fish.pscis_assessment_svw p
+   INNER JOIN whse_basemapping.fwa_watershed_groups_poly wsg
+   ON ST_Intersects(wsg.geom,p.geom)
+  WHERE wsg.watershed_group_code IN (
+  {glue::glue_collapse(glue::single_quote(params$wsg_code), sep = ', ')}
+  );"
+  )
+)
+
+# build a cross reference table for the stream_crossing_id and the external_crossing_reference which is the crossing id we assigned it in the field
+xref_pscis_my_crossing_modelled <- pscis_assessment_svw |>
+  dplyr::filter(funding_project_number == my_funding_project_number) |>
+  dplyr::select(external_crossing_reference, stream_crossing_id) |>
+  dplyr::mutate(external_crossing_reference = as.numeric(external_crossing_reference)) |>
+  dplyr::arrange(external_crossing_reference) |>
+  sf::st_drop_geometry()
 
 
 # Load the cleaned habitat_confirmations tracks for this project
