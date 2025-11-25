@@ -180,3 +180,9 @@ source("scripts/02_reporting/0120-read-sqlite.R")
 
   ## Backup our changes ------------------
   source("scripts/01_prep_inputs/0100_backup_forms.R")
+
+
+
+# To rename photo folders with PSCIS IDs, rerun `0110_photos.R`
+
+
