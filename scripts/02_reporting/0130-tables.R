@@ -997,3 +997,21 @@ tab_monitoring <- form_monitoring |>
     -priority_notes
   ) |>
   janitor::clean_names(case = "title")
+
+
+# eDNA table --------------------------------------------------------------
+
+
+tab_edna <- form_edna |>
+  dplyr::select(Site = site_id,
+                Stream = stream_name,
+                `Habitat Type` = site_description_habitat_type,
+                `Sample Method` = method_sample,
+                `Filter Type` = filter_type,
+                `Filter Size (um)` = filter_size_um,
+                `Volume filtered (L)` = filter_volume_l,
+                `Site Description` = site_description_general,
+                site) |>
+  sf::st_drop_geometry()
+
+
