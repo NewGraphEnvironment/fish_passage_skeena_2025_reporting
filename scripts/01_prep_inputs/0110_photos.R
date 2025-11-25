@@ -44,6 +44,7 @@ d_dir <- d_deets |>
   # really we only need distinct dir_from_raw to pull this off
   dplyr::distinct(dir_from_raw, .keep_all = T)
 
+
 # now add the new locations by joining by source
 d <- dplyr::left_join(
   d_deets,
@@ -93,3 +94,8 @@ purrr::walk(
     return_df = FALSE
   )
 )
+
+# Delete renamed folders after they have been sorted.
+renamed_delete <- fs::dir_ls(d_dir$dir_to, type = "file", recurse = FALSE)
+fs::file_delete(renamed_delete)
+
