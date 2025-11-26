@@ -984,6 +984,7 @@ tab_monitoring <- form_monitoring |>
 
 
 tab_edna <- form_edna |>
+  dplyr::filter(!(control_blank_field|control_blank_office)) |>
   dplyr::select(Site = site_id,
                 Stream = stream_name,
                 `Habitat Type` = site_description_habitat_type,
