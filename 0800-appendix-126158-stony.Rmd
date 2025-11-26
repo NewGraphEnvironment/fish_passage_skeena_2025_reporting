@@ -48,9 +48,6 @@ a maximum of `r fpr::fpr_my_wshd(col = 'elev_max')`m to
 
 PSCIS crossing `r as.character(my_site)` was first assessed with a fish passage assessment in 2014 by @hooft2015Fishpassage and ranked as a barrier to fish passage with medium value habitat present. The crossing was reassessed in 2025 and a habitat confirmation assessment was conducted due to the presence of high value habitat and a significant amount of modelled habitat upstream. No fisheries information is documented for the stream; however, downstream in Stony Lake, bull trout and other species have been previously recorded [@norris2024smnorrisbcfishobs; @moe2024KnownBC].  
 
-
-?? Comments say "Bull trout documented downstream of the crossing in 2014." but can't find any evidence of this in modelling. 
-
 <br>
 
 <!-- `r fpr::fpr_my_fish_sp()` have previously been recorded [@norris2024smnorrisbcfishobs; @moe2024KnownBC]. -->
@@ -58,8 +55,6 @@ PSCIS crossing `r as.character(my_site)` was first assessed with a fish passage 
 A summary of habitat modelling outputs for the crossing are presented in Table
 \@ref(tab:tab-culvert-bcfp-126158).
 
-
-UPDATED TO HERE ******
 
 <br>
 
@@ -122,7 +117,7 @@ hab_site |>filter(site == my_site & location == 'us') |>pull(comments)
 
 <br>
 
-## eDNA Sampling
+## Environmental DNA Sampling {.unnumbered}
 
 eDNA samples were collected both upstream and downstream of crossing `r as.character(my_site)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)`, with sampling techniques summarized in Table \@ref(tab:tab-edna-126158).
 
@@ -134,7 +129,7 @@ my_caption <- paste0("Summary of eDNA samples collected at site ", my_site, ".")
 tab_edna |> 
   dplyr::filter(site == my_site) |> 
   dplyr::select(-site) |> 
-  fpr_kable(caption_text = my_caption)
+  fpr_kable(caption_text = my_caption, scroll = FALSE)
 
 ```
 
@@ -144,7 +139,7 @@ tab_edna |>
 
 ## Structure Remediation and Cost Estimate {.unnumbered}
 
-Should restoration/maintenance activities proceed, replacement of the `r fpr_my_pscis_info(col_pull = road_name)` crossing (`r as.character(my_site)`) with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)`m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$ `r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
+Should restoration/maintenance activities proceed, replacement of the `r fpr_my_pscis_info(col_pull = road_name)` crossing (`r as.character(my_site)`) with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)`m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$`r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
 
 <br>
 
@@ -168,7 +163,7 @@ tab_hab_summary |>
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 ```{r photo-126158-01-prep, eval=T}
-my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = 'ds_typical_1_')
+my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = 'ds_typical_2_')
 
 my_caption1 = paste0('Typical habitat downstream of PSCIS crossing ', my_site, '.')
 
@@ -182,9 +177,9 @@ knitr::include_graphics(my_photo1)
 <br>
 
 ```{r photo-126158-02-prep, eval=T}
-my_photo2 = fpr::fpr_photo_pull_by_str(str_to_pull = 'us_dry_')
+my_photo2 = fpr::fpr_photo_pull_by_str(str_to_pull = 'us_typical_1_')
 
-my_caption2 = paste0('The stream went subsurface approximately 200m upstream of PSCIS crossing ', my_site, '.')
+my_caption2 = paste0('Typical habitat upstream of PSCIS crossing ', my_site, '.')
 
 
 ```

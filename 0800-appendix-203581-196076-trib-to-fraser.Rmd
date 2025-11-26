@@ -1,0 +1,221 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r setup-203581, eval = F}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
+source('scripts/packages.R')
+source('scripts/tables.R')
+source('scripts/functions.R')
+```
+
+```{r  load-data-203581}
+my_site <- 203581
+my_site2 <- 196076
+```
+
+`r fpr::fpr_appendix_title()`
+
+
+## Site Location {.unnumbered}
+
+PSCIS crossings `r as.character(my_site)` and `r as.character(my_site2)` are located on `r fpr::fpr_my_pscis_info()`, approximately 13km east of Prince George, BC, in the Tabor River watershed group (Figure \@ref(fig:map-203581)). Crossing `r as.character(my_site)` is located 80m upstream of the Fraser River, and is located on and the responsibility of the CN `r fpr_my_pscis_info(col_pull = road_name, site = my_site)`. Approximately 1.3km further upstream, PSCIS crossing `r as.character(my_site2)` is located on `r fpr_my_pscis_info(col_pull = road_name, site = my_site2)`, and is situated under McLean road tenure R02924 A.
+
+<br>
+
+```{r map-203581, fig.cap = my_caption, eval = F}
+ my_caption <- "Map of Tributary to Fraser River"
+ 
+ knitr::include_graphics("fig/gis/trib_to_fraser.jpeg")
+ 
+```
+
+<br>
+
+## Background {.unnumbered}
+
+At the location of these crossings, `r fpr::fpr_my_pscis_info()` is a
+`r fpr::fpr_my_bcfishpass() |>english::ordinal()` order stream and drains a watershed of approximately
+`r fpr::fpr_my_wshd()`km^2^. The watershed ranges in elevation from
+a maximum of `r fpr::fpr_my_wshd(col = 'elev_max')`m to
+`r fpr::fpr_my_wshd(col = 'elev_site')`m near the crossing (Table
+\@ref(tab:tab-wshd-203581)).
+
+<br>
+
+The uppermost crossing, crossing `r as.character(my_site2)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site2)`, was previously assessed in 2014 by @hooft2015Fishpassage and ranked as a barrier to fish passage with medium value habitat documented. Due to the large amount of chinook and bull trout habitat modelled upstream, the site was reassessed in 2025 along with the previously unassessed downstream CN railway crossing (crossing `r as.character(my_site)`). Habitat confirmation assessments were completed at both crossings in 2025. No fisheries information is documented for the stream; however, the crossings are near the confluence with the Fraser River, where chinook and bull trout have been recorded.
+
+<br>
+
+<!-- `r fpr::fpr_my_fish_sp()` have previously been recorded [@norris2024smnorrisbcfishobs; @moe2024KnownBC]. -->
+
+A summary of habitat modelling outputs for the crossing are presented in Table
+\@ref(tab:tab-culvert-bcfp-203581).
+
+
+<br>
+
+```{r tab-wshd-203581, eval = T}
+fpr::fpr_table_wshd_sum(site_id = my_site) |>
+  fpr::fpr_kable(caption_text = paste0('Summary of derived upstream watershed statistics for PSCIS crossing ', my_site, '.'),
+           footnote_text = 'Elev P60 = Elevation at which 60% of the watershed area is above',
+           scroll = F)
+
+```
+
+<br>
+
+```{r tab-culvert-bcfp-203581, eval = T}
+fpr::fpr_table_bcfp(scroll = F) 
+```
+
+<br>
+
+
+## Stream Characteristics at Crossings `r as.character(my_site)` and `r as.character(my_site2)`  {.unnumbered}
+
+At the time of the 2025 assessment, both PSCIS crossing `r as.character(my_site)` and `r as.character(my_site2)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` were un-embedded, non-backwatered and ranked as a `r fpr::fpr_my_pscis_info(col_pull = barrier_result) |>stringr::str_to_lower()` to upstream fish passage according to the provincial protocol [@moe2011Fieldassessment] (Tables \@ref(tab:tab-culvert-203581) - \@ref(tab:tab-culvert-196076)). The downstream crossing on the CN railway (crossing `r as.character(my_site)`) had a 2.5m outlet drop. 
+
+<br>
+
+Water temperature was `r fpr::fpr_my_habitat_info(loc = "ds", col_pull = 'temperature_c')`$^\circ$C,
+pH was `r fpr::fpr_my_habitat_info(loc = "ds", col_pull = 'p_h')` and
+conductivity was `r fpr::fpr_my_habitat_info(loc = "ds", col_pull = 'conductivity_m_s_cm')` uS/cm.
+
+`r if(identical(gitbook_on, FALSE)){knitr::asis_output("\\pagebreak")}`
+
+<br>
+
+```{r tab-culvert-203581, eval = T}
+fpr::fpr_table_cv_summary_memo()
+
+```
+
+<br>
+
+```{r tab-culvert-196076, eval = T}
+fpr::fpr_table_cv_summary_memo(site = my_site2, site_photo_id = my_site2)
+
+```
+
+
+<br>
+
+```{r eval=F}
+##this is useful to get some comments for the report
+hab_site |>filter(site == my_site & location == 'ds') |>pull(comments)
+hab_site |>filter(site == my_site & location == 'us') |>pull(comments)
+
+
+hab_site |>filter(site == my_site2 & location == 'ds') |>pull(comments)
+hab_site |>filter(site == my_site2 & location == 'us') |>pull(comments)
+```
+
+
+## Stream Characteristics Downstream of Crossing `r as.character(my_site)` {.unnumbered}
+
+`r fpr_my_survey_dist(loc = 'ds')` `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-203581-01)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-203581-d01))."))` The habitat was rated as low value for salmonid spawning and rearing. The outlet of the culvert was directly on the floodplain of the Fraser River. The average channel width was 8.3m, the average wetted width was 1m, and the average gradient was 2.5%.
+
+<br>
+
+## Stream Characteristics Upstream of Crossing `r as.character(my_site)` {.unnumbered}
+
+`r fpr_my_survey_dist(loc = 'us')` `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-203581-02)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-203581-d01))."))` The habitat was rated as `r fpr::fpr_my_priority_info(loc = 'us') |>stringr::str_to_lower()` value. `r fpr_my_habitat_paragraph(loc = 'us')` A landslide was located approximately 300m upstream of the railway crossing. The stream was low-gradient with abundant gravels and numerous fish to 60mm observed. The channel flowed through an entrenched, steep-walled valley with several sections where clay banks had collapsed into the stream.
+
+<br>
+
+## Stream Characteristics Downstream of Crossing `r as.character(my_site2)` {.unnumbered}
+
+`r fpr_my_survey_dist(sit = my_site2, loc = 'ds')` `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-196076-01)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-196076-d01))."))` The habitat was rated as `r fpr::fpr_my_priority_info(sit = my_site2, loc = 'ds') |>stringr::str_to_lower()` value. 
+Beaver dams ranging from 0.6–1m in height began approximately 150m downstream of the culvert within an incised gully. Upstream of the dams, abundant gravels, shallow pools, and small woody debris provided habitat suitable for parr and juvenile rearing. `r fpr_my_habitat_paragraph(sit = my_site2, loc = 'ds')`
+
+<br>
+
+## Stream Characteristics Upstream of Crossing `r as.character(my_site2)` {.unnumbered}
+
+`r fpr_my_survey_dist(sit = my_site2, loc = 'us')` `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-196076-02)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-196076-d01))."))` The habitat was rated as `r fpr::fpr_my_priority_info(sit = my_site2, loc = 'us') |>stringr::str_to_lower()` value. `r fpr_my_habitat_paragraph(sit = my_site2, loc = 'us')` The stream was moderate-sized, low-gradient stream with abundant gravels and habitat suitable for fry and juvenile salmonid rearing, including shallow pools, small and large woody debris, and undercut banks. No fish or barriers were observed at the time of assessment.
+
+<br>
+
+## Environmental DNA Sampling {.unnumbered}
+
+eDNA samples were collected both upstream and downstream of crossings `r as.character(my_site)` and `r as.character(my_site2)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)`, with sampling techniques summarized in Table \@ref(tab:tab-edna-203581).
+
+<br>
+
+```{r tab-edna-203581}
+my_caption <- paste0("Summary of eDNA samples collected at sites ", my_site, " and ", my_site2, ".")
+
+tab_edna |> 
+  dplyr::filter(site %in% c(my_site, my_site2)) |> 
+  dplyr::select(-site) |> 
+  fpr_kable(caption_text = my_caption, scroll = FALSE)
+
+```
+
+
+ 
+<br>
+
+## Structure Remediation and Cost Estimate {.unnumbered}
+
+Should restoration/maintenance activities proceed, replacement of the `r fpr_my_pscis_info(col_pull = road_name)` crossing (`r as.character(my_site)`) with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)`m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$`r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
+
+<br>
+
+
+## Conclusion {.unnumbered}
+
+The habitat upstream of PSCIS crossing `r as.character(my_site)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` was documented as medium value for salmonid spawning and rearing, and the crossing is rated as a `r fpr_my_pscis_info(col_pull = my_priority, site = my_site)` priority for replacement due to the large outlet drop and presence of bull trout documented downstream of the crossing. 
+
+`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
+
+<br>
+
+```{r tab-habitat-summary-203581, eval = T}
+tab_hab_summary |>
+  dplyr::filter(Site %in% c(my_site)) |> 
+  fpr::fpr_kable(caption_text = paste0("Summary of habitat details for PSCIS crossing ", my_site, "."),
+                 scroll = F) 
+
+```
+
+`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
+
+```{r photo-203581-01-prep, eval=T}
+my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = 'ds_typical_1_')
+
+my_caption1 = paste0('Typical habitat downstream of PSCIS crossing ', my_site, '.')
+
+
+```
+
+```{r photo-203581-01, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo1)
+```
+
+<br>
+
+```{r photo-203581-02-prep, eval=T}
+my_photo2 = fpr::fpr_photo_pull_by_str(str_to_pull = 'us_typical_1_')
+
+my_caption2 = paste0('Typical habitat upstream of PSCIS crossing ', my_site, '.')
+
+
+```
+
+```{r photo-203581-02, fig.cap= my_caption2, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo2)
+```
+
+```{r photo-203581-d01, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
+my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
+
+knitr::include_graphics(my_photo1)
+knitr::include_graphics("fig/pixel.png")
+knitr::include_graphics(my_photo2)
+```
