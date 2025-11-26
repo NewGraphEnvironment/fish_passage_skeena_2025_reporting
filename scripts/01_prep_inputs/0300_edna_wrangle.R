@@ -1,12 +1,10 @@
 # Clean up the eDNA from and burn back to geopackage
 
-# Params ----------------------
 {
-  year <- 2025
 
-
+  # Params ----------------------
   # read in the mega form and convert to sf object
-  path_form_edna_raw <- fs::path("~/Projects/repo/fish_passage_template_reporting/data/backup/", year, paste0("form_edna_", year, ".csv"))
+  path_form_edna_raw <- fs::path("~/Projects/repo/fish_passage_template_reporting/data/backup/", params$project_year, paste0("form_edna_", params$project_year, ".csv"))
 
   form_edna_raw <- readr::read_csv(path_form_edna_raw) |>
     fpr::fpr_sp_assign_sf_from_utm()
@@ -63,7 +61,9 @@
                   ),
                   filter_type = stringr::str_to_lower(filter_type),
                   comments_field = stringr::str_trim(comments_field),
-                  comments_lab = stringr::str_trim(comments_lab))
+                  comments_lab = stringr::str_trim(comments_lab),
+                  control_blank_field = dplyr::case_when(is.na(control_blank_field) ~ FALSE, T ~ control_blank_field),
+                  control_blank_office = dplyr::case_when(is.na(control_blank_office) ~ FALSE, T ~ control_blank_office))
 
 
 
