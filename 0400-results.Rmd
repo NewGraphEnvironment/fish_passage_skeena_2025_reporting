@@ -440,7 +440,7 @@ The "Barrier" and "Potential Barrier" rankings used in this project followed @mo
  tab_cost_est_phase1 |>
   select(`PSCIS ID`:`Cost Est ( $K)`) |> 
    fpr::fpr_kable(caption_text = paste0("Upstream habitat estimates and cost benefit analysis for Phase 1 assessments ranked as a 'barrier' or 'potential' barrier. ", sp_network_caption),
-                  scroll = F)
+                  scroll = T)
  
 ```
 
