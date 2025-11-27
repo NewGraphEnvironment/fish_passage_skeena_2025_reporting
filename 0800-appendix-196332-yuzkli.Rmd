@@ -129,6 +129,7 @@ my_caption <- paste0("Summary of eDNA samples collected at site ", my_site, ".")
 tab_edna |> 
   dplyr::filter(site == my_site) |> 
   dplyr::select(-site) |> 
+    dplyr::arrange(Site) |> 
   fpr_kable(caption_text = my_caption, scroll = FALSE)
 
 ```

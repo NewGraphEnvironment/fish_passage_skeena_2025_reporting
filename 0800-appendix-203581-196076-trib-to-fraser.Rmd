@@ -18,7 +18,7 @@ my_site <- 203581
 my_site2 <- 196076
 ```
 
-`r fpr::fpr_appendix_title()`
+`r fpr::fpr_appendix_title(site2 = my_site2)`
 
 
 ## Site Location {.unnumbered}
@@ -78,7 +78,7 @@ fpr::fpr_table_bcfp(scroll = F)
 
 ## Stream Characteristics at Crossings `r as.character(my_site)` and `r as.character(my_site2)`  {.unnumbered}
 
-At the time of the 2025 assessment, both PSCIS crossing `r as.character(my_site)` and `r as.character(my_site2)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` were un-embedded, non-backwatered and ranked as a `r fpr::fpr_my_pscis_info(col_pull = barrier_result) |>stringr::str_to_lower()` to upstream fish passage according to the provincial protocol [@moe2011Fieldassessment] (Tables \@ref(tab:tab-culvert-203581) - \@ref(tab:tab-culvert-196076)). The downstream crossing on the CN railway (crossing `r as.character(my_site)`) had a 2.5m outlet drop. 
+At the time of the 2025 assessment, both PSCIS crossing `r as.character(my_site)` and `r as.character(my_site2)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` were un-embedded, non-backwatered and ranked as a `r fpr::fpr_my_pscis_info(col_pull = barrier_result) |>stringr::str_to_lower()` to upstream fish passage according to the provincial protocol [@moe2011Fieldassessment] (Tables \@ref(tab:tab-culvert-203581) - \@ref(tab:tab-culvert-196076)). The downstream crossing on the CN railway (crossing `r as.character(my_site)`) had a 2.5m outlet drop, however the outlet is directly on the floodplain of the Fraser River and when the river is 2.5 - 3.5m higher the structure would backwater. 
 
 <br>
 
@@ -143,7 +143,7 @@ Beaver dams ranging from 0.6–1m in height began approximately 150m downstream 
 
 ## Environmental DNA Sampling {.unnumbered}
 
-eDNA samples were collected both upstream and downstream of crossings `r as.character(my_site)` and `r as.character(my_site2)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)`, with sampling techniques summarized in Table \@ref(tab:tab-edna-203581).
+Two eDNA samples were collected upstream of crossing `r as.character(my_site)` on the CN railway using different pore sizes. Two samples were also collected downstream of crossing `r as.character(my_site2)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site2)`, positioned upstream of the lowest beaver dam. Fish were observed downstream of the lowest beaver dam ~500m from the Fraser River; samples were therefore collected to assess whether fish could be detected upstream of the dams but downstream of the FSR. Filtering rates were extremely slow, requiring a second filter. One additional sample was collected upstream of `r as.character(my_site2)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site2)`. Sampling techniques are summarized in Table \@ref(tab:tab-edna-203581).
 
 <br>
 
@@ -152,25 +152,35 @@ my_caption <- paste0("Summary of eDNA samples collected at sites ", my_site, " a
 
 tab_edna |> 
   dplyr::filter(site %in% c(my_site, my_site2)) |> 
-  dplyr::select(-site) |> 
+  ## Unique to fraser 2025 - renaming sites to match the new pscis IDs, I didnt want to change the site names in the actually form because those are associated with the samples that got sent to the lab, and didn't want to cause any confusion. 
+  tidyr::separate(Site, into = c("site", "location", "ed"), remove = FALSE) |>
+  dplyr::mutate(site = dplyr::case_when(stringr::str_detect(ed, "ed1a|ed1b") ~ "203581", T ~ site)) |> 
+  dplyr::mutate(location = dplyr::case_when(stringr::str_detect(ed, "ed1a|ed1b") ~ "us", T ~ location)) |>
+  dplyr::mutate(Site = paste0(site, "_", location, "_", ed)) |> 
+  dplyr::select(-c(site, location, ed)) |> 
+  dplyr::arrange(Site) |> 
+  ## END hack
+  # dplyr::select(-site) |>
   fpr_kable(caption_text = my_caption, scroll = FALSE)
 
 ```
 
-
- 
 <br>
 
 ## Structure Remediation and Cost Estimate {.unnumbered}
 
-Should restoration/maintenance activities proceed, replacement of the `r fpr_my_pscis_info(col_pull = road_name)` crossing (`r as.character(my_site)`) with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)`m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$`r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
+Should restoration/maintenance activities proceed, replacement of the CN `r fpr_my_pscis_info(col_pull = road_name)` crossing (`r as.character(my_site)`) with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)`m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$`r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
 
 <br>
 
+Should restoration/maintenance activities proceed at the `r fpr_my_pscis_info(col_pull = road_name, site = my_site2)` crossing (`r as.character(my_site2)`) replacement with a bridge (`r fpr::fpr_my_pscis_info(site = my_site2, col_pull = recommended_diameter_or_span_meters)` m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$`r format(fpr::fpr_my_cost_estimate(site = my_site2), big.mark = ',')`.
+
+<br>
 
 ## Conclusion {.unnumbered}
 
-The habitat upstream of PSCIS crossing `r as.character(my_site)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` was documented as medium value for salmonid spawning and rearing, and the crossing is rated as a `r fpr_my_pscis_info(col_pull = my_priority, site = my_site)` priority for replacement due to the large outlet drop and presence of bull trout documented downstream of the crossing. 
+`r fpr_my_pscis_info(col_pull = stream_name, site = my_site)` provided medium value habitat for salmonid spawning and rearing. The downstream railway crossing is ranked as a `r fpr_my_pscis_info(col_pull = my_priority, site = my_site)` priority for replacement because the structure is likely backwatered when the Fraser River is higher. The upstream crossing on `r fpr_my_pscis_info(col_pull = road_name, site = my_site2)` had a significant outlet drop and is ranked as a `r fpr_my_pscis_info(col_pull = my_priority, site = my_site2)` priority for replacement. Crossing `r as.character(my_site2)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site2)` could be a strong candidate for replacement because the site is close to the Fraser River, is in close proximity to the City of Prince George (supporting community engagement opportunities), and is located on an active logging road, providing potential for collaborative remediation with the road tenure holder McLean.
+
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
@@ -178,8 +188,8 @@ The habitat upstream of PSCIS crossing `r as.character(my_site)` on `r fpr_my_ps
 
 ```{r tab-habitat-summary-203581, eval = T}
 tab_hab_summary |>
-  dplyr::filter(Site %in% c(my_site)) |> 
-  fpr::fpr_kable(caption_text = paste0("Summary of habitat details for PSCIS crossing ", my_site, "."),
+  dplyr::filter(Site %in% c(my_site, my_site2)) |> 
+  fpr::fpr_kable(caption_text = paste0("Summary of habitat details for PSCIS crossings ", my_site, " and ", my_site2, "."),
                  scroll = F) 
 
 ```
@@ -187,7 +197,7 @@ tab_hab_summary |>
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 ```{r photo-203581-01-prep, eval=T}
-my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = 'ds_typical_1_')
+my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = 'ds_typical_2_')
 
 my_caption1 = paste0('Typical habitat downstream of PSCIS crossing ', my_site, '.')
 
@@ -213,6 +223,42 @@ knitr::include_graphics(my_photo2)
 ```
 
 ```{r photo-203581-d01, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
+my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
+
+knitr::include_graphics(my_photo1)
+knitr::include_graphics("fig/pixel.png")
+knitr::include_graphics(my_photo2)
+```
+
+<br>
+
+```{r photo-196076-01-prep, eval=T}
+my_photo1 = fpr::fpr_photo_pull_by_str(site = my_site2, str_to_pull = 'ds_typical_1_')
+
+my_caption1 = paste0('Beaver dam complex located downstream of PSCIS crossing ', my_site2, '.')
+
+
+```
+
+```{r photo-196076-01, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo1)
+```
+
+<br>
+
+```{r photo-196076-02-prep, eval=T}
+my_photo2 = fpr::fpr_photo_pull_by_str(site = my_site2, str_to_pull = 'us_typical_2_')
+
+my_caption2 = paste0('Typical habitat upstream of PSCIS crossing ', my_site2, '.')
+
+
+```
+
+```{r photo-196076-02, fig.cap= my_caption2, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo2)
+```
+
+```{r photo-196076-d01, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
 my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
 
 knitr::include_graphics(my_photo1)
