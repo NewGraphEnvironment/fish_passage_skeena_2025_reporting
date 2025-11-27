@@ -101,6 +101,7 @@ font_set <- 9
 source('scripts/packages.R')
 staticimports::import()
 source('scripts/staticimports.R')
+source('scripts/functions.R')
 source("scripts/02_reporting/0120-read-sqlite.R")
 source("scripts/02_reporting/0105-params-derived.R")
 source('scripts/02_reporting/0130-tables.R')
