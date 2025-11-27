@@ -1,5 +1,4 @@
 # copy all forms to data_field_{year} directory
-year <- 2025
 
 path_gis <- "/Users/lucy/Projects/gis"
 
@@ -12,7 +11,7 @@ name_projects <- c(
 
 # define data dir
 dir_out <-   fs::path(
-  path_gis, name_projects, "data_field", year
+  path_gis, name_projects, "data_field", params$project_year
 )
 
 dir_in <- fs::path(
@@ -27,13 +26,13 @@ results <- list()
 
 for (i in seq_along(name_projects)) {
 
-  path_form_pscis <- fs::path(dir_out[i], paste0("form_pscis_", year, ".gpkg"))
+  path_form_pscis <- fs::path(dir_out[i], paste0("form_pscis_", params$project_year, ".gpkg"))
 
   #read in cleaned form from Q after review and finalization
   form_pscis_raw <- fpr::fpr_sp_gpkg_backup(
     path_gpkg = path_form_pscis,
     update_utm = TRUE,
-    update_site_id = TRUE, ## Turn this off after adding pscis ids
+    update_site_id = FALSE, ## Turn this off after adding pscis ids
     write_back_to_path = FALSE,
     write_to_csv = FALSE,
     write_to_rdata = FALSE,
@@ -54,6 +53,7 @@ for (i in seq_along(name_projects)) {
                   road_name = stringr::str_replace_all(road_name, 'Fsr', 'FSR'),
                   road_name = stringr::str_replace_all(road_name, 'Rd', 'Road '),
                   crew_members = stringr::str_to_upper(crew_members),
+                  my_priority = dplyr::case_when(my_priority == "mod" ~ "moderate", T ~ my_priority),
 
                   # remove white space from comments
                   assessment_comment = stringr::str_squish(assessment_comment),
@@ -61,7 +61,7 @@ for (i in seq_along(name_projects)) {
                                 ~ stringr::str_trim(.x))) |>
 
     # Add in the scores using the new xfm_ functions
-    fpr::fpr_xfm_paw_all_scores_result() |>
+    fpr::fpr_xfm_paw_all_scores_result()  |>
     fpr::fpr_xfm_paw_xing_fix_size()
 
 

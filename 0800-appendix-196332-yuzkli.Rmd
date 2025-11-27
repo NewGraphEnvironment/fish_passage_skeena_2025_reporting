@@ -1,0 +1,198 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r setup-196332, eval = F}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
+source('scripts/packages.R')
+source('scripts/tables.R')
+source('scripts/functions.R')
+```
+
+```{r  load-data-196332}
+my_site <- 196332
+```
+
+`r fpr::fpr_appendix_title()`
+
+
+## Site Location {.unnumbered}
+
+PSCIS crossing `r as.character(my_site)` is located on `r fpr::fpr_my_pscis_info()`, approximately 50km northeast of Quesnel, BC, in the Willow River watershed group (Figure \@ref(fig:map-196332)). The crossing is located `r round(fpr::fpr_my_bcfishpass(col_pull = downstream_route_measure)*0.001, 1)`km upstream of the stream’s confluence with Yuzkli Creek on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` and is situated under West Fraser Mills Ltd. road tenure R14273 100S.
+
+<br>
+
+```{r map-196332, fig.cap = my_caption, eval = F}
+ my_caption <- "Map of South Yuzkli Creek "
+ 
+ knitr::include_graphics("fig/gis/map_yuzkli.jpeg")
+ 
+```
+
+<br>
+
+## Background {.unnumbered}
+
+At PSCIS crossing `r as.character(my_site)`, `r fpr::fpr_my_pscis_info()` is a
+`r fpr::fpr_my_bcfishpass() |>english::ordinal()` order stream and drains a watershed of approximately
+`r fpr::fpr_my_wshd()`km^2^. The watershed ranges in elevation from
+a maximum of `r fpr::fpr_my_wshd(col = 'elev_max')`m to
+`r fpr::fpr_my_wshd(col = 'elev_site')`m near the crossing (Table
+\@ref(tab:tab-wshd-196332)).
+
+<br>
+
+PSCIS crossing `r as.character(my_site)` was first assessed with a fish passage assessment in 2014 by @hooft2015Fishpassage and ranked as a barrier to fish passage with medium value habitat documented. The crossing was reassessed in 2025 and a habitat confirmation assessment was conducted due to the presence of medium value habitat and bull trout documented just downstream of the crossing in 2014 [@norris2024smnorrisbcfishobs; @moe2024KnownBC].  
+
+<br>
+
+<!-- `r fpr::fpr_my_fish_sp()` have previously been recorded [@norris2024smnorrisbcfishobs; @moe2024KnownBC]. -->
+
+A summary of habitat modelling outputs for the crossing are presented in Table
+\@ref(tab:tab-culvert-bcfp-196332).
+
+
+<br>
+
+```{r tab-wshd-196332, eval = T}
+fpr::fpr_table_wshd_sum(site_id = my_site) |>
+  fpr::fpr_kable(caption_text = paste0('Summary of derived upstream watershed statistics for PSCIS crossing ', my_site, '.'),
+           footnote_text = 'Elev P60 = Elevation at which 60% of the watershed area is above',
+           scroll = F)
+
+```
+
+<br>
+
+```{r tab-culvert-bcfp-196332, eval = T}
+fpr::fpr_table_bcfp(scroll = F) 
+```
+
+<br>
+
+
+## Stream Characteristics at Crossing `r as.character(my_site)` {.unnumbered}
+
+At the time of the 2025 assessment, PSCIS crossing `r as.character(my_site)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` was un-embedded, non-backwatered and ranked as `r fpr::fpr_my_pscis_info(col_pull = barrier_result) |>stringr::str_to_lower()` to upstream fish passage according to the provincial protocol [@moe2011Fieldassessment] (Table \@ref(tab:tab-culvert-196332)). The culvert had a 0.6m outlet drop and a 0.7m deep outlet pool.
+
+<br>
+
+The water temperature was `r fpr::fpr_my_habitat_info(loc = "ds", col_pull = 'temperature_c')`$^\circ$C,
+pH was `r fpr::fpr_my_habitat_info(loc = "ds", col_pull = 'p_h')` and
+conductivity was `r fpr::fpr_my_habitat_info(loc = "ds", col_pull = 'conductivity_m_s_cm')` uS/cm.
+
+`r if(identical(gitbook_on, FALSE)){knitr::asis_output("\\pagebreak")}`
+
+<br>
+
+```{r tab-culvert-196332, eval = T}
+fpr::fpr_table_cv_summary_memo()
+
+```
+
+
+<br>
+
+```{r eval=F}
+##this is useful to get some comments for the report
+hab_site |>filter(site == my_site & location == 'ds') |>pull(comments)
+hab_site |>filter(site == my_site & location == 'us') |>pull(comments)
+
+```
+
+
+## Stream Characteristics Downstream of Crossing `r as.character(my_site)` {.unnumbered}
+
+`r fpr_my_survey_dist(loc = 'ds')` `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-196332-01)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-196332-d01))."))` The habitat was rated as `r fpr::fpr_my_priority_info(loc = 'ds') |>stringr::str_to_lower()` value for salmonid spawning and rearing. The stream was steep with numerous step-pool features formed by large woody debris ranging from 40–60cm in height. Shallow pools were present, typically 30–40cm deep, with boulder and overhead cover distributed throughout. `r fpr_my_habitat_paragraph(loc = 'ds')`
+
+<br>
+
+## Stream Characteristics Upstream of Crossing `r as.character(my_site)` {.unnumbered}
+
+`r fpr_my_survey_dist(loc = 'us')` `r if(gitbook_on){knitr::asis_output("(Figure \\@ref(fig:photo-196332-02)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-196332-d01))."))` The habitat was rated as `r fpr::fpr_my_priority_info(loc = 'us') |>stringr::str_to_lower()` value. `r fpr_my_habitat_paragraph(loc = 'us')` The stream was steep with good flow and numerous step-pool features ranging from 30–50cm in height. Shallow pools were 30–40cm deep with pockets of gravel suitable for resident bull trout spawning. Large woody debris was abundant throughout.
+
+<br>
+
+## Environmental DNA Sampling {.unnumbered}
+
+eDNA samples were collected both upstream and downstream of crossing `r as.character(my_site)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)`, with sampling techniques summarized in Table \@ref(tab:tab-edna-196332).
+
+<br>
+
+```{r tab-edna-196332}
+my_caption <- paste0("Summary of eDNA samples collected at site ", my_site, ".")
+
+tab_edna |> 
+  dplyr::filter(site == my_site) |> 
+  dplyr::select(-site) |> 
+    dplyr::arrange(Site) |> 
+  fpr_kable(caption_text = my_caption, scroll = FALSE)
+
+```
+
+
+ 
+<br>
+
+## Structure Remediation and Cost Estimate {.unnumbered}
+
+Should restoration/maintenance activities proceed, replacement of the `r fpr_my_pscis_info(col_pull = road_name)` crossing (`r as.character(my_site)`) with a bridge (`r fpr::fpr_my_pscis_info(col_pull = recommended_diameter_or_span_meters)`m span) is recommended. At the time of reporting in 2025, the cost of the work is estimated at \$`r format(fpr::fpr_my_cost_estimate(), big.mark = ',')`.
+
+<br>
+
+
+## Conclusion {.unnumbered}
+
+The habitat upstream of PSCIS crossing `r as.character(my_site)` on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` was documented as medium value for salmonid spawning and rearing, and the crossing is rated as a `r fpr_my_pscis_info(col_pull = my_priority, site = my_site)` priority for replacement due to the large outlet drop and presence of bull trout documented downstream of the crossing. 
+
+`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
+
+<br>
+
+```{r tab-habitat-summary-196332, eval = T}
+tab_hab_summary |>
+  dplyr::filter(Site %in% c(my_site)) |> 
+  fpr::fpr_kable(caption_text = paste0("Summary of habitat details for PSCIS crossing ", my_site, "."),
+                 scroll = F) 
+
+```
+
+`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
+
+```{r photo-196332-01-prep, eval=T}
+my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = 'ds_typical_1_')
+
+my_caption1 = paste0('Typical habitat downstream of PSCIS crossing ', my_site, '.')
+
+
+```
+
+```{r photo-196332-01, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo1)
+```
+
+<br>
+
+```{r photo-196332-02-prep, eval=T}
+my_photo2 = fpr::fpr_photo_pull_by_str(str_to_pull = 'us_typical_1_')
+
+my_caption2 = paste0('Typical habitat upstream of PSCIS crossing ', my_site, '.')
+
+
+```
+
+```{r photo-196332-02, fig.cap= my_caption2, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo2)
+```
+
+```{r photo-196332-d01, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
+my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
+
+knitr::include_graphics(my_photo1)
+knitr::include_graphics("fig/pixel.png")
+knitr::include_graphics(my_photo2)
+```

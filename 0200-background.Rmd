@@ -6,7 +6,7 @@ knitr::opts_chunk$set(fig.path = "fig/background/", dev = "png")
 
 ## Project Location
 
-The study area spans from Burns Lake to Valemount, British Columbia, and includes the `r knitr::asis_output(wsg_names |> knitr::combine_words()` watershed groups. In 2025 the study area was expanded to include the Tabor River, Willow River, and Lower Salmon River watershed groups.
+The study area spans from Burns Lake to Valemount, British Columbia, and includes the `r wsg_names |> knitr::combine_words()` watershed groups. In 2025 the study area was expanded to include the Tabor River, Willow River, and Lower Salmon River watershed groups.
 
 
 <br>
