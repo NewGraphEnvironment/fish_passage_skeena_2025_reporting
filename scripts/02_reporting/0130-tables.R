@@ -517,6 +517,7 @@ tab_hab_summary <- form_fiss_site |>
 
 ## turn spreadsheet into list of data frames
 pscis_phase1_for_tables <- form_pscis |>
+  sf::st_drop_geometry() |>
   dplyr::filter(assess_type_phase1 == "Yes" | assess_type_reassessment == "Yes")
 
 pscis_split <- pscis_phase1_for_tables  |>
