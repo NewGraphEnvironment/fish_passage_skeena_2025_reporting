@@ -26,7 +26,7 @@ my_site2 <- 203582
 PSCIS crossings `r as.character(my_site)` and `r as.character(my_site2)` are located on `r fpr::fpr_my_pscis_info()`, approximately 8km south of Prince George, BC, in the Tabor River watershed group (Figure \@ref(fig:map-196085)). Crossing `r as.character(my_site)` is located `r round(fpr::fpr_my_bcfishpass(col_pull = downstream_route_measure)*0.001, 1)`km upstream Tabor Creek's confluence with the Fraser River. The crossing is located on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` and is the responsibility of the Ministry of Transportation and Infrastructure (`chris_culvert_id`: `r fpr::fpr_my_pscis_info(col_pull = moti_chris_culvert_id)`). Approximately 400m upstream, crossing `r as.character(my_site2)` is located on and the responsibility of the CN `r fpr_my_pscis_info(col_pull = road_name, site = my_site2)`. 
 <br>
 
-```{r map-196085, fig.cap = my_caption, eval = F}
+```{r map-196085, fig.cap = my_caption, eval = T}
  my_caption <- "Map of Tabor Creek"
  
  knitr::include_graphics("fig/gis/tabor.jpeg")

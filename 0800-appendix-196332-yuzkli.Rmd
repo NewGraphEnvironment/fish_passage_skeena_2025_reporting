@@ -22,7 +22,7 @@ my_site <- 196332
 
 ## Site Location {.unnumbered}
 
-PSCIS crossing `r as.character(my_site)` is located on `r fpr::fpr_my_pscis_info()`, approximately 50km northeast of Quesnel, BC, in the Willow River watershed group (Figure \@ref(fig:map-196332)). The crossing is located `r round(fpr::fpr_my_bcfishpass(col_pull = downstream_route_measure)*0.001, 1)`km upstream of the stream’s confluence with Yuzkli Creek on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` and is situated under West Fraser Mills Ltd. road tenure R14273 100S.
+PSCIS crossing `r as.character(my_site)` is located on `r fpr::fpr_my_pscis_info()`, approximately 50km northeast of Quesnel, BC, in the Willow River watershed group (Figure \@ref(fig:map-196332)). The crossing is located `r round(fpr::fpr_my_bcfishpass(col_pull = downstream_route_measure)*0.001, 1)`km upstream of the stream’s confluence with Yuzkli Creek, which flows into the Willow River. The crossing is located on `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` and is situated under West Fraser Mills Ltd. road tenure R14273 100S.
 
 <br>
 
