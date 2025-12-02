@@ -54,7 +54,8 @@ nocite: |
   @sloat_etal2017Streamnetwork,
   @woll_etal2017SalmonEcological,
   @porter_etal2008DevelopingFish,
-  @rosenfeld_etal2000Habitatfactors
+  @rosenfeld_etal2000Habitatfactors,
+  @irvine_schick2024Restoringfish
 documentclass: book
 bibliography: "`r rbbt::bbt_write_bib('references.bib', overwrite = TRUE)`"
 biblio-style: apalike
