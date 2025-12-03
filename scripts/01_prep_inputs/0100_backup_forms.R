@@ -66,9 +66,9 @@ for (i in seq_along(name_projects)) {
   dir_backup <- fs::path("data/backup", year, name_projects[i])
   # fs::dir_create(dir_backup)
 
-  path_gpkgs <- fs::dir_ls(dir_out[i], glob = "*.gpkg")
+  # path_gpkgs <- fs::dir_ls(dir_out[i], glob = "*.gpkg")
   # pass a list of strings to exclude
-  # path_gpkgs <- fs::dir_ls(dir_out[i], glob = "*.gpkg")[!stringr::str_detect(fs::dir_ls(dir_out[i], glob = "*.gpkg"), stringr::str_c(str_exclude, collapse = "|"))]
+  path_gpkgs <- fs::dir_ls(dir_out[i], glob = "*.gpkg")[!stringr::str_detect(fs::dir_ls(dir_out[i], glob = "*.gpkg"), stringr::str_c(str_exclude, collapse = "|"))]
 
   for (path_gpkg in path_gpkgs) {
     fpr::fpr_sp_gpkg_backup(
@@ -91,11 +91,13 @@ for (i in seq_along(name_projects)) {
 results <- list()
 for (f in name_f) {
 
-  d <- fs::dir_ls(dir_out, glob = paste0("*", f, "*")) |>
+  # d <- fs::dir_ls(dir_out, glob = paste0("*", f, "*")) |>
   # d <- fs::dir_ls(
   #     dir_out,
   #     regexp = sprintf("^(?!.*(?:%s)).*%s.*$", paste(str_exclude, collapse="|"), f)
   #   ) |>
+  d <- fs::dir_ls(dir_out, glob = paste0("*", f, "*")) |>
+    (\(x) x[!stringr::str_detect(x, stringr::str_c(str_exclude, collapse = "|"))])() |>
     purrr::map(\(path) {
       sf::st_read(path, quiet = TRUE) |>
         dplyr::mutate(source = fs::path("~", fs::path_rel(path, start = fs::path_home()))) |>
