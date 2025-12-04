@@ -22,7 +22,7 @@ d_deets <- results |>
     site_id, into = c("site", "location"), extra = "merge"
   )
 
-dir_resized_stub <- "/Users/lucy/Projects/current/temp"
+dir_resized_stub <- "~/Projects/current/temp"
 # here is a list of all the photo sources
 d_dir <- d_deets |>
   dplyr::select(source, dplyr::matches("photo"), -dplyr::matches("tag")) |>
