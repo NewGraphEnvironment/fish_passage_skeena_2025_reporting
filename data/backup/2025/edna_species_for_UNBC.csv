@@ -1,350 +1,350 @@
-﻿"site_id","run_number","sp_code","assay_id","assay_dye","notes","site_pattern","run_order","site_pattern_id"
-"199663_ds_ed1",1,"BB",NA,"FAM","Assay not yet tested in northern regions","fam_fam_vic_vic",1,1
-"199663_ds_ed1",1,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","fam_fam_vic_vic",2,1
-"199663_ds_ed1",2,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","fam_fam_vic_vic",3,1
-"199663_ds_ed1",2,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","fam_fam_vic_vic",4,1
-"199663_us_ed1",1,"BB",NA,"FAM","Assay not yet tested in northern regions","fam_fam_vic_vic",1,1
-"199663_us_ed1",1,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","fam_fam_vic_vic",2,1
-"199663_us_ed1",2,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","fam_fam_vic_vic",3,1
-"199663_us_ed1",2,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","fam_fam_vic_vic",4,1
-"125000_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2
-"125000_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2
-"125194_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2
-"125194_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2
-"125194_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2
-"125194_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2
-"126349_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2
-"126349_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2
-"196332_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2
-"196332_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2
-"196332_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2
-"196332_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2
-"199267_us_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2
-"199267_us_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic",2,2
-"24715757_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2
-"24715757_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic",2,2
-"57695_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2
-"57695_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2
-"57696_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2
-"57696_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2
-"57696_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2
-"57696_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2
-"197379_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic",1,3
-"197379_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic",2,3
-"197379_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic",3,3
-"125000_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125000_ds_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125000_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125000_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125000_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125000_us_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125000_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125000_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125179_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125179_ds_ed1a",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125179_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125179_ds_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125179_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125179_ds_ed1b",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125179_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125179_ds_ed1b",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125179_us_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125179_us_ed1a",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125179_us_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125179_us_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125179_us_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125179_us_ed1b",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125179_us_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125179_us_ed1b",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125180_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125180_ds_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125180_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125180_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125180_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125180_us_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125180_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125180_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125231_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125231_ds_ed1a",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125231_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125231_ds_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125231_ds_ed1c",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125231_ds_ed1c",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125231_ds_ed1c",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125231_ds_ed1c",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125231_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125231_us_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125231_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125231_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125261_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125261_ds_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125261_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125261_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125261_us_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125261_us_ed1a",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125261_us_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125261_us_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"125261_us_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"125261_us_ed1b",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"125261_us_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"125261_us_ed1b",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"196076_ds_ed2a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"196076_ds_ed2a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4
-"196076_ds_ed2a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"196076_ds_ed2a",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4
-"196076_ds_ed2b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"196076_ds_ed2b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4
-"196076_ds_ed2b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"196076_ds_ed2b",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4
-"196076_ds_ed3",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"196076_ds_ed3",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4
-"196076_ds_ed3",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"196076_ds_ed3",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4
-"196085_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"196085_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4
-"196085_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_fam",3,4
-"196085_ds_ed1",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4
-"196085_us_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"196085_us_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4
-"196085_us_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"196085_us_ed1a",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4
-"196085_us_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"196085_us_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4
-"196085_us_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"196085_us_ed1b",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4
-"198692_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"198692_ds_ed1a",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"198692_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"198692_ds_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"198692_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"198692_ds_ed1b",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"198692_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"198692_ds_ed1b",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"198692_ds_ed2",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"198692_ds_ed2",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"198692_ds_ed2",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"198692_ds_ed2",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"198692_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"198692_us_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"198692_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"198692_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"203597_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"203597_ds_ed1a",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"203597_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"203597_ds_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"203597_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"203597_ds_ed1b",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"203597_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"203597_ds_ed1b",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"203597_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"203597_us_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"203597_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"203597_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"203605_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"203605_ds_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"203605_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"203605_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"203605_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"203605_us_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"203605_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"203605_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"24718557_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"24718557_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"24718557_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"24718557_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"57690_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"57690_ds_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"57690_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"57690_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"57690_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"57690_us_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"57690_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"57690_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"57695_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4
-"57695_ds_ed1",1,"KO","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4
-"57695_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4
-"57695_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4
-"197960_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_NA",1,5
-"197960_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_NA",2,5
-"197960_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_NA",3,5
-"197960_ds_ed1",3,"PK",NA,NA,NA,"vic_vic_vic_NA",4,5
-"126158_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"126158_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"126158_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"126158_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"126158_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"126158_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"126158_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"126158_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"196076_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"196076_ds_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"196076_ds_ed1a",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"196076_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"196076_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"196076_ds_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"196076_ds_ed1b",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"196076_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"196076_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"196076_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"196076_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"196076_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"196209_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"196209_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"196209_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"196209_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"197360_ds_ed",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"197360_ds_ed",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"197360_ds_ed",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"197360_ds_ed",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"197378 ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"197378 ds_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"197378 ds_ed1a",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"197378 ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"197378_Us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"197378_Us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"197378_Us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"197378_Us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"197378_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"197378_ds_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"197378_ds_ed1b",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"197378_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"197379_ds_ed",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"197379_ds_ed",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"197379_ds_ed",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"197379_ds_ed",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"197962_ds_ed",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",1,6
-"197962_ds_ed",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"197962_ds_ed",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6
-"197962_ds_ed",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"197962_us_ed",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"197962_us_ed",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"197962_us_ed",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"197962_us_ed",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"199171_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199171_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199171_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6
-"199171_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"199171_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199171_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199171_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6
-"199171_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"199173_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199173_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199173_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"199173_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"199173_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199173_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199173_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"199173_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"199174_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199174_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199174_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"199174_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"199190_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199190_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199190_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6
-"199190_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"199190_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199190_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199190_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"199190_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"199237_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199237_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199237_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"199237_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"199237_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199237_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199237_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"199237_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"199267_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199267_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199267_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"199267_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"199267_us_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199267_us_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199267_us_ed1a",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"199267_us_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"199273_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199273_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199273_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"199273_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"199278_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199278_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199278_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"199278_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"199278_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"199278_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"199278_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"199278_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"20251005_ds_ed",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"20251005_ds_ed",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"20251005_ds_ed",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"20251005_ds_ed",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"20251005_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"20251005_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"20251005_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"20251005_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"203578_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"203578_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"203578_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"203578_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"203582_us_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"203582_us_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"203582_us_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6
-"203582_us_ed1a",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"203582_us_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"203582_us_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"203582_us_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6
-"203582_us_ed1b",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"23919_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"23919_ds_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"23919_ds_ed1a",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"23919_ds_ed1a",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"23919_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"23919_ds_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"23919_ds_ed1b",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"23919_ds_ed1b",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"58067_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"58067_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"58067_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"58067_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"8525_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"8525_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"8525_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"8525_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"8525_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"8525_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"8525_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"8525_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"8525_us_ed2",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"8525_us_ed2",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"8525_us_ed2",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"8525_us_ed2",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"8530_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"8530_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"8530_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"8530_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"8530_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"8530_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"8530_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"8530_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6
-"8547_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6
-"8547_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"8547_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6
-"8547_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"8547_ds_ed2",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",1,6
-"8547_ds_ed2",1,"DV","BUT-VIC","VIC","Also tests for BT but does not distinguish","vic_vic_vic_vic",2,6
-"8547_ds_ed2",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6
-"8547_ds_ed2",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"8547_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",1,6
-"8547_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"8547_us_ed1",1,"DV","BUT-VIC","VIC","Also tests for BT but does not distinguish","vic_vic_vic_vic",3,6
-"8547_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"bulkley_falls_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",1,6
-"bulkley_falls_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"bulkley_falls_ds_ed1",1,"DV","BUT-VIC","VIC","Also tests for BT but does not distinguish","vic_vic_vic_vic",3,6
-"bulkley_falls_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
-"bulkley_falls_ds_ed2",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",1,6
-"bulkley_falls_ds_ed2",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",2,6
-"bulkley_falls_ds_ed2",1,"DV","BUT-VIC","VIC","Also tests for BT but does not distinguish","vic_vic_vic_vic",3,6
-"bulkley_falls_ds_ed2",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6
+﻿"site_id","run_number","sp_code","assay_id","assay_dye","notes","site_pattern","run_order","site_pattern_id","lab_group","run_order_unbc","sheet_name_unbc"
+"199663_ds_ed1",2,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","fam_fam_vic_vic",3,1,1,1,"BT GR BB RB"
+"199663_ds_ed1",1,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","fam_fam_vic_vic",2,1,1,2,"BT GR BB RB"
+"199663_ds_ed1",1,"BB",NA,"FAM","Assay not yet tested in northern regions","fam_fam_vic_vic",1,1,1,3,"BT GR BB RB"
+"199663_ds_ed1",2,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","fam_fam_vic_vic",4,1,1,4,"BT GR BB RB"
+"199663_us_ed1",2,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","fam_fam_vic_vic",3,1,1,1,"BT GR BB RB"
+"199663_us_ed1",1,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","fam_fam_vic_vic",2,1,1,2,"BT GR BB RB"
+"199663_us_ed1",1,"BB",NA,"FAM","Assay not yet tested in northern regions","fam_fam_vic_vic",1,1,1,3,"BT GR BB RB"
+"199663_us_ed1",2,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","fam_fam_vic_vic",4,1,1,4,"BT GR BB RB"
+"8547_us_ed1",1,"DV","BUT-VIC","VIC","Also tests for BT but does not distinguish","vic_vic_vic_vic",3,6,2,1,"BTDV CH CO SK"
+"8547_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",1,6,2,2,"BTDV CH CO SK"
+"8547_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",2,6,2,3,"BTDV CH CO SK"
+"8547_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,2,4,"BTDV CH CO SK"
+"bulkley_falls_ds_ed1",1,"DV","BUT-VIC","VIC","Also tests for BT but does not distinguish","vic_vic_vic_vic",3,6,2,1,"BTDV CH CO SK"
+"bulkley_falls_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",1,6,2,2,"BTDV CH CO SK"
+"bulkley_falls_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",2,6,2,3,"BTDV CH CO SK"
+"bulkley_falls_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,2,4,"BTDV CH CO SK"
+"bulkley_falls_ds_ed2",1,"DV","BUT-VIC","VIC","Also tests for BT but does not distinguish","vic_vic_vic_vic",3,6,2,1,"BTDV CH CO SK"
+"bulkley_falls_ds_ed2",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",1,6,2,2,"BTDV CH CO SK"
+"bulkley_falls_ds_ed2",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",2,6,2,3,"BTDV CH CO SK"
+"bulkley_falls_ds_ed2",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,2,4,"BTDV CH CO SK"
+"8547_ds_ed2",1,"DV","BUT-VIC","VIC","Also tests for BT but does not distinguish","vic_vic_vic_vic",2,6,3,1,"BTDV CO RB SK"
+"8547_ds_ed2",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",1,6,3,2,"BTDV CO RB SK"
+"8547_ds_ed2",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6,3,3,"BTDV CO RB SK"
+"8547_ds_ed2",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,3,4,"BTDV CO RB SK"
+"199267_us_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2,4,1,"BT CH"
+"199267_us_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic",2,2,4,2,"BT CH"
+"24715757_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2,4,1,"BT CH"
+"24715757_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic",2,2,4,2,"BT CH"
+"199171_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,5,1,"BT CH RB SK"
+"199171_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,5,2,"BT CH RB SK"
+"199171_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6,5,3,"BT CH RB SK"
+"199171_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,5,4,"BT CH RB SK"
+"199171_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,5,1,"BT CH RB SK"
+"199171_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,5,2,"BT CH RB SK"
+"199171_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6,5,3,"BT CH RB SK"
+"199171_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,5,4,"BT CH RB SK"
+"199190_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,5,1,"BT CH RB SK"
+"199190_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,5,2,"BT CH RB SK"
+"199190_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6,5,3,"BT CH RB SK"
+"199190_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,5,4,"BT CH RB SK"
+"203582_us_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,5,1,"BT CH RB SK"
+"203582_us_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,5,2,"BT CH RB SK"
+"203582_us_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6,5,3,"BT CH RB SK"
+"203582_us_ed1a",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,5,4,"BT CH RB SK"
+"203582_us_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,5,1,"BT CH RB SK"
+"203582_us_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,5,2,"BT CH RB SK"
+"203582_us_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6,5,3,"BT CH RB SK"
+"203582_us_ed1b",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,5,4,"BT CH RB SK"
+"197962_ds_ed",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",1,6,6,1,"CH CO RB SK"
+"197962_ds_ed",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",2,6,6,2,"CH CO RB SK"
+"197962_ds_ed",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",3,6,6,3,"CH CO RB SK"
+"197962_ds_ed",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,6,4,"CH CO RB SK"
+"196209_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,8,1,"BT CH CO SK"
+"196209_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,8,2,"BT CH CO SK"
+"196209_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,8,3,"BT CH CO SK"
+"196209_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,8,4,"BT CH CO SK"
+"197960_ds_ed1",3,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_NA",4,5,8,1,"BT CH CO SK"
+"197960_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_NA",1,5,8,2,"BT CH CO SK"
+"197960_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_NA",2,5,8,3,"BT CH CO SK"
+"197960_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_NA",3,5,8,4,"BT CH CO SK"
+"197962_us_ed",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,8,1,"BT CH CO SK"
+"197962_us_ed",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,8,2,"BT CH CO SK"
+"197962_us_ed",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,8,3,"BT CH CO SK"
+"197962_us_ed",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,8,4,"BT CH CO SK"
+"199237_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,8,1,"BT CH CO SK"
+"199237_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,8,2,"BT CH CO SK"
+"199237_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,8,3,"BT CH CO SK"
+"199237_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,8,4,"BT CH CO SK"
+"199237_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,8,1,"BT CH CO SK"
+"199237_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,8,2,"BT CH CO SK"
+"199237_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,8,3,"BT CH CO SK"
+"199237_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,8,4,"BT CH CO SK"
+"199267_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,8,1,"BT CH CO SK"
+"199267_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,8,2,"BT CH CO SK"
+"199267_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,8,3,"BT CH CO SK"
+"199267_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,8,4,"BT CH CO SK"
+"199273_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,8,1,"BT CH CO SK"
+"199273_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,8,2,"BT CH CO SK"
+"199273_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,8,3,"BT CH CO SK"
+"199273_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,8,4,"BT CH CO SK"
+"23919_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,8,1,"BT CH CO SK"
+"23919_ds_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,8,2,"BT CH CO SK"
+"23919_ds_ed1a",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,8,3,"BT CH CO SK"
+"23919_ds_ed1a",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,8,4,"BT CH CO SK"
+"23919_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,8,1,"BT CH CO SK"
+"23919_ds_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,8,2,"BT CH CO SK"
+"23919_ds_ed1b",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,8,3,"BT CH CO SK"
+"23919_ds_ed1b",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,8,4,"BT CH CO SK"
+"8547_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,8,1,"BT CH CO SK"
+"8547_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,8,2,"BT CH CO SK"
+"8547_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,8,3,"BT CH CO SK"
+"8547_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_vic",4,6,8,4,"BT CH CO SK"
+"196085_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,9,1,"BT CH BB SK"
+"196085_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4,9,2,"BT CH BB SK"
+"196085_ds_ed1",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4,9,3,"BT CH BB SK"
+"196085_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as KO","vic_vic_vic_fam",3,4,9,4,"BT CH BB SK"
+"196076_ds_ed2a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,10,1,"BT CH BB RB"
+"196076_ds_ed2a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4,10,2,"BT CH BB RB"
+"196076_ds_ed2a",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4,10,3,"BT CH BB RB"
+"196076_ds_ed2a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,10,4,"BT CH BB RB"
+"196076_ds_ed2b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,10,1,"BT CH BB RB"
+"196076_ds_ed2b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4,10,2,"BT CH BB RB"
+"196076_ds_ed2b",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4,10,3,"BT CH BB RB"
+"196076_ds_ed2b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,10,4,"BT CH BB RB"
+"196076_ds_ed3",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,10,1,"BT CH BB RB"
+"196076_ds_ed3",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4,10,2,"BT CH BB RB"
+"196076_ds_ed3",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4,10,3,"BT CH BB RB"
+"196076_ds_ed3",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,10,4,"BT CH BB RB"
+"196085_us_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,10,1,"BT CH BB RB"
+"196085_us_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4,10,2,"BT CH BB RB"
+"196085_us_ed1a",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4,10,3,"BT CH BB RB"
+"196085_us_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,10,4,"BT CH BB RB"
+"196085_us_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,10,1,"BT CH BB RB"
+"196085_us_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_fam",2,4,10,2,"BT CH BB RB"
+"196085_us_ed1b",2,"BB",NA,"FAM","Assay not yet tested in northern regions","vic_vic_vic_fam",4,4,10,3,"BT CH BB RB"
+"196085_us_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,10,4,"BT CH BB RB"
+"126158_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"126158_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"126158_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"126158_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"126158_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"126158_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"126158_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"126158_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"196076_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"196076_ds_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"196076_ds_ed1a",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"196076_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"196076_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"196076_ds_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"196076_ds_ed1b",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"196076_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"196076_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"196076_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"196076_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"196076_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"197360_ds_ed",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"197360_ds_ed",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"197360_ds_ed",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"197360_ds_ed",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"197378 ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"197378 ds_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"197378 ds_ed1a",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"197378 ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"197378_Us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"197378_Us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"197378_Us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"197378_Us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"197378_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"197378_ds_ed1b",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"197378_ds_ed1b",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"197378_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"197379_ds_ed",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"197379_ds_ed",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"197379_ds_ed",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"197379_ds_ed",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"199173_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"199173_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"199173_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"199173_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"199173_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"199173_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"199173_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"199173_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"199174_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"199174_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"199174_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"199174_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"199190_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"199190_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"199190_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"199190_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"199267_us_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"199267_us_ed1a",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"199267_us_ed1a",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"199267_us_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"199278_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"199278_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"199278_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"199278_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"199278_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"199278_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"199278_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"199278_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"20251005_ds_ed",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"20251005_ds_ed",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"20251005_ds_ed",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"20251005_ds_ed",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"20251005_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"20251005_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"20251005_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"20251005_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"203578_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"203578_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"203578_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"203578_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"58067_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"58067_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"58067_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"58067_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"8525_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"8525_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"8525_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"8525_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"8525_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"8525_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"8525_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"8525_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"8525_us_ed2",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"8525_us_ed2",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"8525_us_ed2",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"8525_us_ed2",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"8530_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"8530_ds_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"8530_ds_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"8530_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"8530_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_vic",1,6,11,1,"BT CH CO RB"
+"8530_us_ed1",1,"CH","CHIN-CO1-LAR-VIC","VIC",NA,"vic_vic_vic_vic",2,6,11,2,"BT CH CO RB"
+"8530_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic_vic",3,6,11,3,"BT CH CO RB"
+"8530_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_vic",4,6,11,4,"BT CH CO RB"
+"125000_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2,12,1,"BT RB"
+"125000_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2,12,2,"BT RB"
+"125194_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2,12,1,"BT RB"
+"125194_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2,12,2,"BT RB"
+"125194_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2,12,1,"BT RB"
+"125194_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2,12,2,"BT RB"
+"126349_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2,12,1,"BT RB"
+"126349_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2,12,2,"BT RB"
+"196332_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2,12,1,"BT RB"
+"196332_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2,12,2,"BT RB"
+"196332_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2,12,1,"BT RB"
+"196332_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2,12,2,"BT RB"
+"57695_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2,12,1,"BT RB"
+"57695_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2,12,2,"BT RB"
+"57696_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2,12,1,"BT RB"
+"57696_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2,12,2,"BT RB"
+"57696_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic",1,2,12,1,"BT RB"
+"57696_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic",2,2,12,2,"BT RB"
+"125000_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125000_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125000_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125000_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125000_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125000_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125000_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125000_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125179_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125179_ds_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125179_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125179_ds_ed1a",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125179_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125179_ds_ed1b",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125179_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125179_ds_ed1b",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125179_us_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125179_us_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125179_us_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125179_us_ed1a",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125179_us_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125179_us_ed1b",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125179_us_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125179_us_ed1b",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125180_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125180_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125180_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125180_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125180_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125180_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125180_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125180_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125231_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125231_ds_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125231_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125231_ds_ed1a",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125231_ds_ed1c",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125231_ds_ed1c",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125231_ds_ed1c",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125231_ds_ed1c",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125231_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125231_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125231_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125231_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125261_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125261_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125261_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125261_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125261_us_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125261_us_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125261_us_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125261_us_ed1a",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"125261_us_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"125261_us_ed1b",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"125261_us_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"125261_us_ed1b",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"198692_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"198692_ds_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"198692_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"198692_ds_ed1a",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"198692_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"198692_ds_ed1b",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"198692_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"198692_ds_ed1b",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"198692_ds_ed2",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"198692_ds_ed2",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"198692_ds_ed2",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"198692_ds_ed2",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"198692_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"198692_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"198692_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"198692_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"203597_ds_ed1a",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"203597_ds_ed1a",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"203597_ds_ed1a",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"203597_ds_ed1a",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"203597_ds_ed1b",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"203597_ds_ed1b",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"203597_ds_ed1b",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"203597_ds_ed1b",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"203597_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"203597_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"203597_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"203597_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"203605_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"203605_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"203605_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"203605_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"203605_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"203605_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"203605_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"203605_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"24718557_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"24718557_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"24718557_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"24718557_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"57690_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"57690_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"57690_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"57690_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"57690_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"57690_us_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"57690_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"57690_us_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"57695_ds_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic_fam",1,4,13,1,"BT GR RB SK"
+"57695_ds_ed1",2,"GR","GRAY1-R17A-FAM","FAM","Caitlin indicated this Grayling assay performed better","vic_vic_vic_fam",4,4,13,2,"BT GR RB SK"
+"57695_ds_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic_fam",3,4,13,3,"BT GR RB SK"
+"57695_ds_ed1",1,"SK","SOCK-CO1-HEL-VIC","VIC","Same as SK","vic_vic_vic_fam",2,4,13,4,"BT GR RB SK"
+"197379_us_ed1",1,"BT","BUT-VIC","VIC","Also tests for DV but does not distinguish","vic_vic_vic",1,3,14,1,"BT CO RB"
+"197379_us_ed1",1,"CO","COHO-CO1-HEL-VIC","VIC",NA,"vic_vic_vic",2,3,14,2,"BT CO RB"
+"197379_us_ed1",1,"RB","RAIN-COI-HEL-VIC","VIC","Currently (20251203) we are using this test for cuthrout as well.","vic_vic_vic",3,3,14,3,"BT CO RB"
