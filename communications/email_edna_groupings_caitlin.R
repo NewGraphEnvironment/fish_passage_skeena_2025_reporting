@@ -24,15 +24,15 @@ I matched the run order and sheet naming to what you had in the Excel you sent b
 You can grab the updated files here:
 
 - **CSV:** [edna_species_for_UNBC.csv](https://github.com/NewGraphEnvironment/m1rr0r/blob/main/fish_passage_template_reporting/data/backup/2025/edna_species_for_UNBC.csv)
-- **Excel (grouped sheets):** [edna_species_for_UNBC_grouped.xlsx](https://github.com/NewGraphEnvironment/m1rr0r/blob/main/fish_passage_template_reporting/data/backup/2025/edna_species_for_UNBC_grouped.xlsx)
+- **Excel (grouped sheets):** [edna_species_for_UNBC_grouped.xlsx](https://github.com/NewGraphEnvironment/m1rr0r/blob/main/fish_passage_template_reporting/data/backup/2025/edna_species_for_UNBC_grouped.xlsx). Excel files don't render but there is a download button top right.
 
-Also - if you or your teams or collaborators ever want to poke around or adapt the workflow, the R script and assay mapping table are in our [dff-2022 repo](https://github.com/NewGraphEnvironment/dff-2022/tree/main/scripts) if you're interested.
+Also - if you or your teams ever want to poke around or adapt the workflow, the [R scripts](https://github.com/NewGraphEnvironment/dff-2022/tree/main/scripts) and [assay mapping table](https://github.com/NewGraphEnvironment/dff-2022/blob/main/data/edna_assays.csv) are linked if you're interested.
 
 Stoked that you have someone lined up to help out with the lab coat on!
 
 Let me know if anything else needs adjusting on our end.
 
-Thanks again. Really appreciate all the effort and skill.
+Thanks again. Really appreciated.
 
 Al
 
@@ -53,8 +53,11 @@ email
 email |>
   blastula::smtp_send(
     from = "al@newgraphenvironment.com",
-    to = "info@newgraphenvironment.com",
-    # to = "Caitlin.Pitt@unbc.ca",
+    cc = "info@newgraphenvironment.com",
+    # to = "al@newgraphenvironment.com",
+
+
+    to = "Caitlin.Pitt@unbc.ca",
     subject = "eDNA - September 2025 - Peace - Fraser - Skeena - UNBC - sample plan",
     credentials = blastula::creds_key(id = "gmail")
   )
