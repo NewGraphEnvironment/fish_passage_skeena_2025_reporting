@@ -1,3 +1,9 @@
+# NOTE: This script is not the primary version.
+# The main wrangle script is at:
+#   ~/Projects/repo/dff-2022/scripts/edna_unbc_plan.R
+# with assay details at:
+#   ~/Projects/repo/dff-2022/data/edna_assays.csv
+
 # make map of site vs species to send to UNBC
 
 # for the future - set factor order of how to prioritize species. not useing since is dependent on stream and region. did by hand
@@ -39,5 +45,3 @@ d |>
   readr::write_csv(
     "data/backup/2025/edna_species_for_UNBC.csv"
   )
-
-

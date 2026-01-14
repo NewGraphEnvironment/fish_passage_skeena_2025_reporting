@@ -3,15 +3,17 @@ year <- 2025
 
 # name your files
 name_f <- c(
-  "form_edna.gpkg",
-  "form_pscis.gpkg",
-  "form_fiss_site.gpkg",
-  "form_monitoring.gpkg"
+  "form_edna",
+  "form_pscis",
+  "form_fiss_site",
+  "form_monitoring"
 )
 
-name_form <- "form_edna.gpkg"
+# give strings that we want to exclude from file searches
+str_exclude <- c("conflicted")
+# name_form <- "form_edna.gpkg"
 
-path_gis <- "/Users/lucy/Projects/gis"
+path_gis <- "~/Projects/gis"
 
 # list projects
 name_projects <- c(
@@ -35,12 +37,12 @@ dir_in <- fs::path(
 for (i in seq_along(dir_in)) {
   for (f in name_f) {
 
-    name_core <- stringr::str_remove(f, "\\.gpkg$")
+    # name_core <- stringr::str_remove(f, "\\.gpkg$")
 
     # path to the "new" version we want to create if it does not exist
     target_file <- fs::path(
       dir_out[i],
-      paste0(name_core, "_", year, ".gpkg")
+      paste0(f, "_", year, ".gpkg")
     )
 
     if(!fs::file_exists(target_file)){
@@ -64,7 +66,9 @@ for (i in seq_along(name_projects)) {
   dir_backup <- fs::path("data/backup", year, name_projects[i])
   # fs::dir_create(dir_backup)
 
-  path_gpkgs <- fs::dir_ls(dir_out[i], glob = "*.gpkg")
+  # path_gpkgs <- fs::dir_ls(dir_out[i], glob = "*.gpkg")
+  # pass a list of strings to exclude
+  path_gpkgs <- fs::dir_ls(dir_out[i], glob = "*.gpkg")[!stringr::str_detect(fs::dir_ls(dir_out[i], glob = "*.gpkg"), stringr::str_c(str_exclude, collapse = "|"))]
 
   for (path_gpkg in path_gpkgs) {
     fpr::fpr_sp_gpkg_backup(
@@ -81,13 +85,19 @@ for (i in seq_along(name_projects)) {
 }
 
 # combine all forms together and backup -NEED TO CLOSE Q PROJECTs IF THE FORMA ARE ACTIVE
-names_forms <- c("form_edna", "form_fiss", "form_pscis", "form_monitoring")
+# names_forms <- tools::file_path_sans_ext(name_f)
 
 # initialize a list to store the results
 results <- list()
-for (name_form in names_forms) {
+for (f in name_f) {
 
-  d <- fs::dir_ls(dir_out, glob = paste0("*", name_form, "*")) |>
+  # d <- fs::dir_ls(dir_out, glob = paste0("*", f, "*")) |>
+  # d <- fs::dir_ls(
+  #     dir_out,
+  #     regexp = sprintf("^(?!.*(?:%s)).*%s.*$", paste(str_exclude, collapse="|"), f)
+  #   ) |>
+  d <- fs::dir_ls(dir_out, glob = paste0("*", f, "*")) |>
+    (\(x) x[!stringr::str_detect(x, stringr::str_c(str_exclude, collapse = "|"))])() |>
     purrr::map(\(path) {
       sf::st_read(path, quiet = TRUE) |>
         dplyr::mutate(source = fs::path("~", fs::path_rel(path, start = fs::path_home()))) |>
@@ -100,15 +110,16 @@ for (name_form in names_forms) {
   dir_backup <- fs::path("data/backup", year)
   # fs::dir_create(dir_backup)
 
-  readr::write_csv(
+  # avoid special characters - use write_excel
+  readr::write_excel_csv(
     d,
-    fs::path(dir_backup, paste0(name_form, "_", year, ".csv"))
+    fs::path(dir_backup, paste0(f, "_", year, ".csv"))
   )
   # also backup as gpkg that can be tracked with mergin - maybe not necessary?
   sf::st_write(
     d,
     dsn   = fs::path(dir_backup, "forms.gpkg"),
-    layer = paste0(name_form, "_", year),
+    layer = paste0(f, "_", year),
     append = TRUE,             # add/update layers in the same GPKG
     delete_layer = TRUE        # overwrite layer if it already exists
   )
@@ -122,10 +133,12 @@ for (name_form in names_forms) {
     # sf::st_zm(drop = TRUE) |>                       # drop Z/M dimensions (GeoJSON supports 2D only)
     # sf::st_cast(unique(sf::st_geometry_type(d))[1]) |> # ensure single consistent geometry type (no mixes)
     sf::st_write(                                   # finally write valid, web-friendly GeoJSON
-      fs::path(dir_backup, paste0(name_form, "_", year, ".geojson")),
+      fs::path(dir_backup, paste0(f, "_", year, ".geojson")),
       append = FALSE, delete_dsn = TRUE
     )
   # put the results in the list
-  results[[name_form]] <- d
+  results[[f]] <- d
+
 }
 
+unique(results$form_edna$species_target)

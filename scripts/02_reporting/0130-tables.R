@@ -790,7 +790,7 @@ tab_cost_est_phase1 <- tab_cost_est_prep5 |>
   dplyr::filter(barrier_result != 'Unknown' & barrier_result != 'Passable') |>
   dplyr::filter(assess_type_phase1 == "Yes"|assess_type_reassessment == "Yes") |>
   dplyr::select(-c(assess_type_phase1, assess_type_reassessment, assess_type_phase2)) |>
-  dplyr::rename(
+  dplyr::select(
     `PSCIS ID` = pscis_crossing_id,
     `External ID` = my_crossing_reference,
     Priority = my_priority,

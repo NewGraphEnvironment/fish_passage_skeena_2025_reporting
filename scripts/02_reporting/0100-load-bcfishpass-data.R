@@ -1,3 +1,4 @@
+
 # load the sqlite database with bcfishpass and other info-----------------------------------------------------------------------------------------------------
 
 # The data must be submitted to the province first before proceeding with this script.
@@ -9,6 +10,7 @@
 my_funding_project_number = "fraser_2025_phase1"
 
 
+# Grab bcfishpass data --------------------------
 # this object should be called bcfishpass_crossings_vw or something that better reflects what it is
 bcfishpass <- fpr::fpr_db_query(
   glue::glue(
@@ -67,7 +69,7 @@ xref_pscis_my_crossing_modelled <- pscis_assessment_svw |>
   sf::st_drop_geometry()
 
 
-# Load the cleaned habitat_confirmations tracks for this project
+# Load the cleaned habitat_confirmations tracks for this project ---------------------------
 # Forgot to duplicate/rename the layer to for 2025 the layer name is `gps_tracks_2025_ai`
 gps_layer_name <- paste0("gps_tracks_", params$project_year, "_ai")
 
@@ -78,7 +80,6 @@ path_tracks <- fs::path(
 habitat_confirmation_tracks <- sf::st_read(dsn = path_tracks,
                                            layer = gps_layer_name) |>
   dplyr::filter(repo == params$repo_name & cleaned == TRUE)
-
 
 
 # Initiliaze the database-----------------------------------------------------------------------------------------------------
@@ -112,7 +113,8 @@ readwritesqlite::rws_drop_table("habitat_confirmation_tracks", conn = conn)
 readwritesqlite::rws_write(habitat_confirmation_tracks, exists = F, delete = TRUE,
                            conn = conn, x_name = "habitat_confirmation_tracks")
 
+# SQLite does not reduce the on-disk file size after tables are dropped or rows are deleted. The removed data leaves free pages inside the database file, but those pages remain allocated until a VACUUM is run. Running VACUUM rebuilds the database and returns unused space to disk, so the file size decreases only after that step.
+DBI::dbExecute(conn, "VACUUM;")
+
 readwritesqlite::rws_list_tables(conn)
 readwritesqlite::rws_disconnect(conn)
-
-

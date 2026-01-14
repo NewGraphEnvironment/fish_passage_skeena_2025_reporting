@@ -408,7 +408,7 @@ included as [Attachment - Water Temperature Modelling](#attach-bayes).
 
 ## Fish Passage Assessemnts
 
-Field assessments were conducted between `r format(min(form_pscis$date), format="%B %d, %Y")` and `r format(max(form_pscis$date), format="%B %d, %Y")` by Allan Irvine, R.P.Bio. and Lucy Schick, B.Sc. A total of `r form_pscis |> filter(assess_type_phase1 == "Yes"|assess_type_reassessment == "Yes") |> nrow()` Fish Passage Assessments were completed, including `r n_distinct(pscis_phase1$my_crossing_reference)` Phase 1 assessments and `r pscis_reassessments |> nrow()` reassessments. In 2024, field efforts prioritized revisiting previously assessed sites for monitoring rather than evaluating new Fish Passage Assessment locations.
+Field assessments were conducted between `r format(min(form_pscis$date), format="%B %d, %Y")` and `r format(max(form_pscis$date), format="%B %d, %Y")` by Allan Irvine, R.P.Bio. and Lucy Schick, B.Sc. A total of `r form_pscis |> filter(assess_type_phase1 == "Yes"|assess_type_reassessment == "Yes") |> nrow()` Fish Passage Assessments were completed, including `r n_distinct(pscis_phase1$my_crossing_reference)` Phase 1 assessments and `r pscis_reassessments |> nrow()` reassessments.
 
 <br>
 
@@ -448,7 +448,7 @@ The "Barrier" and "Potential Barrier" rankings used in this project followed @mo
 
 ## Habitat Confirmation Assessments
 
-During the `r cat(params$project_year)` field assessments, habitat confirmation assessments were conducted at `r form_fiss_site |> dplyr::distinct(site) |> nrow()` sites within the Tabor River and Willow River watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed. Electrofishing surveys were conducted at both habitat confirmation sites. Georeferenced field maps are provided in [Attachment - Maps](#attach-maps).
+During the `r cat(params$project_year)` field assessments, habitat confirmation assessments were conducted at `r form_fiss_site |> dplyr::filter(is.na(ef)) |> dplyr::distinct(site) |> nrow()` sites within the `r wsg_names |> knitr::combine_words()` watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed.
 
 <br>
 
@@ -706,16 +706,17 @@ for the 50% costs of replacing structures.  All sites with a design for remediat
 
 ## Monitoring
 
-In `r cat(params$project_year)`, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through baseline fish sampling and aquistion of aerial imagery at the following sites:
+In `r cat(params$project_year)`, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through eDNA sampling and aquistion of aerial imagery at the following sites (Table \@ref(tab:tab-mon-overview):
 
 - Effectiveness monitoring was conducted on Tabor Creek (PSCIS crossing 196085) on Willow-Cale FRS which was replaced in XXXX.
 
 - Effectiveness monitoring was conducted on Bittner Creek (PSCIS crossing 196200) on Foreman Road which was replaced in XXXX.
 
 
-```{r tab-mon-overview, eval = FALSE}
+```{r tab-mon-overview, eval = T}
 # started but not sure if this is going to be helpful. 
 form_monitoring |> 
+ sf::st_drop_geometry() |> 
  dplyr::select(
     `PSCIS ID` = pscis_crossing_id,
     Stream = stream_name,
@@ -726,7 +727,7 @@ form_monitoring |>
     `Length or width (m)` = length_or_width_meters,
     `Assessment comments` = assessment_comment
   ) |> 
-   fpr::fpr_kable(caption_text = 'Summary of monitoring details.', scroll = T)
+   fpr::fpr_kable(caption_text = 'Summary of monitoring sites.', scroll = F)
   
 
 ```
