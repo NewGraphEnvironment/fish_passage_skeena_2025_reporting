@@ -27,12 +27,15 @@ source('scripts/02_reporting/0180-photos-extract-metadata.R')
   ##move the files
   mapply(file.rename, from = files_to_move, to = files_destination)
 
-  # this is a time saver - we swap the real phase 1 to hold and biuld with a dummy file - then replace at the end to get the real report.
+  # this is a time saver - we swap the real phase 1 to hold and build with a dummy file - then replace at the end to get the real report.
   # this needs to be rebuilt if there are updates to the phase 1...
-  file.rename(
-    "docs/appendix---phase-1-fish-passage-assessment-data-and-photos.html",
-    "hold/appendix---phase-1-fish-passage-assessment-data-and-photos.html"
+  # wrapped in file.exists() for first-time builds when appendix doesn't exist yet
+  if (file.exists("docs/appendix---phase-1-fish-passage-assessment-data-and-photos.html")) {
+    file.rename(
+      "docs/appendix---phase-1-fish-passage-assessment-data-and-photos.html",
+      "hold/appendix---phase-1-fish-passage-assessment-data-and-photos.html"
     )
+  }
 
   fs::file_copy(
     'hold/0600-appendix-placeholder.Rmd',
@@ -47,11 +50,14 @@ source('scripts/02_reporting/0180-photos-extract-metadata.R')
   mapply(file.rename, from = files_destination, to = files_to_move)
 
   # now copy back the original appendix overtop of the empty one
-  fs::file_copy(
-    "hold/appendix---phase-1-fish-passage-assessment-data-and-photos.html",
-    "docs/appendix---phase-1-fish-passage-assessment-data-and-photos.html",
-    overwrite = TRUE
-  )
+  # only if it exists in hold (won't exist on first build)
+  if (file.exists("hold/appendix---phase-1-fish-passage-assessment-data-and-photos.html")) {
+    fs::file_copy(
+      "hold/appendix---phase-1-fish-passage-assessment-data-and-photos.html",
+      "docs/appendix---phase-1-fish-passage-assessment-data-and-photos.html",
+      overwrite = TRUE
+    )
+  }
 
   # But back in place after report builds
   file.rename(
