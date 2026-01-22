@@ -1,3 +1,13 @@
+# Safely drop a table from sqlite if it exists
+# Allows scripts to run on fresh databases with no tables
+# See https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/159
+lngr_drop_table_if_exists <- function(table_name, conn) {
+  if (table_name %in% readwritesqlite::rws_list_tables(conn)) {
+    readwritesqlite::rws_drop_table(table_name, conn = conn)
+  }
+}
+
+
 ##funciton ot find a string in your directory from https://stackoverflow.com/questions/45502010/is-there-an-r-version-of-rstudios-find-in-files
 
 fif <- function(what, where=".", in_files="\\.[Rr]$", recursive = TRUE,
