@@ -19,14 +19,16 @@ pkgs_cran <- c(
   'RPostgres',
   'sf',
   "ggdark",
-  "kableExtra"
+  "kableExtra",
+  "leafem",
+  "leaflet"
 )
 
 pkgs_gh <- c(
   "newgraphenvironment/fpr",
   "newgraphenvironment/ngr",
   "newgraphenvironment/staticimports",
-  "lucy-schick/fishbc@updated_data",
+  "newgraphenvironment/fishbc@updated_data",
   "poissonconsulting/readwritesqlite", #https://github.com/poissonconsulting/readwritesqlite/issues/47
   "paleolimbot/rbbt"
 )
@@ -42,8 +44,9 @@ if(params$update_packages){
 }
 
 # load all the packages
+# Strip @branch suffix before basename - see #150
 pkgs_ld <- c(pkgs_cran,
-             basename(pkgs_gh))
+             basename(pkgs_gh) |> stringr::str_remove("@.*"))
 
 lapply(pkgs_ld,
        require,
