@@ -413,6 +413,11 @@ All eDNA samples were shipped frozen to the University of Northern British Colum
 eDNA was extracted in the dedicated eDNA lab at UNBC and analysed with the protocols developed by @murray_booth2023Report2023. 
 
 
+### Open Source Reporting Framework
+
+This report is produced using open-source tools (R, bookdown) with full version control via git, enabling iterative updates. All code, data, and revision history are publicly accessible in the [project repository](`r params$repo_url`), with ongoing tasks tracked via GitHub [issues](`r paste0(params$repo_url, 'issues')`) and version history maintained in the [project changelog](`r paste0(params$repo_url, 'blob/main/NEWS.md')`).
+
+
 ### Aerial Imagery
 
 Scripted processing and serving of UAV imagery collected during the project is available at https://github.com/NewGraphEnvironment/stac_uav_bc/ [@irvine2025NewGraphEnvironmentstac_uav_bc]. [`OpenDroneMap`](https://github.com/OpenDroneMap/ODM) was utilized to produce orthomosaics, digital surface models (DSMs), and digital terrain models (DTMs) [@opendronemapauthors2025OpenDroneMapODM]. To support efficient web-based access - imagery products were converted to cloud-optimized GeoTIFFs (COGs) using `rio-cogeo`, then collated accordiong to the [SpatioTemporal Asset Catalog  (STAC)](https://github.com/radiantearth/stac-spec) specification with `pystac` and uploaded to S3 storage [@cogeotiff2025cogeotiffriocogeo; @radiantearth2024STACSpatioTemporal; @pystacauthors2025stacutilspystac, @amazonwebservices2025awsawscli]. A `titiler` tile server was set up to facilitate interactive viewing of the orthoimagery and an Application Program Interface (API) leveraging `stac-fastapi-pgstac` is served at https://images.a11s.one to enable linking of collection images through QGIS as well as remote spatial and temporal querying using open source software such as `rstac` [@developmentseed2025developmentseedtitiler; @stac-utils2025stacutilsstacfastapipgstac; @simoes_etal2021Rstacpackage].  
