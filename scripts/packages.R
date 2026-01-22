@@ -18,10 +18,10 @@ pkgs_cran <- c(
   'pagedown',
   'RPostgres',
   'sf',
-  "ggdark",
   "kableExtra",
   "leafem",
-  "leaflet"
+  "leaflet",
+  "pdftools"
 )
 
 pkgs_gh <- c(

@@ -1,8 +1,15 @@
 source('scripts/packages.R')
 
-# Grab data from bcfishpass ---------------------
-wsg <- c('LCHL', 'NECR', 'FRAN', "MORK", "UFRA")
-species_of_interest <- c('BT', 'CH', 'CM', 'CO', 'CT', 'DV', 'PK', 'RB','SK', 'ST')
+# Require params from index.Rmd - fail with helpful error if not set
+# See https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/151
+if (!exists("params") || is.null(params$wsg_code)) {
+  stop("params$wsg_code must be set in index.Rmd. Example: wsg_code: [PARS, CARP, CRKD]")
+}
+if (!exists("params") || is.null(params$species_of_interest)) {
+  stop("params$species_of_interest must be set in index.Rmd. Example: species_of_interest: [BT, GR, KO, RB]")
+}
+wsg <- params$wsg_code
+species_of_interest <- params$species_of_interest
 
 fiss_sum <- fpr::fpr_db_query(
   glue::glue(
@@ -32,13 +39,15 @@ fiss_sum <- fpr::fpr_db_query(
 
 ##burn it all to a file we can use later
 fiss_sum |>
-  readr::write_csv(file = paste0('data/inputs_extracted/fiss_sum.csv'))
+  ngr::ngr_fs_type_write(path = 'data/inputs_extracted/fiss_sum.csv')
 
 
 ##lets put it in the sqlite for safekeeping
 conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
 readwritesqlite::rws_list_tables(conn)
-readwritesqlite::rws_drop_table("fiss_sum", conn = conn) ##if it exists get rid of it - might be able to just change exists to T in next line
+if ("fiss_sum" %in% readwritesqlite::rws_list_tables(conn)) {
+  readwritesqlite::rws_drop_table("fiss_sum", conn = conn)
+}
 readwritesqlite::rws_write(fiss_sum, exists = F, delete = TRUE,
           conn = conn, x_name = "fiss_sum")
 readwritesqlite::rws_list_tables(conn)
@@ -82,18 +91,7 @@ fiss_sum_grad <- dplyr::left_join(
 
 ##save this for the report
 ##burn it all to a file we can use later
-fiss_sum_grad |> readr::write_csv(file = 'data/inputs_extracted/fiss_sum_grad.csv')
-
-# test the plot
-plot_grad <- fiss_sum_grad |>
-  dplyr::filter(gradient_id != 99) |>
-  ggplot2::ggplot(ggplot2::aes(x = Gradient, y = Percent)) +
-  ggplot2::geom_bar(stat = "identity") +
-  ggplot2::facet_wrap(~species_code, ncol = 2) +
-  ggplot2::theme_bw(base_size = 11) +
-  ggplot2::labs(x = "Average Stream Gradient", y = "Occurrences (%)")
-
-plot_grad
+fiss_sum_grad |> ngr::ngr_fs_type_write(path = 'data/inputs_extracted/fiss_sum_grad.csv')
 
 
 # Calculate the fish observations vs. channel width ---------------------
@@ -132,18 +130,7 @@ fiss_sum_width <- dplyr::left_join(
 
 ## save this for the report
 fiss_sum_width |>
-  readr::write_csv(file = "data/inputs_extracted/fiss_sum_width.csv")
-
-# Plot: fish vs. channel width
-plot_width <- fiss_sum_width |>
-  dplyr::filter(!is.na(width_id)) |>
-  ggplot2::ggplot(ggplot2::aes(x = Width, y = Percent)) +
-  ggplot2::geom_bar(stat = "identity") +
-  ggplot2::facet_wrap(~species_code, ncol = 2) +
-  ggdark::dark_theme_bw(base_size = 11) +
-  ggplot2::labs(x = "Channel Width", y = "Occurrences (%)")
-
-plot_width
+  ngr::ngr_fs_type_write(path = "data/inputs_extracted/fiss_sum_width.csv")
 
 
 # Calculate the fish observations vs. watershed size ---------------------
@@ -189,19 +176,8 @@ fiss_sum_wshed <- dplyr::left_join(
 
 ## save this for the report
 fiss_sum_wshed |>
-  readr::write_csv(file = "data/inputs_extracted/fiss_sum_wshed.csv")
-
-# Plot: fish vs. watershed size
-plot_wshed <- fiss_sum_wshed |>
-  dplyr::filter(!is.na(Watershed)) |>
-  ggplot2::ggplot(ggplot2::aes(x = Watershed, y = Percent)) +
-  ggplot2::geom_bar(stat = "identity") +
-  ggplot2::facet_wrap(~species_code, ncol = 2) +
-  ggdark::dark_theme_bw(base_size = 11) +
-  ggplot2::labs(x = "Watershed Area", y = "Occurrences (%)") +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
-
-plot_wshed
+  dplyr::mutate(dplyr::across(where(is.factor), as.character)) |>
+  ngr::ngr_fs_type_write(path = "data/inputs_extracted/fiss_sum_wshed.csv")
 
 
 
