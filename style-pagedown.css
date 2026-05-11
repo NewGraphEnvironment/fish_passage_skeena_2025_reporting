@@ -39,6 +39,11 @@ size: 8.5in 11in;
   color: Black;
   text-align: center;
 }
+.subtitle {
+  font-size: 15px;
+  color: Black;
+  text-align: center;
+}
 .author { /* Header 4 - and the author and data headers use this too  */
   font-size: 13px;
   color: Black;

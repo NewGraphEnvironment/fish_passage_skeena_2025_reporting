@@ -52,24 +52,6 @@ my_leaflet <- function(height = 650, width = 970){
     leaflet.extras::addFullscreenControl()
 }
 
-# write the contents of the NEWS.md file to a RMD file that will be included as an appendix
-my_news_to_appendix <- function(
-    md_name = "NEWS.md",
-    rmd_name = "2090-report-change-log.Rmd",
-    appendix_title = "# Changelog") {
-
-  # Read and modify the contents of the markdown file
-  news_md <- readLines(md_name)
-  news_md <- stringr::str_replace(news_md, "^#", "###") |>
-    stringr::str_replace_all("(^(### .*?$))", "\\1 {-}")
-
-  # Write the title, a blank line, and the modified contents to the Rmd file
-  writeLines(
-    c(paste0(appendix_title, " {-}"), "", news_md),
-    rmd_name
-  )
-}
-
 #https://stackoverflow.com/questions/49819892/cross-referencing-dtdatatable-in-bookdown
 my_tab_caption <- function(
     caption_text = my_caption,
@@ -418,6 +400,8 @@ sfpr_xref_road_cost <- function(){
            "fsr",          "rough",               1L,                 1L,                  30L,           100L,
            "fsr",          "loose",               1L,                 1L,                  30L,           100L,
       "resource",          "loose",               1L,                 1L,                  30L,           100L,
+     "collector",          "loose",               1L,                 1L,                  30L,           100L,
+     "recreation",         "loose",               1L,                 1L,                  30L,           100L,
       "resource",          "rough",               1L,                 1L,                  30L,           100L,
         "permit",        "unknown",               1L,                 1L,                  30L,           100L,
         "permit",          "loose",               1L,                 1L,                  30L,           100L,
@@ -440,12 +424,4 @@ sngr_get_elev <- function(dat){
                                    key = Sys.getenv('GOOG_API_KEY'),
                                    Z = 'elev') |>
     mutate(elev = round(elev, 0))
-}
-
-str_replace <- function(text, pattern, replacement) {
-  sub(pattern = pattern, replacement = replacement, x = text, perl = TRUE)
-}
-
-str_replace_all <- function(text, pattern, replacement) {
-  gsub(pattern = pattern, replacement = replacement, x = text, perl = TRUE)
 }

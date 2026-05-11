@@ -29,7 +29,7 @@ PSCIS crossings `r as.character(my_site)` and `r as.character(my_site2)` are loc
 ```{r map-196085, fig.cap = my_caption, eval = T}
  my_caption <- "Map of Tabor Creek"
  
- knitr::include_graphics("fig/gis/tabor.jpeg")
+ knitr::include_graphics("fig/gis/map_tabor.jpeg")
  
 ```
 

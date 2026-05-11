@@ -1,0 +1,77 @@
+---
+title: "Restoring Fish Passage in the Fraser Region - 2025"
+subtitle: "Executive Summary"
+output:
+  pagedown::html_paged:
+    css: ["default-fonts", "default-page", "default", "style-pagedown.css"]
+    self_contained: true
+    front_cover: null
+    back_cover: null
+    toc: false
+params:
+  report_url: 'https://www.newgraphenvironment.com/fish_passage_fraser_2025_reporting/'
+  repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_fraser_2025_reporting'
+  repo_name: 'fish_passage_fraser_2025_reporting'
+  project_region: 'fraser'
+  project_year: '2025'
+---
+
+```{r exec-pdf-setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+version <- desc::desc_get_version()
+build_date <- format(Sys.Date(), "%Y-%m-%d")
+gitbook_on <- FALSE
+
+form_edna <- tryCatch(
+  readr::read_csv(
+    paste0("data/backup/", params$project_year, "/form_edna_", params$project_year, ".csv"),
+    show_col_types = FALSE
+  ),
+  error = function(e) {
+    message("form_edna CSV not found -- using empty stub for exec summary")
+    tibble::tibble(stream_name = character())
+  }
+)
+```
+
+<style>
+.pagedjs_page.pagedjs_blank_page {
+  display: none !important;
+}
+</style>
+
+
+<div style="text-align: center; margin-top: 2em; margin-bottom: 1em;">
+<img src="fig/logo_sern/SERNbc-Logo-FULL.jpg" style="width: 220px;" />
+</div>
+
+<div style="text-align: center; font-size: 0.85em; line-height: 1.6;">
+
+Version `r version` DRAFT | `r build_date`
+
+</div>
+
+<div style="text-align: center; margin-top: 3em; margin-bottom: 1em; font-size: 0.85em; line-height: 1.8;">
+
+*Prepared for the Habitat Conservation Trust Foundation and the Ministry of Transportation and Infrastructure*
+
+*Prepared by Al Irvine, R.P.Bio. and Lucy Schick, B.Sc. — New Graph Environment Ltd.*
+
+*on behalf of the Society for Ecosystem Restoration in Northern British Columbia*
+
+</div>
+
+<div style="text-align: center; margin-top: 5em; font-size: 0.8em; line-height: 1.6;">
+
+[Full Report](`r params$report_url`) | [Source Code and Data](`r params$repo_url`) | [Changelog](`r paste0(params$repo_url, '/blob/main/NEWS.md')`) | [Latest Executive Summary](`r paste0(params$report_url, 'executive_summary.pdf')`)
+
+</div>
+
+<div style="text-align: center; margin-top: 3em; font-size: 0.75em; font-style: italic; line-height: 1.4;">
+
+Claude Sonnet 4.6 (Anthropic) assisted with literature synthesis, drafting, and technical writing. All scientific interpretation, data analysis, and conclusions are the responsibility of the authors.
+
+</div>
+
+```{r exec-summary, child='0050-executive-summary.Rmd'}
+```

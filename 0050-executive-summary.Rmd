@@ -1,7 +1,9 @@
 
 # Executive Summary {-}
 
-`r if(identical(gitbook_on, FALSE)) knitr::asis_output(paste0("This report is available as a PDF and as an online interactive report at ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = params$report_url), ". We recommend viewing online as the web-hosted HTML version contains more features and is more easily navigable. Please reference the website for the latest version stamped PDF from ", ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = "raw/main/docs/fish_passage_peace_2024_reporting.pdf", anchor_text = "fish_passage_peace_2024_reporting.pdf"), "."))`
+[📄 Executive Summary (PDF)](executive_summary.pdf)
+
+`r if(identical(gitbook_on, FALSE)) { pdf_name <- paste0(yaml::read_yaml('_bookdown.yml')$book_filename, ".pdf"); knitr::asis_output(paste0("This report is available as a PDF and as an online interactive report at ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = params$report_url), ". We recommend viewing online as the web-hosted HTML version contains more features and is more easily navigable. Please reference the website for the latest version stamped PDF from ", ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = paste0("raw/main/docs/", pdf_name), anchor_text = pdf_name), ".")) }`
 
 
 `r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br>")}`
@@ -31,30 +33,30 @@ from past field activities and all reports can be considered living documents th
 if (params$project_region == "peace") {
 
   cat("
-- [Parsnip River Watershed – Fish Habitat Confirmations (PEA-F20-F-2967)](https://newgraphenvironment.github.io/Parsnip_Fish_Passage/){target=\"_blank\"} [@irvine2020ParsnipRiver]
-- [PEA-F22-F-3577-DCA Restoring Fish Passage in the Peace Region](https://www.newgraphenvironment.com/fish_passage_parsnip_2021_reporting/){target=\"_blank\"} [@irvine2022PEAF22F3577DCARestoring]  
-- [Restoring Fish Passage in the Peace Region - 2022 - PEA-F23-F-3761-DCA](https://newgraphenvironment.github.io/fish_passage_peace_2022_reporting/){target=\"_blank\"} [@irvine_winterscheidt2023RestoringFish]
-- [Restoring Fish Passage in the Peace Region - 2023](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting/){target=\"_blank\"} [@irvine_winterscheidt2024RestoringFish]
-- [Restoring Fish Passage in the Peace Region - 2024](https://newgraphenvironment.github.io/fish_passage_peace_2024_reporting/){target=\"_blank\"} [@irvine_schick2025RestoringFish]
+- [Parsnip River Watershed – Fish Habitat Confirmations (PEA-F20-F-2967)](https://newgraphenvironment.github.io/Parsnip_Fish_Passage/){target=\"_blank\"}
+- [PEA-F22-F-3577-DCA Restoring Fish Passage in the Peace Region](https://www.newgraphenvironment.com/fish_passage_parsnip_2021_reporting/){target=\"_blank\"}  
+- [Restoring Fish Passage in the Peace Region - 2022 - PEA-F23-F-3761-DCA](https://newgraphenvironment.github.io/fish_passage_peace_2022_reporting/){target=\"_blank\"}
+- [Restoring Fish Passage in the Peace Region - 2023](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting/){target=\"_blank\"}
+- [Restoring Fish Passage in the Peace Region - 2024](https://newgraphenvironment.github.io/fish_passage_peace_2024_reporting/){target=\"_blank\"}
 ")
 
   
 } else if (params$project_region == "fraser") {
 
   cat("
-- [Restoring Fish Passage in the Fraser Region - 2023](https://www.newgraphenvironment.com/fish_passage_fraser_2023_reporting/){target=\"_blank\"} [@irvine_schick2024Restoringfish]
+- [Restoring Fish Passage in the Fraser Region - 2023](https://www.newgraphenvironment.com/fish_passage_fraser_2023_reporting/){target=\"_blank\"}
 ")
 
   
 } else if (params$project_region == "skeena") {
 
   cat("
-- [Bulkley River and Morice River Watershed Groups Fish Passage Restoration Planning (2020)](https://newgraphenvironment.github.io/fish_passage_bulkley_2020_reporting/) [@irvine2021BulkleyRiver]
-- [Bulkley River and Morice River Watershed Groups Fish Passage Restoration Planning 2021](https://newgraphenvironment.github.io/fish_passage_skeena_2021_reporting/) [@irvine2022BulkleyRiver]
-- [Bulkley River Watershed Fish Passage Restoration Planning 2022](https://newgraphenvironment.github.io/fish_passage_bulkley_2022_reporting/) [@irvine_etal2023BulkleyWatershed]
-- [Skeena Watershed Fish Passage Restoration Planning 2022](https://newgraphenvironment.github.io/fish_passage_skeena_2022_reporting/) [@irvine_wintersheidt2023SkeenaWatershed]
-- [Skeena Watershed Fish Passage Restoration Planning 2023](https://newgraphenvironment.github.io/fish_passage_skeena_2023_reporting/) [@irvine_schick2023SkeenaWatershed]
-- [Skeena Watershed Fish Passage Restoration Planning 2024](https://newgraphenvironment.github.io/fish_passage_skeena_2024_reporting/) [@irvine_schick2025SkeenaWatershed]
+- [Bulkley River and Morice River Watershed Groups Fish Passage Restoration Planning (2020)](https://newgraphenvironment.github.io/fish_passage_bulkley_2020_reporting/)
+- [Bulkley River and Morice River Watershed Groups Fish Passage Restoration Planning 2021](https://newgraphenvironment.github.io/fish_passage_skeena_2021_reporting/)
+- [Bulkley River Watershed Fish Passage Restoration Planning 2022](https://newgraphenvironment.github.io/fish_passage_bulkley_2022_reporting/)
+- [Skeena Watershed Fish Passage Restoration Planning 2022](https://newgraphenvironment.github.io/fish_passage_skeena_2022_reporting/)
+- [Skeena Watershed Fish Passage Restoration Planning 2023](https://newgraphenvironment.github.io/fish_passage_skeena_2023_reporting/)
+- [Skeena Watershed Fish Passage Restoration Planning 2024](https://newgraphenvironment.github.io/fish_passage_skeena_2024_reporting/)
 ")
 
 }

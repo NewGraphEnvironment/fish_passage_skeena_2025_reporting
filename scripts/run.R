@@ -66,6 +66,29 @@ source('scripts/02_reporting/0180-photos-extract-metadata.R')
 
 }
 
+#fix if the build breaks-----------------------------------------------------------------------------------------------------
+# if (file.exists("hold/appendix---phase-1-fish-passage-assessment-data-and-photos.html")) {
+#   file.rename(
+#     "hold/appendix---phase-1-fish-passage-assessment-data-and-photos.html",
+#     "docs/appendix---phase-1-fish-passage-assessment-data-and-photos.html"
+#   )
+# }
+# if (file.exists('0600-appendix-placeholder.Rmd')) {
+#   file.rename(
+#     '0600-appendix-placeholder.Rmd',
+#     'hold/0600-appendix-placeholder.Rmd',
+#     overwrite = TRUE
+#   )
+# }
+# if (file.exists('hold/0600-appendix')) {
+#   file.rename(
+#     'hold/0600-appendix.Rmd',
+#     '0600-appendi.Rmd',
+#     overwrite = TRUE
+#   )
+# }
+
+
 # not run but available to remove files we don't need in the gitbook build (sometimes appendices are not built in gitbook)
 # {
 #
