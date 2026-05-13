@@ -1,3 +1,7 @@
+# fish_passage_fraser_2025_reporting 0.1.0 (2026-05-13)
+
+* Add floodplain delineation appendix for Nechako River Watershed Group (NECR) using chinook accessible stream network. Build script, appendix with summary table and maps, body methods/results paragraphs with inline metrics. Rename Planning section header.
+
 # fish_passage_fraser_2025_reporting 0.0.2 (2026-05-11)
 
 * Add standalone PDF executive summary: `_executive_summary_pdf.Rmd` wrapper, `scripts/build_exec_pdf.R`, PDF download link in gitbook chapter. Strip `[@citekey]` refs from previous-work lists; fix hardcoded PDF name to derive from `_bookdown.yml`.

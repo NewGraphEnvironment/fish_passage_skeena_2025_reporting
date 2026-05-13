@@ -63,7 +63,7 @@ Loading the QGIS layer file within a QGIS project, allows load and representatio
 the user points to a postgresql database populated via `bcfishpass` outputs.
 
 
-## Planning
+## Planning — Habitat, Connectivity and Floodplain Modelling
 
 ### Habitat Modelling
 
@@ -230,6 +230,12 @@ table_thresh_average |>
     fpr::fpr_kable(caption_text = 'Stream gradient categories (threshold and average) and associated channel type.', scroll = F)
 
 ```
+
+### Floodplain Delineation
+
+To complement the linear barrier inventory, we mapped functional floodplain extent at watershed scale for the Nechako River Watershed Group. Overlaying floodplain footprint on the crossing inventory lets us ask not just whether fish can pass a structure, but how much off-channel habitat sits within the affected corridor and whether infrastructure has compromised the lateral connectivity that sustains it.
+
+We used the [`flooded`](https://newgraphenvironment.github.io/flooded/) R package [@nagel_etal2014LandscapeScale], which models the area a river actively inundates during regular high-flow events — the **functional floodplain**. This is distinct from the narrow active channel (the wetted perimeter at low flow) and the broader geologic valley bottom (which includes terraces untouched by water for centuries). The functional floodplain is the scale where off-channel habitat is created and maintained: where side channels form, seasonal flooding sustains wetlands, and riparian forests recruit. Bankfull depth is estimated from the regional regression of @hall_etal2007Predictingriver, calibrated against field-mapped floodplain sites in Pacific Northwest streams. Inputs were the [MRDEM-30](https://open.canada.ca/data/en/dataset/18752265-bda3-498c-a4ba-9dfe68cb98da) 30 m DEM, the chinook accessible stream network (stream order ≥ 3) from [bcfishpass](https://github.com/smnorris/bcfishpass), and BC Freshwater Atlas lakes and wetlands on that network. Full methodology and watershed-scale mapping are in [Appendix - Floodplain Delineation](#app-floodplain).
 
 
 ## Fish Passage Assessments

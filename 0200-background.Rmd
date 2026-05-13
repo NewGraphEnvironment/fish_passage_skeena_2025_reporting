@@ -4,6 +4,27 @@
 knitr::opts_chunk$set(fig.path = "fig/background/", dev = "png")
 ```
 
+## Approach
+
+Fish passage assessments in British Columbia follow the provincial protocol [@moe2011Fieldassessment], which scores barrier risk at road-stream crossings from structural parameters — culvert embedment, slope, outlet drop, and culvert diameter relative to channel width. The "Barrier" and "Potential Barrier" classifications represent passability for juvenile salmon or small resident rainbow trout under any flow conditions that may occur throughout the year [@clarkinNationalInventoryAssessment2005; @bellFisheriesHandbookEngineering1991; @thompsonAssessingFishPassage2013]. The thresholds are deliberately conservative, so the classifications are risk scores rather than determinations of whether fish actually move through. Many structures classified as "Barrier" still pass some species and life stages at some flows, and natural features in adjacent reaches can be as limiting as the structure itself. Passability can be quantified in other ways — fish length, swim speed, and species physiology all affect connectivity outcomes — and finer-grained scoring methods exist for structures already classified as barriers [@bourne_etal2011Barriersfish; @kemp_ohanley2010Proceduresevaluating; @washingtondepartmentoffishwildlife2009FishPassage]. Whether a remediation changes outcomes for fish therefore depends on the habitat upstream, the species and life stages in question, and the broader condition of the reach the structure connects to — not the classification alone.
+
+<br>
+
+The provincial inventory contains thousands of structures on fish-bearing streams. Replacement at a typical forest road culvert is in the six-figure range; structural replacements on highway and rail corridors run into seven and eight figures. Funding for restoration is finite and split across multiple programs and partners. Prioritization across the inventory therefore carries more weight than any individual assessment — the assessment establishes what could be fixed, while prioritization decides what should be.
+
+<br>
+
+Authority and funding for these structures are distributed across rail authorities, highway ministries, forestry licensees, and private landowners. Each operates under its own mandate, performance metrics, and budget cycle. Advancing restoration involves working inside organizations whose primary mandate is moving goods, maintaining roads, or harvesting timber — not aquatic ecological outcomes. The work proceeds through shared data, sustained relationships, and incremental progress across multiple budget years and field seasons.
+
+<br>
+
+Many road and rail corridors were built without consideration of fish passage or floodplain function. Damage frequently extends beyond the structure at the crossing — channelized streams, dykes that sever lateral connection, drained wetlands, cleared riparian buffers. Replacing a culvert in-kind can restore longitudinal passage while leaving the broader corridor-scale disconnection unaddressed. Understanding where infrastructure constrains watershed function helps distinguish cases where structural replacement is sufficient from cases where remediation needs to address more than the structure itself.
+
+<br>
+
+This report compiles the layers used for prioritization in the watershed groups where the work is active: structural assessment data, habitat modelling, climate trajectory, and floodplain extent. Each layer contributes a piece of the picture — what is present, what it could support, how it is changing, and the surrounding watershed context. The work happens over many years across many partners; this report documents one year's contribution to that effort.
+
+
 ## Project Location
 
 The study area spans from Burns Lake to Valemount, British Columbia, and includes the `r wsg_names |> knitr::combine_words()` watershed groups. In 2025 the study area was expanded to include the Tabor River, Willow River, and Lower Salmon River watershed groups.
@@ -284,6 +305,15 @@ print(plot1$`Long-term_Monthly_Statistics`)
 ```
 
 <br>
+
+## Floodplains and Watershed Function
+
+Floodplains are the low-lying ground adjacent to stream channels that water reclaims during high-flow events. They are not idle margins — they are where rivers do geomorphic work: storing and sorting sediment, exchanging nutrients between terrestrial and aquatic systems, recruiting riparian vegetation, and delivering large woody debris to the channel. For fish, floodplain habitats — side channels, sloughs, beaver complexes, oxbow ponds, and connected wetlands — provide the off-channel conditions that drive freshwater productivity. Juvenile salmonids depend on these areas for low-velocity rearing, overwinter refuge when mainstem conditions become harsh, and high-flow shelter during freshet. In many systems, floodplain habitats are where freshwater survival is won or lost.
+
+<br>
+
+Floodplains are often the part of the watershed most compromised by the infrastructure legacy described above. Dykes sever lateral connection; channelization confines the active footprint; drainage eliminates wetland complexes. Mapping floodplain extent at watershed scale therefore complements the linear barrier inventory — prioritization can consider not just whether a structure passes fish but the condition and extent of the off-channel habitat in the reach the structure connects to.
+
 
 ## Fisheries
 

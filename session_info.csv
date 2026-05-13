@@ -1,19 +1,18 @@
-─ Session info ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+─ Session info ───────────────────────────────────────────────────────────────
  setting  value
  version  R version 4.5.2 (2025-10-31)
  os       macOS Tahoe 26.2
  system   aarch64, darwin20
- ui       RStudio
+ ui       X11
  language (EN)
  collate  en_US.UTF-8
  ctype    en_US.UTF-8
  tz       America/Vancouver
- date     2026-05-11
- rstudio  2026.01.0+392 Apple Blossom (desktop)
+ date     2026-05-13
  pandoc   3.9.0.2 @ /opt/homebrew/bin/ (via rmarkdown)
  quarto   1.4.553 @ /usr/local/bin/quarto
 
-─ Packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+─ Packages ───────────────────────────────────────────────────────────────────
  package           * version    date (UTC) lib source
  arrow               22.0.0.1   2025-12-23 [2] CRAN (R 4.5.2)
  askpass             1.2.1      2024-10-04 [1] CRAN (R 4.5.0)
@@ -117,7 +116,7 @@
  rmarkdown         * 2.31       2026-03-26 [1] CRAN (R 4.5.2)
  RPostgres         * 1.4.10     2026-02-16 [1] CRAN (R 4.5.2)
  rprojroot           2.1.1      2025-08-26 [2] CRAN (R 4.5.0)
- RSQLite             2.4.6      2026-02-06 [2] CRAN (R 4.5.2)
+ RSQLite             3.52.0     2026-05-10 [1] CRAN (R 4.5.2)
  rstudioapi          0.18.0     2026-01-16 [2] CRAN (R 4.5.2)
  rvest               1.0.5      2025-08-29 [2] CRAN (R 4.5.0)
  s2                  1.1.9      2025-05-23 [1] CRAN (R 4.5.0)
@@ -133,7 +132,7 @@
  stringr           * 1.6.0      2025-11-04 [1] CRAN (R 4.5.0)
  svglite             2.2.2      2025-10-21 [2] CRAN (R 4.5.0)
  systemfonts         1.3.1      2025-10-01 [2] CRAN (R 4.5.0)
- terra               1.9-11     2026-03-26 [1] CRAN (R 4.5.2)
+ terra             * 1.9-11     2026-03-26 [1] CRAN (R 4.5.2)
  textshaping         1.0.4      2025-10-10 [2] CRAN (R 4.5.0)
  tibble            * 3.3.1      2026-01-11 [1] CRAN (R 4.5.2)
  tidyhydat           0.7.2      2025-10-23 [2] CRAN (R 4.5.0)
@@ -159,4 +158,4 @@
  [2] /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/library
  * ── Packages attached to the search path.
 
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────────────────────
