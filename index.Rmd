@@ -21,6 +21,8 @@ author: |
 date: |
  |
  | Version 0.0.1 `r format(Sys.Date(), "%Y-%m-%d")`
+ |
+ | *Claude Opus 4.7 (Anthropic) assisted with literature synthesis, drafting, and technical writing. All scientific interpretation, data analysis, and conclusions are the responsibility of the authors.*
 toc-title: Table of Contents
 site: bookdown::bookdown_site
 output: 
@@ -130,11 +132,6 @@ Modern civilization has a long journey ahead to acknowledge and address the hist
 This work takes place within the territories of [Nations], who have stewarded these lands and waters since time immemorial. [Project-specific connection to territory, governance, species, or watershed.]
 
 [Funding and partner acknowledgements.]
-
-
-# AI Disclosure {.front-matter .unnumbered}
-
-Report preparation was assisted by Claude (Anthropic), a large language model, for literature synthesis and technical writing. All ecological assessments, professional judgments, and conclusions are the sole responsibility of Al Irvine, R.P.Bio., who independently verified all content.
 
 
 ```{js, logo-header, echo = FALSE, eval= T}

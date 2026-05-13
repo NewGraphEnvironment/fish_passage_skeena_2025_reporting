@@ -17,3 +17,7 @@ pre code {
   max-width: 1000px !important;
 }
 
+.book .book-summary ul.summary li[data-path="index.html"] {
+  display: none;
+}
+
