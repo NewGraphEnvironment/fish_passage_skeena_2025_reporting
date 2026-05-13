@@ -13,7 +13,15 @@ if (params$project_region == "peace") {
 
 ```
 
-## Collaborative GIS Environment 
+## Climate Departure
+
+Climate departure measures how far recent climate has shifted from a historical baseline — in this case, how much warmer, drier, or snowpack-altered the study area has become relative to the pre-warming period (1951–1980). Where traditional fish-passage assessments focus on the physical structures in and around streams, climate departure adds the atmospheric and hydrologic context those structures sit inside: warming air temperatures that drive warmer water, shifting snowpack that reshapes the freshet, and atmospheric drying that reduces late-summer flows. Understanding these departures at the watershed scale lets us ask whether the habitat above a barrier is gaining or losing value as climate changes — and weight barrier prioritisation accordingly.
+
+We examined 15 climate variables spanning temperature (annual mean, daytime maximum, overnight minimum), moisture (precipitation, vapour pressure deficit, soil moisture, relative humidity), and snowpack (snow water equivalent, snowfall, snowmelt, snow cover, snowfall fraction, peak snow water equivalent, snowmelt timing, and peak melt rate). Each variable was assessed at annual and seasonal scales, across the full study area and within each of eight ecoregions.
+
+Climate departures were computed with the [`cd`](https://newgraphenvironment.com/cd/) R package, which reads ERA5-Land hourly reanalysis (1950–present, ~9 km native grid) aggregated to monthly, seasonal, and annual periods on a single grid covering British Columbia, served as Cloud-Optimised GeoTIFFs from a public S3 catalog. For each variable the package crops the published rasters to the area of interest, takes a yearly spatial mean, and computes anomalies against the 1951–1980 pre-warming reference period — the same base period @hansen_etal2012Perceptionclimate used for global temperature emergence. Long-term trends are tested with Mann-Kendall significance and quantified with Theil-Sen slopes; the recent-decade (2015–2025) versus pre-warming window comparison uses a Welch two-sample t-test on the annual values. The same pipeline runs at any polygon scale — region, ecoregion, or watershed group. The regional and ecoregion-level analyses are summarised in this section; the watershed-group breakdown feeds into the per-watershed barrier prioritisation that follows. [Appendix - Climate Departure](#app-climate-departure) carries the full set of plots and tables.
+
+## Collaborative GIS Environment
 Geographical Information Systems are essential for developing and communicating restoration plans as well as the reasons
 they are required and how they are developed. Without the ability to visualize the landscape and the data that is used
 to make decisions, it is difficult to conduct and communicate the need for restoration, the details of past and future

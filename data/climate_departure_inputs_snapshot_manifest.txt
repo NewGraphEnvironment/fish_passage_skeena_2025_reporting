@@ -1,0 +1,9 @@
+# Climate-departure snapshot generated 2026-05-13 12:57:58 PDT
+# cd version: 0.3.0
+# WSG codes: LCHL,NECR,FRAN,MORK,UFRA,TABR,WILL
+# Ecoregions: FAB,FAP,WRA,NCM,SRT,COH,CRM,EHM
+
+climate_departure.gpkg                  23e245a18a3fc5ca234517ebc6771896
+climate_departure.rds                   5d634aae8a277a1ecf4bc363a8977226
+climate_departure_tmean.tif             947c4414138b99631dcd4c10b05b4cbf
+climate_departure_wsg_ecoregion.csv     727164d31802f8bfda44e51381bc81d2

@@ -1,12 +1,24 @@
-# Progress — Add floodplain delineation appendix for Nechako River watershed group (#5)
+# Progress — Climate departure body section + appendix — FWCP Fraser (#6)
 
 ## Session 2026-05-13
 
-- Plan-mode exploration — phases approved by user
-- Created branch `5-add-floodplain-delineation-appendix-for-nechako-river` off main
-- Scaffolded PWF baseline from issue #5 with approved phases
-- Phase 1: Created `scripts/gis/floodplain.R` (NECR, streams_ch_vw), ran build — 4,148 km² AOI, 5,041 segments, 1,141 waterbodies, 18.6 MB cache
-- Phase 2: Ported `0830-appendix-floodplain.Rmd` — NECR/chinook throughout, Murray Creek confluence detail map
-- Phase 3: Added methods and results paragraphs, renamed Planning heading
-- Phase 4: Bumped version 0.0.2 → 0.1.0, added NEWS.md entry
-- Next: build and verify
+- Archived prior PWF for #5 (NECR floodplain, merged via PR #7) into `planning/archive/2026-05-issue-5-necr-floodplain/`
+- Plan-mode exploration of Fraser repo conventions — confirmed NECR floodplain (PR #7) as the closest precedent; identified four filename/path adaptations from the issue body (appendix slot `0835-`, snapshot at `scripts/gis/climate_departure.R`, anchor `{-#app-climate-departure}`, AOI-neutral filename prefix `climate_departure*`)
+- Plan approved by user
+- Created branch `6-climate-departure-appendix` off main
+- Scaffolded PWF baseline with approved 7-phase breakdown
+- Refined findings.md with Peace REPORT (PR #17, merged 2026-05-12) as the primary tone reference — `cd/hold/` drafts demoted to secondary. Two-paragraph Methods structure (audience intro + technical), 4-finding Results block with bolded leads + closing both-ways framing, direct `kableExtra::kable_styling() |> kableExtra::scroll_box()` for tables (no `gitbook_on` conditional — Peace's PDF build survives the raw pattern)
+- Phase 1: wrote `scripts/gis/climate_departure.R` (Phase 1 portion — AOI build, context layers, ecoregions). Ran end-to-end. Produces `data/gis/climate_departure.gpkg` with 8 layers (aoi, wsgs, ecoregions, towns, lakes, rivers, streams, highways), 1.4 MB. AOI = 34,019 km² across 7 WSGs; 8 ecoregions intersect (FAB, FAP, WRA, NCM, SRT, COH, CRM, EHM)
+- Phase 2: extended `scripts/gis/climate_departure.R` with the cd pipeline. First run failed at the spatial-tmean step (`mean(SpatRaster)` didn't S4-dispatch — got `mean.default` returning NA, then `terra::mask()` couldn't accept numeric). Fixed by using `terra::app(x, fun = "mean")` explicitly. Also added a checkpoint that saves `climate_departure.rds` before the spatial-tmean step so a re-run doesn't lose the ~10 min of cd extracts. Second run clean.
+- Phase 2 produced: `data/gis/climate_departure.rds` (403 KB; regional ts/bl/ano/trn/cmp/cmp_pct + per-ecoregion list keyed by code), `data/gis/climate_departure_tmean.tif` (4 KB, range +1.10 to +2.02 °C across the AOI), `data/gis/climate_departure_wsg_ecoregion.csv` (7 WSG rows), `data/climate_departure_inputs_snapshot_manifest.txt`
+- Fraser headline numbers (regional, annual): tmean +1.64 °C (p < 0.001), tmax +1.46, tmin +1.78 (day-night asymmetry present, gap 0.32 °C), VPD +0.34 hPa (p = 0.002), prcp +28 mm ≈ +3 % (p = 0.46, not significant), snowmelt midpoint shifted 11.8 days earlier (p < 0.001). Warming about 0.2 °C less than Peace; freshet-timing signal comparable.
+- The "WARNING: Error exit, tauk2. IFAULT = 12" lines (2× on WRA) are Mann-Kendall internals signaling insufficient variance on specific series — non-fatal, just produces NA p-values for affected rows.
+- Phase 3: drafted `0835-appendix-climate-departure.Rmd` (~440 lines) mirroring the Peace REPORT structure (`0820-appendix-climate-departure.Rmd`) but with all narrative rewritten from the Fraser numbers. Used direct `kableExtra::kable_styling() |> kableExtra::scroll_box()` for tables (Peace pattern; no `gitbook_on` conditional).
+- Fresh interpretation findings unique to Fraser:
+  - Warming is real but **has not accelerated since 1981** (45-yr slope shallower than 75-yr — surfaced as a paragraph in the Trends section)
+  - **Zero ecoregions show significant precipitation trend** (Peace had 2/5; Fraser has 0/8) — climate-driven hydrology story is dominated by atmospheric drying + snowpack timing, not by precipitation
+  - **Winter snowmelt rose +45 %** alongside spring +18 % — Fraser-specific seasonal redistribution Peace did not carry
+  - Spatial gradient is **NW-warm to SE-cool** (interior plateau warmer than mountains, the inverse of "windward amplification" — mountains acting as thermal buffer)
+- Phase 4: wired body files. `0300-methods.Rmd` got a new top-level `## Climate Departure` section (3 paragraphs: audience intro + scope + technical pipeline). `0400-results.Rmd` got a hidden `cd-rollup-body` chunk that loads the rds and computes 11 headline scalars, followed by a `## Climate Departure` section with 4 bolded-lead findings + closing both-ways framing. All inline-R values verified to resolve cleanly against the rds.
+- Phase 5: gitbook rendered clean. First attempt failed in `scripts/packages.R` because `available.packages()` needs a CRAN mirror configured for non-interactive Rscript — re-ran with `options(repos = c(CRAN = "https://cloud.r-project.org"))` and it completed without R errors. All 21 appendix chunks executed; 16 figures numbered 5.16–5.31; cross-refs from Methods + Results to `#app-climate-departure` and `#fig:cd-map-tmean` all resolve in HTML; inline-R numbers (1.6 °C, 0.34 hPa, 12 days) verified in rendered Results. Bibliography: 8 cite entries (Hansen, Karl, Mote ×2, Stewart, Cayan, Knowles, Kang) manually appended to `references.bib` from `cd/vignettes/references.bib` since rbbt is offline pending cleanup. PDF render deferred to PR CI (Peace's appendix ships the same `kableExtra::scroll_box` pattern and its PDF build works).
+- Next: Phase 6 — independent review (gating). Spawn fresh agent with no context to check numerical accuracy, pattern accuracy, significance handling, tone, stand-alone framing, cross-references. Findings to `planning/active/review-climate-departure.md`.

@@ -1,0 +1,835 @@
+---
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
+# Appendix - Climate Departure {-#app-climate-departure}
+
+```{r cd-setup, include = FALSE}
+library(cd)
+library(sf)
+library(terra)
+library(ggplot2)
+library(tidyterra)
+```
+
+```{r cd-load}
+gpkg_cd      <- "data/gis/climate_departure.gpkg"
+aoi          <- sf::st_read(gpkg_cd, layer = "aoi",        quiet = TRUE)
+ecoregions   <- sf::st_read(gpkg_cd, layer = "ecoregions", quiet = TRUE)
+ecoregions$name_tc <- tools::toTitleCase(tolower(ecoregions$name))
+towns        <- sf::st_read(gpkg_cd, layer = "towns",      quiet = TRUE)
+lakes        <- sf::st_read(gpkg_cd, layer = "lakes",      quiet = TRUE)
+rivers       <- sf::st_read(gpkg_cd, layer = "rivers",     quiet = TRUE)
+streams      <- sf::st_read(gpkg_cd, layer = "streams",    quiet = TRUE)
+highways     <- sf::st_read(gpkg_cd, layer = "highways",   quiet = TRUE)
+wsgs         <- sf::st_read(gpkg_cd, layer = "wsgs",       quiet = TRUE)
+
+cd_data    <- readRDS("data/gis/climate_departure.rds")
+ts         <- cd_data$regional$ts
+bl_early   <- cd_data$regional$bl
+ano        <- cd_data$regional$ano
+trn        <- cd_data$regional$trn
+cmp        <- cd_data$regional$cmp
+cmp_pct    <- cd_data$regional$cmp_pct
+departure  <- terra::rast("data/gis/climate_departure_tmean.tif")
+names(departure) <- "Temperature departure"
+
+aoi_km2 <- as.numeric(sum(sf::st_area(sf::st_transform(aoi, 3005)))) / 1e6
+aoi_bb  <- sf::st_bbox(aoi)
+```
+
+## Climate departure and fish passage {-}
+
+Stream crossings are the visible structures in a fish-passage
+inventory: culverts, bridges, weirs, fords. The streams they cross
+sit inside a climate that is changing — warmer air, shifting
+snowpack, longer shoulder seasons — and those climate changes set
+the hydrologic and thermal context the structures pass fish
+*through*. A culvert installed in the 1980s is now passing a
+different hydrograph: earlier freshet, lower late-summer flows,
+warmer water. The barrier inventory does not see that on its own.
+
+Warmer air drives warmer streams. For the cold-water salmonids the
+study area supports — bull trout, chinook, mountain whitefish,
+rainbow trout — that can move habitat in either direction:
+cold-limited headwaters gain growing-degree-days (larger fish,
+better overwinter survival, stronger out-migration), while reaches
+near the upper edge of the thermal niche lose usable habitat. The
+recovery value of removing a downstream barrier scales with which
+side of that line each upstream reach sits on. Climate departure
+tells you which side that is, watershed by watershed.
+
+Beyond temperature, hydrologic timing matters. Earlier and faster
+snowmelt shifts the freshet weeks earlier in the calendar and
+compresses the high-flow pulse. That changes design assumptions for
+crossing structures, and it changes the timing of migration, gravel
+mobilisation, and off-channel rearing — the in-stream processes
+barrier removal is meant to restore.
+
+Quantifying departure at the watershed scale lets us carry climate
+context into barrier prioritisation alongside the structural and
+biological inputs.
+
+## Area of interest {-}
+
+The study area for this climate-departure analysis is the union of
+seven Freshwater Atlas watershed groups in the upper and central
+Fraser drainage: Lower Chilako (LCHL), Nechako (NECR), Francois
+Lake (FRAN), Morkill River (MORK), Upper Fraser (UFRA), Tabor
+River (TABR), and Willow River (WILL). Together they cover
+`r format(round(aoi_km2), big.mark = ",")` km² and span
+`r nrow(ecoregions)` ecoregions
+(Figure \@ref(fig:cd-map-aoi)) — broad climate-physiography zones
+based on latitude, elevation, and dominant vegetation. We carry
+that ecoregion partition through the analysis because climate
+departure can vary across them in ways the regional average
+hides, then map the ecoregion signal back onto the seven
+watershed groups at the end of the appendix.
+
+```{r cd-map-aoi, fig.cap = "Study area in central British Columbia, coloured by ecoregion, with the seven watershed groups (heavy black outlines) that define the analysis extent. The Fraser flows south-east through the interior plateau (Fraser Basin / Fraser Plateau ecoregions) before turning south near Prince George; the eastern WSGs sit in the Western Continental Ranges and adjacent Rocky Mountain ecoregions.", fig.height = 6.5}
+ggplot() +
+  geom_sf(data = ecoregions, aes(fill = name_tc), color = "grey45",
+          linewidth = 0.3, alpha = 0.45) +
+  geom_sf(data = aoi,      fill = NA, color = "#2166ac", linewidth = 0.8) +
+  geom_sf(data = wsgs,     fill = NA, color = "black",   linewidth = 0.4) +
+  geom_sf(data = lakes,    fill = "#a6bddb", color = "#74a9cf", linewidth = 0.2) +
+  geom_sf(data = rivers,   fill = "#a6bddb", color = "#74a9cf", linewidth = 0.2) +
+  geom_sf(data = streams,  color = "#74a9cf", linewidth = 0.3, alpha = 0.6) +
+  geom_sf(data = highways, color = "#9c9c9c", linewidth = 0.75) +
+  geom_sf(data = highways, color = "#ffe585", linewidth = 0.5) +
+  geom_sf(data = towns,    color = "black", size = 2.5) +
+  ggrepel::geom_label_repel(
+    data = towns, aes(label = name, geometry = geom),
+    stat = "sf_coordinates", size = 3.2, fill = "white", alpha = 0.85,
+    label.padding = unit(0.2, "lines"), min.segment.length = 0
+  ) +
+  scale_fill_brewer(palette = "Set3", name = "Ecoregion") +
+  guides(fill = guide_legend(nrow = 3, byrow = TRUE)) +
+  coord_sf(xlim = c(aoi_bb["xmin"] - 0.4, aoi_bb["xmax"] + 0.4),
+           ylim = c(aoi_bb["ymin"] - 0.4, aoi_bb["ymax"] + 0.3)) +
+  labs(subtitle = paste0(format(round(aoi_km2), big.mark = ","),
+                          " km² — ", nrow(ecoregions), " ecoregions, 7 watershed groups")) +
+  theme_minimal(base_size = 11) +
+  theme(axis.title = element_blank(),
+        legend.position = "bottom",
+        legend.text  = element_text(size = 8),
+        legend.title = element_text(size = 9),
+        legend.key.size = unit(0.4, "cm"))
+```
+
+## Recent decade versus pre-warming reference {-}
+
+The table below compares two windows directly — the recent decade
+(2015–2025) against the pre-warming reference (1951–1980). The
+difference is reported in the variable's native units, alongside
+percent change where it is meaningful (precipitation, soil
+moisture, vapour pressure deficit, relative humidity). Two
+p-values appear, answering different questions. **Δ p (windows)**
+is the Welch t-test on the annual values within each window — this
+tells us if the recent decade differs from the pre-warming
+reference. **Trend p (75-yr)** is the Mann-Kendall test on the full
+1951–present series — this tells us if there is a steady
+year-on-year ramp. Step changes show up as significant Δ p with
+non-significant trend p; gradual ramps show up as both significant.
+
+```{r cd-compare-table}
+trn_p <- trn[trn$trend_start == 1951, c("variable", "period", "mk_pvalue")]
+names(trn_p)[3] <- "trend_p"
+trn_p$trend_p <- round(trn_p$trend_p, 3)
+
+no_pct_vars <- c("tmean", "tmax", "tmin",
+                 "snow_cover", "snowfall_fraction", "snowmelt_doy_50")
+cmp_combined <- cmp
+cmp_combined$pct_change <- ifelse(
+  cmp_combined$variable %in% no_pct_vars,
+  NA_real_,
+  round(100 * (cmp_combined$mean_a - cmp_combined$mean_b) / cmp_combined$mean_b, 1)
+)
+cmp_combined$mean_a   <- round(cmp_combined$mean_a, 2)
+cmp_combined$mean_b   <- round(cmp_combined$mean_b, 2)
+cmp_combined$abs_diff <- round(cmp_combined$difference, 2)
+cmp_combined$window_p <- round(cmp_combined$p_value, 3)
+
+cmp_combined <- cmp_combined[, c("variable", "period", "mean_a", "mean_b",
+                                  "abs_diff", "pct_change", "window_p")]
+cmp_combined <- merge(cmp_combined, trn_p,
+                      by = c("variable", "period"), all.x = TRUE)
+cmp_combined <- cmp_combined[order(cmp_combined$variable, cmp_combined$period), ]
+names(cmp_combined) <- c("Variable", "Period",
+                         "Recent (2015–2025)", "Pre-warming (1951–1980)",
+                         "Δ absolute", "Δ %",
+                         "Δ p (windows)", "Trend p (75-yr)")
+
+kableExtra::kable_styling(
+  knitr::kable(cmp_combined, label = NA, row.names = FALSE,
+    caption = "Recent decade (2015-2025) versus pre-warming reference (1951-1980) for all 15 climate variables and all available periods. Two p-values answer different questions — see text."),
+  bootstrap_options = c("striped", "hover", "condensed")
+) |>
+  kableExtra::scroll_box(height = "420px")
+```
+
+<br>
+
+The recent decade ran
+`r sprintf("%.1f", cmp$difference[cmp$variable == "tmean" & cmp$period == "annual"])` °C
+warmer than the pre-warming reference for annual mean temperature,
+with both window and trend p-values below 0.001. Vapour pressure
+deficit rose
+`r sprintf("%.2f", cmp$difference[cmp$variable == "vpd" & cmp$period == "annual"])`
+hPa, significant on both tests. Annual precipitation rose about
+`r sprintf("%+.0f", cmp_pct$difference[cmp_pct$variable == "prcp" & cmp_pct$period == "annual"])` %
+regionally but neither test confirms a real shift
+(window p ≈ 0.5, trend p ≈ 0.8). Soil moisture and relative
+humidity show no significant change. The snowpack rows (swe
+summer, snowmelt spring, snowmelt winter, snowmelt_doy_50) carry
+the seasonal-redistribution and freshet-timing signals described
+below.
+
+## Trends over the long record {-}
+
+Anomalies are computed against the 1951–1980 pre-warming reference.
+Saying a year is "+1.5 °C" means it was 1.5 °C warmer than the
+average year between 1951 and 1980. The trend table below has two
+rows per variable — trends computed from two different start years:
+
+- **1951–present (75 years)** — the long view. Captures the full
+  magnitude of warming since the pre-warming reference.
+- **1981–present (45 years)** — starts at the beginning of the
+  current 30-year climate normal (1981–2010), the reference used in
+  most published climate products.
+
+Comparing the two slopes is informative. If the 45-year slope is
+steeper than the 75-year slope, warming has accelerated; if
+shallower, warming has slowed (though "slower" almost never means
+"stopped"). Similar slopes mean a roughly steady rate of change
+across the full record. Total change is slope multiplied by the
+number of years — the cumulative shift over the trend window.
+
+```{r cd-trend-table}
+kableExtra::kable_styling(
+  knitr::kable(cd::cd_summary(trn), label = NA,
+    caption = "Trend statistics for all variables and periods — Theil-Sen slope, Mann-Kendall p-value, and cumulative change over each trend window."),
+  bootstrap_options = c("striped", "hover", "condensed")
+) |>
+  kableExtra::scroll_box(height = "320px")
+```
+
+<br>
+
+```{r cd-plot-tmean, fig.cap = "Annual mean temperature anomaly relative to the 1951-1980 baseline. Bars are degrees above (red) or below (blue) the pre-warming average; the two trend lines are the 75-year (1951-present, dashed) and 45-year (1981-present, solid) Theil-Sen slopes."}
+cd::cd_plot_timeseries(
+  ano, variable = "tmean", period = "annual", trend = trn,
+  title = "Annual Mean Temperature Anomaly"
+)
+```
+
+```{r cd-plot-prcp, fig.cap = "Annual precipitation anomaly (% of the 1951-1980 baseline). The long-term trend is essentially flat — regional precipitation has not shifted meaningfully against the natural year-to-year variability."}
+cd::cd_plot_timeseries(
+  ano, variable = "prcp", period = "annual", trend = trn,
+  title = "Annual Precipitation Anomaly"
+)
+```
+
+One pattern in the trend table is worth noting: the 45-year (since
+1981) tmean slope is **shallower** than the 75-year slope —
+`r sprintf("%.2f", 10 * trn$slope[trn$variable == "tmean" & trn$period == "annual" & trn$trend_start == 1981])`
+versus
+`r sprintf("%.2f", 10 * trn$slope[trn$variable == "tmean" & trn$period == "annual" & trn$trend_start == 1951])`
+°C per decade. The same direction holds for tmax, tmin, and VPD.
+Warming since 1981 has not been faster than the longer-term
+average rate; the cumulative shift since 1951 reflects steady,
+significant warming rather than a recent acceleration.
+
+## Daytime highs and overnight lows {-}
+
+Daytime maximum (tmax) and overnight minimum (tmin) temperatures
+carry distinct information. Overnight minimums warming faster than
+daytime maximums — the "day-night asymmetry" — is one of the
+textbook fingerprints of greenhouse warming.
+@karl_etal1993NewPerspective documented this first at the global
+scale, finding overnight minimums rose at roughly three times the
+rate of daytime maximums between 1951 and 1990.
+
+In this study area, the asymmetry is present. Daytime maximums
+warmed
+`r sprintf("%.2f", 10 * trn$slope[trn$variable == "tmax" & trn$period == "annual" & trn$trend_start == 1951])` °C
+per decade since 1951
+(+`r sprintf("%.1f", cmp$difference[cmp$variable == "tmax" & cmp$period == "annual"])` °C
+cumulative); overnight minimums warmed
+`r sprintf("%.2f", 10 * trn$slope[trn$variable == "tmin" & trn$period == "annual" & trn$trend_start == 1951])` °C
+per decade
+(+`r sprintf("%.1f", cmp$difference[cmp$variable == "tmin" & cmp$period == "annual"])` °C
+cumulative). The overnight side warmed about
+`r sprintf("%.1f", cmp$difference[cmp$variable == "tmin" & cmp$period == "annual"] - cmp$difference[cmp$variable == "tmax" & cmp$period == "annual"])` °C
+more than the daytime side over the recent decade, narrowing the
+diurnal temperature range by the same amount
+(Figure \@ref(fig:cd-plot-dtr)). The asymmetry is present but
+weaker than the canonical signal — the local tmin/tmax warming
+ratio is about 1.2:1 versus the ~3:1 ratio Karl et al. reported
+at the global scale between 1951 and 1990.
+
+```{r cd-plot-tmax, fig.cap = "Annual daytime maximum temperature (tmax) anomaly relative to the 1951-1980 baseline."}
+trn_tmax <- cd::cd_trend(
+  ano[ano$variable == "tmax" & ano$period == "annual", ],
+  trend_start = c(1951, 1981)
+)
+cd::cd_plot_timeseries(ano, variable = "tmax", period = "annual", trend = trn_tmax,
+  title = "Daytime Maximum (tmax) — Annual Anomaly")
+```
+
+```{r cd-plot-tmin, fig.cap = "Annual overnight minimum temperature (tmin) anomaly relative to the 1951-1980 baseline."}
+trn_tmin <- cd::cd_trend(
+  ano[ano$variable == "tmin" & ano$period == "annual", ],
+  trend_start = c(1951, 1981)
+)
+cd::cd_plot_timeseries(ano, variable = "tmin", period = "annual", trend = trn_tmin,
+  title = "Overnight Minimum (tmin) — Annual Anomaly")
+```
+
+```{r cd-plot-dtr, fig.cap = "Diurnal temperature range (daytime maximum minus overnight minimum) annual mean. The downward slope is the day-night asymmetry — overnight lows are warming faster than daytime highs."}
+tmax_ts <- ts[ts$variable == "tmax" & ts$period == "annual", c("year", "value")]
+tmin_ts <- ts[ts$variable == "tmin" & ts$period == "annual", c("year", "value")]
+dtr <- merge(tmax_ts, tmin_ts, by = "year", suffixes = c("_max", "_min"))
+dtr$dtr <- dtr$value_max - dtr$value_min
+
+ggplot(dtr, aes(x = year, y = dtr)) +
+  geom_line(color = "grey50") +
+  geom_point(color = "grey30", size = 1) +
+  geom_smooth(method = "lm", se = FALSE, color = "#b2182b", linewidth = 0.8) +
+  labs(title = "Diurnal Temperature Range",
+       x = NULL,
+       y = expression("Daytime maximum minus overnight minimum (" * degree * "C)")) +
+  theme_minimal(base_size = 11)
+```
+
+## Snowpack {-}
+
+Snowpack drives the seasonal water supply across British Columbia: winter
+precipitation falls as snow, accumulates on the ground, and
+releases as meltwater across spring and summer. That seasonal
+storage is the difference between a late-summer creek that still
+flows and one that does not. It also sets the timing of the spring
+freshet — the annual flood pulse that salmonids time their
+up-river migrations to.
+
+In this study area the snowpack signal is one of **earlier melt,
+not less snow**. Total annual snowfall fell by about
+`r sprintf("%.0f", -cmp_pct$difference[cmp_pct$variable == "snowfall" & cmp_pct$period == "annual"])` %
+but neither tests confirm a real change against year-to-year
+variability. Where the signal is unambiguous is in *when* the snow
+leaves the ground. The midpoint day of annual snowmelt shifted
+`r sprintf("%.0f", -cmp$difference[cmp$variable == "snowmelt_doy_50" & cmp$period == "annual"])` days
+earlier in the calendar over the same window (p < 0.001), and
+snow cover dropped
+`r sprintf("%.1f", -cmp$difference[cmp$variable == "snow_cover" & cmp$period == "annual"])`
+percentage points (p = 0.002).
+
+### Seasonal snowpack curve {-}
+
+Aggregated to the four standard meteorological seasons — winter
+(December–February), spring (March–May), summer (June–August), and
+fall (September–November) — the table below compares the recent
+decade (2015–2025) directly against the pre-warming reference
+(1951–1980) for each of the four monthly-native snow variables.
+The seasonal redistribution is the headline. Statistically the
+load-bearing signals are on the summer side — summer SWE has
+collapsed (p ≈ 0.01) and summer snowmelt has fallen by a
+comparable amount (p ≈ 0.02). The counterbalancing winter and
+spring snowmelt rises are directionally consistent but noisier
+season-by-season (Welch p ≈ 0.28 and 0.06 respectively) — see
+the *What this means* paragraph below for the full reading.
+
+```{r cd-snow-seasonal-table}
+snow_monthly <- c("swe", "snowfall", "snowmelt", "snow_cover")
+season_order <- c("winter", "spring", "summer", "fall")
+
+snow_seasonal <- cmp_pct[cmp_pct$variable %in% snow_monthly &
+                          cmp_pct$period %in% season_order, ]
+snow_seasonal$period   <- factor(snow_seasonal$period, levels = season_order)
+snow_seasonal$variable <- factor(snow_seasonal$variable, levels = snow_monthly,
+                                 labels = c("SWE (mm)", "Snowfall (mm)",
+                                            "Snowmelt (mm)", "Snow cover (%)"))
+snow_seasonal <- snow_seasonal[order(snow_seasonal$variable, snow_seasonal$period), ]
+snow_seasonal$mean_a     <- round(snow_seasonal$mean_a, 1)
+snow_seasonal$mean_b     <- round(snow_seasonal$mean_b, 1)
+snow_seasonal$difference <- round(snow_seasonal$difference, 1)
+snow_seasonal <- snow_seasonal[, c("variable", "period", "mean_b",
+                                    "mean_a", "difference")]
+names(snow_seasonal) <- c("Variable", "Season",
+                          "Pre-warming (1951–1980)",
+                          "Recent (2015–2025)", "Δ %")
+
+kableExtra::kable_styling(
+  knitr::kable(snow_seasonal, label = NA, row.names = FALSE,
+    caption = "Seasonal snowpack: recent decade versus pre-warming reference. Summer SWE collapse (-52 %, p ≈ 0.01) and summer snowmelt fall (-37 %, p ≈ 0.02) are the statistically significant signals. Winter (+45 %) and spring (+18 %) snowmelt rises are directionally consistent with the redistribution but do not individually clear statistical significance (Welch p ≈ 0.28 and 0.06)."),
+  bootstrap_options = c("striped", "hover", "condensed")
+)
+```
+
+### Annual snowpack signals {-}
+
+Four derived annual scalars capture the snowpack signals the
+literature treats as headline metrics for snow hydrology: peak
+snowpack [@mote_etal2018Dramaticdeclines;
+@mote_etal2005DECLININGMOUNTAIN], the date of melt midpoint
+[@stewart_etal2005ChangesEarlier; @cayan_etal2001ChangesOnset],
+freshet flashiness, and the fraction of precipitation falling as
+snow [@knowles_etal2006TrendsSnowfall].
+
+```{r cd-snow-swe-max, fig.cap = "Annual peak snow water equivalent (swe_max). ERA5-Land mm SWE, regional spatial mean. The downward trend is present but does not clear statistical significance against year-to-year variability at the regional scale."}
+trn_swe_max <- cd::cd_trend(
+  ano[ano$variable == "swe_max" & ano$period == "annual", ],
+  trend_start = c(1951, 1981)
+)
+cd::cd_plot_timeseries(ano, variable = "swe_max", period = "annual",
+                       trend = trn_swe_max,
+                       title = "Annual peak SWE — Anomaly")
+```
+
+```{r cd-snow-doy-50, fig.cap = "Day of year when half the annual snowmelt has accumulated (snowmelt_doy_50). Earlier dates indicate an earlier freshet centroid — directly relevant to crossing-design hydrology and to migration timing. The trend is highly significant (p < 0.001 at the regional scale and in every ecoregion)."}
+trn_doy <- cd::cd_trend(
+  ano[ano$variable == "snowmelt_doy_50" & ano$period == "annual", ],
+  trend_start = c(1951, 1981)
+)
+cd::cd_plot_timeseries(ano, variable = "snowmelt_doy_50", period = "annual",
+                       trend = trn_doy,
+                       title = "Snowmelt 50 % DOY — Anomaly")
+```
+
+```{r cd-snow-rate-peak, fig.cap = "Annual maximum of 7-day rolling daily snowmelt (snowmelt_rate_peak). Peak melt intensity has not shifted meaningfully — the freshet is arriving earlier, but its peak rate has not sharpened."}
+trn_rate <- cd::cd_trend(
+  ano[ano$variable == "snowmelt_rate_peak" & ano$period == "annual", ],
+  trend_start = c(1951, 1981)
+)
+cd::cd_plot_timeseries(ano, variable = "snowmelt_rate_peak", period = "annual",
+                       trend = trn_rate,
+                       title = "Peak weekly melt rate — Anomaly")
+```
+
+```{r cd-snow-fraction, fig.cap = "Annual snowfall fraction: the percent of annual precipitation that fell as snow. Anomaly is in percentage points relative to the 1951-1980 baseline. The downward trend sits just above statistical significance (Mann-Kendall p ≈ 0.05) — directionally a shift toward rain-dominant precipitation, but not formally significant on either the trend or the recent-vs-baseline window test."}
+trn_frac <- cd::cd_trend(
+  ano[ano$variable == "snowfall_fraction" & ano$period == "annual", ],
+  trend_start = c(1951, 1981)
+)
+cd::cd_plot_timeseries(ano, variable = "snowfall_fraction", period = "annual",
+                       trend = trn_frac,
+                       title = "Snowfall fraction — Anomaly")
+```
+
+### What this means {-}
+
+Three findings carry the snowpack story.
+
+**Snow is leaving the region earlier each year, not falling
+less.** Annual snowfall fell about
+`r sprintf("%.0f", -cmp_pct$difference[cmp_pct$variable == "snowfall" & cmp_pct$period == "annual"])` %
+and annual SWE about
+`r sprintf("%.0f", -cmp_pct$difference[cmp_pct$variable == "swe" & cmp_pct$period == "annual"])` %,
+but neither change clears statistical significance against
+year-to-year variability. The clear signals are in *timing*: the
+snowmelt midpoint shifted nearly two weeks earlier (p < 0.001
+regionally and in every ecoregion), snow cover declined 3.8
+percentage points (p = 0.002), and snowfall fraction edged down
+3.7 pp (Welch and Mann-Kendall p both just above 0.05 —
+directionally consistent with a shift toward rain-dominant
+precipitation, but just shy of statistical significance). This
+matches in direction the broader Pacific-Northwest signal
+documented since @mote_etal2005DECLININGMOUNTAIN.
+
+**Melt is shifting earlier.** The unambiguous signals are on the
+summer side and at the midpoint: summer snowmelt fell
+`r sprintf("%.0f", -cmp_pct$difference[cmp_pct$variable == "snowmelt" & cmp_pct$period == "summer"])` %
+(p ≈ 0.02), summer SWE collapsed
+`r sprintf("%.0f", -cmp_pct$difference[cmp_pct$variable == "swe" & cmp_pct$period == "summer"])` %
+(p ≈ 0.01), and the annual snowmelt midpoint moved ~12 days
+earlier (p < 0.001). Apparent rises in spring snowmelt
+(+`r sprintf("%.0f", cmp_pct$difference[cmp_pct$variable == "snowmelt" & cmp_pct$period == "spring"])` %,
+Welch p ≈ 0.06) and winter snowmelt
+(+`r sprintf("%.0f", cmp_pct$difference[cmp_pct$variable == "snowmelt" & cmp_pct$period == "winter"])` %,
+Welch p ≈ 0.28) mirror this redistribution but are noisier season-
+by-season — winter and spring have smaller absolute snowmelt
+volumes, so the same shifts produce larger relative-change
+variance. The total annual melt has not changed; its centre of
+mass has moved earlier. This is consistent in direction with the
+1–4 week earlier streamflow timing across western North America
+documented by @stewart_etal2005ChangesEarlier and with the ~10-day
+earlier Fraser freshet at Hope @kang_etal2016ImpactsRapidly.
+
+**Summer SWE has dropped sharply.** Summer SWE fell
+`r sprintf("%.0f", -cmp_pct$difference[cmp_pct$variable == "swe" & cmp_pct$period == "summer"])` %.
+The high-elevation snowpack that historically lingered through the
+warmest weeks of the year no longer carries the same volume —
+reducing the late-season cold-water input to streams during the
+window when stream-temperature stress on cold-water salmonids is
+highest.
+
+## Spatial pattern of warming {-}
+
+The regional zonal mean reduces an AOI this size to a single
+number; the spatial pattern carries the rest of the story.
+
+Warming is not spatially uniform. Individual grid cells range from
+about +1.1 to +2.0 °C across the AOI, and ecoregion means span
++1.4 to +2.0 °C (Figure \@ref(fig:cd-map-tmean)). The dominant
+axis runs **west-warm to east-cool** — the lower-elevation
+interior plateau ecoregions (Fraser Basin, Fraser Plateau) warmed
+roughly 0.5 °C more than the high-elevation Western Continental
+Ranges and adjacent eastern Rocky Mountain ecoregions. A secondary
+south-to-north component adds about 0.4 °C of additional warming
+in the northern part of the AOI, consistent with high-latitude
+amplification. The eastern Rocky Mountain ecoregions show a
+thermal-buffer effect — likely a combination of slower warming at
+elevation and a weaker snow-albedo feedback where snow persists
+longer. The implication for fish passage is geographic: barrier
+reaches in the interior-plateau WSGs (LCHL, NECR, TABR, FRAN) sit
+on the warmer side of the gradient; reaches in the eastern WSGs
+(UFRA, MORK) sit on the cooler side.
+
+```{r cd-map-tmean, fig.cap = "Spatial pattern of annual mean temperature departure across the AOI (2015-2025 mean minus 1951-1980 mean, degrees C). The dominant axis runs west-warm (interior plateau) to east-cool (Rocky Mountain ranges), with a secondary south-to-north amplification.", fig.height = 6.5}
+ggplot() +
+  geom_spatraster(data = departure) +
+  geom_sf(data = ecoregions, fill = NA, color = "grey25",
+          linewidth = 0.4, linetype = "dashed") +
+  geom_sf(data = aoi,   fill = NA, color = "black", linewidth = 0.6) +
+  geom_sf(data = lakes, fill = NA, color = "grey40", linewidth = 0.2) +
+  geom_sf(data = highways, color = "#9c9c9c", linewidth = 0.6) +
+  geom_sf(data = highways, color = "#ffe585", linewidth = 0.4) +
+  geom_sf(data = towns, color = "black", size = 2) +
+  ggrepel::geom_label_repel(
+    data = towns, aes(label = name, geometry = geom),
+    stat = "sf_coordinates", size = 3, fill = "white", alpha = 0.8
+  ) +
+  scale_fill_distiller(palette = "RdBu", direction = -1,
+                       name = expression(Delta * degree * C)) +
+  coord_sf(xlim = c(aoi_bb["xmin"], aoi_bb["xmax"]),
+           ylim = c(aoi_bb["ymin"], aoi_bb["ymax"])) +
+  labs(title = "Temperature Departure (2015-2025 vs 1951-1980)") +
+  theme_minimal(base_size = 11) +
+  theme(axis.title = element_blank())
+```
+
+## Per-ecoregion variation {-}
+
+The regional zonal mean averages over eight ecoregions with very
+different elevations and exposures. Running the same pipeline on
+each ecoregion polygon tests whether the regional story holds
+within each one, and where it does not.
+
+All eight ecoregions warmed significantly (Mann-Kendall p < 0.001
+for tmean in every ecoregion). The interior-plateau ecoregions
+(Fraser Basin, Fraser Plateau) and the northern Eastern Hazelton
+Mountains lead at +1.7 to +2.0 °C cumulative; the high-elevation
+Western Continental Ranges trail at +1.4 °C. The day-night
+asymmetry (tmin > tmax) holds in every ecoregion. Vapour pressure
+deficit rose significantly (p < 0.05) in every ecoregion.
+
+**Precipitation is the variable that does not move.** Unlike some
+other BC regions where the long-term precipitation trend is
+significant in a subset of ecoregions, here annual precipitation
+shows no significant trend in any of the eight ecoregions (Mann-
+Kendall p ranges 0.19 to 0.91). The climate signal for this study
+area is unambiguously about temperature and snowpack timing, not
+about precipitation magnitude.
+
+```{r cd-ecoregion-reshape, include = FALSE}
+results <- lapply(cd_data$ecoregion, function(x) {
+  list(ano = x$ano, trn = x$trn, cmp = x$cmp_pct)
+})
+results <- results[ecoregions$code[order(-ecoregions$area_km2)]]
+
+er_codes_ordered <- names(results)
+er_labels <- setNames(
+  paste0(er_codes_ordered, ": ",
+         tools::toTitleCase(tolower(
+           ecoregions$name[match(er_codes_ordered, ecoregions$code)]))),
+  er_codes_ordered
+)
+ano_all <- do.call(rbind, lapply(seq_along(results), function(i) {
+  o <- results[[i]]$ano
+  o$ecoregion <- er_codes_ordered[i]
+  o
+}))
+ano_all$ecoregion <- factor(ano_all$ecoregion, levels = er_codes_ordered)
+
+build_segments <- function(var) {
+  do.call(rbind, lapply(seq_along(results), function(i) {
+    sub <- results[[i]]$trn
+    sub <- sub[sub$variable == var & sub$period == "annual", ]
+    if (nrow(sub) == 0) return(NULL)
+    yrs <- ano_all$year[ano_all$variable == var
+                        & ano_all$ecoregion == er_codes_ordered[i]]
+    data.frame(
+      ecoregion = factor(er_codes_ordered[i], levels = er_codes_ordered),
+      window    = paste0(sub$trend_start, "–", max(yrs)),
+      x_start   = sub$trend_start,
+      x_end     = max(yrs),
+      y_start   = sub$intercept + sub$slope * sub$trend_start,
+      y_end     = sub$intercept + sub$slope * max(yrs)
+    )
+  }))
+}
+trn_segs_tmean   <- build_segments("tmean")
+trn_segs_prcp    <- build_segments("prcp")
+trn_segs_swe_max <- build_segments("swe_max")
+trn_segs_doy_50  <- build_segments("snowmelt_doy_50")
+```
+
+```{r cd-facet-tmean, fig.cap = "Annual mean temperature anomaly relative to the 1951-1980 baseline, by ecoregion. Dashed line is the 75-year Theil-Sen trend (1951-present); solid line is the 45-year trend (1981-present). A solid line steeper than the dashed line indicates accelerating warming — note that across this AOI, the 45-year slope is generally shallower than the 75-year slope, meaning recent warming has not been faster than the long-term rate.", fig.height = 7}
+ggplot(ano_all[ano_all$variable == "tmean" & ano_all$period == "annual", ],
+       aes(x = year, y = anomaly)) +
+  geom_col(aes(fill = anomaly >= 0), width = 0.85, show.legend = FALSE) +
+  geom_segment(data = trn_segs_tmean,
+               aes(x = x_start, xend = x_end, y = y_start, yend = y_end,
+                   linetype = window),
+               inherit.aes = FALSE, color = "black", linewidth = 0.6) +
+  scale_fill_manual(values = c(`TRUE` = "#d73027", `FALSE` = "#4575b4")) +
+  scale_linetype_manual(values = c("dashed", "solid"), name = "Trend window") +
+  facet_wrap(~ ecoregion, ncol = 3,
+             labeller = labeller(ecoregion = er_labels)) +
+  labs(x = NULL, y = expression("Mean temperature anomaly (" * degree * C * ")")) +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "bottom",
+        strip.text = element_text(size = 8))
+```
+
+```{r cd-facet-prcp, fig.cap = "Annual precipitation anomaly (% of the 1951-1980 baseline) by ecoregion. None of the eight ecoregions shows a statistically significant precipitation trend over the full record.", fig.height = 7}
+ggplot(ano_all[ano_all$variable == "prcp" & ano_all$period == "annual", ],
+       aes(x = year, y = anomaly)) +
+  geom_col(aes(fill = anomaly >= 0), width = 0.85, show.legend = FALSE) +
+  geom_segment(data = trn_segs_prcp,
+               aes(x = x_start, xend = x_end, y = y_start, yend = y_end,
+                   linetype = window),
+               inherit.aes = FALSE, color = "black", linewidth = 0.6) +
+  scale_fill_manual(values = c(`TRUE` = "#4575b4", `FALSE` = "#d73027")) +
+  scale_linetype_manual(values = c("dashed", "solid"), name = "Trend window") +
+  facet_wrap(~ ecoregion, ncol = 3,
+             labeller = labeller(ecoregion = er_labels)) +
+  labs(x = NULL, y = "Precipitation anomaly (% of baseline)") +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "bottom",
+        strip.text = element_text(size = 8))
+```
+
+### Snow by ecoregion {-}
+
+Two snow metrics are worth viewing per-ecoregion: peak SWE (annual
+snowpack magnitude) and DOY-50 (the day-of-year by which half the
+year's snowmelt has already happened — earlier values mean an
+earlier freshet). The peak-SWE signal is noisy at the per-
+ecoregion scale — none of the eight ecoregions clears statistical
+significance for the long-term swe_max trend. The DOY-50 signal,
+in contrast, is highly significant in every ecoregion (Mann-
+Kendall p < 0.01 in each), with shifts ranging from -1.4 to -2.1
+days per decade. Earlier melt is universal across the AOI.
+
+```{r cd-facet-swe-max, fig.cap = "Annual peak SWE anomaly by ecoregion, relative to the 1951-1980 baseline. Year-to-year variability is large; the long-term trend is not statistically significant in any single ecoregion.", fig.height = 7}
+ggplot(ano_all[ano_all$variable == "swe_max" & ano_all$period == "annual", ],
+       aes(x = year, y = anomaly)) +
+  geom_col(aes(fill = anomaly >= 0), width = 0.85, show.legend = FALSE) +
+  geom_segment(data = trn_segs_swe_max,
+               aes(x = x_start, xend = x_end, y = y_start, yend = y_end,
+                   linetype = window),
+               inherit.aes = FALSE, color = "black", linewidth = 0.6) +
+  scale_fill_manual(values = c(`TRUE` = "#4575b4", `FALSE` = "#d73027")) +
+  scale_linetype_manual(values = c("dashed", "solid"), name = "Trend window") +
+  facet_wrap(~ ecoregion, ncol = 3,
+             labeller = labeller(ecoregion = er_labels)) +
+  labs(x = NULL, y = "Peak SWE anomaly (mm)") +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "bottom",
+        strip.text = element_text(size = 8))
+```
+
+```{r cd-facet-doy-50, fig.cap = "Snowmelt 50 % day-of-year (DOY-50) anomaly by ecoregion, relative to the 1951-1980 baseline. Negative values (red) mean the freshet midpoint shifted earlier in the year. The trend is highly significant in every ecoregion.", fig.height = 7}
+ggplot(ano_all[ano_all$variable == "snowmelt_doy_50" & ano_all$period == "annual", ],
+       aes(x = year, y = anomaly)) +
+  geom_col(aes(fill = anomaly >= 0), width = 0.85, show.legend = FALSE) +
+  geom_segment(data = trn_segs_doy_50,
+               aes(x = x_start, xend = x_end, y = y_start, yend = y_end,
+                   linetype = window),
+               inherit.aes = FALSE, color = "black", linewidth = 0.6) +
+  scale_fill_manual(values = c(`TRUE` = "#d73027", `FALSE` = "#4575b4")) +
+  scale_linetype_manual(values = c("dashed", "solid"), name = "Trend window") +
+  facet_wrap(~ ecoregion, ncol = 3,
+             labeller = labeller(ecoregion = er_labels)) +
+  labs(x = NULL, y = "DOY-50 anomaly (days; negative = earlier melt)") +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "bottom",
+        strip.text = element_text(size = 8))
+```
+
+```{r cd-rollup}
+get_75 <- function(trn_er, var) {
+  trn_er[trn_er$variable == var & trn_er$period == "annual"
+          & trn_er$trend_start == 1951, ]
+}
+get_pct <- function(cmp_er, var) {
+  if (var %in% cmp_er$variable) {
+    cmp_er$difference[cmp_er$variable == var & cmp_er$period == "annual"]
+  } else NA_real_
+}
+rollup <- do.call(rbind, lapply(er_codes_ordered, function(er) {
+  res   <- cd_data$ecoregion[[er]]
+  tmean <- get_75(res$trn, "tmean")
+  tmax  <- get_75(res$trn, "tmax")
+  tmin  <- get_75(res$trn, "tmin")
+  prcp  <- get_75(res$trn, "prcp")
+  vpd   <- get_75(res$trn, "vpd")
+  data.frame(
+    Ecoregion             = er,
+    `tmean °C/dec`        = round(10 * tmean$slope, 2),
+    `tmax °C/dec`         = round(10 * tmax$slope,  2),
+    `tmin °C/dec`         = round(10 * tmin$slope,  2),
+    `prcp mm/yr`          = round(prcp$slope, 3),
+    `prcp p`              = round(prcp$mk_pvalue, 3),
+    `vpd hPa/dec`         = round(10 * vpd$slope, 3),
+    `vpd p`               = round(vpd$mk_pvalue, 3),
+    `prcp % change`       = round(get_pct(res$cmp_pct, "prcp"), 1),
+    `soil moisture % chg` = round(get_pct(res$cmp_pct, "soil_moisture"), 1),
+    check.names = FALSE
+  )
+}))
+kableExtra::kable_styling(
+  knitr::kable(rollup, row.names = FALSE, label = NA,
+    caption = "Per-ecoregion roll-up over the 75-year window (1951-present): annual mean / daytime maximum / overnight minimum temperature trends (°C per decade); annual precipitation trend (mm per year) and Mann-Kendall p-value; annual vapour pressure deficit trend (hPa per decade) and p-value; and recent (2015-2025) vs pre-warming (1951-1980) percent change for precipitation and soil moisture. All temperature p-values are below 0.001. A tmin slope greater than the tmax slope indicates the day-night asymmetry."),
+  bootstrap_options = c("striped", "hover", "condensed")
+) |>
+  kableExtra::scroll_box(height = "320px")
+```
+
+Ecoregion codes:
+`r paste0(ecoregions$code[order(-ecoregions$area_km2)], " — ", tools::toTitleCase(tolower(ecoregions$name[order(-ecoregions$area_km2)])), collapse = "; ")`.
+
+<br>
+
+## Watershed groups across ecoregions {-}
+
+The study area is reported and managed at the watershed-group
+scale — the British Columbia Freshwater Atlas hydrological
+reporting unit, and the unit that drives barrier prioritisation
+in this report. The seven watershed groups (LCHL, NECR, FRAN,
+MORK, UFRA, TABR, WILL) span the eight ecoregions in different
+ways: some sit cleanly within one or two, others split across
+several (Figure \@ref(fig:cd-map-wsgs)). The table that follows
+gives, for each watershed group, the share of its area falling in
+each ecoregion — the cross-reference that maps the regional and
+ecoregion climate signals onto the per-watershed prioritisation
+unit.
+
+```{r cd-map-wsgs, fig.cap = "Watershed groups in the study area, labelled with their codes, on top of ecoregion fills. LCHL / NECR / TABR sit dominantly in the interior plateau ecoregions (FAB, FAP); FRAN extends into the Eastern Hazelton Mountains; WILL sits dominantly in the Columbia Highlands; UFRA and MORK reach into the Western Continental Ranges and adjacent Rocky Mountain ecoregions.", fig.height = 6.5}
+wsg_centroids <- suppressWarnings(sf::st_centroid(wsgs))
+ggplot() +
+  geom_sf(data = ecoregions, aes(fill = name_tc), color = "grey45",
+          linewidth = 0.3, alpha = 0.45) +
+  geom_sf(data = aoi,  fill = NA, color = "#2166ac", linewidth = 0.8) +
+  geom_sf(data = wsgs, fill = NA, color = "grey25", linewidth = 0.4) +
+  ggrepel::geom_label_repel(
+    data = wsg_centroids,
+    aes(label = code, geometry = geom),
+    stat = "sf_coordinates",
+    size = 3, fill = "white", alpha = 0.85,
+    label.padding = unit(0.15, "lines"),
+    min.segment.length = 0
+  ) +
+  scale_fill_brewer(palette = "Set3", name = "Ecoregion") +
+  guides(fill = guide_legend(nrow = 3, byrow = TRUE)) +
+  coord_sf(xlim = c(aoi_bb["xmin"] - 0.4, aoi_bb["xmax"] + 0.4),
+           ylim = c(aoi_bb["ymin"] - 0.4, aoi_bb["ymax"] + 0.3)) +
+  labs(title = "Watershed Groups on Ecoregion Backdrop") +
+  theme_minimal(base_size = 11) +
+  theme(axis.title = element_blank(),
+        legend.position = "bottom",
+        legend.text  = element_text(size = 8),
+        legend.title = element_text(size = 9),
+        legend.key.size = unit(0.4, "cm"))
+```
+
+```{r cd-wsg-xref-table}
+wsg_xref <- read.csv("data/gis/climate_departure_wsg_ecoregion.csv",
+                      check.names = FALSE)
+names(wsg_xref) <- c("Code", "Name", "km²",
+                     sub("_pct$", " %", names(wsg_xref)[-(1:3)]))
+kableExtra::kable_styling(
+  knitr::kable(wsg_xref, label = NA, row.names = FALSE,
+    caption = "Watershed groups in the study area with the percent of each group's area falling in each of the eight ecoregions. Rows where one ecoregion is at or near 100 % indicate watershed groups contained within a single climate-physiography zone; rows split across two or more ecoregions indicate watershed groups whose climate departure can pull from more than one regional pattern. MORK in particular spans six ecoregions, reaching from the Fraser Basin into the Western Continental Ranges."),
+  bootstrap_options = c("striped", "hover", "condensed")
+) |>
+  kableExtra::scroll_box(height = "320px")
+```
+
+<br>
+
+## Interpretation for fish passage {-}
+
+Four findings tie the regional climate-departure analysis to
+per-watershed barrier prioritisation.
+
+**Warming is broad and significant; the gradient is real but
+small.** All eight ecoregions warmed +1.4 to +2.0 °C since 1951.
+Temperature is not the variable that *separates* watershed groups
+within the AOI — what it does set is the regional context: every
+reach in the study area is operating in air ~1.6 °C warmer than
+the conditions the channel, floodplain, and fish community
+evolved under. The within-AOI thermal differentiation comes from
+elevation, aspect, riparian cover, and groundwater contribution —
+not from climate-departure magnitude.
+
+**Precipitation has not moved.** Across every ecoregion, the
+long-term precipitation trend is not statistically distinguishable
+from natural year-to-year variability. The climate-driven
+hydrology story for these seven watershed groups is dominated by
+*atmospheric drying* (rising VPD, significant in every
+ecoregion) and *snowpack timing*, not by precipitation magnitude.
+This is the place where the local result differs from some other
+BC regions: there is no precipitation-trend gradient within the
+AOI for barrier prioritisation to lean on.
+
+**Snow is leaving the AOI earlier, not falling less.** The
+snowmelt midpoint shifted nearly two weeks earlier (p < 0.001
+regionally and in every ecoregion), summer SWE collapsed by 52 %
+(p ≈ 0.01) and summer snowmelt fell 37 % (p ≈ 0.02); the
+counterbalancing winter (+45 %) and spring (+18 %) snowmelt rises
+follow in direction but do not individually clear statistical
+significance season-by-season. The total annual melt has not
+changed; its centre of mass has moved earlier. The freshet — the
+dominant high-flow event that mobilises spawning gravels, refills
+off-channel rearing habitat, and that crossing structures are
+sized against — is arriving weeks earlier across all seven
+watershed groups, regardless of which ecoregion they sit in.
+Crossing-structure design assumptions and peak-flow-timing
+baselines baked into the assessment scoring need to track this
+shift. The late-summer cold-water input that high-elevation
+snowpack historically provided during the warmest, most thermally
+stressful weeks of summer is dropping in parallel.
+
+**The geographic gradient runs west-warm to east-cool,
+following the elevation profile.** Warming has been roughly 0.5 °C
+greater in the lower-elevation interior plateau ecoregions
+(Fraser Basin, Fraser Plateau) and the Eastern Hazelton Mountains
+than in the higher-elevation Western Continental Ranges and
+adjacent Rocky Mountain ecoregions. Mapping that onto the
+watershed-group reporting unit: LCHL, NECR, TABR and FRAN sit
+dominantly on the interior-plateau side of the gradient and have
+seen the larger warming + drying signal; UFRA and MORK reach into
+the Rocky Mountain ecoregions and have experienced the smaller
+shifts; WILL sits in Columbia Highlands with an intermediate
+signal.
+
+For the cold-water resident salmonids the study area supports —
+bull trout, chinook, mountain whitefish, rainbow trout — the
+implication for barrier prioritisation is that two fundamentally
+different climate-departure stories play out across the seven
+watershed groups, and that the priority weight on barrier removal
+should respond to both directions. Headwater reaches that were
+cold-limited (most likely in the mountain-dominated WSGs at
+elevation) can gain growing-degree-days from warming, raising the
+intrinsic potential of habitat above the barrier and *increasing*
+the recovery value of restoring passage. Reaches sitting closer
+to the upper edge of the cold-water thermal niche (most likely in
+the lower-elevation, interior-plateau WSGs) face the opposite
+direction — the same warming reduces usable habitat and lowers
+the payoff. The watershed-group ecoregion mapping in the table
+above is the bridge between the regional climate-departure
+summary and the per-watershed weight applied to each barrier.

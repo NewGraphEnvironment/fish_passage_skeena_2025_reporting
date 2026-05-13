@@ -320,10 +320,45 @@ my_tab_caption()
 ```
 
 ```{r tab-uav-imagery, eval= gitbook_on}
-project_uav |> 
+project_uav |>
   my_dt_table(cols_freeze_left = 2, escape = FALSE)
 ```
 
+
+```{r cd-rollup-body, include = FALSE}
+cd_data_body <- readRDS("data/gis/climate_departure.rds")
+cmp_body     <- cd_data_body$regional$cmp
+cmp_pct_body <- cd_data_body$regional$cmp_pct
+trn_body     <- cd_data_body$regional$trn
+pick <- function(tbl, var, period = "annual") {
+  tbl[tbl$variable == var & tbl$period == period, ]
+}
+tmean_d        <- pick(cmp_body,     "tmean")$difference
+tmax_d         <- pick(cmp_body,     "tmax")$difference
+tmin_d         <- pick(cmp_body,     "tmin")$difference
+vpd_d          <- pick(cmp_body,     "vpd")$difference
+prcp_p         <- pick(cmp_pct_body, "prcp")$difference
+swe_p          <- pick(cmp_pct_body, "swe")$difference
+snowfall_p     <- pick(cmp_pct_body, "snowfall")$difference
+summer_swe_p   <- pick(cmp_pct_body, "swe",      "summer")$difference
+spring_melt_p  <- pick(cmp_pct_body, "snowmelt", "spring")$difference
+winter_melt_p  <- pick(cmp_pct_body, "snowmelt", "winter")$difference
+doy50_d        <- pick(cmp_body, "snowmelt_doy_50")$difference
+```
+
+## Climate Departure
+
+Four findings from the regional climate-departure analysis carry to fish-passage prioritisation.
+
+**Warming is broad and significant region-wide.** All eight ecoregions of the study area warmed about `r sprintf("%.1f", tmean_d)` °C since 1951 — annual mean (+`r sprintf("%.1f", tmean_d)` °C), daytime maximum (+`r sprintf("%.1f", tmax_d)` °C), and overnight minimum (+`r sprintf("%.1f", tmin_d)` °C) all tell the same story (Mann-Kendall p < 0.001 in every ecoregion). The rate has been steady rather than accelerating — the 1981–present slope is shallower than the 1951–present slope. A west-to-east gradient layers on top, with the interior plateau ecoregions warming roughly 0.5 °C more than the eastern Rocky Mountain ecoregions — see [Appendix - Climate Departure](#app-climate-departure) Figure \@ref(fig:cd-map-tmean).
+
+**The atmosphere is drying despite flat precipitation.** Vapour pressure deficit rose `r sprintf("%.2f", vpd_d)` hPa region-wide, significant in every ecoregion. Annual precipitation rose `r sprintf("%+.0f", prcp_p)` % regionally but the long-term trend is not statistically significant in any of the eight ecoregions; soil moisture is essentially flat because the warmer atmosphere is drinking the modest precipitation increase back through evaporation and transpiration.
+
+**The snowpack signal is about timing, not quantity.** Total annual snowfall is essentially unchanged (`r sprintf("%+.0f", snowfall_p)` %); annual snow water equivalent is down `r sprintf("%.0f", -swe_p)` %, neither significant. The unambiguous signals are on the summer side and at the midpoint: summer SWE collapsed `r sprintf("%.0f", -summer_swe_p)` % and the snowmelt midpoint moved `r sprintf("%.0f", -doy50_d)` days earlier (p < 0.001 regionally and in every ecoregion). Counterbalancing rises in winter snowmelt (+`r sprintf("%.0f", winter_melt_p)` %) and spring snowmelt (+`r sprintf("%.0f", spring_melt_p)` %) point in the same direction but are noisier season-by-season. The freshet is arriving weeks earlier and the high-elevation snowpack that historically lingered into summer no longer does.
+
+**Day-night asymmetry is present.** Overnight minimums warmed `r sprintf("%.1f", tmin_d)` °C while daytime maximums warmed `r sprintf("%.1f", tmax_d)` °C — overnight outpacing daytime is the textbook fingerprint of greenhouse warming [@karl_etal1993NewPerspective]. Mean diurnal range has narrowed by `r sprintf("%.1f", tmin_d - tmax_d)` °C across the record.
+
+For barrier prioritisation these signals cut both ways. Where upstream reaches are cold-limited, added growing-degree-days can raise the intrinsic potential of habitat above the barrier and *increase* the value of restoring passage; where upstream reaches sit closer to the upper edge of the cold-water thermal niche, the same warming reduces usable habitat and lowers the payoff. The watershed-group breakdown in [Appendix - Climate Departure](#app-climate-departure) maps the eight-ecoregion signal onto the seven watershed groups via a percentage crosswalk.
 
 ## Collaborative GIS Environment
 
