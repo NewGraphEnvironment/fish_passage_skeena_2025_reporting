@@ -1,3 +1,7 @@
+# fish_passage_fraser_2025_reporting 0.2.0 (2026-05-13)
+
+* Add climate-departure appendix for the FWCP Fraser AOI (union of 7 watershed groups: LCHL, NECR, FRAN, MORK, UFRA, TABR, WILL). Snapshot script `scripts/gis/climate_departure.R` builds AOI + 8 ecoregions and runs the `cd` pipeline; appendix `0835-appendix-climate-departure.Rmd` with recent-vs-pre-warming, trend, day-night, snowpack, spatial-pattern, per-ecoregion, and WSG×ecoregion sections; body methods/results paragraphs with inline metrics. Filenames are AOI-neutral for portability across regional reports.
+
 # fish_passage_fraser_2025_reporting 0.1.0 (2026-05-13)
 
 * Add floodplain delineation appendix for Nechako River Watershed Group (NECR) using chinook accessible stream network. Build script, appendix with summary table and maps, body methods/results paragraphs with inline metrics. Rename Planning section header.
