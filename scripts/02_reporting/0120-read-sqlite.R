@@ -8,7 +8,9 @@ conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
 readwritesqlite::rws_list_tables(conn)
 
 # Bcfishpass crossing data for the watersheds in this project
-bcfishpass <- readwritesqlite::rws_read_table("bcfishpass", conn = conn)
+# Stored as parquet (git-friendly + smaller than sqlite at this WSG count).
+# Written by `0100-load-bcfishpass-data.R` when `params$update_bcfishpass: TRUE`.
+bcfishpass <- arrow::read_parquet("data/bcfishpass_crossings_vw.parquet")
 
 # PSCIS assessment data for the watersheds in this project
 pscis_assessment_svw <- readwritesqlite::rws_read_table("pscis_assessment_svw", conn = conn)

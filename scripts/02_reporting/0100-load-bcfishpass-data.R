@@ -24,22 +24,41 @@ my_funding_project_number <- params$pscis_funding_project_number
 
 
 # Check bcfishpass model version - skip rebuild if unchanged --------------------------
-# See https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/157
+# Portability + freezing: three triggers for a DB refresh:
+#   1. params$update_bcfishpass: TRUE          (explicit YAML flip)
+#   2. data/bcfishpass_model_version.txt missing  (delete to force refresh)
+#   3. params$force_bcfishpass_rebuild: TRUE   (explicit YAML flip)
+# Otherwise the cached parquet + sqlite are used and no DB connection is attempted.
+# After a release tag, leaving the version file in place freezes the snapshot.
+# See https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/186
 version_file <- "data/bcfishpass_model_version.txt"
+update_bcfishpass <- isTRUE(params$update_bcfishpass)
 force_rebuild <- isTRUE(params$force_bcfishpass_rebuild)
+version_file_missing <- !file.exists(version_file)
 
-# Get current model version from remote
-current_model_version <- fpr::fpr_db_query(
-  "SELECT MAX(model_run_id) as model_run_id FROM bcfishpass.log_parameters_habitat_thresholds"
-)$model_run_id
+if (!update_bcfishpass && !force_rebuild && !version_file_missing) {
+  # Trust local cache. No DB connection attempted.
+  if (!file.exists("data/bcfishpass.sqlite") || !file.exists("data/bcfishpass_crossings_vw.parquet")) {
+    stop("Cached data files missing (data/bcfishpass.sqlite and/or data/bcfishpass_crossings_vw.parquet). ",
+         "Set update_bcfishpass: TRUE in index.Rmd to fetch from the remote DB, ",
+         "or delete data/bcfishpass_model_version.txt to force a refresh on next build, ",
+         "or place snapshots of these files in data/.")
+  }
+  message("Using cached data/bcfishpass.sqlite + parquet. Set params$update_bcfishpass: TRUE or delete data/bcfishpass_model_version.txt to refresh from DB.")
+  rebuild_needed <- FALSE
+} else {
+  # Connect to remote DB and check version
+  current_model_version <- fpr::fpr_db_query(
+    "SELECT MAX(model_run_id) as model_run_id FROM bcfishpass.log_parameters_habitat_thresholds"
+  )$model_run_id
 
-# Check if rebuild needed
-rebuild_needed <- TRUE
-if (!force_rebuild && file.exists(version_file) && file.exists("data/bcfishpass.sqlite")) {
-  local_version <- as.integer(readLines(version_file, n = 1))
-  if (identical(local_version, current_model_version)) {
-    message("bcfishpass model unchanged (version ", current_model_version, "), skipping rebuild. Set params$force_bcfishpass_rebuild: true to override.")
-    rebuild_needed <- FALSE
+  rebuild_needed <- TRUE
+  if (!force_rebuild && file.exists(version_file) && file.exists("data/bcfishpass.sqlite")) {
+    local_version <- as.integer(readLines(version_file, n = 1))
+    if (identical(local_version, current_model_version)) {
+      message("bcfishpass model unchanged (version ", current_model_version, "), skipping rebuild. Set params$force_bcfishpass_rebuild: true to override.")
+      rebuild_needed <- FALSE
+    }
   }
 }
 
@@ -57,6 +76,15 @@ if (rebuild_needed) {
     )
   ) |>
     sf::st_drop_geometry()
+
+  # Write the large bcfishpass crossings layer to parquet (git-friendly + smaller
+  # than sqlite at this WSG count). Reader switches to arrow::read_parquet().
+  arrow::write_parquet(
+    bcfishpass,
+    "data/bcfishpass_crossings_vw.parquet",
+    compression = "zstd",
+    compression_level = 9
+  )
 
   # grab the bcfishpass modelling parameters for the spawning and rearing tables and put in the database so it can be used to populate the methods
   # like solutions provided here https://github.com/smnorris/bcfishpass/issues/490
@@ -127,9 +155,10 @@ if (rebuild_needed) {
   conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
 
   # Drop tables if they exist, then write new data (lngr_drop_table_if_exists from functions.R)
+  # `bcfishpass` (crossings_vw) is no longer written to sqlite — it lives in
+  # `data/bcfishpass_crossings_vw.parquet` (written above). Drop here to clear
+  # any legacy copy from prior sqlite builds.
   lngr_drop_table_if_exists("bcfishpass", conn)
-  readwritesqlite::rws_write(bcfishpass, exists = FALSE, delete = TRUE,
-                             conn = conn, x_name = "bcfishpass")
 
   lngr_drop_table_if_exists("bcfishpass_spawn_rear_model", conn)
   readwritesqlite::rws_write(bcfishpass_spawn_rear_model, exists = FALSE, delete = TRUE,
