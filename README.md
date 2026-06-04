@@ -1,6 +1,6 @@
 # Restoring Fish Passage in the Fraser Region — 2025
 
-> Reproducible, web-first fish-passage restoration-planning report for the Fraser Region, prepared on behalf of the Skeena Environmental Restoration Network (SERN BC).
+> Reproducible, web-first fish-passage restoration-planning report for the Fraser Region, prepared on behalf of the Society for Ecosystem Restoration in Northern BC (SERN).
 
 **Read the report:** <https://www.newgraphenvironment.com/fish_passage_fraser_2025_reporting/>
 &middot; **Source:** [`NewGraphEnvironment/fish_passage_fraser_2025_reporting`](https://github.com/NewGraphEnvironment/fish_passage_fraser_2025_reporting)
@@ -9,16 +9,6 @@
 ## What this is
 
 The 2025 iteration of the Fraser Region fish-passage restoration-planning report. Assembles crossing-by-crossing assessments, fish-presence and habitat-confirmation data, and prioritization analyses across the region. Each prioritized barrier has a dedicated appendix with photos, field measurements, and recommended remediation; the executive summary rolls them up for partners and decision-makers. A standalone executive-summary PDF is built alongside the gitbook so the headline findings can travel without the full report. Source data and methods are open — anyone can rebuild the report from `scripts/run.R`.
-
-## Sections
-
-- **Executive Summary** ([`0050-executive-summary.Rmd`](0050-executive-summary.Rmd)) + standalone PDF (`_executive_summary_pdf.Rmd`)
-- **Introduction** ([`0100-intro.Rmd`](0100-intro.Rmd))
-- **Background** ([`0200-background.Rmd`](0200-background.Rmd))
-- **Methods** ([`0300-methods.Rmd`](0300-methods.Rmd))
-- **Results** ([`0400-results.Rmd`](0400-results.Rmd))
-- **Recommendations** ([`0500-recommendations.Rmd`](0500-recommendations.Rmd))
-- **Appendices** ([`0600-appendix.Rmd`](0600-appendix.Rmd) + per-site `0800-appendix-*.Rmd` files) — site-specific data for each prioritized crossing.
 
 ## Build
 
@@ -38,10 +28,9 @@ source("scripts/run.R")
 | [`fpr`](https://github.com/NewGraphEnvironment/fpr) | Fish-passage-specific reporting functions (PSCIS tables, crossing details). |
 | [`gq`](https://github.com/NewGraphEnvironment/gq) | Cartographic style registry across the report's maps. |
 | [`cd`](https://github.com/NewGraphEnvironment/cd) | Climate-departure analysis for the climate context appendix. |
-| [`cred`](https://github.com/NewGraphEnvironment/cred) | Post-draft citation verification across references. |
 
 External: [`bcfishpass`](https://github.com/smnorris/bcfishpass), [`fwapg`](https://github.com/smnorris/fwapg).
 
 ## License
 
-MIT (see [`LICENSE`](LICENSE)). Indigenous traditional knowledge shared with this work remains the cultural and intellectual property of the contributing Nations; sharing or republishing those contributions requires explicit consent.
+MIT (see [`LICENSE`](LICENSE)).
