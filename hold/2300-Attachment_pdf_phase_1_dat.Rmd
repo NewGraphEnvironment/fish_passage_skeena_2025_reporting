@@ -1,5 +1,3 @@
-# **Attachment - Phase 1 Data and Photos** {-#attach-pdf-phase1-dat}
+# Attachment - Phase 1 Data and Photos {-#attach-pdf-phase1-dat}
 
-Data and photos for all Phase 1 - fish passage assessments are provided online at https://www.newgraphenvironment.com/fish_passage_peace_2024_reporting/appendix---phase-1-fish-passage-assessment-data-and-photos.html
-- with a pdf version available at https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/raw/main/docs/Appendix_1.pdf
-
+Data and photos for all Phase 1 fish passage assessments are provided online at `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "appendix---phase-1-fish-passage-assessment-data-and-photos.html", anchor_text = paste0(params$report_url, "appendix---phase-1-fish-passage-assessment-data-and-photos.html"))`.

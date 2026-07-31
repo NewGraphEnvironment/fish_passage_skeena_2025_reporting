@@ -64,7 +64,7 @@ if (params$project_region == "peace") {
 
 <!-- Project specific below -->
 
-Fish passage assessment procedures conducted through SERNbc in the Upper Fraser River Watershed since 2023 are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap)")}`
+Fish passage assessment procedures conducted through SERNbc in the `r wsg_names |> knitr::combine_words()` watershed groups since `r params$project_start_year` are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Assessment Data Summary appendix of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-site-data.html", anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap) of [Appendix - Assessment Data Summary](#app-site-data)")}`
 which includes links to project reporting for each site.  
 
 <br>

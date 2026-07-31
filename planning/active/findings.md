@@ -76,6 +76,32 @@ it happened during this investigation and produced a fake scoping question about
    Results→site-memo links to close orphans.
 7. Sub-headings inside unnumbered appendix chapters MUST use `{-}`, or bookdown numbers them.
 
+## Phase 8 — the scope mismatch, located precisely
+
+Fraser's version of the FWCP scope-overclaiming problem is **inverted** relative to Peace's, and
+narrower than the plan assumed:
+
+```
+index.Rmd:43                     wsg_code <- LCHL NECR FRAN MORK UFRA WILL TABR LSAL   (8)
+scripts/gis/climate_departure.R:41  wsg_codes <- LCHL NECR FRAN MORK UFRA TABR WILL    (7, no LSAL)
+data/gis/climate_departure_wsg_ecoregion.csv                                           (7 rows)
+```
+
+The climate-departure appendix says "seven watershed groups" and lists them explicitly, so it is
+**currently honest about its own coverage** — this is not a live misstatement the way the Peace
+captions were. The defect is that the seven are **hardcoded in prose** (at least `:78`, `:91`,
+`:113`, `:712`) while the analysis extent lives in a script. Add LSAL to the climate run, or drop a
+group, and the prose silently goes wrong.
+
+So Fraser does **not** need Peace's `wsg_code_field` split — `wsg_code` is not being used to claim
+coverage it lacks. What it needs is the same fix applied to the fish-species caption: derive the
+count and the list from `data/gis/climate_departure_wsg_ecoregion.csv`, which already carries
+exactly the seven, so prose cannot drift from data.
+
+Separately fixed while sweeping: `0050-executive-summary.Rmd:67` claimed the amalgamated procedures
+covered "the Upper Fraser River Watershed" — one group, where the project covers eight. Now derives
+from `wsg_names`.
+
 ## First Nations section — completeness check
 
 Wired the previously commented-out block into Background as `## First Nations` and appended the

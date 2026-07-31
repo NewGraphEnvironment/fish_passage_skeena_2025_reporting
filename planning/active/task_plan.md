@@ -104,13 +104,22 @@ was one Peace-specific block.
 
 ## Phase 7 — Ordering pass
 
-- [ ] `git mv` to target layout — renames only, no content edits in the same commit
-- [ ] Confirm 07xx numbering against actual first-reference order
-- [ ] Add explicit named per-site appendix links at `0400-results.Rmd:518`
-- [ ] Park `2200-Attachment_maps.Rmd` and `2500-Attachment_water_temp_modelling.Rmd` in `hold/`
-- [ ] Fix stale cross-repo refs at `2300:3-4` and `0400-results.Rmd:433`
-- [ ] Sweep every `Table \@ref()` pointer naming a moved table (`0050-executive-summary.Rmd:67`)
-- [ ] Verify: every anchor resolves; no page reachable only from the sidebar
+- [x] `git mv` to target layout; build scripts updated for the Phase 1 rename
+- [x] Confirm 07xx numbering against actual first-reference order — fish-species (0200) <
+      climate-departure (0300:22) < floodplain (0300:246) < site-assessment (0400:118) <
+      uav (0400:122) < gis (0400:634). eDNA stays at 0837 with Phase 1 at 0835, matching Peace.
+- [x] Add explicit named per-site appendix links in the Phase 2 prose
+- [x] Park `2200-Attachment_maps.Rmd` in `hold/` (true orphan, Parsnip 2022 URLs) and delete its
+      stale rendered page
+- [x] **Keep** `2500-Attachment_water_temp_modelling.Rmd` — the audit conflated two adjacent
+      paragraphs; its `attach-bayes` link is live and sensible once the neighbouring stale sqlite
+      URL is fixed
+- [x] Fix stale cross-repo refs — `0400` sqlite link and the `2300` stub now derive from `params`;
+      `_output.yml` still carried the template repo's title, GitHub link and PDF download name
+- [x] Sweep `Table \@ref()` pointers naming moved tables — three retargeted from "Results and
+      Discussion section" to the Assessment Data Summary appendix
+- [x] Verify: clean build, zero `[?]`, all four site appendices linked from the Results body,
+      rendered chapter order matches the target tiering
 
 ## Phase 8 — Correctness fixes
 

@@ -158,3 +158,28 @@ Verified: clean gitbook build, zero `[?]` markers book-wide, and every new appen
 body-text inbound link (checked with the sidebar nav stripped — the naive grep matches every page).
 
 - Next: Phase 7 — ordering pass
+
+### Phase 7 — ordering pass ✔
+
+Renamed to first-reference order and verified against a clean build. Rendered order now matches
+Peace's tiering: thematic appendices (fish-species, climate-departure, floodplain, assessment-data,
+UAV, GIS) → Phase 1 → eDNA → per-site memos → References/Session Info → Attachments.
+
+- Phase 1 appendix `0600` → `0835-appendix-phase1-data-photos`; site memos `0800-*` → `0840-*`.
+  Build scripts needed one constant changed each — the Phase 4 switch from a numeric-prefix regex
+  to explicit filenames is what made the rename safe.
+- **De-orphaned the four site appendices.** They had no inbound link at all, only unlinked prose.
+  Added named links to the auto-generated slugs, Peace's `0400:286` pattern.
+- **Parked `2200-Attachment_maps.Rmd`** — zero inbound links and hardcoded Parsnip 2022-05-27 URLs.
+  Deleted its stale rendered page.
+- **Kept `2500-Attachment_water_temp_modelling.Rmd`.** The audit called it a near-orphan whose only
+  reference sat in a stale paragraph — but those are two *adjacent* paragraphs. The stale sqlite URL
+  and the `attach-bayes` link are separate; fixing the URL leaves the reference sound. Not parked.
+- Stale cross-repo references fixed: the `0400` sqlite link and the `2300` stub now derive from
+  `params` instead of hardcoding `fish_passage_peace_2024_reporting`. `_output.yml` still carried
+  the *template* repo's TOC title, GitHub link and PDF download filename.
+- **Mandatory pointer sweep** after Phase 6: three "Results and Discussion section" pointers now
+  aim at the Assessment Data Summary appendix. `0050:67` also claimed coverage of "the Upper Fraser
+  River Watershed" — one group where the project has eight; now derives from `wsg_names`.
+
+- Next: Phase 8 — the remaining scope fix

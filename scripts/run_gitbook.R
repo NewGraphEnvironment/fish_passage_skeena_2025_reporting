@@ -1,11 +1,11 @@
 # Build the gitbook (web) version of the report.
 #
-# Renders the full inline Phase 1 data+photos appendix (0600-appendix.Rmd) along
+# Renders the full inline Phase 1 data+photos appendix (0835-appendix-phase1-data-photos.Rmd) along
 # with the rest of the report, then auto-opens. The PDF link-stub
 # (2300-Attachment_pdf_phase_1_dat.Rmd) stays in hold/ so it does not appear in
 # the web version. For the print PDF use `scripts/run_pagedown.R`.
 #
-# Resting state: 0600 at root, 2300 in hold/.
+# Resting state: 0835 at root, 2300 in hold/.
 #
 # This replaces the appendix-swap block that used to live in scripts/run.R,
 # which selected files with stringr::str_subset('0600|2300') and only ever
@@ -46,7 +46,7 @@ move_back_from_hold <- function(path) {
   invisible(ok)
 }
 
-appendix_inline <- "0600-appendix.Rmd"
+appendix_inline <- "0835-appendix-phase1-data-photos.Rmd"
 appendix_stub   <- "2300-Attachment_pdf_phase_1_dat.Rmd"
 
 # --- Ensure gitbook appendix layout: inline at root, stub in hold --------

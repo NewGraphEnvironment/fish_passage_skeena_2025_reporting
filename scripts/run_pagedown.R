@@ -1,12 +1,12 @@
 # Build the pagedown (print PDF) version of the report.
 #
-# Swaps the heavy inline Phase 1 appendix (0600-appendix.Rmd) out for the slim
+# Swaps the heavy inline Phase 1 appendix (0835-appendix-phase1-data-photos.Rmd) out for the slim
 # link-stub (2300-Attachment_pdf_phase_1_dat.Rmd) so the PDF stays light, then
 # renders. Explicit CRAN mirror, defensive cleanup, auto-open of the rendered
 # PDF. Auto-toggles `gitbook_on` FALSE in index.Rmd at start and restores TRUE
 # via `on.exit` so a crash doesn't leave the repo in PDF mode.
 #
-# Resting state: 0600 at root, 2300 in hold/.
+# Resting state: 0835 at root, 2300 in hold/.
 #
 # Usage:
 #   Rscript scripts/run_pagedown.R
@@ -91,7 +91,7 @@ move_back_from_hold <- function(path) {
 # Gitbook renders the full inline Phase 1 data+photos appendix, which is huge
 # and would land mid-report in the PDF. For the PDF we swap it for the slim
 # link-stub that points at the online gitbook page.
-appendix_inline <- "0600-appendix.Rmd"
+appendix_inline <- "0835-appendix-phase1-data-photos.Rmd"
 appendix_stub   <- "2300-Attachment_pdf_phase_1_dat.Rmd"
 
 restore_appendix_layout <- function() {

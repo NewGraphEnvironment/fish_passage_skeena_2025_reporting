@@ -165,7 +165,7 @@ For barrier prioritisation these signals cut both ways. Where upstream reaches a
 Habitat modelling from `bcfishpass` including access model, linear spawning/rearing habitat model and lateral habitat 
 connectivity models for watershed groups within our study area were updated for the spring of 2025 and are included
 spatially in the collaborative GIS project.  A snapshot of these outputs related to each modeled and PSCIS stream 
-crossing structure are also included within an `sqlite` database within this year's project reporting/code repository [here](https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/blob/main/data/bcfishpass.sqlite).
+crossing structure are also included within an `sqlite` database within this year's project reporting/code repository `r ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = "blob/main/data/bcfishpass.sqlite", anchor_text = "here")`.
 
 
 #### Statistical Support for `bcfishpass` Fish Habitat Modelling Updates
@@ -250,7 +250,7 @@ During the `r cat(params$project_year)` field assessments, habitat confirmation 
 
 <br>
 
-As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Table \@ref(tab:tab-overview) with raw habitat `r if (exists("fish_data_complete")) "and fish sampling " else ""` data included in [Attachment - Data](#attach-dat). A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments (including maps) are presented within site-specific appendices to this document.
+As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Table \@ref(tab:tab-overview) with raw habitat `r if (exists("fish_data_complete")) "and fish sampling " else ""` data included in [Attachment - Data](#attach-dat). A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments, including maps, is presented in the per-site habitat-confirmation appendices: [Tributary to Stony Lake (PSCIS 126158)](#tributary-to-stony-lake---126158---appendix), [Tabor Creek (PSCIS 196085 and 203582)](#tabor-creek---196085-203582---appendix), [South Yuzkli Creek (PSCIS 196332)](#south-yuzkli-creek---196332---appendix), and [Tributary to Fraser River (PSCIS 203581 and 196076)](#tributary-to-fraser-river---203581-196076---appendix).
 
 `r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
 
@@ -395,7 +395,7 @@ bcfishpass_phase2_plot_prep |>
 # 
 # <br>
 # 
-# Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) and clicking the _Link Report_")}`.
+# Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Assessment Data Summary appendix of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-site-data.html", anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) of [Appendix - Assessment Data Summary](#app-site-data) and clicking the _Link Report_")}`.
 # 
 # <br>
 # 
@@ -594,7 +594,7 @@ edna_summary_fraser |>
 MIGHT NEED TO UPDATE
 
 No new designs were commissioned in `r cat(params$project_year)` due to uncertainty related to forest harvesting activities and lack of funding
-for the 50% costs of replacing structures.  All sites with a design for remediation of fish passage can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) by filtering using Design = yes")}`.
+for the 50% costs of replacing structures.  All sites with a design for remediation of fish passage can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Assessment Data Summary appendix of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-site-data.html", anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) of [Appendix - Assessment Data Summary](#app-site-data) by filtering using Design = yes")}`.
 
 
 
