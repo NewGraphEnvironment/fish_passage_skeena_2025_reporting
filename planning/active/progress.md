@@ -59,4 +59,44 @@
   self-contained), 35 distinct site ids = 33 real + 2 field blanks.
 - **Outstanding:** visual confirmation that the map opens and layers toggle. The browser extension
   isn't connected this session.
-- Next: Phase 3 — per-site results tables
+
+### Phase 3 — per-site results tables ✔
+
+- `tab-edna-results-{site}` added to all four site appendices. 14 of the 33 real samples fall here.
+- Found and fixed a **site mislabel**: `196076_ds_ed1a`/`_ed1b` sit 8 m from PSCIS 203581
+  (E526469 N5985767) and 1.2 km from 196076 (E527382 N5985006) — they are upstream of 203581. The
+  trib-to-fraser appendix already carried an inline display remap; lifted it to
+  `edna_site_id_fix()` in `scripts/functions.R` and applied it to the lab results in `0400`, the
+  thematic appendix and the map so all four surfaces agree.
+
+### Phase 4 — build-script split ✔
+
+Ported `run_gitbook.R` / `run_pagedown.R` from Peace, removed `run.R` and its dead `hold/` helpers,
+updated the README build section.
+
+**Three problems fixed, all of which Peace also has or had:**
+
+1. **No CRAN mirror under `Rscript`.** `scripts/packages.R:1-9` calls `available.packages()`
+   *unconditionally* — not gated by `params$update_packages` — so any non-interactive build dies
+   with "trying to use CRAN without setting a mirror". This killed my first build attempt. Peace
+   solves it with an `options(repos=)` line at the top of each run script.
+2. **Duplicate Phase 1 appendix in gitbook.** The old `run.R` selected files with
+   `str_subset('0600|2300')` and parked `0600` for the PDF, but never parked `2300` for gitbook —
+   so the web report shipped the full appendix *and* its link-stub as separate chapters.
+   `docs/attach-pdf-phase1-dat.html` was a stale May 14 artifact and is removed.
+3. **Regex file selection.** Replaced with explicit filenames so the Phase 7 renumbering can't
+   silently change which files get swapped.
+
+**Both builds verified:**
+
+- gitbook — 385 chunks, `Output created: docs/index.html`, **zero missing citations**, no errors.
+  `docs/app-edna.html` renders; Results reads "Sockeye Salmon"; all four per-site tables present.
+- pagedown — 12.7 MB / 159 pages. Swap ran (`0600 -> hold/`, `2300 -> root`) and the resting state
+  plus `gitbook_on <- TRUE` were restored on exit. eDNA sections all present.
+  (`pdftotext` can't extract the `fi` ligature, so "field"/"office" read as "eld"/"of ce" in
+  extracted text only — the rendered PDF is correct.)
+
+Incidental rebuild churn in `data/bcfishpass.sqlite` and three `fig/background/*.png` was reverted —
+same byte counts, nothing in this change should alter them.
+
+- Next: Phase 5 — deletion pass

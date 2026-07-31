@@ -45,18 +45,21 @@ Phases 1-8 are in scope. **Phase 9 (narrative pass) is deferred to a follow-up i
       crossing; applied in `0400`, `0837` and the map so all surfaces agree
 - [x] Verify table contents standalone: 14 sites across the four appendices, retest asterisks
       correct, corrected ids sort in
-- [ ] Verify: clean gitbook build — **blocked**, `scripts/packages.R` calls `available.packages()`
-      unconditionally and a bare Rscript has no CRAN mirror. Peace fixes this in `run_gitbook.R`;
-      Phase 4 ports it.
+- [x] Verify: clean gitbook build — 385 chunks, `Output created: docs/index.html`, zero missing
+      citations. All four per-site tables render; Results shows "Sockeye Salmon".
 
 *eDNA complete and shippable here — #10 closable.*
 
 ## Phase 4 — Build-script split (unblocks the renames)
 
-- [ ] Port `scripts/run_gitbook.R` / `run_pagedown.R` from Peace/template, replacing `run.R`
-- [ ] Fix the duplicated Phase 1 appendix — resting state = inline appendix at root, `2300` in `hold/`
-- [ ] Replace the `str_subset('0600|2300')` regex with explicit filenames
-- [ ] Verify: gitbook has exactly one Phase 1 page; PDF swaps in the stub
+- [x] Port `scripts/run_gitbook.R` / `run_pagedown.R` from Peace/template, replacing `run.R`
+- [x] Add the `options(repos=)` CRAN-mirror line — `packages.R` calls `available.packages()`
+      unconditionally, which halts any bare-Rscript build
+- [x] Fix the duplicated Phase 1 appendix — resting state = inline appendix at root, `2300` in `hold/`
+- [x] Replace the `str_subset('0600|2300')` regex with explicit filenames
+- [x] Remove `scripts/run.R` and its now-dead `hold/` helpers; update README build section
+- [x] Verify: gitbook renders exactly one Phase 1 page (stale `docs/attach-pdf-phase1-dat.html`
+      from May 14 removed); PDF build swaps the stub in and restores resting state + `gitbook_on`
 
 ## Phase 5 — Deletion pass
 
