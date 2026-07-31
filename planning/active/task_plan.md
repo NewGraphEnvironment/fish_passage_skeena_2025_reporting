@@ -13,14 +13,14 @@ Phases 1-8 are in scope. **Phase 9 (narrative pass) is deferred to a follow-up i
 
 ## Phase 1 — eDNA data snapshot + Results subsection
 
-- [ ] Add `scripts/edna_inputs_snapshot.R` (port from Peace); run it to pull the two analytic CSVs
+- [x] Add `scripts/edna_inputs_snapshot.R` (port from Peace); run it to pull the two analytic CSVs
       from the template repo + write `data/edna_inputs_snapshot_manifest.txt`
-- [ ] Replace the `INCLUDE LAB RESULTS` stub with the `tab-edna-summary-prep` chunk — defines
+- [x] Replace the `INCLUDE LAB RESULTS` stub with the `tab-edna-summary-prep` chunk — defines
       `norm_lgl()`, `fmt_targets()`, `edna_species_names`, `edna_bystargets_fraser`,
       `edna_real_fraser`, `edna_summary_fraser` and the three count objects
-- [ ] `SOCK = "Sockeye Salmon"` with a comment on the divergence from Peace's Kokanee
-- [ ] Two narrative paragraphs + `tab-edna-summary` table
-- [ ] Verify: counts render 33 real / 2 field / 3 office; 36 clean site×target
+- [x] `SOCK = "Sockeye Salmon"` with a comment on the divergence from Peace's Kokanee
+- [x] Two narrative paragraphs + `tab-edna-summary` table
+- [x] Verify: counts render 33 real / 2 field / 3 office; 36 clean site×target
 
 ## Phase 2 — eDNA thematic appendix + interactive map
 

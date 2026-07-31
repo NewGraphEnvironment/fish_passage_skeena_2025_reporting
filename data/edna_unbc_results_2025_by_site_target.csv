@@ -1,0 +1,355 @@
+site_id,stream_name,utm_zone,easting,northing,target,lab_ids,source,control_blank_field,control_blank_office,control_species_present_field,n_runs,n_sheets,retested,max_pos,max_conc,any_clean,any_crude
+125000_ds_ed1,Tributary To Parsnip River,10,577462,6038232,BULT,M41347,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+125000_ds_ed1,Tributary To Parsnip River,10,577462,6038232,GRAY,M41347,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+125000_ds_ed1,Tributary To Parsnip River,10,577462,6038232,RAIN,M41347,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,980,67.5209350585938,TRUE,TRUE
+125000_ds_ed1,Tributary To Parsnip River,10,577462,6038232,SOCK,M41347,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+125000_ds_ed1a,NA,10,577431,6038230,BULT,M21241,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+125000_ds_ed1a,NA,10,577431,6038230,RAIN,M21241,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,FALSE,4,2,TRUE,1,0.065899483859539,FALSE,TRUE
+125000_us_ed1,Tributary To Parsnip River,10,577546,6038200,BULT,M41348,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125000_us_ed1,Tributary To Parsnip River,10,577546,6038200,GRAY,M41348,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125000_us_ed1,Tributary To Parsnip River,10,577546,6038200,RAIN,M41348,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,143,9.26793384552002,TRUE,TRUE
+125000_us_ed1,Tributary To Parsnip River,10,577546,6038200,SOCK,M41348,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125179_ds_ed1a,Tributary To Missinka River,10,570276,6052824,BULT,M41349,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,4,2,TRUE,1,0.0681755021214485,FALSE,TRUE
+125179_ds_ed1a,Tributary To Missinka River,10,570276,6052824,GRAY,M41349,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125179_ds_ed1a,Tributary To Missinka River,10,570276,6052824,RAIN,M41349,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,309,20.7115116119385,TRUE,TRUE
+125179_ds_ed1a,Tributary To Missinka River,10,570276,6052824,SOCK,M41349,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125179_ds_ed1b,NA,10,511387,5978751,BULT,M41350,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125179_ds_ed1b,NA,10,511387,5978751,GRAY,M41350,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125179_ds_ed1b,NA,10,511387,5978751,RAIN,M41350,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125179_ds_ed1b,NA,10,511387,5978751,SOCK,M41350,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125179_us_ed1a,Tributary To Missinka River,10,570321,6052833,BULT,M41351,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+125179_us_ed1a,Tributary To Missinka River,10,570321,6052833,GRAY,M41351,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+125179_us_ed1a,Tributary To Missinka River,10,570321,6052833,RAIN,M41351,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,4,2,TRUE,383,23.6608905792236,TRUE,TRUE
+125179_us_ed1a,Tributary To Missinka River,10,570321,6052833,SOCK,M41351,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+125179_us_ed1b,NA,10,511389,5978753,BULT,M41352,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125179_us_ed1b,NA,10,511389,5978753,GRAY,M41352,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125179_us_ed1b,NA,10,511389,5978753,RAIN,M41352,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,1,0.0643777176737785,FALSE,TRUE
+125179_us_ed1b,NA,10,511389,5978753,SOCK,M41352,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125180_ds_ed1,Tributary To Missinka River,10,569661,6053009,BULT,M41353,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,4,0.248410180211067,TRUE,TRUE
+125180_ds_ed1,Tributary To Missinka River,10,569661,6053009,GRAY,M41353,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+125180_ds_ed1,Tributary To Missinka River,10,569661,6053009,RAIN,M41353,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,330,20.6722354888916,TRUE,TRUE
+125180_ds_ed1,Tributary To Missinka River,10,569661,6053009,SOCK,M41353,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+125180_us_ed1,Tributary To Missinka River,10,569667,6053040,BULT,M41354,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,3,0.213160902261734,FALSE,TRUE
+125180_us_ed1,Tributary To Missinka River,10,569667,6053040,GRAY,M41354,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+125180_us_ed1,Tributary To Missinka River,10,569667,6053040,RAIN,M41354,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,293,21.0032024383545,TRUE,TRUE
+125180_us_ed1,Tributary To Missinka River,10,569667,6053040,SOCK,M41354,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+125194_ds_ed1a,Tributary To Missinka River,10,563319,6050500,BULT,M21242,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,1,0.0650037601590157,FALSE,TRUE
+125194_ds_ed1a,Tributary To Missinka River,10,563319,6050500,RAIN,M21242,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,4,2,TRUE,3,0.212301820516586,FALSE,TRUE
+125194_ds_ed1b,NA,10,563324,6050501,BULT,M21243,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+125194_ds_ed1b,NA,10,563324,6050501,RAIN,M21243,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+125231_ds_ed1a,Tributary To Table River,10,549932,6065099,BULT,M41355,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125231_ds_ed1a,Tributary To Table River,10,549932,6065099,GRAY,M41355,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125231_ds_ed1a,Tributary To Table River,10,549932,6065099,RAIN,M41355,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125231_ds_ed1a,Tributary To Table River,10,549932,6065099,SOCK,M41355,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125231_ds_ed1c,Tributary To Table River,10,549933,6065096,BULT,M41356,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125231_ds_ed1c,Tributary To Table River,10,549933,6065096,GRAY,M41356,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125231_ds_ed1c,Tributary To Table River,10,549933,6065096,RAIN,M41356,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,205,12.6420545578003,TRUE,TRUE
+125231_ds_ed1c,Tributary To Table River,10,549933,6065096,SOCK,M41356,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125231_us_ed1,Tributary To Table River,10,549974,6065147,BULT,M41357,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125231_us_ed1,Tributary To Table River,10,549974,6065147,GRAY,M41357,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125231_us_ed1,Tributary To Table River,10,549974,6065147,RAIN,M41357,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,5,0.300833761692047,TRUE,TRUE
+125231_us_ed1,Tributary To Table River,10,549974,6065147,SOCK,M41357,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125261_ds_ed1,Fern Creek,10,534654,6067619,BULT,M41358,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125261_ds_ed1,Fern Creek,10,534654,6067619,GRAY,M41358,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125261_ds_ed1,Fern Creek,10,534654,6067619,RAIN,M41358,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,258,18.2161350250244,TRUE,TRUE
+125261_ds_ed1,Fern Creek,10,534654,6067619,SOCK,M41358,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125261_us_ed1a,Fern Creek,10,534601,6067772,BULT,M41359,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125261_us_ed1a,Fern Creek,10,534601,6067772,GRAY,M41359,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125261_us_ed1a,Fern Creek,10,534601,6067772,RAIN,M41359,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,533,34.6552543640137,TRUE,TRUE
+125261_us_ed1a,Fern Creek,10,534601,6067772,SOCK,M41359,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125261_us_ed1b,Fern Creek,10,534601,6067772,BULT,M41360,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125261_us_ed1b,Fern Creek,10,534601,6067772,GRAY,M41360,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+125261_us_ed1b,Fern Creek,10,534601,6067772,RAIN,M41360,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,567,35.4232978820801,TRUE,TRUE
+125261_us_ed1b,Fern Creek,10,534601,6067772,SOCK,M41360,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+126158_ds_ed1,Tributary To Stony Lake,10,577435,5918517,BULT,F61121,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+126158_ds_ed1,Tributary To Stony Lake,10,577435,5918517,CHIN,F61121,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+126158_ds_ed1,Tributary To Stony Lake,10,577435,5918517,COHO,F61121,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+126158_ds_ed1,Tributary To Stony Lake,10,577435,5918517,RAIN,F61121,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,77,4.778748989,TRUE,TRUE
+126158_us_ed1,Tributary To Stony Lake,10,577641,5918592,BULT,F61122,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+126158_us_ed1,Tributary To Stony Lake,10,577641,5918592,CHIN,F61122,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+126158_us_ed1,Tributary To Stony Lake,10,577641,5918592,COHO,F61122,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+126158_us_ed1,Tributary To Stony Lake,10,577641,5918592,RAIN,F61122,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,21,1.378945947,TRUE,TRUE
+126349_ds_ed1,Tributary To Cameron Lake,10,574558,5906687,BULT,F21236,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+126349_ds_ed1,Tributary To Cameron Lake,10,574558,5906687,RAIN,F21236,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,39,2.66734719276428,TRUE,TRUE
+196076_ds_ed1a,Tributary To Fraser River,10,526477,5985766,BULT,F61123,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,4,2,TRUE,2,0.122173592,FALSE,TRUE
+196076_ds_ed1a,Tributary To Fraser River,10,526477,5985766,CHIN,F61123,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,4,2,TRUE,2,0.141055166721344,FALSE,TRUE
+196076_ds_ed1a,Tributary To Fraser River,10,526477,5985766,COHO,F61123,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_ds_ed1a,Tributary To Fraser River,10,526477,5985766,RAIN,F61123,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,54,3.499474525,TRUE,TRUE
+196076_ds_ed1b,Tributary To Fraser River,10,526477,5985766,BULT,F61124,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_ds_ed1b,Tributary To Fraser River,10,526477,5985766,CHIN,F61124,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,4,2,TRUE,3,0.185363397,FALSE,TRUE
+196076_ds_ed1b,Tributary To Fraser River,10,526477,5985766,COHO,F61124,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_ds_ed1b,Tributary To Fraser River,10,526477,5985766,RAIN,F61124,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,51,3.258657932,TRUE,TRUE
+196076_ds_ed2a,Tributary To Fraser River,10,527308,5985131,BULT,F41016,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_ds_ed2a,Tributary To Fraser River,10,527308,5985131,BURB,F41016,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,1,0.0592605769634247,FALSE,TRUE
+196076_ds_ed2a,Tributary To Fraser River,10,527308,5985131,CHIN,F41016,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_ds_ed2a,Tributary To Fraser River,10,527308,5985131,RAIN,F41016,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,23,1.41384255886078,TRUE,TRUE
+196076_ds_ed2b,Tributary To Fraser River,10,527308,5985131,BULT,F41017,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_ds_ed2b,Tributary To Fraser River,10,527308,5985131,BURB,F41017,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_ds_ed2b,Tributary To Fraser River,10,527308,5985131,CHIN,F41017,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_ds_ed2b,Tributary To Fraser River,10,527308,5985131,RAIN,F41017,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,5,0.323909193277359,TRUE,TRUE
+196076_ds_ed3,NA,10,511387,5978753,BULT,F41018,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_ds_ed3,NA,10,511387,5978753,BURB,F41018,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_ds_ed3,NA,10,511387,5978753,CHIN,F41018,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_ds_ed3,NA,10,511387,5978753,RAIN,F41018,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_us_ed1,Tributary To Fraser River,10,527402,5984976,BULT,F61125,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_us_ed1,Tributary To Fraser River,10,527402,5984976,CHIN,F61125,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_us_ed1,Tributary To Fraser River,10,527402,5984976,COHO,F61125,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196076_us_ed1,Tributary To Fraser River,10,527402,5984976,RAIN,F61125,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,44,2.92406559,TRUE,TRUE
+196085_ds_ed1,Tabor Creek,10,518192,5961997,BULT,F40915,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,1,0.0637118220329285,FALSE,TRUE
+196085_ds_ed1,Tabor Creek,10,518192,5961997,BURB,F40915,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,8,0.529256284236908,TRUE,TRUE
+196085_ds_ed1,Tabor Creek,10,518192,5961997,CHIN,F40915,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,181,12.6237201690674,TRUE,TRUE
+196085_ds_ed1,Tabor Creek,10,518192,5961997,SOCK,F40915,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+196085_us_ed1a,Tabor Creek,10,518519,5961999,BULT,F41019,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+196085_us_ed1a,Tabor Creek,10,518519,5961999,BURB,F41019,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+196085_us_ed1a,Tabor Creek,10,518519,5961999,CHIN,F41019,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,8,0.514754116535187,TRUE,TRUE
+196085_us_ed1a,Tabor Creek,10,518519,5961999,RAIN,F41019,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,6,0.408614963293076,TRUE,TRUE
+196085_us_ed1b,Tabor Creek,10,518519,5961999,BULT,F41020,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+196085_us_ed1b,Tabor Creek,10,518519,5961999,BURB,F41020,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+196085_us_ed1b,Tabor Creek,10,518519,5961999,CHIN,F41020,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,144,8.97550106048584,TRUE,TRUE
+196085_us_ed1b,Tabor Creek,10,518519,5961999,RAIN,F41020,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,128,8.00068092346191,TRUE,TRUE
+196209_us_ed1,Bittner Creek,10,521555,5976209,BULT,F60808,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+196209_us_ed1,Bittner Creek,10,521555,5976209,CHIN,F60808,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+196209_us_ed1,Bittner Creek,10,521555,5976209,COHO,F60808,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+196209_us_ed1,Bittner Creek,10,521555,5976209,SOCK,F60808,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+196332_ds_ed1,S. Yuzkli Creek,10,578166,5895305,BULT,F21237,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196332_ds_ed1,S. Yuzkli Creek,10,578166,5895305,RAIN2,F21237,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+196332_us_ed1,S. Yuzkli Creek,10,578268,5895115,BULT,F21238,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,6,2,TRUE,2,0.12301030755043,FALSE,TRUE
+196332_us_ed1,S. Yuzkli Creek,10,578268,5895115,RAIN,F21238,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,4,1,TRUE,0,0,FALSE,FALSE
+196332_us_ed1,S. Yuzkli Creek,10,578268,5895115,RAIN2,F21238,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197360_ds_ed,Riddeck Creek,9,649917,5992412,BULT,S61182,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,6,2,TRUE,0,0,FALSE,FALSE
+197360_ds_ed,Riddeck Creek,9,649917,5992412,CHIN,S61182,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,6,2,TRUE,1,0.0662445798516273,FALSE,TRUE
+197360_ds_ed,Riddeck Creek,9,649917,5992412,COHO,S61182,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,6,2,TRUE,1,0.0687010139226913,FALSE,TRUE
+197360_ds_ed,Riddeck Creek,9,649917,5992412,RAIN,S61182,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,6,2,TRUE,36,2.27435040473938,TRUE,TRUE
+197378 ds_ed1a,NA,9,645124,5998766,BULT,S61183,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,4,2,TRUE,0,0,FALSE,FALSE
+197378 ds_ed1a,NA,9,645124,5998766,CHIN,S61183,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,4,2,TRUE,0,0,FALSE,FALSE
+197378 ds_ed1a,NA,9,645124,5998766,COHO,S61183,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,4,2,TRUE,0,0,FALSE,FALSE
+197378 ds_ed1a,NA,9,645124,5998766,RAIN,S61183,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,4,2,TRUE,0,0,FALSE,FALSE
+197378_Us_ed1,Tributary To Owen Creek,9,645089,5998805,BULT,S61184,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197378_Us_ed1,Tributary To Owen Creek,9,645089,5998805,CHIN,S61184,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197378_Us_ed1,Tributary To Owen Creek,9,645089,5998805,COHO,S61184,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,1,0.06276685744524,FALSE,TRUE
+197378_Us_ed1,Tributary To Owen Creek,9,645089,5998805,RAIN,S61184,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,512,32.582836151123,TRUE,TRUE
+197378_ds_ed1b,Tributary To Owen Creek,9,645148,5998795,BULT,S61185,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197378_ds_ed1b,Tributary To Owen Creek,9,645148,5998795,CHIN,S61185,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197378_ds_ed1b,Tributary To Owen Creek,9,645148,5998795,COHO,S61185,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197378_ds_ed1b,Tributary To Owen Creek,9,645148,5998795,RAIN,S61185,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,679,40.4435806274414,TRUE,TRUE
+197379_ds_ed,Avin Creek,9,640945,6005915,BULT,S61186,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197379_ds_ed,Avin Creek,9,640945,6005915,CHIN,S61186,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197379_ds_ed,Avin Creek,9,640945,6005915,COHO,S61186,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197379_ds_ed,Avin Creek,9,640945,6005915,RAIN,S61186,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,30,1.98954165,TRUE,TRUE
+197379_us_ed1,Avin Creek,9,641025,6005965,BULT,S31493,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197379_us_ed1,Avin Creek,9,641025,6005965,COHO,S31493,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,1,0.0699052587151527,FALSE,TRUE
+197379_us_ed1,Avin Creek,9,641025,6005965,RAIN,S31493,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,111,7.46498250961304,TRUE,TRUE
+197379_us_ed1,Avin Creek,9,641025,6005965,SOCK,S31493,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197960_ds_ed1,Corya Creek,9,606434,6100151,BULT,S50879,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,113,8.08279037475586,TRUE,TRUE
+197960_ds_ed1,Corya Creek,9,606434,6100151,CHIN,S50879,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197960_ds_ed1,Corya Creek,9,606434,6100151,COHO,S50879,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,4,2,TRUE,12,0.126,TRUE,TRUE
+197960_ds_ed1,Corya Creek,9,606434,6100151,SOCK,S50879,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197962_ds_ed,Peacock Creek,9,643410,6025950,CHIN,S60678,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197962_ds_ed,Peacock Creek,9,643410,6025950,COHO,S60678,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,3,1,FALSE,8,0.567897439002991,TRUE,TRUE
+197962_ds_ed,Peacock Creek,9,643410,6025950,RAIN,S60678,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,124,7.934023857116701,TRUE,TRUE
+197962_ds_ed,Peacock Creek,9,643410,6025950,SOCK,S60678,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,3,1,FALSE,0,0,FALSE,FALSE
+197962_us_ed,Peacock Creek,9,643478,6025872,BULT,S60880,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,84,5.44933605194092,TRUE,TRUE
+197962_us_ed,Peacock Creek,9,643478,6025872,CHIN,S60880,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+197962_us_ed,Peacock Creek,9,643478,6025872,COHO,S60880,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,6,0.41381308436393693,TRUE,TRUE
+197962_us_ed,Peacock Creek,9,643478,6025872,SOCK,S60880,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+198692_ds_ed1a,Tributary To Kerry Lake,10,511794,6059335,BULT,M41361,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,4,2,TRUE,0,0,FALSE,FALSE
+198692_ds_ed1a,Tributary To Kerry Lake,10,511794,6059335,GRAY,M41361,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,4,2,TRUE,0,0,FALSE,FALSE
+198692_ds_ed1a,Tributary To Kerry Lake,10,511794,6059335,RAIN,M41361,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,6,2,TRUE,5,0.324194818735123,TRUE,TRUE
+198692_ds_ed1a,Tributary To Kerry Lake,10,511794,6059335,SOCK,M41361,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,6,2,TRUE,0,0,FALSE,FALSE
+198692_ds_ed1b,Tributary To Kerry Lake,10,511789,6059338,BULT,M41362,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,1,0.0642546564340591,FALSE,TRUE
+198692_ds_ed1b,Tributary To Kerry Lake,10,511789,6059338,GRAY,M41362,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+198692_ds_ed1b,Tributary To Kerry Lake,10,511789,6059338,RAIN,M41362,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,119,7.389251708984381,TRUE,TRUE
+198692_ds_ed1b,Tributary To Kerry Lake,10,511789,6059338,SOCK,M41362,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+198692_ds_ed2,Tributary To Kerry Lake,10,511749,6059306,BULT,M41363,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+198692_ds_ed2,Tributary To Kerry Lake,10,511749,6059306,GRAY,M41363,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+198692_ds_ed2,Tributary To Kerry Lake,10,511749,6059306,RAIN,M41363,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,630,45.037181854248,TRUE,TRUE
+198692_ds_ed2,Tributary To Kerry Lake,10,511749,6059306,SOCK,M41363,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+198692_us_ed1,Tributary To Kerry Lake,10,511714,6059302,BULT,M41364,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+198692_us_ed1,Tributary To Kerry Lake,10,511714,6059302,GRAY,M41364,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+198692_us_ed1,Tributary To Kerry Lake,10,511714,6059302,RAIN,M41364,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,235,15.3184194564819,TRUE,TRUE
+198692_us_ed1,Tributary To Kerry Lake,10,511714,6059302,SOCK,M41364,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199171_ds_ed1,Tributary To Fraser Lake,10,388958,5996987,BULT,F60503,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199171_ds_ed1,Tributary To Fraser Lake,10,388958,5996987,CHIN,F60503,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199171_ds_ed1,Tributary To Fraser Lake,10,388958,5996987,RAIN,F60503,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,4,0.250312894582748,TRUE,TRUE
+199171_ds_ed1,Tributary To Fraser Lake,10,388958,5996987,SOCK,F60503,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199171_us_ed1,Tributary To Fraser Lake,10,388927,5997005,BULT,F60504,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199171_us_ed1,Tributary To Fraser Lake,10,388927,5997005,CHIN,F60504,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,1,0.0650612786412239,FALSE,TRUE
+199171_us_ed1,Tributary To Fraser Lake,10,388927,5997005,RAIN,F60504,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,4,2,FALSE,3,0.185900390148163,FALSE,TRUE
+199171_us_ed1,Tributary To Fraser Lake,10,388927,5997005,SOCK,F60504,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199173_ds_ed1,Tributary To Nechako River,10,398911,5996344,BULT,F61126,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199173_ds_ed1,Tributary To Nechako River,10,398911,5996344,CHIN,F61126,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,16,1.1053159236908,TRUE,TRUE
+199173_ds_ed1,Tributary To Nechako River,10,398911,5996344,COHO,F61126,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,1,0.0631204545497894,FALSE,TRUE
+199173_ds_ed1,Tributary To Nechako River,10,398911,5996344,RAIN,F61126,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,255,16.3165798187256,TRUE,TRUE
+199173_us_ed1,Tributary To Nechako River,10,398918,5996388,BULT,F61127,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+199173_us_ed1,Tributary To Nechako River,10,398918,5996388,CHIN,F61127,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+199173_us_ed1,Tributary To Nechako River,10,398918,5996388,COHO,F61127,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+199173_us_ed1,Tributary To Nechako River,10,398918,5996388,RAIN,F61127,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,512,33.2098197937012,TRUE,TRUE
+199174_us_ed1,Tributary To Nechako River,10,396131,5997719,BULT,F61128,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199174_us_ed1,Tributary To Nechako River,10,396131,5997719,CHIN,F61128,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199174_us_ed1,Tributary To Nechako River,10,396131,5997719,COHO,F61128,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199174_us_ed1,Tributary To Nechako River,10,396131,5997719,RAIN,F61128,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,38,2.448833227,TRUE,TRUE
+199190_ds_ed1,Creek Creek,10,425620,5996019,BULT,F60505,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199190_ds_ed1,Creek Creek,10,425620,5996019,CHIN,F60505,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,TRUE,0,0,FALSE,FALSE
+199190_ds_ed1,Creek Creek,10,425620,5996019,COHO,F60505,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199190_ds_ed1,Creek Creek,10,425620,5996019,RAIN,F60505,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,17,1.33107054233551,TRUE,TRUE
+199190_ds_ed1,Creek Creek,10,425620,5996019,SOCK,F60505,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199190_us_ed1,Creek Creek,10,425564,5996174,BULT,F61129,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199190_us_ed1,Creek Creek,10,425564,5996174,CHIN,F61129,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199190_us_ed1,Creek Creek,10,425564,5996174,COHO,F61129,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199190_us_ed1,Creek Creek,10,425564,5996174,RAIN,F61129,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199237_ds_ed1,Snowshoe Creek,10,650793,5934921,BULT,F60809,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199237_ds_ed1,Snowshoe Creek,10,650793,5934921,CHIN,F60809,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199237_ds_ed1,Snowshoe Creek,10,650793,5934921,COHO,F60809,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199237_ds_ed1,Snowshoe Creek,10,650793,5934921,SOCK,F60809,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199237_us_ed1,Snowshoe Creek,10,650777,5934830,BULT,F60810,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199237_us_ed1,Snowshoe Creek,10,650777,5934830,CHIN,F60810,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199237_us_ed1,Snowshoe Creek,10,650777,5934830,COHO,F60810,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199237_us_ed1,Snowshoe Creek,10,650777,5934830,SOCK,F60810,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199267_ds_ed1,Driscoll Creek,10,606383,5965821,BULT,F60811,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,1,0.065814696252346,FALSE,TRUE
+199267_ds_ed1,Driscoll Creek,10,606383,5965821,CHIN,F60811,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,4,0.263280868530273,TRUE,TRUE
+199267_ds_ed1,Driscoll Creek,10,606383,5965821,COHO,F60811,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199267_ds_ed1,Driscoll Creek,10,606383,5965821,SOCK,F60811,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199267_us_ed1a,Driscoll Creek,10,606457,5965807,BULT,F61130,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199267_us_ed1a,Driscoll Creek,10,606457,5965807,CHIN,F61130,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199267_us_ed1a,Driscoll Creek,10,606457,5965807,COHO,F61130,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199267_us_ed1a,Driscoll Creek,10,606457,5965807,RAIN,F61130,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199267_us_ed1b,Driscoll Creek,10,606375,5965753,BULT,F20401,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,1,0.06331408,FALSE,TRUE
+199267_us_ed1b,Driscoll Creek,10,606375,5965753,CHIN,F20401,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199273_ds_ed1,Hankins Creek,10,691835,5904882,BULT,F60812,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,10,0.647943317890167,TRUE,TRUE
+199273_ds_ed1,Hankins Creek,10,691835,5904882,CHIN,F60812,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199273_ds_ed1,Hankins Creek,10,691835,5904882,COHO,F60812,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199273_ds_ed1,Hankins Creek,10,691835,5904882,SOCK,F60812,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199278_ds_ed1,Teepee Creek,11,344019,5862748,BULT,F61131,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,127,8.688537598,TRUE,TRUE
+199278_ds_ed1,Teepee Creek,11,344019,5862748,CHIN,F61131,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199278_ds_ed1,Teepee Creek,11,344019,5862748,COHO,F61131,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199278_ds_ed1,Teepee Creek,11,344019,5862748,RAIN,F61131,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,47,2.804175854,TRUE,TRUE
+199278_us_ed1,Teepee Creek,11,344063,5862764,BULT,F61132,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,138,10.31277275,TRUE,TRUE
+199278_us_ed1,Teepee Creek,11,344063,5862764,CHIN,F61132,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199278_us_ed1,Teepee Creek,11,344063,5862764,COHO,F61132,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199278_us_ed1,Teepee Creek,11,344063,5862764,RAIN,F61132,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,20,1.36220777,TRUE,TRUE
+199663_ds_ed1,Tributary To Parsnip River,10,515426,6094959,BULT,M10139,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199663_ds_ed1,Tributary To Parsnip River,10,515426,6094959,BURB,M10139,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,195,0,TRUE,TRUE
+199663_ds_ed1,Tributary To Parsnip River,10,515426,6094959,GRAY,M10139,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199663_ds_ed1,Tributary To Parsnip River,10,515426,6094959,RAIN,M10139,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,112,7.794450759887699,TRUE,TRUE
+199663_us_ed1,Tributary To Parsnip River,10,515391,6095013,BULT,M10140,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199663_us_ed1,Tributary To Parsnip River,10,515391,6095013,BURB,M10140,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199663_us_ed1,Tributary To Parsnip River,10,515391,6095013,GRAY,M10140,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+199663_us_ed1,Tributary To Parsnip River,10,515391,6095013,RAIN,M10140,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,65,4.38793134689331,TRUE,TRUE
+20251005_ds_ed,NA,10,536235,5863459,BULT,F61133,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+20251005_ds_ed,NA,10,536235,5863459,CHIN,F61133,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+20251005_ds_ed,NA,10,536235,5863459,COHO,F61133,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+20251005_ds_ed,NA,10,536235,5863459,RAIN,F61133,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+20251005_us_ed1,NA,10,536240,5863464,BULT,F61134,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+20251005_us_ed1,NA,10,536240,5863464,CHIN,F61134,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+20251005_us_ed1,NA,10,536240,5863464,COHO,F61134,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+20251005_us_ed1,NA,10,536240,5863464,RAIN,F61134,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,TRUE,NA,2,1,FALSE,0,0,FALSE,FALSE
+203578_ds_ed1,Tributary To Willow River,10,570686,5925902,BULT,F61135,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+203578_ds_ed1,Tributary To Willow River,10,570686,5925902,CHIN,F61135,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+203578_ds_ed1,Tributary To Willow River,10,570686,5925902,COHO,F61135,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+203578_ds_ed1,Tributary To Willow River,10,570686,5925902,RAIN,F61135,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,67,4.326807499,TRUE,TRUE
+203582_us_ed1a,Tabor Creek,10,519055,5962102,BULT,F60506,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+203582_us_ed1a,Tabor Creek,10,519055,5962102,CHIN,F60506,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,TRUE,56,4.5568151473999,TRUE,TRUE
+203582_us_ed1a,Tabor Creek,10,519055,5962102,COHO,F60506,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+203582_us_ed1a,Tabor Creek,10,519055,5962102,RAIN,F60506,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,1281,89.8698577880859,TRUE,TRUE
+203582_us_ed1a,Tabor Creek,10,519055,5962102,SOCK,F60506,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,1,0.0656934157013893,FALSE,TRUE
+203582_us_ed1b,Tabor Creek,10,519118,5962102,BULT,F60507,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+203582_us_ed1b,Tabor Creek,10,519118,5962102,CHIN,F60507,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,TRUE,37,2.35287833213806,TRUE,TRUE
+203582_us_ed1b,Tabor Creek,10,519118,5962102,COHO,F60507,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+203582_us_ed1b,Tabor Creek,10,519118,5962102,RAIN,F60507,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,1871,135.552612304688,TRUE,TRUE
+203582_us_ed1b,Tabor Creek,10,519118,5962102,SOCK,F60507,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+203597_ds_ed1a,Tributary To Nation River,10,425989,6122732,BULT,M41365,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,FALSE,4,2,TRUE,0,0,FALSE,FALSE
+203597_ds_ed1a,Tributary To Nation River,10,425989,6122732,GRAY,M41365,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,FALSE,4,2,TRUE,0,0,FALSE,FALSE
+203597_ds_ed1a,Tributary To Nation River,10,425989,6122732,RAIN,M41365,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,FALSE,4,2,TRUE,4,0.26899978518486,TRUE,TRUE
+203597_ds_ed1a,Tributary To Nation River,10,425989,6122732,SOCK,M41365,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,FALSE,4,2,TRUE,0,0,FALSE,FALSE
+203597_ds_ed1b,Tributary To Nation River,10,426038,6122331,BULT,M41366,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,4,2,TRUE,3,0.206609785556793,FALSE,TRUE
+203597_ds_ed1b,Tributary To Nation River,10,426038,6122331,GRAY,M41366,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,4,2,TRUE,0,0,FALSE,FALSE
+203597_ds_ed1b,Tributary To Nation River,10,426038,6122331,RAIN,M41366,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,4,2,TRUE,173,13.325798034668,TRUE,TRUE
+203597_ds_ed1b,Tributary To Nation River,10,426038,6122331,SOCK,M41366,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,4,2,TRUE,0,0,FALSE,FALSE
+203597_us_ed1,Tributary To Nation River,10,425957,6122718,BULT,M41367,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,4,2,TRUE,0,0,FALSE,FALSE
+203597_us_ed1,Tributary To Nation River,10,425957,6122718,GRAY,M41367,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,4,2,TRUE,0,0,FALSE,FALSE
+203597_us_ed1,Tributary To Nation River,10,425957,6122718,RAIN,M41367,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,4,2,TRUE,213,15.6078538894653,TRUE,TRUE
+203597_us_ed1,Tributary To Nation River,10,425957,6122718,SOCK,M41367,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,4,2,TRUE,0,0,FALSE,FALSE
+203605_ds_ed1,Tributary To Williston Reservoir,10,486540,6124999,BULT,M41368,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,4,2,TRUE,3,0.19932858645916,FALSE,TRUE
+203605_ds_ed1,Tributary To Williston Reservoir,10,486540,6124999,GRAY,M41368,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+203605_ds_ed1,Tributary To Williston Reservoir,10,486540,6124999,RAIN,M41368,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,455,30.9141521453857,TRUE,TRUE
+203605_ds_ed1,Tributary To Williston Reservoir,10,486540,6124999,SOCK,M41368,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+203605_us_ed1,Tributary To Williston Reservoir,10,486479,6124932,BULT,M41369,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,1,0.0624205134809017,FALSE,TRUE
+203605_us_ed1,Tributary To Williston Reservoir,10,486479,6124932,GRAY,M41369,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+203605_us_ed1,Tributary To Williston Reservoir,10,486479,6124932,RAIN,M41369,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,429,27.08713722229,TRUE,TRUE
+203605_us_ed1,Tributary To Williston Reservoir,10,486479,6124932,SOCK,M41369,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+23919_ds_ed1a,Swift Creek,11,346245,5856237,BULT,F60813,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,62,4.18865585327148,TRUE,TRUE
+23919_ds_ed1a,Swift Creek,11,346245,5856237,CHIN,F60813,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,138,9.34356594085693,TRUE,TRUE
+23919_ds_ed1a,Swift Creek,11,346245,5856237,COHO,F60813,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+23919_ds_ed1a,Swift Creek,11,346245,5856237,SOCK,F60813,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,332,21.5967712402344,TRUE,TRUE
+23919_ds_ed1b,Swift Creek,11,346244,5856233,BULT,F60814,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+23919_ds_ed1b,Swift Creek,11,346244,5856233,CHIN,F60814,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+23919_ds_ed1b,Swift Creek,11,346244,5856233,COHO,F60814,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+23919_ds_ed1b,Swift Creek,11,346244,5856233,SOCK,F60814,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,TRUE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+24715757_ds_ed1,Snowshoe Creek,10,648659,5942556,BULT,F20402,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,4,0.256563216,TRUE,TRUE
+24715757_ds_ed1,Snowshoe Creek,10,648659,5942556,CHIN,F20402,~/Projects/gis/sern_fraser_2024/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,49,3.146761179,TRUE,TRUE
+24718557_ed1,Missinka River,10,566886,6052694,BULT,M41370,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,4,2,TRUE,2,0.121806763112545,FALSE,TRUE
+24718557_ed1,Missinka River,10,566886,6052694,GRAY,M41370,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,4,2,TRUE,1,0.0641495436429977,FALSE,TRUE
+24718557_ed1,Missinka River,10,566886,6052694,RAIN,M41370,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,4,0.245969176292419,TRUE,TRUE
+24718557_ed1,Missinka River,10,566886,6052694,SOCK,M41370,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57690_ds_ed1,Tributary To Wichcika Creek,10,555073,6046127,BULT,M41371,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57690_ds_ed1,Tributary To Wichcika Creek,10,555073,6046127,GRAY,M41371,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57690_ds_ed1,Tributary To Wichcika Creek,10,555073,6046127,RAIN,M41371,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,10,0.675472557544708,TRUE,TRUE
+57690_ds_ed1,Tributary To Wichcika Creek,10,555073,6046127,SOCK,M41371,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57690_us_ed1,Tributary To Wichcika Creek,10,555001,6046160,BULT,M41372,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57690_us_ed1,Tributary To Wichcika Creek,10,555001,6046160,GRAY,M41372,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57690_us_ed1,Tributary To Wichcika Creek,10,555001,6046160,RAIN,M41372,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57690_us_ed1,Tributary To Wichcika Creek,10,555001,6046160,SOCK,M41372,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57695_ds_ed1,Tributary To Wichcika Creek,10,563250,6038794,BULT,M41373,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57695_ds_ed1,Tributary To Wichcika Creek,10,563250,6038794,GRAY,M41373,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57695_ds_ed1,Tributary To Wichcika Creek,10,563250,6038794,RAIN,M41373,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57695_ds_ed1,Tributary To Wichcika Creek,10,563250,6038794,SOCK,M41373,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57695_us_ed1,Tributary To Wichcika Creek,10,563250,6038826,BULT,M21244,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+57695_us_ed1,Tributary To Wichcika Creek,10,563250,6038826,RAIN,M21244,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,1,0.0720236673951149,FALSE,TRUE
+57696_ds_ed1,Tributary To Wichcika Creek,10,564123,6037925,BULT,M21245,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+57696_ds_ed1,Tributary To Wichcika Creek,10,564123,6037925,RAIN,M21245,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+57696_us_ed1,Tributary To Wichcika Creek,10,564173,6037943,BULT,M21246,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+57696_us_ed1,Tributary To Wichcika Creek,10,564173,6037943,RAIN,M21246,~/Projects/gis/sern_peace_fwcp_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+58067_ds_ed1,Tributary To Gramaphone Creek,9,609656,6092866,BULT,S61187,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+58067_ds_ed1,Tributary To Gramaphone Creek,9,609656,6092866,CHIN,S61187,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+58067_ds_ed1,Tributary To Gramaphone Creek,9,609656,6092866,COHO,S61187,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+58067_ds_ed1,Tributary To Gramaphone Creek,9,609656,6092866,RAIN,S61187,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,96,6.892139912,TRUE,TRUE
+8525_ds_ed1,Tributary To Coal Creek,9,580918,6074643,BULT,S61188,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,128,8.318907738,TRUE,TRUE
+8525_ds_ed1,Tributary To Coal Creek,9,580918,6074643,CHIN,S61188,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8525_ds_ed1,Tributary To Coal Creek,9,580918,6074643,COHO,S61188,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8525_ds_ed1,Tributary To Coal Creek,9,580918,6074643,RAIN,S61188,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8525_us_ed1,Tributary To Coal Creek,9,581026,6074690,BULT,S61189,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,110,7.445612907,TRUE,TRUE
+8525_us_ed1,Tributary To Coal Creek,9,581026,6074690,CHIN,S61189,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+8525_us_ed1,Tributary To Coal Creek,9,581026,6074690,COHO,S61189,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+8525_us_ed1,Tributary To Coal Creek,9,581026,6074690,RAIN,S61189,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,TRUE,2,1,FALSE,0,0,FALSE,FALSE
+8525_us_ed2,Tributary To Coal Creek,9,582443,6075438,BULT,S61190,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,18,1.164630294,TRUE,TRUE
+8525_us_ed2,Tributary To Coal Creek,9,582443,6075438,CHIN,S61190,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8525_us_ed2,Tributary To Coal Creek,9,582443,6075438,COHO,S61190,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8525_us_ed2,Tributary To Coal Creek,9,582443,6075438,RAIN,S61190,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8530_ds_ed1,Sandstone Creek,9,582698,6073843,BULT,S61191,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,63,4.327158451,TRUE,TRUE
+8530_ds_ed1,Sandstone Creek,9,582698,6073843,CHIN,S61191,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8530_ds_ed1,Sandstone Creek,9,582698,6073843,COHO,S61191,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8530_ds_ed1,Sandstone Creek,9,582698,6073843,RAIN,S61191,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,59,3.635935068,TRUE,TRUE
+8530_us_ed1,Sandstone Creek,9,582755,6073896,BULT,S61192,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,66,4.408513546,TRUE,TRUE
+8530_us_ed1,Sandstone Creek,9,582755,6073896,CHIN,S61192,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8530_us_ed1,Sandstone Creek,9,582755,6073896,COHO,S61192,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8530_us_ed1,Sandstone Creek,9,582755,6073896,RAIN,S61192,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,57,3.525795698,TRUE,TRUE
+8547_ds_ed1,Tributary To Mcdonnell Lake,9,590936,6071986,BULT,S60881,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,4,2,TRUE,2,0.128211706876755,FALSE,TRUE
+8547_ds_ed1,Tributary To Mcdonnell Lake,9,590936,6071986,CHIN,S60881,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8547_ds_ed1,Tributary To Mcdonnell Lake,9,590936,6071986,COHO,S60881,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8547_ds_ed1,Tributary To Mcdonnell Lake,9,590936,6071986,SOCK,S60881,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8547_ds_ed2,Tributary To Mcdonnell Lake,9,589991,6072633,BULT,S60377,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8547_ds_ed2,Tributary To Mcdonnell Lake,9,589991,6072633,COHO,S60377,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8547_ds_ed2,Tributary To Mcdonnell Lake,9,589991,6072633,RAIN,S60377,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8547_ds_ed2,Tributary To Mcdonnell Lake,9,589991,6072633,SOCK,S60377,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8547_us_ed1,Tributary To Mcdonnell Lake,9,589979,6072658,BULT,S60274,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8547_us_ed1,Tributary To Mcdonnell Lake,9,589979,6072658,CHIN,S60274,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8547_us_ed1,Tributary To Mcdonnell Lake,9,589979,6072658,COHO,S60274,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+8547_us_ed1,Tributary To Mcdonnell Lake,9,589979,6072658,SOCK,S60274,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,NA,2,1,FALSE,0,0,FALSE,FALSE
+bulkley_falls_ds_ed1,Bulkley River,9,678227,6038335,BULT,S60275,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+bulkley_falls_ds_ed1,Bulkley River,9,678227,6038335,CHIN,S60275,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+bulkley_falls_ds_ed1,Bulkley River,9,678227,6038335,COHO,S60275,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+bulkley_falls_ds_ed1,Bulkley River,9,678227,6038335,SOCK,S60275,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+bulkley_falls_ds_ed2,Bulkley River,9,678031,6039046,BULT,S60276,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,1,0.0622158497571945,FALSE,TRUE
+bulkley_falls_ds_ed2,Bulkley River,9,678031,6039046,CHIN,S60276,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE
+bulkley_falls_ds_ed2,Bulkley River,9,678031,6039046,COHO,S60276,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,4,2,TRUE,1,0.0689870491623878,FALSE,TRUE
+bulkley_falls_ds_ed2,Bulkley River,9,678031,6039046,SOCK,S60276,~/Projects/gis/sern_skeena_2023/data_field/2025/form_edna_2025.gpkg,FALSE,FALSE,FALSE,2,1,FALSE,0,0,FALSE,FALSE

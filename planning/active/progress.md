@@ -16,4 +16,20 @@
   Habitat/connectivity appendix left out pending a `link`/`fresh` vignette.
 - Created branch `10-edna-and-structural-alignment` off main @ `d22bf2d`
 - Scaffolded PWF baseline
-- Next: Phase 1 — eDNA data snapshot + Results subsection
+
+### Phase 1 — eDNA data snapshot + Results subsection ✔
+
+- `scripts/edna_inputs_snapshot.R` ported and run — snapshotted both analytic CSVs from template
+  repo @ `189fdb1` (clean tree). md5s match the Peace snapshot exactly, so all three regional
+  reports are working from identical source data.
+- Replaced the `INCLUDE LAB RESULTS` stub with the `tab-edna-summary-prep` chunk + two narrative
+  paragraphs + `tab-edna-summary`.
+- **Divergence from the Peace source:** filter derives from `params$gis_project_name` rather than a
+  hardcoded region string. Peace hardcodes `sern_peace_fwcp_2023` in three separate places; deriving
+  it means the Fraser copy has one less thing to get wrong on the next port.
+- `SOCK = "Sockeye Salmon"` (Peace uses Kokanee — landlocked above the Peace Canyon Dam).
+- Office-blank comment rewritten to state the real reason rather than Peace's "fake coords".
+- Verified the prep logic standalone: 33 real / 2 field / 3 office; RAIN 20 sites detected, CHIN 9,
+  BULT 5, SOCK 1, BURB 1; `fmt_targets()` handles the empty case. Render itself is verified at the
+  first clean build (Phase 3).
+- Next: Phase 2 — thematic appendix + interactive map

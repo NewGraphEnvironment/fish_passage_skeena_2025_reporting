@@ -737,11 +737,108 @@ plot_fish_hist
 
 ### Environmental DNA (eDNA) sampling
 
-New in 2025, environmental DNA (eDNA) sampling was incorporated into the program at both previously assessed and newly added sites. A total of `r form_edna |> nrow()` samples were collected across `r form_edna |> dplyr::distinct(stream_name) |> nrow()` streams.
+```{r tab-edna-summary-prep, include=FALSE}
+# Loads the Fraser-filtered eDNA inputs (snapshotted from the template repo via
+# scripts/edna_inputs_snapshot.R) and computes the per-species summary below.
+
+norm_lgl <- function(x) {
+  if (is.logical(x)) return(x)
+  out <- toupper(as.character(x)) == "TRUE"
+  out[is.na(x)] <- FALSE
+  out
+}
+
+# Used in main Results, the thematic appendix, and the per-site appendices —
+# defined once here so every consumer downstream in the bookdown merge order can
+# use it without redefinition. A local copy in an appendix WILL drift; that
+# happened in the Peace report and produced inconsistent species labelling in a
+# single build.
+fmt_targets <- function(target, max_pos, retested) {
+  if (length(target) == 0) return("—")
+  parts <- paste0(
+    target,
+    "(", ifelse(is.na(max_pos), "?", max_pos), ")",
+    ifelse(retested, "*", "")
+  )
+  paste(parts, collapse = ", ")
+}
+
+edna_bystargets_fraser <- readr::read_csv(
+  "data/edna_unbc_results_2025_by_site_target.csv",
+  show_col_types = FALSE
+) |>
+  dplyr::filter(grepl(params$gis_project_name, source)) |>
+  dplyr::mutate(
+    control_blank_field           = norm_lgl(control_blank_field),
+    control_blank_office          = norm_lgl(control_blank_office),
+    control_species_present_field = norm_lgl(control_species_present_field)
+  )
+
+# Real environmental samples = exclude both blank types.
+#   Office blanks are distilled-water controls filtered at the end of a session
+#   at accommodation — they carry real GPS, just of a hotel rather than a stream,
+#   so they are not sites. (Their `site_id` is borrowed from an unrelated site,
+#   or is a date when none was handy.)
+#   Field blanks are streamside but test protocol cleanliness, not site eDNA —
+#   reported separately in the appendix and on the map's Controls layer.
+edna_real_fraser <- edna_bystargets_fraser |>
+  dplyr::filter(!control_blank_office, !control_blank_field)
+
+n_edna_real_sites    <- dplyr::n_distinct(edna_real_fraser$site_id)
+n_edna_field_blanks  <- edna_bystargets_fraser |>
+  dplyr::filter(control_blank_field)  |> dplyr::distinct(site_id) |> nrow()
+n_edna_office_blanks <- edna_bystargets_fraser |>
+  dplyr::filter(control_blank_office) |> dplyr::distinct(site_id) |> nrow()
+
+# UNBC assay code -> common name
+edna_species_names <- c(
+  BULT  = "Bull Trout",
+  GRAY  = "Arctic Grayling",
+  RAIN  = "Rainbow Trout",
+  RAIN2 = "Rainbow Trout (confirmation primer)",
+  CHIN  = "Chinook Salmon",
+  COHO  = "Coho Salmon",
+  # The Fraser is anadromous, so the SOCK ddPCR assay detects Sockeye Salmon.
+  # Differs from the Peace report, where everything above the Peace Canyon Dam
+  # is landlocked and the same assay is reported as Kokanee.
+  SOCK  = "Sockeye Salmon",
+  BURB  = "Burbot"
+)
+
+edna_summary_fraser <- edna_real_fraser |>
+  dplyr::group_by(target) |>
+  dplyr::summarise(
+    sites_tested        = dplyr::n_distinct(site_id),
+    sites_detected      = dplyr::n_distinct(site_id[any_clean]),
+    sites_subthreshold  = dplyr::n_distinct(site_id[any_crude & !any_clean]),
+    sites_no_detection  = dplyr::n_distinct(site_id[!any_crude]),
+    .groups = "drop"
+  ) |>
+  dplyr::mutate(Species = dplyr::coalesce(edna_species_names[target], target)) |>
+  dplyr::select(
+    Species,
+    `Code`                              = target,
+    `Sites tested`                      = sites_tested,
+    `Detected (≥4 droplets)`            = sites_detected,
+    `Sub-threshold only (1-3 droplets)` = sites_subthreshold,
+    `No detection (0 droplets)`         = sites_no_detection
+  ) |>
+  dplyr::arrange(dplyr::desc(`Detected (≥4 droplets)`), Species)
+```
+
+New in 2025, environmental DNA (eDNA) sampling was incorporated into the program at both previously assessed and newly added sites. A total of `r form_edna |> nrow()` collection events were undertaken across `r form_edna |> dplyr::distinct(stream_name) |> nrow()` streams, comprising `r n_edna_real_sites` real environmental samples, `r n_edna_field_blanks` field blanks, and `r n_edna_office_blanks` office blanks collected for quality assurance.
+
+Per-species detection results across the `r n_edna_real_sites` real environmental samples are summarized in Table \@ref(tab:tab-edna-summary). Detections use the standard ddPCR call threshold of ≥4 positive droplets; sub-threshold signals (1-3 droplets) are tracked separately because they are not interpretable as species presence under ddPCR convention. Site-level detail — the per-site detection table, field blanks, and retests — is provided in [Appendix - Environmental DNA Results](#app-edna), and the `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "edna_unbc_results_2025_fraser_map.html", anchor_text = "interactive Fraser eDNA map")` shows toggleable per-species layers.
 
 <br>
 
-INCLUDE LAB RESULTS
+```{r tab-edna-summary}
+edna_summary_fraser |>
+  fpr::fpr_kable(
+    caption_text = "Per-species summary of eDNA results across real environmental samples in the Fraser project area (excludes field and office blanks).",
+    scroll = FALSE
+  )
+```
 
 <br>
 
