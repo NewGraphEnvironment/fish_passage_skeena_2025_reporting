@@ -44,11 +44,17 @@ out_html_docs <- "docs/edna_unbc_results_2025_fraser_map.html"
 #     samples at electrofish-confirmed sites. Stay in default layers; popup
 #     gets a note flagging them.
 
+# edna_site_id_fix() corrects two samples recorded against the wrong crossing.
+# Sourced rather than redefined so the map, the Results tables and the appendix
+# cannot disagree about which crossing a sample belongs to.
+source("scripts/functions.R")
+
 by_site_target_full <- readr::read_csv(
   "data/edna_unbc_results_2025_by_site_target.csv",
   show_col_types = FALSE
 ) |>
-  dplyr::filter(grepl(FRASER_SOURCE_PATTERN, source))
+  dplyr::filter(grepl(FRASER_SOURCE_PATTERN, source)) |>
+  dplyr::mutate(site_id = edna_site_id_fix(site_id))
 
 # Coerce blank flags to logical with no NAs. readr types these as logical when
 # the CSV holds TRUE/FALSE/NA, so an is.logical() early return is NOT enough —

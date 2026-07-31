@@ -24,6 +24,7 @@ edna_bystargets_app <- readr::read_csv(
   show_col_types = FALSE
 ) |>
   dplyr::filter(grepl(params$gis_project_name, source)) |>
+  dplyr::mutate(site_id = edna_site_id_fix(site_id)) |>
   dplyr::mutate(
     control_blank_field           = norm_lgl(control_blank_field),
     control_blank_office          = norm_lgl(control_blank_office),

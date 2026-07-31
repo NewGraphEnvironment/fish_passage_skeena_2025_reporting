@@ -65,3 +65,28 @@ lfpr_table_cv_detailed_print <- function(tab_sum,
 
 
 
+
+#' Correct mislabelled 2025 eDNA sample site ids
+#'
+#' Two samples were recorded against the wrong crossing in the field form.
+#' `196076_ds_ed1a` / `196076_ds_ed1b` were collected 8 m from PSCIS crossing
+#' 203581 (CN railway, UTM10 E526469 N5985767) and 1.2 km from crossing 196076
+#' (E527382 N5985006), i.e. upstream of 203581 rather than downstream of 196076.
+#'
+#' The field form is deliberately left untouched — those ids travelled to UNBC
+#' with the samples and are the lab's linkage — so the correction is applied at
+#' the display layer. Applying it here rather than inline keeps the sample
+#' metadata table, the per-site results tables, the thematic appendix and the
+#' interactive map from disagreeing about which crossing a sample belongs to.
+#'
+#' @param x character vector of eDNA `site_id` values
+#' @return character vector, corrected
+edna_site_id_fix <- function(x) {
+  lookup <- c(
+    "196076_ds_ed1a" = "203581_us_ed1a",
+    "196076_ds_ed1b" = "203581_us_ed1b"
+  )
+  hit <- x %in% names(lookup)
+  x[hit] <- unname(lookup[x[hit]])
+  x
+}

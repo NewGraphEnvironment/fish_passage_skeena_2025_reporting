@@ -76,6 +76,21 @@ it happened during this investigation and produced a fake scoping question about
    Results→site-memo links to close orphans.
 7. Sub-headings inside unnumbered appendix chapters MUST use `{-}`, or bookdown numbers them.
 
+## Additional stale-content items found while working
+
+- **`_output.yml` still points at the template repo.** The gitbook `download:` list names
+  `fish_passage_template_reporting.pdf` / `.html`, and the TOC `before:` link is
+  `<li><a href="./">Fish Passage Reporting Template</a></li>` with `after:` linking to
+  `github.com/NewGraphEnvironment/fish_passage_template_reporting`. Commit `742ab05` fixed
+  `book_filename` in `_bookdown.yml` but `_output.yml` was missed. Fold into the Phase 7 staleness
+  sweep.
+- **Two eDNA samples were recorded against the wrong crossing.** `196076_ds_ed1a` / `_ed1b` sit 8 m
+  from PSCIS 203581 (E526469 N5985767) and 1.2 km from 196076 (E527382 N5985006) — they are
+  upstream of 203581, not downstream of 196076. The trib-to-fraser appendix already carried an
+  inline display remap with a comment explaining the field form was deliberately left alone. That
+  transformation is now `edna_site_id_fix()` in `scripts/functions.R` and is applied to the lab
+  results in `0400`, the appendix, and the map, so all four surfaces agree.
+
 ## Two items that are correctness, not tidiness
 
 - **Scope overclaiming.** No `wsg_code_field` param. Fraser states 7 watershed groups for climate

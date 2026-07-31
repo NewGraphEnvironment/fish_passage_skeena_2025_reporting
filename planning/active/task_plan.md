@@ -39,10 +39,15 @@ Phases 1-8 are in scope. **Phase 9 (narrative pass) is deferred to a follow-up i
 
 ## Phase 3 — eDNA per-site results tables
 
-- [ ] Add `tab-edna-results-{site}-prep` + render chunk to each of the four site appendices
+- [x] Add `tab-edna-results-{site}-prep` + render chunk to each of the four site appendices
       (126158, 196085, 196332, 203581), alongside the existing `tab-edna-{site}`
-- [ ] Verify: clean gitbook build (`rm _main.Rmd` first); species labels identical across Results,
-      appendix and per-site tables
+- [x] `edna_site_id_fix()` in `scripts/functions.R` — two samples were recorded against the wrong
+      crossing; applied in `0400`, `0837` and the map so all surfaces agree
+- [x] Verify table contents standalone: 14 sites across the four appendices, retest asterisks
+      correct, corrected ids sort in
+- [ ] Verify: clean gitbook build — **blocked**, `scripts/packages.R` calls `available.packages()`
+      unconditionally and a bare Rscript has no CRAN mirror. Peace fixes this in `run_gitbook.R`;
+      Phase 4 ports it.
 
 *eDNA complete and shippable here — #10 closable.*
 
