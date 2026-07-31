@@ -76,6 +76,66 @@ it happened during this investigation and produced a fake scoping question about
    Results→site-memo links to close orphans.
 7. Sub-headings inside unnumbered appendix chapters MUST use `{-}`, or bookdown numbers them.
 
+## First Nations section — completeness check
+
+Wired the previously commented-out block into Background as `## First Nations` and appended the
+nine citations to `references.bib` from xciter's canonical bib (they were all missing, because a
+commented block is invisible to `rbbt` and `update_bib` is FALSE — uncommenting without this would
+have produced nine `[?]` markers).
+
+Mapping the Nations the text names against `params$wsg_code`:
+
+| Watershed group | Nation(s) named in the text |
+|---|---|
+| LCHL Lower Chilako | Carrier Sekani (Tsalakoh/Chilako named) |
+| NECR Nechako | Lheidli T'enneh; Carrier Sekani |
+| FRAN Francois Lake | Carrier Sekani (Nadleh Whut'en, Stellat'en; Nautley R.) |
+| MORK Morkill | Lheidli T'enneh (Morkill named) |
+| UFRA Upper Fraser | Lheidli T'enneh; Simpcw |
+| **WILL Willow** | **none named** |
+| **TABR Tabor** | **none named** |
+| **LSAL Lower Salmon** | **none named** |
+
+**The three unnamed groups are exactly the three added in 2025** — `0200-background.Rmd:30` says
+"In 2025 the study area was expanded to include the Tabor River, Willow River, and Lower Salmon
+River watershed groups." The section predates that expansion.
+
+Deliberately **not** filled in by inference. Asserting whose territory a watershed group falls in
+is not something to derive from a map — it needs the Nations' own statements or an authoritative
+source such as the BC Consultative Areas Database. Flagged for the author.
+
+Also note **Nazko** is described in the section but its territory (Nazko River, 120 km west of
+Quesnel) is not in any project watershed group.
+
+Structural fix while wiring: the original nested `### Carrier Sekani` under `## Dakelh`. The Carrier
+Sekani Tribal Council spans Carrier **and Sekani** nations, so it is now a sibling of Dakelh rather
+than a sub-group. Lheidli T'enneh and Nazko remain nested under Dakelh, which the sources support.
+Corrected "Shuwap" to "Shuswap".
+
+## BLOCKER for Phase 9 — Recommendations and exec-summary bullets are Peace content
+
+`0500-recommendations.Rmd:18-27` and `0050-executive-summary.Rmd:113-122` carry the **same
+Peace bullet list**, unedited, in a Fraser report:
+
+- "To enhance fish passage restoration in the **FWCP Peace Region**:" — FWCP has no Fraser region;
+  `_executive_summary_pdf.Rmd:56` confirms the funder is the **Habitat Conservation Trust
+  Foundation** and MoTI
+- "especially near **McLeod Lake**" — Peace
+- "Secure financial commitments for **Fern Creek** remediation" — Peace
+- "bull trout and **Arctic grayling**" — no grayling in the Fraser
+- "Collaborate with WLRS, UNC, local fisheries experts, **FWCP**, ..." — wrong funder
+
+The exec summary has an explicit `NEEDS TO BE UPDATED` marker above the list, so the author knew.
+`0500-recommendations.Rmd` has the same bullets with **no** marker.
+
+**Deliberately not fixed here.** Relabelling "FWCP Peace Region" to Fraser would make the section
+*look* correct while McLeod Lake, Fern Creek and Arctic grayling remain — removing the only signal
+that it is unfinished. Writing real Fraser recommendations needs the author's knowledge of Fraser
+priorities, not invention. This is Phase 9 work and should block that issue.
+
+Same class: `0400-results.Rmd` Engineering Design carries a rendered `MIGHT NEED TO UPDATE` marker
+above prose asserting no new designs were commissioned — unverified for Fraser.
+
 ## Additional stale-content items found while working
 
 - **`_output.yml` still points at the template repo.** The gitbook `download:` list names

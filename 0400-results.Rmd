@@ -862,18 +862,6 @@ No new designs were commissioned in `r cat(params$project_year)` due to uncertai
 for the 50% costs of replacing structures.  All sites with a design for remediation of fish passage can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) by filtering using Design = yes")}`.
 
 
-```{r remediations-text, eval=F}
-
-# ## Remediations
-# 
-# In 2024, remediation of fish passage was completed at PSCIS crossing 125231, located on Tributary to Table River at km 21 
-# on the Chuchinka-Table FSR. The crossing was replaced with a clear-span bridge by Canfor with environmental oversight and engineering from DWB Consulting Services Ltd. Half the total funding for the project was provided by FWCP through coordination from SERNbc. More information regarding the crossing can be found within this report [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/tributary-to-the-table-river---125231---appendix.html).  
-# 
-# <br>
-# 
-# All sites where remediation of fish passage has been completed can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) by filtering using Remediation = yes")}`. 
-
-```
 
 
 ## Monitoring

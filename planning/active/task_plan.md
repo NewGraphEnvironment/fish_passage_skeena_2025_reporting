@@ -61,13 +61,28 @@ Phases 1-8 are in scope. **Phase 9 (narrative pass) is deferred to a follow-up i
 - [x] Verify: gitbook renders exactly one Phase 1 page (stale `docs/attach-pdf-phase1-dat.html`
       from May 14 removed); PDF build swaps the stub in and restores resting state + `gitbook_on`
 
-## Phase 5 — Deletion pass
+## Phase 5 — Deletion pass *(rescoped — the premise was wrong)*
 
-- [ ] `0200-background.Rmd:49-99` — commented-out Nations content
-- [ ] `0400-results.Rmd:657-669` (Fish Sampling) and `:758-765` (Remediations)
-- [ ] Remove the dead `#attach-dat` link at `0400-results.Rmd:659`
-- [ ] Sweep `TODO`/`MIGHT NEED`/`NEEDS TO BE UPDATED`/`PLACEHOLDER`
-- [ ] Verify: Background ~626 → ~300; Results ~799 → ~700; builds unchanged
+The audit called ~50 lines in `0200-background.Rmd` "commented-out Nations content" contributing to
+bloat. On inspection it is researched, cited prose and the raw material for open issue #3. Two other
+"dead" chunks turned out to be provenance for numbers quoted in the report. Actual deletable content
+was one Peace-specific block.
+
+- [x] **Not deleted** — `wsh-areas` (`0200:134-150`) and `stock-assess-download` (`0200:389-448`)
+      are live `fwapgr` / NuSEDS queries that produced values and files the report uses
+- [x] **Wired in instead** — the Nations block is now `## First Nations`, trimmed for brevity,
+      `Shuwap` → `Shuswap`, Carrier Sekani promoted out from under Dakelh (the Tribal Council spans
+      Carrier *and* Sekani nations)
+- [x] Append the 9 citations to `references.bib` from xciter's canonical bib — all were missing,
+      since a commented block is invisible to `rbbt` and `update_bib` is FALSE
+- [x] Delete `remediations-text` (`0400`) — Peace content (PSCIS 125231, Chuchinka-Table FSR)
+- [x] Verify: clean gitbook build, **zero `[?]` markers book-wide**, all 9 new sources in the
+      rendered reference list
+- [ ] **Blocked, needs author** — Recommendations + exec-summary bullets are unedited Peace content
+      (FWCP Peace Region, McLeod Lake, Fern Creek, Arctic grayling). Not relabelled on purpose;
+      see findings.md. Goes to the Phase 9 follow-up issue.
+- [ ] **Needs author** — First Nations section names no Nation for WILL, TABR or LSAL, the three
+      groups added in 2025. Not inferred from maps.
 
 ## Phase 6 — Extraction pass
 

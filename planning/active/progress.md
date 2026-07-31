@@ -100,3 +100,34 @@ Incidental rebuild churn in `data/bcfishpass.sqlite` and three `fig/background/*
 same byte counts, nothing in this change should alter them.
 
 - Next: Phase 5 — deletion pass
+
+### Phase 5 — deletion pass, rescoped ✔ (two items need the author)
+
+The plan's premise did not survive inspection. What the audit called ~50 lines of "commented-out
+Nations content" is researched, cited prose and the raw material for open issue #3. Two other
+`eval=F` chunks are provenance, not dead code.
+
+- **Kept, not deleted:** `wsh-areas` and `stock-assess-download` — live `fwapgr` / NuSEDS queries
+  behind values and files the report uses.
+- **Wired in:** the Nations block is now `## First Nations` in Background. Trimmed the Ancient
+  Forest tangent (~150 → ~55 words) and Nazko's business history; corrected `Shuwap` → `Shuswap`;
+  promoted Carrier Sekani out from under Dakelh since the Tribal Council spans Carrier *and* Sekani
+  nations. Added a framing sentence marking the summaries as context, not a statement of rights or
+  title.
+- **Citations:** all 9 were missing from `references.bib` — a commented block is invisible to
+  `rbbt` and `update_bib` is FALSE, so uncommenting would have produced 9 `[?]` markers. Appended
+  from xciter's canonical bib. All are the Nations' own published sources.
+- **Deleted:** `remediations-text` — Peace content (PSCIS 125231, Chuchinka-Table FSR).
+- **Verified:** clean gitbook build, zero `[?]` markers book-wide, all 9 sources in the rendered
+  reference list.
+
+**Two items handed back rather than guessed at:**
+
+1. Recommendations (`0500`) and the exec-summary bullets are unedited Peace content — FWCP Peace
+   Region, McLeod Lake, Fern Creek, Arctic grayling. Deliberately not relabelled: making the heading
+   say Fraser while the bullets stay Peace-specific would erase the only signal it is unfinished.
+2. The First Nations section names no Nation for WILL, TABR or LSAL — exactly the three watershed
+   groups added in 2025. Territory attribution needs the Nations' own statements or the BC
+   Consultative Areas Database, not inference from a map.
+
+- Next: Phase 6 — extraction pass
