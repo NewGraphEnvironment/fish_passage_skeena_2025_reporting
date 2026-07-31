@@ -14,3 +14,7 @@ rsconnect
 
 scripts/02_reporting/0130_pscis_wrangle.html
 scripts/02_reporting/0205_fiss_wrangle.html
+
+# htmlwidgets sidecar deps when saveWidget(..., selfcontained = TRUE)
+# inlines everything into the HTML; the sidecar is duplicate cruft.
+data/*_files/

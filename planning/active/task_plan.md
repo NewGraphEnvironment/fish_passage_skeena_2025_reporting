@@ -24,13 +24,18 @@ Phases 1-8 are in scope. **Phase 9 (narrative pass) is deferred to a follow-up i
 
 ## Phase 2 — eDNA thematic appendix + interactive map
 
-- [ ] `0837-appendix-edna.Rmd` — `{-#app-edna}`, prep chunk (no local redefinition of
+- [x] `0837-appendix-edna.Rmd` — `{-#app-edna}`, prep chunk (no local redefinition of
       `fmt_targets`/`edna_species_names`), three `fpr::fpr_kable` tables: per-site, field blanks,
-      retests (guarded on `nrow() > 0`)
-- [ ] Reword the office-blank rationale — do NOT copy Peace's "inherited coords"/"fake coords"
+      retests (guarded on `nrow() > 0`; Fraser has 8 retests so it renders)
+- [x] Reword the office-blank rationale — do NOT copy Peace's "inherited coords"/"fake coords"
       wording; office blanks are protocol controls filtered at accommodation
-- [ ] `scripts/edna_map_fraser.R` — port of `edna_map_peace.R`; drop `GRAY`, script the `docs/` copy
-- [ ] Verify: map opens, layers toggle, office blanks absent, field blanks in hidden Controls layer
+- [x] `scripts/edna_map_fraser.R` — port of `edna_map_peace.R`; drop `GRAY`, script the `docs/` copy
+- [x] Fix `norm_lgl()` logical-NA short-circuit (ported bug — see findings.md)
+- [x] `.gitignore` the htmlwidgets `data/*_files/` sidecar (rule missing in this repo)
+- [x] Verify structurally: office blanks absent from map, field blanks present in Controls layer,
+      all six species layers + All sites + Sub-threshold, zero external `src` refs, 35 site ids
+- [ ] Verify visually: map opens and layers toggle — **outstanding**, browser extension not
+      connected this session
 
 ## Phase 3 — eDNA per-site results tables
 

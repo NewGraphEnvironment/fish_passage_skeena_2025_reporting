@@ -1,0 +1,157 @@
+---
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
+# Appendix - Environmental DNA Results {-#app-edna}
+
+This appendix carries the site-level detail behind the headline counts in the Results chapter. Field blanks are reported separately because they test the sampling protocol rather than a location. Office blanks are excluded entirely — they are distilled-water controls filtered at the end of a session at accommodation, so although they carry real GPS coordinates, those coordinates record where the filtering happened rather than a stream site. The interactive map is linked at the end.
+
+```{r app-edna-prep, include=FALSE}
+# Loads the snapshotted by_site_target CSV and prepares the per-site,
+# field-blank and retest views used by the tables below.
+
+# `norm_lgl()`, `edna_species_names` and `fmt_targets()` are defined once in
+# 0400-results.Rmd's prep chunk and reach this appendix through the bookdown
+# merge order (0400 < 0837). Do NOT redefine them here — a local copy in the
+# Peace report drifted from the Results labelling and produced two different
+# species names for the same assay in one build. Peace also keeps a second copy
+# of norm_lgl() in its appendix, which is how a fix to one can miss the other.
+
+edna_bystargets_app <- readr::read_csv(
+  "data/edna_unbc_results_2025_by_site_target.csv",
+  show_col_types = FALSE
+) |>
+  dplyr::filter(grepl(params$gis_project_name, source)) |>
+  dplyr::mutate(
+    control_blank_field           = norm_lgl(control_blank_field),
+    control_blank_office          = norm_lgl(control_blank_office),
+    control_species_present_field = norm_lgl(control_species_present_field)
+  ) |>
+  # Office blanks are protocol controls filtered at accommodation, not sites.
+  dplyr::filter(!control_blank_office)
+
+# --- Per-site rollup (real environmental samples only) ---------------------
+
+edna_real_app <- edna_bystargets_app |>
+  dplyr::filter(!control_blank_field)
+
+edna_per_site <- edna_real_app |>
+  dplyr::group_by(site_id, stream_name) |>
+  dplyr::summarise(
+    `UNBC ID`         = paste(sort(unique(unlist(strsplit(lab_ids, ", ")))), collapse = ", "),
+    `Pos. control`    = ifelse(any(control_species_present_field), "yes", ""),
+    `Detected`        = fmt_targets(target[any_clean],
+                                    max_pos[any_clean],
+                                    retested[any_clean]),
+    `Sub-threshold`   = fmt_targets(target[any_crude & !any_clean],
+                                    max_pos[any_crude & !any_clean],
+                                    retested[any_crude & !any_clean]),
+    `Not detected`    = fmt_targets(target[!any_crude],
+                                    max_pos[!any_crude],
+                                    retested[!any_crude]),
+    .groups = "drop"
+  ) |>
+  dplyr::rename(`Site ID` = site_id, `Stream` = stream_name) |>
+  dplyr::arrange(`Site ID`)
+
+# --- Field blanks (separate table) -----------------------------------------
+
+edna_field_blanks <- edna_bystargets_app |>
+  dplyr::filter(control_blank_field) |>
+  dplyr::group_by(site_id, stream_name) |>
+  dplyr::summarise(
+    `UNBC ID`            = paste(sort(unique(unlist(strsplit(lab_ids, ", ")))), collapse = ", "),
+    `Detected`           = fmt_targets(target[any_clean],
+                                       max_pos[any_clean],
+                                       retested[any_clean]),
+    `Sub-threshold`      = fmt_targets(target[any_crude & !any_clean],
+                                       max_pos[any_crude & !any_clean],
+                                       retested[any_crude & !any_clean]),
+    `Clean (0 droplets)` = fmt_targets(target[!any_crude],
+                                       max_pos[!any_crude],
+                                       retested[!any_crude]),
+    .groups = "drop"
+  ) |>
+  dplyr::rename(`Site ID` = site_id, `Stream` = stream_name) |>
+  dplyr::arrange(`Site ID`)
+
+# --- Retests (site x target combinations UNBC re-ran) ----------------------
+
+edna_retests <- edna_bystargets_app |>
+  dplyr::filter(retested) |>
+  dplyr::mutate(
+    Species = dplyr::coalesce(edna_species_names[target], target),
+    `Result` = dplyr::case_when(
+      any_clean ~ "Detected (≥4 droplets)",
+      any_crude ~ "Sub-threshold (1-3 droplets, NOT a detection)",
+      TRUE      ~ "No detection (0 droplets)"
+    ),
+    `Sample type` = dplyr::case_when(
+      control_blank_field ~ "field blank",
+      TRUE                ~ "environmental"
+    )
+  ) |>
+  dplyr::select(
+    `Site ID`      = site_id,
+    Stream         = stream_name,
+    Species,
+    `Code`         = target,
+    `Sample type`,
+    `Runs`         = n_runs,
+    `Max droplets` = max_pos,
+    Result
+  ) |>
+  dplyr::arrange(`Site ID`, Code)
+```
+
+## Per-site detection results {-}
+
+Format: `CODE(max_droplets)`, with `*` flagging samples that UNBC reran. Detected = ≥4 positive droplets per the standard ddPCR call threshold; Sub-threshold = 1-3 droplets, not interpretable as species presence under ddPCR convention; Not detected = 0 droplets across all runs.
+
+```{r tab-edna-per-site}
+edna_per_site |>
+  fpr::fpr_kable(
+    caption_text = "Site-level eDNA detection results across real environmental samples in the Fraser project area. UNBC ID is the lab sample identifier; Pos. control = yes indicates the sample was collected at a site where the target species was also confirmed by electrofishing.",
+    scroll = gitbook_on
+  )
+```
+
+<br>
+
+## Field blanks {-}
+
+Field blanks filter distilled water at the field site to test for protocol contamination during collection and processing. **Detections in blanks indicate potential cross-contamination, not species presence at the location** — these rows are presented for QA transparency only, not as eDNA detections.
+
+```{r tab-edna-field-blanks}
+edna_field_blanks |>
+  fpr::fpr_kable(
+    caption_text = "Field blanks collected during the 2025 eDNA program in the Fraser project area. Detections in blanks reflect protocol-side contamination, not site eDNA.",
+    scroll = FALSE
+  )
+```
+
+<br>
+
+## Retests {-}
+
+UNBC reran a subset of samples to confirm borderline results. The table below lists every site × species combination that was rerun, including reruns of both real environmental samples and field blanks.
+
+```{r tab-edna-retests, eval = TRUE}
+if (nrow(edna_retests) > 0) {
+  edna_retests |>
+    fpr::fpr_kable(
+      caption_text = "UNBC retests for the 2025 Fraser eDNA samples. Runs is the total number of times the sample x species combination was assayed; Max droplets is the highest positive-droplet count observed across all runs.",
+      scroll = gitbook_on
+    )
+} else {
+  cat("No retests in the Fraser 2025 batch.\n")
+}
+```
+
+<br>
+
+## Interactive map {-}
+
+The interactive Fraser eDNA map shows site-level detection results with toggleable per-species layers, an opt-in sub-threshold-signals layer (off by default), and an opt-in Controls layer for field blanks. See the `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "edna_unbc_results_2025_fraser_map.html", anchor_text = "interactive Fraser eDNA map")`.

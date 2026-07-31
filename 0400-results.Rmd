@@ -741,10 +741,18 @@ plot_fish_hist
 # Loads the Fraser-filtered eDNA inputs (snapshotted from the template repo via
 # scripts/edna_inputs_snapshot.R) and computes the per-species summary below.
 
+# Coerce the control flags to logical with no NAs. readr types these columns as
+# logical when the CSV holds TRUE/FALSE/NA, so an is.logical() early return is
+# NOT enough — the NAs survive, and `any()` over a vector containing NA returns
+# NA, which surfaces in the appendix as an NA in the "Pos. control" column
+# instead of a blank. Absent means "not a positive control", so NA -> FALSE.
 norm_lgl <- function(x) {
-  if (is.logical(x)) return(x)
+  if (is.logical(x)) {
+    x[is.na(x)] <- FALSE
+    return(x)
+  }
   out <- toupper(as.character(x)) == "TRUE"
-  out[is.na(x)] <- FALSE
+  out[is.na(out)] <- FALSE
   out
 }
 
