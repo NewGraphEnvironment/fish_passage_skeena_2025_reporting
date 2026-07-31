@@ -131,3 +131,30 @@ Nations content" is researched, cited prose and the raw material for open issue 
    Consultative Areas Database, not inference from a map.
 
 - Next: Phase 6 — extraction pass
+
+### Phase 6 — extraction pass ✔
+
+Four appendices created. Results **897 → 635 lines**, Background **626 → 602**.
+
+| New appendix | Source |
+|---|---|
+| `0700` Assessment Data Summary | `## Site Assessment Data` + its four tables |
+| `0710` Fish Species | `fiss-species-table` from Background |
+| `0740` UAV Imagery | `tab-uav-imagery` + the `rstac` block |
+| `0750` Collaborative GIS Layers | `## Collaborative GIS Environment`, moved to end of Results |
+
+Two Phase 8 correctness items landed here because the code moved anyway:
+
+- **`ld-db` reads the parquet instead of postgres.** Checked live-vs-snapshot before swapping —
+  757 rows, 26 in project watershed groups, identical per-group counts — so the swap is lossless.
+  The report no longer needs a database. `arrow` added to `packages.R`; neither this repo nor Peace
+  declared it despite depending on it.
+- **Fish-species caption derives from the cached table's columns**, not `wsg_names` (Peace v0.13.0
+  fix), so it cannot claim coverage the extract lacks. While there, found two Background prose
+  sentences listing **7** watershed groups and omitting Morkill; both now derive from `wsg_names`.
+  The rendered caption reads all 8.
+
+Verified: clean gitbook build, zero `[?]` markers book-wide, and every new appendix has a real
+body-text inbound link (checked with the sidebar nav stripped — the naive grep matches every page).
+
+- Next: Phase 7 — ordering pass

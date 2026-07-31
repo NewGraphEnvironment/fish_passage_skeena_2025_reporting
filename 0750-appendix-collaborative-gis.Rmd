@@ -1,0 +1,69 @@
+---
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
+# Appendix - Collaborative GIS Layers {-#app-gis}
+
+In addition to numerous layers documenting fieldwork activities since `r cat(params$project_start_year)`, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the time of writing (`r format(lubridate::now(), "%Y-%m-%d")`) are listed below. `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("The layer table is interactive and is provided online within this appendix ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-gis.html", anchor_text = "here"), "."))}else{knitr::asis_output("See Table \\@ref(tab:tab-rfp-tracking).")}`
+
+<br>
+
+```{r rfp-metadata, eval = params$update_gis}
+# grab the metadata
+md <- rfp::rfp_meta_bcd_xref()
+
+# burn locally so we don't nee to wait for it
+md |> 
+  readr::write_csv("data/rfp_metadata.csv")
+```
+
+```{r rfp-tracking-copy, eval = params$update_gis}
+
+md_raw <- readr::read_csv("data/rfp_metadata.csv")
+
+md <- dplyr::bind_rows(
+  md_raw,
+  rfp::rfp_xref_layers_custom
+) 
+                    
+# first we will copy the doc from the Q project to this repo - the location of the Q project is outside of the repo!!
+q_path_stub <- "~/Projects/gis/sern_peace_fwcp_2023/"
+
+# this is differnet than Neexdzii Kwa as it lists layers vs tracking file (tracking file is newer than this project).  
+# could revert really easily to the tracking file if we wanted to.
+gis_layers_ls <- sf::st_layers(paste0(q_path_stub, "background_layers.gpkg")) 
+
+gis_layers <- tibble::tibble(content = gis_layers_ls[["name"]])
+   
+# remove the `_vw` from the end of content
+rfp_tracking_prep <- dplyr::left_join(
+  gis_layers |> 
+    dplyr::distinct(content, .keep_all = FALSE),
+  
+  md |> 
+    dplyr::select(content = object_name, url = url_browser, description),
+  
+  by = "content"
+) |> 
+  dplyr::arrange(content)
+
+rfp_tracking_prep |> 
+  readr::write_csv("data/rfp_tracking_prep.csv")
+
+```
+
+```{r tab-rfp-tracking, eval= gitbook_on}
+rfp_tracking_prep <- readr::read_csv(
+  "data/rfp_tracking_prep.csv"
+) 
+
+rfp_tracking_prep |> 
+  fpr::fpr_kable(caption_text = "Layers loaded to collaborative GIS project.",
+                 footnote_text = "Metadata information for bcfishpass and bcfishobs layers can be provided here in the future but currently can usually be sourced from https://smnorris.github.io/bcfishpass/06_data_dictionary.html .",
+                 scroll = gitbook_on)
+
+
+
+```

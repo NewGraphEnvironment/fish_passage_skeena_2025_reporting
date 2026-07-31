@@ -21,7 +21,10 @@ pkgs_cran <- c(
   "kableExtra",
   "leafem",
   "leaflet",
-  "pdftools"
+  "pdftools",
+  # reads data/snapshots/*.parquet in the Assessment Data Summary appendix, so
+  # the report builds from a fresh clone with no database connection
+  "arrow"
 )
 
 pkgs_gh <- c(

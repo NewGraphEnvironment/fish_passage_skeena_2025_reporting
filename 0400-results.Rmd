@@ -113,216 +113,15 @@ map
 ```
 
 
-## Site Assessment Data 
+## Site Assessment Data
 
-Fish passage assessment procedures conducted through SERNbc since `r params$project_start_year` are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap)")}`.
-
-<br>
-
-
-Since `r params$project_start_year`, orthoimagery and elevation model rasters have been generated and stored as Cloud Optimized Geotiffs on a cloud service provider (AWS) with select imagery linked to in the collaborative GIS project. Additionally - a tile service has been set up to facilitate viewing and downloading of individual images, provided `r knitr::asis_output(if (gitbook_on) "in Table \\@ref(tab:tab-uav-imagery-cap)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "results-and-discussion.html", anchor_text = paste0("at", params$report_url, "/results-and-discussion.html")))`. 
-
-`r if(gitbook_on){knitr::asis_output("<br>")}`
-
-```{r ld-db}
-
-sites_all <- fpr::fpr_db_query(
-  query = "SELECT * FROM working.fp_sites_tracking"
-)
-
-```
-
-```{r summarize-sites}
-
-# unique(sites_all$watershed_group_name)
-# 
-# # here is a list of SERN wtershed groups
-# wsg <- c("Bulkley River",
-#               "Zymoetz River",
-#               "Kispiox River", 
-#               "Kalum River", 
-#               "Morice River", 
-#               "Parsnip River",
-#               "Carp Lake", 
-#               "Crooked River")
-
-# wsg <- c(
-#               "Parsnip River",
-#               "Carp Lake",
-#               "Crooked River"
-#               )
-
-wsg <- c(
-  "Lower Chilako River",
-  "Willow River",
-  "Tabor River",
-  "Lower Salmon River",
-  "Upper Fraser River",
-  "Nechako River",
-  "Morkill River",
-  "Francois Lake"
-)
-
-
-# more straight forward is new graph only watersheds
-# wsg_ng <- "Elk River"
-
-# here is a summary with Elk watershed group removed
-sites_all_summary <- sites_all |> 
-  # make a flag column for uav flights
-  dplyr::mutate(
-    uav = dplyr::case_when(
-      !is.na(link_uav1) ~ "yes",
-      T ~ NA_character_
-    )) |> 
-  # remove the elk counts
-  dplyr::filter(watershed_group %in% wsg) |>
-  dplyr::group_by(watershed_group) |> 
-  dplyr::summarise(
-    dplyr::across(assessment:fish_sampling, ~ sum(!is.na(.x))),
-    uav = sum(!is.na(uav))
-  ) |> 
-  sf::st_drop_geometry() |> 
-  # make pretty names
-  dplyr::rename_with(~ stringr::str_replace_all(., "_", " ") |> 
-                       stringr::str_to_title()) |> 
-  # annoying special case
-  dplyr::rename(
-    `Drone Imagery` = Uav) |> 
-  janitor::adorn_totals()
-```
-
-```{r tab-sites-sum-cap, results="asis"}
-my_caption = "Summary of fish passage assessment procedures conducted in northern British Columbia through SERNbc."
-my_tab_caption()
-```
-
-```{r tab-sites-sum}
-sites_all_summary |> 
-  dplyr::mutate(dplyr::across(everything(), as.character)) |> 
-  my_dt_table(
-    page_length = 20,
-    cols_freeze_left = 0
-              )
-```
+A summary of fish passage assessment procedures conducted through SERNbc since `r params$project_start_year` — including assessments, habitat confirmations, design, remediation, monitoring, fish sampling, eDNA sampling, and drone imagery — is provided in [Appendix - Assessment Data Summary](#app-site-data).
 
 <br>
 
-
-```{r tab-sites-cap, results="asis"}
-my_caption = "Details of fish passage assessment procedures conducted in northern British Columbia through SERNbc."
-my_tab_caption(tip_flag = FALSE)
-```
-
-```{r tab-sites-all}
-sites_all |>
-  dplyr::filter(watershed_group %in% wsg) |>
-  sf::st_drop_geometry() |>
-  dplyr::mutate(dplyr::across(everything(), as.character)) |> 
-  dplyr::relocate(watershed_group, .after = my_crossing_reference) |> 
-  dplyr::select(-idx) |>
-  # make pretty names
-  dplyr::rename_with(~ . |>
-                       stringr::str_replace_all("_", " ") |>
-                       stringr::str_replace_all("repo", "Report") |>
-                       stringr::str_replace_all("uav", "Drone") |>
-                       stringr::str_to_title()) |> 
-  # dplyr::arrange(desc(stream_crossing_id)) |> 
-  
-  my_dt_table(
-    cols_freeze_left = 1,
-    escape = FALSE
-  )
-```
+Orthoimagery and elevation model rasters generated since `r params$project_start_year` are catalogued in [Appendix - UAV Imagery](#app-uav).
 
 <br>
-
-```{r api1, eval = F}
-
-# only needs to be run at the beginning or if we want to update
-
-# Grab the imagery from the stac
-
-# bc bounding box
-bcbbox <-  as.numeric(
-  sf::st_bbox(bcmaps::bc_bound()) |> sf::st_transform(crs = 4326)
-)
-
-# use rstac to query the collection
-q <- rstac::stac("https://images.a11s.one/") |>
-    rstac::stac_search(
-      collections = "imagery-uav-bc-prod",
-                      bbox = bcbbox
-                      
-                     ) |>
-  rstac::post_request()
-
-# get deets of the items
-r <- q |>
-  rstac::items_fetch()
-
-
-
-```
-
-
-```{r uav-clean-burn, eval = F}
-
-# build the table to display the info
-tab_uav <- tibble::tibble(url_download = purrr::map_chr(r$features, ~ purrr::pluck(.x, "assets", "image", "href"))) |> 
-  dplyr::mutate(stub = stringr::str_replace_all(url_download, "https://imagery-uav-bc.s3.amazonaws.com/", "")) |> 
-  tidyr::separate(
-    col = stub, 
-    into = c("region", "watershed_group", "year", "item", "rest"),
-    sep = "/",
-    extra = "drop"
-  ) |> 
-  dplyr::mutate(
-    link_view = 
-                  dplyr::case_when(
-                    !tools::file_path_sans_ext(basename(url_download)) %in% c("dsm", "dtm") ~ 
-                      ngr::ngr_str_link_url(
-                        url_base = "https://viewer.a11s.one/?cog=",
-                        url_resource = url_download, 
-                        url_resource_path = FALSE,
-                        # anchor_text= "URL View"
-                        anchor_text= tools::file_path_sans_ext(basename(url_download))),
-                    T ~ "-"),
-                        link_download = ngr::ngr_str_link_url(url_base = url_download, anchor_text = url_download)
-    )|> 
-  dplyr::select(region, watershed_group, year, item, link_view, link_download)
-
-
-
-# grab the imagery for this project area
-project_region <- "skeena"
-
-project_uav <- tab_uav |> 
-  dplyr::filter(region == project_region)
-
-# how many distinct items are there
-# length(unique(project_uav$item))
-
-# Burn to sqlite 
-conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
-readwritesqlite::rws_list_tables(conn)
-readwritesqlite::rws_drop_table("project_uav", conn = conn)
-readwritesqlite::rws_write(project_uav, exists = F, delete = TRUE,
-                           conn = conn, x_name = "project_uav")
-readwritesqlite::rws_disconnect(conn)
-
-```
-
-```{r tab-uav-imagery-cap, results="asis", eval= gitbook_on}
-my_caption <- "Drone imagery download and viewer links."
-
-my_tab_caption()
-```
-
-```{r tab-uav-imagery, eval= gitbook_on}
-project_uav |>
-  my_dt_table(cols_freeze_left = 2, escape = FALSE)
-```
 
 
 ```{r cd-rollup-body, include = FALSE}
@@ -359,70 +158,6 @@ Four findings from the regional climate-departure analysis carry to fish-passage
 **Day-night asymmetry is present.** Overnight minimums warmed `r sprintf("%.1f", tmin_d)` °C while daytime maximums warmed `r sprintf("%.1f", tmax_d)` °C — overnight outpacing daytime is the textbook fingerprint of greenhouse warming [@karl_etal1993NewPerspective]. Mean diurnal range has narrowed by `r sprintf("%.1f", tmin_d - tmax_d)` °C across the record.
 
 For barrier prioritisation these signals cut both ways. Where upstream reaches are cold-limited, added growing-degree-days can raise the intrinsic potential of habitat above the barrier and *increase* the value of restoring passage; where upstream reaches sit closer to the upper edge of the cold-water thermal niche, the same warming reduces usable habitat and lowers the payoff. The watershed-group breakdown in [Appendix - Climate Departure](#app-climate-departure) maps the eight-ecoregion signal onto the seven watershed groups via a percentage crosswalk.
-
-## Collaborative GIS Environment
-
-In addition to numerous layers documenting fieldwork activities since `r cat(params$project_start_year)`, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the time of writing (`r format(lubridate::now(), "%Y-%m-%d")`) are included `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-rfp-tracking).")}`
-
-<br>
-
-```{r rfp-metadata, eval = params$update_gis}
-# grab the metadata
-md <- rfp::rfp_meta_bcd_xref()
-
-# burn locally so we don't nee to wait for it
-md |> 
-  readr::write_csv("data/rfp_metadata.csv")
-```
-
-```{r rfp-tracking-copy, eval = params$update_gis}
-
-md_raw <- readr::read_csv("data/rfp_metadata.csv")
-
-md <- dplyr::bind_rows(
-  md_raw,
-  rfp::rfp_xref_layers_custom
-) 
-                    
-# first we will copy the doc from the Q project to this repo - the location of the Q project is outside of the repo!!
-q_path_stub <- "~/Projects/gis/sern_peace_fwcp_2023/"
-
-# this is differnet than Neexdzii Kwa as it lists layers vs tracking file (tracking file is newer than this project).  
-# could revert really easily to the tracking file if we wanted to.
-gis_layers_ls <- sf::st_layers(paste0(q_path_stub, "background_layers.gpkg")) 
-
-gis_layers <- tibble::tibble(content = gis_layers_ls[["name"]])
-   
-# remove the `_vw` from the end of content
-rfp_tracking_prep <- dplyr::left_join(
-  gis_layers |> 
-    dplyr::distinct(content, .keep_all = FALSE),
-  
-  md |> 
-    dplyr::select(content = object_name, url = url_browser, description),
-  
-  by = "content"
-) |> 
-  dplyr::arrange(content)
-
-rfp_tracking_prep |> 
-  readr::write_csv("data/rfp_tracking_prep.csv")
-
-```
-
-```{r tab-rfp-tracking, eval= gitbook_on}
-rfp_tracking_prep <- readr::read_csv(
-  "data/rfp_tracking_prep.csv"
-) 
-
-rfp_tracking_prep |> 
-  fpr::fpr_kable(caption_text = "Layers loaded to collaborative GIS project.",
-                 footnote_text = "Metadata information for bcfishpass and bcfishobs layers can be provided here in the future but currently can usually be sourced from https://smnorris.github.io/bcfishpass/06_data_dictionary.html .",
-                 scroll = gitbook_on)
-
-
-
-```
 
 ## Planning — Habitat, Connectivity and Floodplain Modelling
 
@@ -892,5 +627,8 @@ form_monitoring |>
 
 ```
 
+<br>
 
+## Collaborative GIS Environment
 
+Fieldwork activities and background spatial layers are maintained in a collaborative QGIS and Mergin Maps environment (`r params$gis_project_name`), which field crews and partners use to view, edit and add data. The layers loaded at the time of writing are listed in [Appendix - Collaborative GIS Layers](#app-gis).

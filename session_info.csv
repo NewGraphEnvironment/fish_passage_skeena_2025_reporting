@@ -14,7 +14,7 @@
 
 ─ Packages ───────────────────────────────────────────────────────────────────
  package           * version    date (UTC) lib source
- arrow               22.0.0.1   2025-12-23 [2] CRAN (R 4.5.2)
+ arrow             * 22.0.0.1   2025-12-23 [2] CRAN (R 4.5.2)
  askpass             1.2.1      2024-10-04 [1] CRAN (R 4.5.0)
  assertthat          0.2.1      2019-03-21 [2] CRAN (R 4.5.0)
  base64enc           0.1-6      2026-02-02 [1] CRAN (R 4.5.2)

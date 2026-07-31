@@ -86,16 +86,21 @@ was one Peace-specific block.
 
 ## Phase 6 — Extraction pass
 
-- [ ] `0700-appendix-site-assessment-data.Rmd` ← `## Site Assessment Data` (`0400:116-310`);
-      rename section to **Assessment Data Summary**; convert `ld-db` to the parquet snapshot
-- [ ] `0710-appendix-fish-species.Rmd` ← `fiss-species-table` (`0200-background.Rmd:490-520`);
-      PDF branch pivots wide table to `Present in WSGs`
-- [ ] `0740-appendix-uav-imagery.Rmd` ← `tab-uav-imagery` + `rstac` block (`0400:242-347`)
-- [ ] `0750-appendix-collaborative-gis.Rmd` ← `## Collaborative GIS Environment`; move to end of
-      Results and Methods; drop `dff-2022` references
-- [ ] Every new appendix: `{-#app-*}` anchor, `{-}` on every subheading, no bold headings,
-      `gitbook_on` online-redirect
-- [ ] Verify: each new appendix has an inbound body link; clean build both formats
+- [x] `0700-appendix-site-assessment-data.Rmd` ← `## Site Assessment Data`; renamed to
+      **Assessment Data Summary**; `ld-db` converted to the parquet snapshot (verified lossless
+      against the live query first — 757 rows, 26 in project groups, identical)
+- [x] Port `scripts/fp_inputs_snapshot.R` and pull `fp_sites_tracking.parquet`; declare `arrow`
+      in `packages.R` (neither this repo nor Peace declared it despite depending on it)
+- [x] `0710-appendix-fish-species.Rmd` ← `fiss-species-table` from Background; PDF branch pivots
+      the wide table to `Present in WSGs`; **caption now derives from the cached table's own
+      columns**, not `wsg_names`
+- [x] `0740-appendix-uav-imagery.Rmd` ← `tab-uav-imagery` + `rstac` block
+- [x] `0750-appendix-collaborative-gis.Rmd` ← `## Collaborative GIS Environment`, moved to the end
+      of Results (no `dff-2022` references existed in this repo)
+- [x] Fix two Background prose sentences that listed 7 watershed groups, omitting Morkill — both
+      now derive from `wsg_names`
+- [x] Verify: clean gitbook build, zero `[?]` markers, every new appendix has a real body-text
+      inbound link (not just sidebar), fish-species caption renders all 8 groups
 
 ## Phase 7 — Ordering pass
 

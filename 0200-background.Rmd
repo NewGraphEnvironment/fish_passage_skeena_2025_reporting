@@ -489,42 +489,15 @@ dfo_sad_tr |>
 
 ### Fish Species
 
-Summary of historical fish observations in the Upper Fraser River, Nechako River, Lower Chilako River, Willow River, Lower Salmon River, Tabor Creek, and François Lake watershed groups (Table \@ref(tab:fiss-species-table)) [@moe2024KnownBC].
+Historical fish observations recorded in the `r wsg_names |> knitr::combine_words()` watershed groups are summarized in [Appendix - Fish Species by Watershed Group](#app-fish-species) [@moe2024KnownBC].
 
 <br>
 
-A review of available fisheries data, for the Upper Fraser River, Nechako River, Lower Chilako River, Willow River, Lower Salmon River, Tabor Creek, and François Lake watershed groups, stratified by different habitat characteristics can provide insight into which habitats may provide the highest intrinsic value for fish species based on the number of fish captured in those habitats in past assessment work (Figures \@ref(fig:fish-plot-grad) - \@ref(fig:fish-plot-width) - \@ref(fig:fish-plot-wshed)).  It should be noted however that it should not be assumed that all habitat types have been sampled in a non-biased fashion or that particular sites selected do not have a disproportionate influence on the overall dataset composition (ie. fish salvage sites are often located adjacent to construction sites which are more commonly located near lower gradient stream reaches).
+A review of available fisheries data, for the `r wsg_names |> knitr::combine_words()` watershed groups, stratified by different habitat characteristics can provide insight into which habitats may provide the highest intrinsic value for fish species based on the number of fish captured in those habitats in past assessment work (Figures \@ref(fig:fish-plot-grad) - \@ref(fig:fish-plot-width) - \@ref(fig:fish-plot-wshed)).  It should be noted however that it should not be assumed that all habitat types have been sampled in a non-biased fashion or that particular sites selected do not have a disproportionate influence on the overall dataset composition (ie. fish salvage sites are often located adjacent to construction sites which are more commonly located near lower gradient stream reaches).
 
 <br>
 
 
-```{r fiss-species-table}
-fiss_species_table <- readr::read_csv('data/inputs_extracted/fiss_species_table.csv')
-
-my_caption <- paste0(
-  "Fish species recorded in the ", 
-  # provided they are all making the table which prob doesn't work with tons of wsg. Could consider removing wsg in this chunk
-  # vs the build of the table...
-  knitr::asis_output(wsg_names) |> knitr::combine_words(), 
-  " watershed groups."
-  )
-
-fiss_species_table |> 
-  fpr::fpr_kable(caption_text = my_caption, 
-                 footnote_text = 'COSEWIC abbreviations : 
-                 SC - Special concern 
-                 DD - Data deficient
-                 NAR - Not at risk
-                 E - Endangered
-                 T - Threatened
-                 
-                 BC List definitions : 
-                 Yellow - Species that is apparently secure 
-                 Blue - Species that is of special concern
-                 Exotic - Species that have been moved beyond their natural range as a result of human activity
-                 ',
-                 scroll = gitbook_on)
-```
 
 <br>
 
