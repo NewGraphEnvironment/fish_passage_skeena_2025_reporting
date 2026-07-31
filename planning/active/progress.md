@@ -183,3 +183,29 @@ UAV, GIS) → Phase 1 → eDNA → per-site memos → References/Session Info �
   River Watershed" — one group where the project has eight; now derives from `wsg_names`.
 
 - Next: Phase 8 — the remaining scope fix
+
+### Phase 8 — correctness fixes ✔ (one verification outstanding)
+
+**The plan's premise was wrong here too, in a useful direction.** Peace needed `wsg_code_field`
+because its captions listed 16 watershed groups while the data covered 5. Fraser's mismatch is the
+inverse and milder:
+
+```
+index.Rmd:43                       wsg_code    LCHL NECR FRAN MORK UFRA WILL TABR LSAL  (8)
+scripts/gis/climate_departure.R:41 wsg_codes   LCHL NECR FRAN MORK UFRA TABR WILL       (7)
+```
+
+The climate-departure appendix already *said* "seven watershed groups" and listed them, so it was
+honest about its own coverage — not a live misstatement. Adding `wsg_code_field` would have been
+cargo-culting Peace's fix onto a different problem.
+
+The actual defect: the seven were **hardcoded in prose** in eight places while the extent lives in a
+script. Add LSAL to the climate run and the prose silently goes wrong. Fixed by deriving
+`n_cd_wsg`, `n_cd_wsg_word`, `cd_wsg_codes` and `cd_wsg_list` from the `wsgs` layer in the cached
+geopackage — the same derive-from-data fix applied to the fish-species caption in Phase 6.
+
+Caught and fixed a bug I introduced doing it: wrapping a `fig.cap` in `paste0()` without closing the
+paren, which swallowed `fig.height` into the call.
+
+**Outstanding:** a genuine fresh-`git clone` build with no network or DB. The pieces are in place
+(parquet snapshot, no live query) but it has not been executed in a clean checkout.

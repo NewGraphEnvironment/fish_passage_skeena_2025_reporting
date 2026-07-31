@@ -123,11 +123,21 @@ was one Peace-specific block.
 
 ## Phase 8 — Correctness fixes
 
-- [ ] Add `wsg_code_field` to `index.Rmd` params — do NOT narrow `wsg_code`
-- [ ] Build captions from watershed-group columns actually present in the cached table
-- [ ] Audit every caption and scope sentence against the data behind it
-- [ ] Confirm parquet conversion — report builds with no DB access
-- [ ] Verify: fresh `git clone` + build, no network/DB
+- [x] **`wsg_code_field` NOT needed** — Fraser's mismatch is the inverse of Peace's. `wsg_code` (8)
+      is not used to claim coverage it lacks; the climate-departure run covers 7 (no LSAL) and the
+      appendix already *said* seven. The defect was that the seven were hardcoded in prose while the
+      extent lives in `scripts/gis/climate_departure.R`.
+- [x] Derive the climate-departure extent from the `wsgs` layer in the cached geopackage —
+      `n_cd_wsg`, `n_cd_wsg_word`, `cd_wsg_codes`, `cd_wsg_list`. Eight hardcoded mentions of
+      "seven" and the explicit name/code list now follow the data.
+- [x] Build captions from the data — fish-species caption done in Phase 6; climate-departure done
+      here
+- [x] Audit scope sentences — `0050:67` claimed one watershed group where the project has eight
+      (fixed Phase 7); two Background sentences listed 7 and omitted Morkill (fixed Phase 6)
+- [x] Confirm parquet conversion — `ld-db` reads the snapshot; verified lossless against the live
+      query before swapping
+- [ ] Verify: fresh `git clone` + build with no network/DB — **not done**; needs a clean checkout
+      in a separate directory
 
 ## Phase 10 — Verify and release
 
