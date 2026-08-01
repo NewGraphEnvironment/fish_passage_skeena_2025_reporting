@@ -209,3 +209,23 @@ paren, which swallowed `fig.height` into the call.
 
 **Outstanding:** a genuine fresh-`git clone` build with no network or DB. The pieces are in place
 (parquet snapshot, no live query) but it has not been executed in a clean checkout.
+
+### Acknowledgement placeholders removed
+
+`index.Rmd` was publishing literal `[Nations]`, `[Project-specific connection to territory,
+governance, species, or watershed.]` and `[Funding and partner acknowledgements.]`. Confirmed
+against `git show main:docs/index.html` — genuinely in the published report, not just source.
+
+Removed. The acknowledgement now carries the interconnection framing, the colonialism paragraph, and
+a general territorial sentence — complete on its own. `fish_passage_peace_2025_reporting` runs with
+just the first paragraph; `restoration_wedzin_kwa_2024` is the model for the specific version.
+
+Filed **#12** to research the `## First Nations` section from each Nation's own published material,
+draft it high level, and send the draft to each Nation named for review before it goes out. #3 stays
+open for the project-specific territorial acknowledgement, which the same research feeds.
+
+**A mistake worth recording:** I twice claimed `fish_passage_skeena_2024_reporting` had the same
+placeholders — once as "shipping", once as "in source". Both wrong. Skeena's `origin/main` has none;
+what I read was an unpushed local commit on a checkout two commits behind origin. Retracted in #12
+and #3. Do not assert another repo's state from local working files — `git fetch` and read
+`origin/main` first.

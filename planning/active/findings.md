@@ -102,41 +102,64 @@ Separately fixed while sweeping: `0050-executive-summary.Rmd:67` claimed the ama
 covered "the Upper Fraser River Watershed" — one group, where the project covers eight. Now derives
 from `wsg_names`.
 
-## First Nations section — completeness check
+## First Nations section — how to complete it (framing corrected)
 
 Wired the previously commented-out block into Background as `## First Nations` and appended the
-nine citations to `references.bib` from xciter's canonical bib (they were all missing, because a
-commented block is invisible to `rbbt` and `update_bib` is FALSE — uncommenting without this would
-have produced nine `[?]` markers).
+nine citations to `references.bib` from xciter's canonical bib (all were missing — a commented
+block is invisible to `rbbt` and `update_bib` is FALSE, so uncommenting alone would have produced
+nine `[?]` markers).
 
-Mapping the Nations the text names against `params$wsg_code`:
+**My first completeness check was framed wrongly.** I tabulated Nations against watershed groups and
+reported "WILL/TABR/LSAL: none named". Watershed groups are a Freshwater Atlas hydrological unit;
+presenting Nations as a lookup against them implies territories are non-overlapping cells in a
+provincial grid. They are not. The section is correctly a single standalone section and should
+stay that way.
 
-| Watershed group | Nation(s) named in the text |
-|---|---|
-| LCHL Lower Chilako | Carrier Sekani (Tsalakoh/Chilako named) |
-| NECR Nechako | Lheidli T'enneh; Carrier Sekani |
-| FRAN Francois Lake | Carrier Sekani (Nadleh Whut'en, Stellat'en; Nautley R.) |
-| MORK Morkill | Lheidli T'enneh (Morkill named) |
-| UFRA Upper Fraser | Lheidli T'enneh; Simpcw |
-| **WILL Willow** | **none named** |
-| **TABR Tabor** | **none named** |
-| **LSAL Lower Salmon** | **none named** |
+**A defensible way to find who to research** — First Nation Statement of Intent boundaries, which
+Nations file themselves with the BC Treaty Commission, are queryable via `bcdata`
+(record `69ea1b64-e7ce-481c-b0b5-e6450111697d`). Intersected against the eight project watershed
+groups, Lheidli T'enneh appears in **all eight** at 78-99% of area in most, and four Nations are
+described nowhere in the current section:
 
-**The three unnamed groups are exactly the three added in 2025** — `0200-background.Rmd:30` says
-"In 2025 the study area was expanded to include the Tabor River, Willow River, and Lower Salmon
-River watershed groups." The section predates that expansion.
+    McLeod Lake Indian Band          Lower Salmon, Tabor
+    Northern Shuswap Tribal Council  Upper Fraser, Morkill, Willow
+    Yekooche First Nation            Nechako, Francois Lake
+    Lake Babine Nation               Francois Lake
 
-Deliberately **not** filled in by inference. Asserting whose territory a watershed group falls in
-is not something to derive from a map — it needs the Nations' own statements or an authoritative
-source such as the BC Consultative Areas Database. Flagged for the author.
+**Do not generate the section from that layer.** SOI polygons are a treaty-negotiation artifact:
+Simpcw is described in the section and has **no SOI polygon at all**, because not every Nation is in
+the process — a layer-derived list would have silently dropped them. They overlap by design (shares
+sum well past 100% per group) and are not a determination of territory or title. Useful only for
+working out who to go read.
 
-Also note **Nazko** is described in the section but its territory (Nazko River, 120 km west of
-Quesnel) is not in any project watershed group.
+The BC PIP Consultation Areas dataset is `Access Only` — a map application at
+`maps.gov.bc.ca/ess/hm/cadb/` with no downloadable resource — so it cannot be queried at all.
 
-Structural fix while wiring: the original nested `### Carrier Sekani` under `## Dakelh`. The Carrier
-Sekani Tribal Council spans Carrier **and Sekani** nations, so it is now a sibling of Dakelh rather
-than a sub-group. Lheidli T'enneh and Nazko remain nested under Dakelh, which the sources support.
-Corrected "Shuwap" to "Shuswap".
+Filed as **#12**: research from each Nation's own material, draft high level, then send the draft to
+each Nation named asking whether they are comfortable with it.
+
+**Structure precedent:** `fish_passage_skeena_2024_reporting` puts Nations as their own sibling
+Background sections (`2.2 Wet'suwet'en`, `2.3 Gitxsan`, `2.4 Tsimshian`) rather than nested under a
+`First Nations` parent. Worth considering in #12.
+
+## Acknowledgement placeholders — Fraser was shipping them, Skeena was not
+
+`index.Rmd` carried literal `[Nations]`, `[Project-specific connection to territory, governance,
+species, or watershed.]` and `[Funding and partner acknowledgements.]`. Verified against
+`git show main:docs/index.html` — these **were** in the published Fraser report. Removed; the
+acknowledgement now stands on the interconnection framing plus a general territorial sentence,
+which is how `fish_passage_peace_2025_reporting` handles it.
+
+I twice claimed `fish_passage_skeena_2024_reporting` had the same placeholders. **Both wrong.**
+Skeena's `origin/main` has none — its acknowledgement is the colonialism paragraph only. The
+placeholders existed solely in an **unpushed local commit** on this machine (`9ffd0de`), on a
+checkout also two commits behind origin.
+
+**Lesson:** do not assert another repo's state from local working files. `git fetch` and read
+`origin/main` before making a claim about a repo you are not working in.
+
+`restoration_wedzin_kwa_2024` is the model for the specific version — Yintah, hereditary house
+system, balhats, clan-based laws, cited.
 
 ## BLOCKER for Phase 9 — Recommendations and exec-summary bullets are Peace content
 

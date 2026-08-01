@@ -131,9 +131,7 @@ At New Graph Environment, we understand our well-being as inseparable from the h
 
 Modern civilization has a long journey ahead to acknowledge and address the historic and ongoing impacts of colonialism that have resulted in harm to the cultures and livelihoods living interconnected with our ecosystems for many thousands of years.
 
-This work takes place within the territories of [Nations], who have stewarded these lands and waters since time immemorial. [Project-specific connection to territory, governance, species, or watershed.]
-
-[Funding and partner acknowledgements.]
+This work takes place within the territories of First Nations who have stewarded these lands and waters since time immemorial.
 
 
 ```{js, logo-header, echo = FALSE, eval= T}
