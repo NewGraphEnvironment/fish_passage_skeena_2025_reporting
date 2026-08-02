@@ -1,3 +1,19 @@
+# fish_passage_fraser_2025_reporting 0.3.0 (2026-08-02)
+
+* Integrate the 2025 UNBC environmental DNA results — 33 real environmental samples, 2 field blanks and 3 office blanks across the region, with 36 of 146 site-by-target combinations returning confirmed detections. Adds a per-species summary to Results, a thematic appendix, per-site detection tables in every site appendix, and an interactive map scoped to the region. Corrects three samples recorded against the wrong crossing.
+* Rewrite the Recommendations chapter for the Fraser region. It carried the Peace region's recommendations unedited, referencing the FWCP Peace Region, McLeod Lake, Fern Creek and Arctic grayling. Restructured into named thematic subsections led by effectiveness monitoring, and replaces the "rankings are inherently subjective" framing with the reasoning behind it. The executive summary's looking-ahead bullets are aligned to match.
+* Add a Bittner Creek monitoring appendix documenting three years of evidence that disagree — a landowner reporting no salmon in thirty years, eight juvenile chinook salvaged in 2023, and no eDNA detections in 2025 — and the two upstream constraints still unaddressed.
+* Move amalgamated data tables out of the body into thematic appendices: Assessment Data Summary, Fish Species, UAV Imagery and Collaborative GIS Layers. Results drops from 799 to 634 lines and Background from 626 to 601.
+* Order the appendices by first body reference, matching the Peace report's tiering, and add named links to the four per-site appendices, which previously had no inbound reference at all.
+* Wire the First Nations background into the report as its own section, restoring nine citations that were invisible while the block was commented out.
+* Split the build into `run_gitbook.R` and `run_pagedown.R`, fixing a bug where the gitbook shipped the Phase 1 appendix twice, and setting a CRAN mirror so non-interactive builds work at all.
+* Read `fp_sites_tracking` from a committed parquet snapshot rather than querying postgres, so the report builds from a fresh clone with no database access.
+* Derive scope statements from the data rather than restating them in prose — the fish-species caption from the cached table's own columns, and the climate-departure extent from the analysis geopackage.
+* Fix six inline expressions using `cat()`, which returned NULL and dropped the project year from the rendered text entirely.
+* Remove placeholder text from the acknowledgement, which was publishing `[Nations]` and two further bracketed placeholders.
+* Migrate citation keys to xciter's canonical bibliography — the last repo in the family still carrying the per-profile "title-words" keys.
+* Correct the report version on the title page, which read 0.0.1 through two releases.
+
 # fish_passage_fraser_2025_reporting 0.2.1 (2026-05-14)
 
 * Add `update_bcfishpass` YAML switch for build portability and post-release freezing — three refresh triggers (YAML flip, missing version file, or `force_bcfishpass_rebuild`); otherwise builds read cached files with no DB connection. Migrate `bcfishpass_crossings_vw` from sqlite to parquet (zstd-9; sqlite shrunk substantially). Source `0100-load-bcfishpass-data.R` from `index.Rmd` so the switch affects builds. Ports the pattern from Peace v0.5.1 and template v0.2.0 ([Issue #186 in template](https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/186))
