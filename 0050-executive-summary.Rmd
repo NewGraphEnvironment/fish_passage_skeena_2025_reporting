@@ -98,28 +98,24 @@ A major challenge in advancing fish passage restoration is the complexity of wor
 
 <br>
 
-Fish passage restoration  across British Columbia is further complicated by the legacy of infrastructure deeply embedded in the landscape. Roads, railways, highways, community infrastructure and private assets often constrain floodplains and disrupt natural hydrological processes. While targeted repairs to individual barriers are essential, they won’t resolve the broader systemic issues without rethinking and restructuring how infrastructure interacts with watershed function. Loss of riparian vegetation and intensive beaver management only add to the degradation. Addressing these challenges means making strategic, well-communicated choices—picking battles carefully, building trust, and staying committed to a longer-term transformation.
+Fish passage restoration  across British Columbia is further complicated by the legacy of infrastructure deeply embedded in the landscape. Roads, railways, highways, community infrastructure and private assets often constrain floodplains and disrupt natural hydrological processes. While targeted repairs to individual barriers are essential, they won’t resolve the broader systemic issues without rethinking and restructuring how infrastructure interacts with watershed function. Loss of riparian vegetation and intensive beaver management only add to the degradation. Addressing these challenges means making strategic, well-communicated choices, building trust, and staying committed to a longer-term transformation.
 
 <br>
 
-While preliminary top remediation priorities are provided by watershed group, these rankings are inherently subjective and can depend on the capacity and willingness of infrastructure owners and tenure holders to support implementation—both financially and over the often multi-year project timelines. In practice, we must often act opportunistically, pursuing simpler, lower-cost options to maintain momentum and achieve near-term progress.
+Preliminary top remediation priorities are provided by watershed group. A single definitive ranking is not achievable, because the criteria that determine whether a crossing is worth remediating are not measured in common units, and the deciding constraint sits outside the project in the capacity and willingness of infrastructure owners and tenure holders to support implementation across multi-year timelines. What can be done systematically is to maintain a well-characterised set of candidate sites, so that when a tenure holder is in a position to act, the ecological value of the opportunity and the appropriate scope of work are already understood.
 
 <br>
 
   <!-- Project specific below -->
   
-  NEEDS TO BE UPDATED
-  
-To enhance fish passage restoration in the FWCP Peace Region:
+Looking ahead, priorities for the program are:
 
-- Maintain strong partnerships to support funding, site selection, remediation, and monitoring through adaptive management informed by traditional knowledge and real-time data.
-- Prioritize detailed assessments in areas with blockages and high habitat potential, especially near McLeod Lake.
-- Use climate modeling to prioritize crossings that enable access to cold, drought-resistant habitats.
-- Secure financial commitments for Fern Creek remediation despite uncertainties in harvest planning.
-- Continue effectiveness monitoring at key sites using fish sampling, eDNA, PIT tagging, temperature data, and aerial imagery.
-- Continue to develop a cost-effective monitoring framework to assess productivity gains from improved passage.
-- Collaborate with WLRS, UNC, local fisheries experts, FWCP, and the CEMPRA Project working group.
-- Utilize environmental DNA (eDNA) to better understand bull trout and Arctic grayling habitat use at both potential and remediated sites. This will refine prioritization and assess fish passage effectiveness.  
+- Continue and extend the long-term effectiveness monitoring program, and share what it shows — including where a remediation has not delivered the outcome intended — so decisions elsewhere are better informed.
+- Continue environmental DNA sampling as an annual, region-wide layer, building single-year detections into distribution and trend information.
+- Extend functional floodplain mapping and the climate departure analysis across the project area, so watershed condition sits alongside barrier status wherever prioritization is done.
+- Commission engineering designs at the Ministry of Transportation and Infrastructure crossings identified in previous reporting, and advance the highest ranked sites assessed this year.
+- Resolve species use through targeted fish sampling where habitat ranks high but detections are absent or unresolved.
+- Continue working with First Nations, stewardship groups, educational institutions and tenure holders, feeding monitoring results back into prioritization and design as adaptive management.
 
   <!-- Project specific above -->
 
