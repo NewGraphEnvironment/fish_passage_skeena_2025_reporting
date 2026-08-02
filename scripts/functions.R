@@ -81,10 +81,16 @@ lfpr_table_cv_detailed_print <- function(tab_sum,
 #'
 #' @param x character vector of eDNA `site_id` values
 #' @return character vector, corrected
+#' `196209_us_ed1` is a second case. It is recorded on Bittner Creek, which is
+#' correct, but against PSCIS 196209 — that is Hudson Bay Slough on Oak Street,
+#' 6.5 km away. The sample sits 29 m from PSCIS 196200 (Bittner Creek, Forman
+#' Road), which is the effectiveness-monitoring site, so without this correction
+#' Bittner's only eDNA result is attributed to an unrelated crossing.
 edna_site_id_fix <- function(x) {
   lookup <- c(
     "196076_ds_ed1a" = "203581_us_ed1a",
-    "196076_ds_ed1b" = "203581_us_ed1b"
+    "196076_ds_ed1b" = "203581_us_ed1b",
+    "196209_us_ed1"  = "196200_us_ed1"
   )
   hit <- x %in% names(lookup)
   x[hit] <- unname(lookup[x[hit]])

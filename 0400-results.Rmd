@@ -603,9 +603,9 @@ for the 50% costs of replacing structures.  All sites with a design for remediat
 
 In `r cat(params$project_year)`, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through eDNA sampling and aquistion of aerial imagery at the following sites (Table \@ref(tab:tab-mon-overview):
 
-- Effectiveness monitoring was conducted on Tabor Creek (PSCIS crossing 196085) on Willow-Cale FRS which was replaced in XXXX.
+- Effectiveness monitoring was conducted on Tabor Creek (PSCIS crossing 196085) on Willow Cale FSR, where previous remediation work backwatered the outlet, removed the outlet drop and installed baffles within the culvert. The crossing remains ranked a barrier to upstream passage.
 
-- Effectiveness monitoring was conducted on Bittner Creek (PSCIS crossing 196200) on Foreman Road which was replaced in XXXX.
+- Effectiveness monitoring continued on Bittner Creek (PSCIS crossing 196200) on Forman Road, where the culvert was replaced with a bridge prior to the 2022 reassessment and now ranks passable [@irvine2024EffectivenessMonitoring]. Results are presented in the [Bittner Creek - 196200 - Monitoring Appendix](#bittner-2025).
 
 
 ```{r tab-mon-overview, eval = T}

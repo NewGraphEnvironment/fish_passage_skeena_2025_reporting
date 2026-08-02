@@ -229,3 +229,36 @@ placeholders — once as "shipping", once as "in source". Both wrong. Skeena's `
 what I read was an unpushed local commit on a checkout two commits behind origin. Retracted in #12
 and #3. Do not assert another repo's state from local working files — `git fetch` and read
 `origin/main` first.
+
+### Bittner Creek monitoring appendix
+
+Traced the effectiveness-monitoring history properly rather than filling in the `XXXX` placeholders
+by guess.
+
+**Sources.** Our own MoTI report was not citable — no Zotero entry, no `CITATION.cff`, absent from
+xciter's canonical bib, despite the repo→Zotero sync convention. Created it via the Web API
+(`9Q4EJ8US`) with `Citation Key: irvine2024EffectivenessMonitoring` pinned in Extra so it cannot
+drift. Seven bib entries added in total: five from canonical, two hand-written.
+
+**Tabor's remediation year remains unsourced.** Checked Zotero, the 300-report Fraser corpus, the
+web, `pscis_remediation_svw` (no record for 196085, 196200 *or* 203582), and the `[PSCIS1180]`
+EcoCat link, which resolves only to Hooft 2015 — the 2014 assessment. The Results text now describes
+the work without asserting a year, and no longer says "replaced": PSCIS still ranks 196085 a barrier
+and the 2019 work was backwatering, outlet-drop removal and baffles.
+
+**A third site-id mislabel.** `196209_us_ed1` sits 29 m from PSCIS 196200 (Bittner) and 6.5 km from
+196209 (Hudson Bay Slough, Oak Street). Added to `edna_site_id_fix()`; without it Bittner's only
+eDNA result was attributed to an unrelated crossing and was wrong on the published map.
+
+**What the appendix says.** Three lines of evidence from three years disagree, and that is the
+finding: the 2022 assessment records a landowner reporting no salmon in thirty years and annual
+dewatering, while noting parr in isolated pools; DWB salvaged eight juvenile chinook in June 2023;
+the 2025 eDNA sample returned zero droplets across all four assays and two runs. Stated as a reason
+a single grab is a weak instrument on an intermittent system, not as evidence of absence.
+
+Carries the intermittent-stream argument with all three citations, and two constraints still open
+upstream: CN crossing `19703286` remains unassessed four years after we recommended it, and PSCIS
+196197 on Hwy 16 E is still a barrier — so the reach the bridge opened is bounded.
+
+Did not inherit the source report's before-photo caption, which reads "Cross Creek" in the Bittner
+section.
