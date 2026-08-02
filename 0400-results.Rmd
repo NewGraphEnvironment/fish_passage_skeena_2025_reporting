@@ -246,22 +246,6 @@ A summary of crossings assessed, a rough cost estimate for remediation, and a pr
 
 ## Habitat Confirmation Assessments
 
-```{r hab-conf-rollup, include = FALSE}
-# Derive the scope of the habitat confirmation work from the confirmation data
-# itself rather than from params$wsg_code. Confirmations were completed in a
-# subset of the project's watershed groups, so naming all of them overstates the
-# extent of the survey.
-hab_conf_sites <- form_fiss_site |> dplyr::filter(is.na(ef))
-n_hab_conf_sites <- hab_conf_sites |> dplyr::distinct(site) |> nrow()
-wsg_names_hab_conf <- xref_wsg |>
-  dplyr::filter(watershed_group_code %in% unique(hab_conf_sites$watershed_group_code)) |>
-  dplyr::pull(watershed_group_name)
-
-len_surveyed_m  <- habitat_confirmations_priorities |>
-  dplyr::pull(length_surveyed) |> sum(na.rm = TRUE)
-len_surveyed_km <- round(len_surveyed_m / 1000, 1)
-```
-
 During the `r (params$project_year)` field assessments, habitat confirmation assessments were conducted at `r n_hab_conf_sites` sites within the `r wsg_names_hab_conf |> knitr::combine_words()` watershed groups. A total of approximately `r len_surveyed_km` km of stream was assessed, combining reaches surveyed upstream and downstream of each crossing.
 
 <br>

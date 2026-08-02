@@ -13,6 +13,12 @@
 * Remove placeholder text from the acknowledgement, which was publishing `[Nations]` and two further bracketed placeholders.
 * Migrate citation keys to xciter's canonical bibliography — the last repo in the family still carrying the per-profile "title-words" keys.
 * Correct the report version on the title page, which read 0.0.1 through two releases.
+* Fix Table 4.5, Summary of Phase 2 habitat confirmation details, which has been rendering with no data rows. `stringr::str_like()` became case sensitive in stringr 1.5.0, so a filter looking for lowercase 'upstream' stopped matching the "Upstream" values the table is built from. Adds a total for the surveyed length and states in the caption that the lengths are upstream reaches only, since the table totals 3,140 m while the text total of 4.3 km includes downstream reaches.
+* Correct the stated extent of the habitat confirmation work. The text claimed assessments were completed across all eight project watershed groups; they were completed in Tabor River and Willow River. The site count, watershed groups and surveyed length are now derived in `0130-tables.R` so the executive summary and results chapter cannot disagree. The surveyed total previously used `round(-3)/1000`, reporting 4,280 m as "approximately 4 km" and anything under 500 m as 0 km.
+* Move the Fisheries and Oceans Canada stock assessment data to its own appendix. At 1,486 rows and 51 columns it is a wide reference table rather than background prose, and being gated on `gitbook_on` it left print readers with a reference to a table that was not there. The print version now points at the appendix online.
+* Note in the environmental DNA sections that non-detections from samples without reported amplification controls are not evidence of absence. Detections are unaffected. Adds recommendations at Bittner Creek for resampling with rainbow trout on the assay panel, triplicate sampling as a method test, and confirming with the laboratory whether the control results exist.
+* Regenerate `references.bib` from Zotero rather than hand-editing it, and set `update_bib` back to TRUE.
+* Update the model named in the assistance note to Claude Opus 5.
 
 # fish_passage_fraser_2025_reporting 0.2.1 (2026-05-14)
 

@@ -73,9 +73,7 @@ In 2025, the project area was expanded to include the Willow river, Lower Salmon
 
 <br>
   
-Habitat confirmation assessments were conducted at multiple sites within the Willow river and Tabor River watersheds, 
-  covering over XX km of stream length. Detailed habitat metrics were 
-  documented alongside eDNA samples to evaluate habitat quality and presence of fish species. 
+Habitat confirmation assessments were conducted at `r n_hab_conf_sites` sites within the `r wsg_names_hab_conf |> knitr::combine_words()` watershed groups, covering approximately `r len_surveyed_km` km of stream length. Detailed habitat metrics were documented alongside eDNA samples to evaluate habitat quality and presence of fish species. 
 
 <br>
 
