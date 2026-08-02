@@ -1,27 +1,80 @@
 
 # Recommendations
 
-A major challenge in advancing fish passage restoration is the complexity of working across jurisdictions and with multiple stakeholders—rail and highway authorities, forestry ministries, licensees, and private landowners. These partners are often being asked to accommodate priorities that originate outside their mandates and budgets. Convincing them to invest in difficult, high-cost interventions—like modifying crossings or relocating infrastructure—requires navigating uncertainty about costs and ecological outcomes, as well as a disconnect between the benefits to watershed health and the internal pressures or performance goals of these agencies. It’s a tough ask: to take on massive, uncertain projects when they’re already stretched thin with their own responsibilities.
+A major challenge in advancing fish passage restoration is the complexity of working across jurisdictions and with multiple stakeholders—rail and highway authorities, forestry ministries, licensees, and private landowners. These partners are often being asked to accommodate priorities that originate outside their mandates and budgets. Convincing them to invest in difficult, high-cost interventions—like modifying crossings or relocating infrastructure—requires navigating uncertainty about costs and ecological outcomes, as well as a disconnect between the benefits to watershed health and the internal pressures or performance goals of these agencies. It's a tough ask: to take on massive, uncertain projects when they're already stretched thin with their own responsibilities.
 
 <br>
 
-Fish passage restoration  across British Columbia is further complicated by the legacy of infrastructure deeply embedded in the landscape. Roads, railways, highways, community infrastructure and private assets often constrain floodplains and disrupt natural hydrological processes. While targeted repairs to individual barriers are essential, they won’t resolve the broader systemic issues without rethinking and restructuring how infrastructure interacts with watershed function. Loss of riparian vegetation and intensive beaver management only add to the degradation. Addressing these challenges means making strategic, well-communicated choices—picking battles carefully, building trust, and staying committed to a longer-term transformation.
+Fish passage restoration across British Columbia is further complicated by the legacy of infrastructure deeply embedded in the landscape. Roads, railways, highways, community infrastructure and private assets often constrain floodplains and disrupt natural hydrological processes. While targeted repairs to individual barriers are essential, they won't resolve the broader systemic issues without rethinking and restructuring how infrastructure interacts with watershed function. Loss of riparian vegetation and intensive beaver management only add to the degradation. Addressing these challenges means making strategic, well-communicated choices, building trust, and staying committed to a longer-term transformation.
 
 <br>
 
-While preliminary top remediation priorities are provided by watershed group, these rankings are inherently subjective and can depend on the capacity and willingness of infrastructure owners and tenure holders to support implementation—both financially and over the often multi-year project timelines. In practice, we must often act opportunistically, pursuing simpler, lower-cost options to maintain momentum and achieve near-term progress.
+Preliminary top remediation priorities are provided by watershed group. A single definitive ranking of those priorities is not achievable, and the reason is worth stating plainly: the criteria that determine whether a crossing is worth remediating — species present and species possible, habitat quantity and quality, barrier severity, floodplain condition, constructability, and cost — are not measured in common units, so any ordering depends on which criterion is allowed to lead. This year's results show the tension directly, with Tabor Creek carrying roughly seventeen times the modelled upstream habitat of the highest-ranked site while ranking moderate. The deciding constraint sits outside the project entirely, in the capacity and willingness of infrastructure owners and tenure holders to support implementation, both financially and across multi-year timelines. What can be done systematically is to maintain a well-characterised set of candidate sites, so that when a tenure holder is in a position to act, the ecological value of the opportunity and the appropriate scope of work are already understood.
 
 <br>
 
-Government, community groups, landowners, non-profits, industry and other stakeholders should work collaboratively to address high and moderate priority barriers identified `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Assessment Data Summary appendix of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-site-data.html", anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) of [Appendix - Assessment Data Summary](#app-site-data)")}`. Although the table presents many options - currently - linked reports specify whether each site is a low, moderate, or high priority. Progress on any front is meaningful, and aiming to remediate at least one high-priority site per year per watershed group—regardless of its overall rank—is a practical and effective approach.
+Government, community groups, landowners, non-profits, industry and other stakeholders should work collaboratively to address the high and moderate priority barriers identified `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Figure \\@ref(fig:map-interactive), with supporting detail in [Appendix - Assessment Data Summary](#app-site-data)")}`. Progress on any front is meaningful, and aiming to remediate at least one high-priority site per year per watershed group—regardless of its overall rank—is a practical and effective approach.
 
-To enhance fish passage restoration in the FWCP Peace Region:
+<br>
 
-- Maintain strong partnerships to support funding, site selection, remediation, and monitoring through adaptive management informed by traditional knowledge and real-time data.
-- Prioritize detailed assessments in areas with blockages and high habitat potential, especially near McLeod Lake.
-- Use climate modeling to prioritize crossings that enable access to cold, drought-resistant habitats.
-- Secure financial commitments for Fern Creek remediation despite uncertainties in harvest planning.
-- Continue effectiveness monitoring at key sites using fish sampling, eDNA, PIT tagging, temperature data, and aerial imagery.
-- Continue to develop a cost-effective monitoring framework to assess productivity gains from improved passage.
-- Collaborate with WLRS, UNC, local fisheries experts, FWCP, and the CEMPRA Project working group.
-- Utilize environmental DNA (eDNA) to better understand bull trout and Arctic grayling habitat use at both potential and remediated sites. This will refine prioritization and assess fish passage effectiveness.  
+To advance fish passage restoration in the Fraser region:
+
+**Effectiveness monitoring and building the state of knowledge**
+
+- Continue and extend the long-term effectiveness monitoring program at PSCIS crossings 196085 (Tabor Creek, Willow Cale FSR) and 196200 (Bittner Creek, Forman Road). These sites carry multi-year baselines and are where the program learns what restoration actions actually achieve. Both are instructive for reasons only sustained monitoring surfaces: the remediation at Tabor Creek backwatered the outlet, removed the outlet drop and installed baffles, and the crossing is still ranked a barrier; at Bittner Creek, three years of evidence disagree about whether fish are using the reach at all ([Bittner Creek - 196200 - Monitoring Appendix](#bittner-2025)). Documenting and sharing an outcome that did not hold is as valuable as documenting one that did.
+
+- Extend monitoring to additional remediated sites across the region so the record spans a range of structure types, treatment approaches and stream sizes rather than a small number of long-running sites.
+
+- Share monitoring outcomes openly with tenure holders, regulators, First Nations and other restoration practitioners, so decisions elsewhere are informed by what has and has not worked here.
+
+- Continue environmental DNA sampling as an annual, region-wide data layer. `r params$project_year` was the first year of collection, and sustained annual sampling is what turns single-year detections into distribution and trend information. The results already identify species presence at sites carrying no habitat confirmation assessment, including bull trout in the Morkill River and Upper Fraser River watershed groups.
+
+- Continue to develop a cost-effective monitoring framework that ties baseline and post-remediation data to measurable productivity gains from improved passage.
+
+**Partnerships, capacity and adaptive management**
+
+- Continue working with First Nations across the study area, including Nadleh Whut'en and Stellat'en near Fraser Lake, Lhoosk'uz Dené near Vanderhoof, and Wet'suwet'en, whose territory overlaps project sites in the Upper Fraser, on site selection, monitoring, and interpretation of what the data show.
+
+- Continue partnerships with stewardship groups and educational institutions, including the University of Northern British Columbia, the Rivershed Society of BC and the Nechako Environment and Watershed Stewardship Society, so field programs double as training and research opportunities and the regional knowledge base grows beyond any single project.
+
+- Maintain partnerships with rail, highway and forestry tenure holders, and with the Habitat Conservation Trust Foundation and the Ministry of Transportation and Infrastructure, to support funding, site selection, remediation and monitoring.
+
+- Feed monitoring results back into prioritization and design. The purpose of a monitoring program is adaptive management, and what is learned at Tabor Creek and Bittner Creek should change which treatments are proposed elsewhere.
+
+**Watershed-scale context — floodplain health and climate departure**
+
+- Extend functional floodplain mapping beyond the Nechako River watershed group so floodplain condition sits alongside barrier status everywhere prioritization is done. Passage and floodplain health are the same problem viewed from two angles: reconnecting a stream longitudinally achieves less where the floodplain is severed laterally.
+
+- Extend the climate departure analysis to the Lower Salmon River watershed group, which is within the project area but outside the current analysis extent.
+
+- Build capacity in partner organizations to interpret and use the floodplain and climate departure layers, so the opportunities and constraints these analyses surface are visible to the people whose decisions shape watershed-scale outcomes.
+
+**Site-specific restoration and remediation actions**
+
+- Commission engineering designs at PSCIS crossings 199171 (Burnt Cabin Creek, Gala Bay Road, Francois Lake watershed group) and 199173 (tributary to the Nechako River, Dog Creek Road, Nechako River watershed group) in coordination with the Ministry of Transportation and Infrastructure. Both were recommended for design in previous reporting and neither has been commissioned.
+
+- Advance PSCIS crossing 126158 on a tributary to Stony Lake, the highest ranked site assessed in `r params$project_year`, where rainbow trout were confirmed by environmental DNA both above and below the crossing.
+
+- Resolve species use at PSCIS crossing 196332 on South Yuzkli Creek before committing to a design. The site ranks high on habitat value, but environmental DNA returned no confirmed detections and the only bull trout signal was below the detection threshold and did not resolve on rerun. Targeted fish sampling would establish whether the upstream habitat is occupied.
+
+- Characterize the hydrologic connection between the tributary to the Fraser River at PSCIS crossing 203581 and the mainstem before considering remediation. The crossing sits 80 m upstream of the Fraser with a 2.5 m outlet drop that backwaters when the river runs 2.5 to 3.5 m higher. How often that occurs, at what flows and for how long determines whether the system is accessible to migratory fish, and the system may be too small to support chinook regardless of the structure. Establishing the connection regime is a prerequisite to ranking the site and is far less costly than a design.
+
+- Assess the Canadian National railway crossing upstream of Forman Road on Bittner Creek (`modelled_crossing_id` 19703286) and load the data to the PSCIS database, closing a recommendation outstanding since 2022 [@irvine2024EffectivenessMonitoring].
+
+**Prioritization and modelling integration**
+
+- Continue integrating climate and temperature modelling into prioritization, in both directions. Prioritizing crossings that open access to cold, drought-resistant habitat addresses reaches at the warm edge of their thermal range. The same data answers the opposite question: modelling growing season degree days identifies reaches currently too cold to support production where warming may be making production possible, meaning the restoration value of a barrier below such a reach can be rising rather than falling.
+
+- Integrate stream temperature predictions and growing season degree days from the collaborative Bayesian spatial stream network modelling [@hill_etal2024Spatialstream] into intrinsic habitat modelling, surfacing thermal regime alongside connectivity, gradient and channel width.
+
+- Calibrate intrinsic habitat models against areas of known high-value spawning and rearing identified through fish presence observations, quantifying model uncertainty and refining prioritization.
+
+- Carry environmental DNA results into prioritization. The `r params$project_year` detections include species presence at sites with no habitat confirmation assessment, and that information belongs in the ranking rather than alongside it.
+
+**Data infrastructure and open access**
+
+- Develop a public webmap interface to communicate fish passage priorities, baseline conditions, monitoring results and partner activities to collaborators, First Nations, industry, regulators and the public.
+
+- Extend the open-access pattern to environmental DNA data, making detections, samples, methods and metadata queryable through a shared interface rather than scattered across project repositories.
+
+- Support a community of practice around regional water temperature and fish presence data with the University of Northern British Columbia, partner organizations and other researchers, focused on collective capacity to ask and answer regional questions rather than every program reconstructing the same picture from fragmented sources.
