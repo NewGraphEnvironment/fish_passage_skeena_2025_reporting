@@ -6,7 +6,7 @@ editor_options:
 
 # Appendix - Collaborative GIS Layers {-#app-gis}
 
-In addition to numerous layers documenting fieldwork activities since `r cat(params$project_start_year)`, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the time of writing (`r format(lubridate::now(), "%Y-%m-%d")`) are listed below. `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("The layer table is interactive and is provided online within this appendix ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-gis.html", anchor_text = "here"), "."))}else{knitr::asis_output("See Table \\@ref(tab:tab-rfp-tracking).")}`
+In addition to numerous layers documenting fieldwork activities since `r (params$project_start_year)`, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the time of writing (`r format(lubridate::now(), "%Y-%m-%d")`) are listed below. `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("The layer table is interactive and is provided online within this appendix ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-gis.html", anchor_text = "here"), "."))}else{knitr::asis_output("See Table \\@ref(tab:tab-rfp-tracking).")}`
 
 <br>
 

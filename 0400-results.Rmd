@@ -246,7 +246,7 @@ A summary of crossings assessed, a rough cost estimate for remediation, and a pr
 
 ## Habitat Confirmation Assessments
 
-During the `r cat(params$project_year)` field assessments, habitat confirmation assessments were conducted at `r form_fiss_site |> dplyr::filter(is.na(ef)) |> dplyr::distinct(site) |> nrow()` sites within the `r wsg_names |> knitr::combine_words()` watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed.
+During the `r (params$project_year)` field assessments, habitat confirmation assessments were conducted at `r form_fiss_site |> dplyr::filter(is.na(ef)) |> dplyr::distinct(site) |> nrow()` sites within the `r wsg_names |> knitr::combine_words()` watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed.
 
 <br>
 
@@ -591,9 +591,7 @@ edna_summary_fraser |>
 
 ## Engineering Design
 
-MIGHT NEED TO UPDATE
-
-No new designs were commissioned in `r cat(params$project_year)` due to uncertainty related to forest harvesting activities and lack of funding
+No new designs were commissioned in `r (params$project_year)` due to uncertainty related to forest harvesting activities and lack of funding
 for the 50% costs of replacing structures.  All sites with a design for remediation of fish passage can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Assessment Data Summary appendix of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-site-data.html", anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) of [Appendix - Assessment Data Summary](#app-site-data) by filtering using Design = yes")}`.
 
 
@@ -601,7 +599,7 @@ for the 50% costs of replacing structures.  All sites with a design for remediat
 
 ## Monitoring
 
-In `r cat(params$project_year)`, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through eDNA sampling and aquistion of aerial imagery at the following sites (Table \@ref(tab:tab-mon-overview):
+In `r (params$project_year)`, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through eDNA sampling and aquistion of aerial imagery at the following sites (Table \@ref(tab:tab-mon-overview):
 
 - Effectiveness monitoring was conducted on Tabor Creek (PSCIS crossing 196085) on Willow Cale FSR, where previous remediation work backwatered the outlet, removed the outlet drop and installed baffles within the culvert. The crossing remains ranked a barrier to upstream passage.
 

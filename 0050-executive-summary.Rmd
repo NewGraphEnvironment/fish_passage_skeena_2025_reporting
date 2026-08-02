@@ -25,8 +25,8 @@ The primary objective of this project is to identify and prioritize fish passage
 <br>
 
 
-Although the main purpose of this report is to document `r cat(params$project_year)` field work data and results, it also builds on reporting 
-from past field activities and all reports can be considered living documents that can be updated and improved over time. In addition to the numerous assessments at sites undocumented in past years of the project, field activities in 2024 were also conducted at sites where habitat confirmations were previously documented within the reports linked below. The reports for these sites were edited and updated with `r cat(params$project_year)` data.
+Although the main purpose of this report is to document `r (params$project_year)` field work data and results, it also builds on reporting 
+from past field activities and all reports can be considered living documents that can be updated and improved over time. In addition to the numerous assessments at sites undocumented in past years of the project, field activities in 2024 were also conducted at sites where habitat confirmations were previously documented within the reports linked below. The reports for these sites were edited and updated with `r (params$project_year)` data.
 
 
 ```{r previous-work-exec, results='asis'}
