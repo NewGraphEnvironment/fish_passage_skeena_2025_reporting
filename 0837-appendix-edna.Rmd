@@ -111,6 +111,8 @@ edna_retests <- edna_bystargets_app |>
 
 Format: `CODE(max_droplets)`, with `*` flagging samples that UNBC reran. Detected = ≥4 positive droplets per the standard ddPCR call threshold; Sub-threshold = 1-3 droplets, not interpretable as species presence under ddPCR convention; Not detected = 0 droplets across all runs.
 
+A non-detection is only as strong as the evidence that the reaction worked. Internal amplification controls — the lambda-phage and exogenous-plant spike-ins that show a well amplified — were reported for only a minority of samples in this batch. Where they are absent, a zero cannot be distinguished from a failed or inhibited reaction, and the "Not detected" column below should be read as untested rather than negative. Detections are unaffected, since a well returning positive droplets demonstrably amplified.
+
 ```{r tab-edna-per-site}
 edna_per_site |>
   fpr::fpr_kable(

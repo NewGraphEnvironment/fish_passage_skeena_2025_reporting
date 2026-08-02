@@ -246,7 +246,23 @@ A summary of crossings assessed, a rough cost estimate for remediation, and a pr
 
 ## Habitat Confirmation Assessments
 
-During the `r (params$project_year)` field assessments, habitat confirmation assessments were conducted at `r form_fiss_site |> dplyr::filter(is.na(ef)) |> dplyr::distinct(site) |> nrow()` sites within the `r wsg_names |> knitr::combine_words()` watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed.
+```{r hab-conf-rollup, include = FALSE}
+# Derive the scope of the habitat confirmation work from the confirmation data
+# itself rather than from params$wsg_code. Confirmations were completed in a
+# subset of the project's watershed groups, so naming all of them overstates the
+# extent of the survey.
+hab_conf_sites <- form_fiss_site |> dplyr::filter(is.na(ef))
+n_hab_conf_sites <- hab_conf_sites |> dplyr::distinct(site) |> nrow()
+wsg_names_hab_conf <- xref_wsg |>
+  dplyr::filter(watershed_group_code %in% unique(hab_conf_sites$watershed_group_code)) |>
+  dplyr::pull(watershed_group_name)
+
+len_surveyed_m  <- habitat_confirmations_priorities |>
+  dplyr::pull(length_surveyed) |> sum(na.rm = TRUE)
+len_surveyed_km <- round(len_surveyed_m / 1000, 1)
+```
+
+During the `r (params$project_year)` field assessments, habitat confirmation assessments were conducted at `r n_hab_conf_sites` sites within the `r wsg_names_hab_conf |> knitr::combine_words()` watershed groups. A total of approximately `r len_surveyed_km` km of stream was assessed, combining reaches surveyed upstream and downstream of each crossing.
 
 <br>
 
@@ -316,13 +332,33 @@ tab_cost_est_phase2 |>
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 ```{r tab-habitat-summary}
-tab_hab_summary |> 
-  dplyr::filter(stringr::str_like(Location, 'upstream')) |> 
-  dplyr::select(-Location) |> 
-  dplyr::rename(`PSCIS ID` = Site, `Length surveyed upstream (m)` = `Length Surveyed (m)`) |>
-  fpr::fpr_kable(caption_text = 'Summary of Phase 2 habitat confirmation details.', scroll = F)
+# Match Location exactly rather than with stringr::str_like(). str_like() is
+# case sensitive as of stringr 1.5.0, so str_like(Location, 'upstream') stopped
+# matching the "Upstream" values that 0130-tables.R writes, and this table has
+# been rendering empty ever since.
+tab_hab_upstream <- tab_hab_summary |>
+  dplyr::filter(Location == 'Upstream') |>
+  dplyr::select(-Location) |>
+  dplyr::rename(`PSCIS ID` = Site, `Length surveyed upstream (m)` = `Length Surveyed (m)`)
 
-
+# Total the surveyed length only. The remaining columns are averages, which do
+# not sum, so they are left blank in the total row rather than showing numbers
+# a reader would take for totals.
+tab_hab_upstream |>
+  dplyr::mutate(dplyr::across(dplyr::everything(), as.character)) |>
+  dplyr::bind_rows(
+    tibble::tibble(
+      `PSCIS ID` = "Total",
+      `Length surveyed upstream (m)` = as.character(
+        sum(tab_hab_upstream$`Length surveyed upstream (m)`, na.rm = TRUE))
+    )
+  ) |>
+  fpr::fpr_kable(
+    caption_text = paste0(
+      "Summary of Phase 2 habitat confirmation details. Lengths are for the reach surveyed ",
+      "upstream of each crossing only; downstream reaches are reported in the site appendices, ",
+      "and the combined upstream and downstream total is given in the text above."),
+    scroll = F)
 ```
 
 <br>
@@ -575,7 +611,7 @@ edna_summary_fraser <- edna_real_fraser |>
 
 New in 2025, environmental DNA (eDNA) sampling was incorporated into the program at both previously assessed and newly added sites. A total of `r form_edna |> nrow()` collection events were undertaken across `r form_edna |> dplyr::distinct(stream_name) |> nrow()` streams, comprising `r n_edna_real_sites` real environmental samples, `r n_edna_field_blanks` field blanks, and `r n_edna_office_blanks` office blanks collected for quality assurance.
 
-Per-species detection results across the `r n_edna_real_sites` real environmental samples are summarized in Table \@ref(tab:tab-edna-summary). Detections use the standard ddPCR call threshold of ≥4 positive droplets; sub-threshold signals (1-3 droplets) are tracked separately because they are not interpretable as species presence under ddPCR convention. Site-level detail — the per-site detection table, field blanks, and retests — is provided in [Appendix - Environmental DNA Results](#app-edna), and the `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "edna_unbc_results_2025_fraser_map.html", anchor_text = "interactive Fraser eDNA map")` shows toggleable per-species layers.
+Per-species detection results across the `r n_edna_real_sites` real environmental samples are summarized in Table \@ref(tab:tab-edna-summary). Detections use the standard ddPCR call threshold of ≥4 positive droplets; sub-threshold signals (1-3 droplets) are tracked separately because they are not interpretable as species presence under ddPCR convention. Non-detections should be read with care: internal amplification controls were reported for only a minority of samples, and where they are absent a zero result cannot be distinguished from a reaction that failed or was inhibited. Detections are unaffected, since a well returning positive droplets demonstrably amplified. Site-level detail — the per-site detection table, field blanks, and retests — is provided in [Appendix - Environmental DNA Results](#app-edna), and the `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "edna_unbc_results_2025_fraser_map.html", anchor_text = "interactive Fraser eDNA map")` shows toggleable per-species layers.
 
 <br>
 

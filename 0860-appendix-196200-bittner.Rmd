@@ -88,7 +88,15 @@ edna_results_196200 |>
 
 <br>
 
-A single sample returning nothing where fish were physically captured two years earlier is not evidence of absence. Sample timing relative to flow, the dewatering the landowner describes, and the detection limits of a single grab all bear on it. It does establish why a one-off sample is a weak monitoring instrument on an intermittent system, and why the eDNA record here needs to be built over several years and several points in the season before it can say anything about trend.
+That result should not be read as evidence of absence, for two specific reasons beyond sample timing and the dewatering the landowner describes.
+
+<br>
+
+First, the internal amplification controls for this sample were not reported. The lambda-phage and exogenous-plant spike-ins are what demonstrate that a well amplified at all, and both are absent here, so a zero cannot be distinguished from a reaction that failed or was inhibited. Second, rainbow trout was not on the assay panel for this sample, which targeted chinook, coho, sockeye and bull trout. Rainbow trout is the most frequently detected species elsewhere in the `r params$project_year` Fraser results, so its absence from the panel removes the detection most likely to have registered.
+
+<br>
+
+Taken together, a one-off grab sample is a weak monitoring instrument on an intermittent system, and this particular sample cannot carry the weight of a negative finding.
 
 <br>
 
@@ -104,7 +112,9 @@ Two constraints on that value remain unaddressed upstream of the bridge. A cross
 
 Recommendations for continued monitoring at this site:
 
-- Sample eDNA at multiple points through the season rather than once, so results can be read against flow rather than in isolation.
+- Resample for environmental DNA with rainbow trout added to the assay panel, and sample at multiple points through the season rather than once, so results can be read against flow rather than in isolation.
+- Collect eDNA in triplicate here as a test of method reliability. Bittner Creek is the right site for that test precisely because independent evidence says fish are present: a triplicate that still returns nothing says something about the method, while one that returns detections establishes that single grab samples are unreliable on intermittent systems.
+- Confirm with the laboratory whether amplification control results exist for samples where they were not reported. If the controls were run and simply not returned, the existing negatives can be interpreted without resampling.
 - Continue fish sampling to establish whether chinook use Bittner Creek for spawning as well as rearing.
 - Assess the Canadian National railway crossing (`modelled_crossing_id` 19703286) and load the data to PSCIS, closing a recommendation outstanding since 2022.
 - Assess the wetland area north of the bridge, connected to the first upstream tributary, to determine whether water storage could be increased through measures such as promoting beaver activity and infilling historic drainage structures — the most direct route to extending the period over which the reach is connected and wetted.
