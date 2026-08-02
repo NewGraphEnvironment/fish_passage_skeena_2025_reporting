@@ -3,20 +3,15 @@ title: "Restoring Fish Passage in the Fraser Region - 2025"
 author: |
  |
  | Prepared for
+ | Habitat Conservation Trust Foundation - CAT26-0-636
  | Ministry of Transportation and Infrastructure
- |
- | and
- |
- | Society for Ecosystem Restoration in Northern BC (SERNbc)
  |
  |
  | Prepared by
  | Al Irvine, B.Sc., R.P.Bio. and Lucy Schick, B.Sc.
  | New Graph Environment Ltd.
- |
  | on behalf of
- | 
- | Society for Ecosystem Restoration in Northern BC (SERNbc)
+ | Society for Ecosystem Restoration in Northern British Columbia
 
 date: |
  |
@@ -136,7 +131,7 @@ This work takes place within the territories of First Nations who have stewarded
 
 ```{js, logo-header, echo = FALSE, eval= T}
 title=document.getElementById('header');
-title.innerHTML = '<img src="fig/logo_sern/SERNbc-Logo-HALF.jpg" alt="NewGraph">' + title.innerHTML
+title.innerHTML = '<img src="fig/logo_sern_hctf.png" alt="SERNbc and HCTF">' + title.innerHTML
 
 ```
 

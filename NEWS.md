@@ -19,6 +19,9 @@
 * Note in the environmental DNA sections that non-detections from samples without reported amplification controls are not evidence of absence. Detections are unaffected. Adds recommendations at Bittner Creek for resampling with rainbow trout on the assay panel, triplicate sampling as a method test, and confirming with the laboratory whether the control results exist.
 * Regenerate `references.bib` from Zotero rather than hand-editing it, and set `update_bib` back to TRUE.
 * Update the model named in the assistance note to Claude Opus 5.
+* Credit the Habitat Conservation Trust Foundation. The title block now names HCTF with the project number CAT26-0-636 alongside the Ministry of Transportation and Infrastructure, and the header carries the combined SERNbc and HCTF logo used in the Skeena reporting.
+* Set out the funding history in the introduction and executive summary: the 2023 work was supported internally by SERNbc and through the Ministry of Transportation and Infrastructure and produced the region's 2023 report, while the project is now also supported by HCTF alongside Skeena fish passage restoration planning as the Northern British Columbia Fish Passage Restoration project (CAT26-0-636). Corrects "Morkhill" to Morkill.
+* Derive the print version's PDF filename rather than hardcoding it. The introduction pointed print readers at `fish_passage_peace_2024_reporting.pdf`, a file from a different region's repository.
 
 # fish_passage_fraser_2025_reporting 0.2.1 (2026-05-14)
 
