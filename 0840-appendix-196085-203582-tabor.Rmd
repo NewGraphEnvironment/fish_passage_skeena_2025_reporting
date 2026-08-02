@@ -224,6 +224,14 @@ Should restoration/maintenance activities proceed at the CN `r fpr_my_pscis_info
 
 `r fpr_my_pscis_info(col_pull = stream_name, site = my_site)` provided medium value habitat for salmonid spawning and rearing, with chinook documented downstream of the `r fpr_my_pscis_info(col_pull = road_name, site = my_site)` crossing. Due to previous remediation work completed at this site, the crossing is ranked as a `r fpr_my_pscis_info(col_pull = my_priority, site = my_site)` priority for replacement. The upstream crossing on the CN `r fpr_my_pscis_info(col_pull = road_name, site = my_site2)` is ranked as a `r fpr_my_pscis_info(col_pull = my_priority, site = my_site2)` priority for replacement due to a 0.3m outlet drop. Replacement would be costly because the structure is located on the railway, and the stream exhibited sections of dewatering above `r fpr_my_pscis_info(col_pull = road_name, site = my_site)`; however, flow was regained upstream and evidence of high flows was observed. Both crossings are situated near the Fraser River and are in close proximity to the City of Prince George, offering opportunities for community engagement.
 
+<br>
+
+The channel above the railway crossings was dewatered at the time of assessment, with the farthest downstream residual pool holding numerous fry and environmental DNA confirming chinook salmon and rainbow trout immediately upstream. Reaches that go dry are easily read as low value, and the literature points the other way. Residual pools within intermittent systems can support high juvenile growth rates and elevated overwinter survival, and both @ebersole_etal2006JuvenileCoho and @wigingtonjr_etal2006Cohosalmon measured smolts emerging from intermittent tributaries as considerably larger than those rearing in perennial habitat, with correspondingly greater survival — outcomes attributed to lower competitive densities and greater food availability [@maslin_mckinnev1998IntermittentStreams]. That work concerns coho salmon, so its application to the chinook rearing above the Tabor Creek railway crossings is an extension rather than a direct read-across, but the situation is the same one those studies describe.
+
+<br>
+
+If that is what is occurring here, the value of the reach depends on whether those fish can leave it when flows resume, which makes the timing of connectivity the question worth monitoring rather than the 0.3 m outlet drop considered on its own. Tracking flow resumption, pool persistence and fish movement across a season would establish whether the reach is producing large, high-survival migrants or stranding a cohort each year. Where fish are found to be trapped, annual salvage is available as a short-term measure. Confirmation that chinook depend on this reach would also give the Canadian National Railway a concrete basis for considering remediation of the railway crossings.
+
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
