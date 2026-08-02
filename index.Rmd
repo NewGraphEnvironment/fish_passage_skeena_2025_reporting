@@ -51,7 +51,7 @@ params:
   update_bcfishpass: FALSE
   pscis_funding_project_number: "fraser_2025_phase1"
 nocite: |
-  @busch_etal2011LandscapeLevelModela, 
+  @busch_etal2011LandscapeLevelModel, 
   @woll_etal2017SalmonEcological,
   @kirsch_etal2014Fishinventory,
   @cooney_holzer2006AppendixInterior,
