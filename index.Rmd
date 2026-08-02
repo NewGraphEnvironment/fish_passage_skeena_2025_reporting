@@ -47,7 +47,7 @@ params:
   update_form_monitoring: FALSE
   update_form_edna: FALSE
   update_gis: FALSE
-  update_bib: FALSE
+  update_bib: TRUE
   update_bcfishpass: FALSE
   pscis_funding_project_number: "fraser_2025_phase1"
 nocite: |
