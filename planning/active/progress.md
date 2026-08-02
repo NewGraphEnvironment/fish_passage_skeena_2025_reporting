@@ -262,3 +262,32 @@ upstream: CN crossing `19703286` remains unassessed four years after we recommen
 
 Did not inherit the source report's before-photo caption, which reads "Cross Creek" in the Bittner
 section.
+
+### Phase 10 — verify and release ✔ (PR outstanding)
+
+Both formats build clean. Gitbook has zero unresolved citations book-wide; the PDF is 14.4 MB /
+175 pages with the resting appendix layout and `gitbook_on` restored on exit.
+
+**Defects found during this phase that were not on any list:**
+
+1. **The project year was missing from three rendered sentences.** Six inline expressions used
+   `cat(params$project_year)` — `cat()` prints as a side effect and returns NULL, so the value was
+   dropped. The published report read "No new designs were commissioned in due to uncertainty" and
+   "In , baseline or follow up monitoring data was gathered".
+2. **The title page showed version 0.0.1** while DESCRIPTION, NEWS and the `v0.2.1` tag all said
+   0.2.1 — wrong through two releases.
+3. **`scripts/bib_repair.R` was a 39-line draft**, self-described as "not sure if this is the latest
+   and greatest", going straight to fuzzy matching with interactive prompts. Replaced with the
+   template version, which applies the curated xref first. Because `update_bib` is FALSE the eleven
+   canonical entries had to be appended by hand — without that the build would have carried eleven
+   unresolved citations.
+
+**A mistake I made and caught.** The first executive-summary edit used `s.index()` to bound the
+block; it matched an *earlier* `<!-- Project specific above -->` marker and duplicated the whole
+preamble. Caught by diffing occurrence counts against `main`, reverted, redone with line-based
+splicing and assertions on the exact span. Worth remembering: index-based splicing on a marker that
+appears more than once is silently destructive.
+
+Filed **#14** for the narrative pass, verifying the two typos it cites actually exist first.
+
+Branch is 17 commits and still local — not pushed, no PR opened.

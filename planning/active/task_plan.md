@@ -141,13 +141,26 @@ was one Peace-specific block.
 
 ## Phase 10 — Verify and release
 
-- [ ] Clean gitbook build (`rm _main.Rmd` first)
-- [ ] Clean pagedown PDF build
-- [ ] Grep output for `Citeproc.*not found` and unresolved `\@ref`
-- [ ] `scripts/bib_repair.R` — Fraser is the last repo not on canonical citation keys
-- [ ] NEWS.md entry + version bump in `index.Rmd`
-- [ ] File the Phase 9 narrative-pass follow-up issue
-- [ ] `/planning-archive`, PR closing #10 and #11
+- [x] Clean gitbook build — zero unresolved citations book-wide
+- [x] Clean pagedown PDF build — 14.4 MB, 175 pages, resting state and `gitbook_on` restored
+- [x] Verified in rendered output: no `XXXX`, `NEEDS TO BE UPDATED`, `MIGHT NEED TO UPDATE`,
+      `[Nations]`, `FWCP Peace Region`, `McLeod Lake` or `Fern Creek`
+- [x] `scripts/bib_repair.R` — replaced the 39-line draft with the template version; 11 keys
+      migrated to canonical, canonical entries appended and superseded ones removed
+- [x] NEWS.md entry + version bump; also corrected the title page, which read 0.0.1 through two
+      releases while DESCRIPTION and the tag said 0.2.1
+- [x] Filed the narrative-pass follow-up as #14
+- [ ] `/planning-archive`, PR closing #10 and #11 — **not done**, branch is still local
+
+## Handed back to the author
+
+- [ ] Tabor remediation year — no source in Zotero, the corpus, the web, `pscis_remediation_svw`
+      or the `[PSCIS1180]` EcoCat link. Text describes the work without a year.
+- [ ] Engineering Design reason (harvest uncertainty, unfunded 50% share) — the factual claim
+      checks against PSCIS, the reason does not
+- [ ] Partner roster in Recommendations — inferred from the repo
+- [ ] Tabor intermittent-stream passage cites coho work applied to chinook; flagged in-text as an
+      extension
 
 ## Validation
 
