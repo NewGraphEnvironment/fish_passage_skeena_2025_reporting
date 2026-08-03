@@ -1,3 +1,11 @@
+# fish_passage_fraser_2025_reporting 0.3.1 (2026-08-02)
+
+* Remove a claim that the report provides preliminary top remediation priorities by watershed group. No such section, table or ranking exists anywhere in the report — priorities appear only per site, in prose, within the individual site appendices. The surrounding reasoning for why a single definitive ranking is not achievable is retained in both the executive summary and the recommendations.
+* Remove a claim that 2025 field activities revisited sites whose habitat confirmations were documented in earlier reporting, and that those earlier reports were updated with 2025 data. Neither is true for this region: none of the seven crossings covered here appear anywhere in the 2023 report, and that report was last edited on 2025-07-23, roughly seven weeks before the 2025 field season began. The sentence also hardcoded 2024 as the field year. It was inherited template prose, accurate for the Peace region and never checked against Fraser.
+* Correct the eDNA sample count in the executive summary. It reported every row of the sampling form as a sample collected from a stream — 38 samples across 16 streams — but five of those rows are field and office blanks run as protocol controls, and the three office blanks carry no stream name, adding a phantom stream. Now reports 33 samples across 15 streams with the blanks named separately, matching the results chapter and the eDNA appendix. Counts derive from the same blank filter the eDNA table uses.
+* Name the effectiveness monitoring streams and their general area in the executive summary — Tabor Creek and Bittner Creek, near Prince George — rather than giving PSCIS crossing numbers alone. Stream names and the site count derive from the monitoring form.
+* Trim the effectiveness monitoring bullet in the executive summary looking-ahead list.
+
 # fish_passage_fraser_2025_reporting 0.3.0 (2026-08-02)
 
 * Integrate the 2025 UNBC environmental DNA results — 33 real environmental samples, 2 field blanks and 3 office blanks across the region, with 36 of 146 site-by-target combinations returning confirmed detections. Adds a per-species summary to Results, a thematic appendix, per-site detection tables in every site appendix, and an interactive map scoped to the region. Corrects three samples recorded against the wrong crossing.

@@ -26,7 +26,7 @@ The primary objective of this project is to identify and prioritize fish passage
 
 
 Although the main purpose of this report is to document `r (params$project_year)` field work data and results, it also builds on reporting 
-from past field activities and all reports can be considered living documents that can be updated and improved over time. In addition to the numerous assessments at sites undocumented in past years of the project, field activities in 2024 were also conducted at sites where habitat confirmations were previously documented within the reports linked below. The reports for these sites were edited and updated with `r (params$project_year)` data.
+from past field activities and all reports can be considered living documents that can be updated and improved over time.
 
 
 ```{r previous-work-exec, results='asis'}
@@ -78,12 +78,12 @@ Habitat confirmation assessments were conducted at `r n_hab_conf_sites` sites wi
 <br>
 
 
-New in 2025, environmental DNA (eDNA) sampling was incorporated into the program at both previously assessed and newly added sites. A total of `r form_edna |> nrow()` samples were collected across `r form_edna |> dplyr::distinct(stream_name) |> nrow()` streams.
+New in 2025, environmental DNA (eDNA) sampling was incorporated into the program at both previously assessed and newly added sites. A total of `r n_edna_real` samples were collected across `r n_edna_streams` streams, alongside `r n_edna_blanks` field and office blanks run as protocol controls.
 
 <br>
 
  
-  Monitoring was conducted at two sites, including post-remediation evaluations at PSCIS crossings 196085 and 196200. Monitoring included eDNA sampling and habitat observations. A custom effectiveness monitoring form tailored to fish passage projects 
+  Monitoring was conducted at `r xfun::numbers_to_words(n_monitoring_sites)` sites near Prince George, including post-remediation evaluations at `r monitoring_sites_text`. Monitoring included eDNA sampling and habitat observations. A custom effectiveness monitoring form tailored to fish passage projects
   was used and metrics assessed included flow velocity, substrate condition, channel constriction, riparian condition, and cover 
   availability. 
   
@@ -100,7 +100,7 @@ Fish passage restoration  across British Columbia is further complicated by the 
 
 <br>
 
-Preliminary top remediation priorities are provided by watershed group. A single definitive ranking is not achievable, because the criteria that determine whether a crossing is worth remediating are not measured in common units, and the deciding constraint sits outside the project in the capacity and willingness of infrastructure owners and tenure holders to support implementation across multi-year timelines. What can be done systematically is to maintain a well-characterised set of candidate sites, so that when a tenure holder is in a position to act, the ecological value of the opportunity and the appropriate scope of work are already understood.
+A single definitive ranking of remediation priorities is not achievable, because the criteria that determine whether a crossing is worth remediating are not measured in common units, and the deciding constraint sits outside the project in the capacity and willingness of infrastructure owners and tenure holders to support implementation across multi-year timelines. What can be done systematically is to maintain a well-characterised set of candidate sites, so that when a tenure holder is in a position to act, the ecological value of the opportunity and the appropriate scope of work are already understood.
 
 <br>
 
@@ -108,7 +108,7 @@ Preliminary top remediation priorities are provided by watershed group. A single
   
 Looking ahead, priorities for the program are:
 
-- Continue and extend the long-term effectiveness monitoring program, and share what it shows — including where a remediation has not delivered the outcome intended — so decisions elsewhere are better informed.
+- Continue and extend the long-term effectiveness monitoring program so decisions elsewhere are better informed.
 - Continue environmental DNA sampling as an annual, region-wide layer, building single-year detections into distribution and trend information.
 - Extend functional floodplain mapping and the climate departure analysis across the project area, so watershed condition sits alongside barrier status wherever prioritization is done.
 - Commission engineering designs at the Ministry of Transportation and Infrastructure crossings identified in previous reporting, and advance the highest ranked sites assessed this year.
