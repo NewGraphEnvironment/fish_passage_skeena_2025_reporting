@@ -150,7 +150,8 @@ was one Peace-specific block.
 - [x] NEWS.md entry + version bump; also corrected the title page, which read 0.0.1 through two
       releases while DESCRIPTION and the tag said 0.2.1
 - [x] Filed the narrative-pass follow-up as #14
-- [ ] `/planning-archive`, PR closing #10 and #11 — **not done**, branch is still local
+- [x] PR closing #10 and #11 — branch pushed, PR opened
+- [ ] `/planning-archive` — after merge
 
 ## Handed back to the author
 
@@ -164,8 +165,8 @@ was one Peace-specific block.
 
 ## Validation
 
-- [ ] `/code-check` clean on each commit
-- [ ] PWF checkboxes match landed work
+- [x] `/code-check` clean on each commit
+- [x] PWF checkboxes match landed work
 - [ ] Builds from a fresh `git clone` — no cross-repo runtime path, no DB
-- [ ] Both output formats render every new appendix
-- [ ] No caption claims coverage the underlying data doesn't have
+- [x] Both output formats render every new appendix
+- [x] No caption claims coverage the underlying data doesn't have
