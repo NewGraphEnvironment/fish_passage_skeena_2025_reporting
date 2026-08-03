@@ -113,216 +113,15 @@ map
 ```
 
 
-## Site Assessment Data 
+## Site Assessment Data
 
-Fish passage assessment procedures conducted through SERNbc since `r params$project_start_year` are amalgamated `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Tables \\@ref(tab:tab-sites-sum-cap) - \\@ref(tab:tab-sites-cap)")}`.
-
-<br>
-
-
-Since `r params$project_start_year`, orthoimagery and elevation model rasters have been generated and stored as Cloud Optimized Geotiffs on a cloud service provider (AWS) with select imagery linked to in the collaborative GIS project. Additionally - a tile service has been set up to facilitate viewing and downloading of individual images, provided `r knitr::asis_output(if (gitbook_on) "in Table \\@ref(tab:tab-uav-imagery-cap)" else ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "results-and-discussion.html", anchor_text = paste0("at", params$report_url, "/results-and-discussion.html")))`. 
-
-`r if(gitbook_on){knitr::asis_output("<br>")}`
-
-```{r ld-db}
-
-sites_all <- fpr::fpr_db_query(
-  query = "SELECT * FROM working.fp_sites_tracking"
-)
-
-```
-
-```{r summarize-sites}
-
-# unique(sites_all$watershed_group_name)
-# 
-# # here is a list of SERN wtershed groups
-# wsg <- c("Bulkley River",
-#               "Zymoetz River",
-#               "Kispiox River", 
-#               "Kalum River", 
-#               "Morice River", 
-#               "Parsnip River",
-#               "Carp Lake", 
-#               "Crooked River")
-
-# wsg <- c(
-#               "Parsnip River",
-#               "Carp Lake",
-#               "Crooked River"
-#               )
-
-wsg <- c(
-  "Lower Chilako River",
-  "Willow River",
-  "Tabor River",
-  "Lower Salmon River",
-  "Upper Fraser River",
-  "Nechako River",
-  "Morkill River",
-  "Francois Lake"
-)
-
-
-# more straight forward is new graph only watersheds
-# wsg_ng <- "Elk River"
-
-# here is a summary with Elk watershed group removed
-sites_all_summary <- sites_all |> 
-  # make a flag column for uav flights
-  dplyr::mutate(
-    uav = dplyr::case_when(
-      !is.na(link_uav1) ~ "yes",
-      T ~ NA_character_
-    )) |> 
-  # remove the elk counts
-  dplyr::filter(watershed_group %in% wsg) |>
-  dplyr::group_by(watershed_group) |> 
-  dplyr::summarise(
-    dplyr::across(assessment:fish_sampling, ~ sum(!is.na(.x))),
-    uav = sum(!is.na(uav))
-  ) |> 
-  sf::st_drop_geometry() |> 
-  # make pretty names
-  dplyr::rename_with(~ stringr::str_replace_all(., "_", " ") |> 
-                       stringr::str_to_title()) |> 
-  # annoying special case
-  dplyr::rename(
-    `Drone Imagery` = Uav) |> 
-  janitor::adorn_totals()
-```
-
-```{r tab-sites-sum-cap, results="asis"}
-my_caption = "Summary of fish passage assessment procedures conducted in northern British Columbia through SERNbc."
-my_tab_caption()
-```
-
-```{r tab-sites-sum}
-sites_all_summary |> 
-  dplyr::mutate(dplyr::across(everything(), as.character)) |> 
-  my_dt_table(
-    page_length = 20,
-    cols_freeze_left = 0
-              )
-```
+A summary of fish passage assessment procedures conducted through SERNbc since `r params$project_start_year` — including assessments, habitat confirmations, design, remediation, monitoring, fish sampling, eDNA sampling, and drone imagery — is provided in [Appendix - Assessment Data Summary](#app-site-data).
 
 <br>
 
-
-```{r tab-sites-cap, results="asis"}
-my_caption = "Details of fish passage assessment procedures conducted in northern British Columbia through SERNbc."
-my_tab_caption(tip_flag = FALSE)
-```
-
-```{r tab-sites-all}
-sites_all |>
-  dplyr::filter(watershed_group %in% wsg) |>
-  sf::st_drop_geometry() |>
-  dplyr::mutate(dplyr::across(everything(), as.character)) |> 
-  dplyr::relocate(watershed_group, .after = my_crossing_reference) |> 
-  dplyr::select(-idx) |>
-  # make pretty names
-  dplyr::rename_with(~ . |>
-                       stringr::str_replace_all("_", " ") |>
-                       stringr::str_replace_all("repo", "Report") |>
-                       stringr::str_replace_all("uav", "Drone") |>
-                       stringr::str_to_title()) |> 
-  # dplyr::arrange(desc(stream_crossing_id)) |> 
-  
-  my_dt_table(
-    cols_freeze_left = 1,
-    escape = FALSE
-  )
-```
+Orthoimagery and elevation model rasters generated since `r params$project_start_year` are catalogued in [Appendix - UAV Imagery](#app-uav).
 
 <br>
-
-```{r api1, eval = F}
-
-# only needs to be run at the beginning or if we want to update
-
-# Grab the imagery from the stac
-
-# bc bounding box
-bcbbox <-  as.numeric(
-  sf::st_bbox(bcmaps::bc_bound()) |> sf::st_transform(crs = 4326)
-)
-
-# use rstac to query the collection
-q <- rstac::stac("https://images.a11s.one/") |>
-    rstac::stac_search(
-      collections = "imagery-uav-bc-prod",
-                      bbox = bcbbox
-                      
-                     ) |>
-  rstac::post_request()
-
-# get deets of the items
-r <- q |>
-  rstac::items_fetch()
-
-
-
-```
-
-
-```{r uav-clean-burn, eval = F}
-
-# build the table to display the info
-tab_uav <- tibble::tibble(url_download = purrr::map_chr(r$features, ~ purrr::pluck(.x, "assets", "image", "href"))) |> 
-  dplyr::mutate(stub = stringr::str_replace_all(url_download, "https://imagery-uav-bc.s3.amazonaws.com/", "")) |> 
-  tidyr::separate(
-    col = stub, 
-    into = c("region", "watershed_group", "year", "item", "rest"),
-    sep = "/",
-    extra = "drop"
-  ) |> 
-  dplyr::mutate(
-    link_view = 
-                  dplyr::case_when(
-                    !tools::file_path_sans_ext(basename(url_download)) %in% c("dsm", "dtm") ~ 
-                      ngr::ngr_str_link_url(
-                        url_base = "https://viewer.a11s.one/?cog=",
-                        url_resource = url_download, 
-                        url_resource_path = FALSE,
-                        # anchor_text= "URL View"
-                        anchor_text= tools::file_path_sans_ext(basename(url_download))),
-                    T ~ "-"),
-                        link_download = ngr::ngr_str_link_url(url_base = url_download, anchor_text = url_download)
-    )|> 
-  dplyr::select(region, watershed_group, year, item, link_view, link_download)
-
-
-
-# grab the imagery for this project area
-project_region <- "skeena"
-
-project_uav <- tab_uav |> 
-  dplyr::filter(region == project_region)
-
-# how many distinct items are there
-# length(unique(project_uav$item))
-
-# Burn to sqlite 
-conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
-readwritesqlite::rws_list_tables(conn)
-readwritesqlite::rws_drop_table("project_uav", conn = conn)
-readwritesqlite::rws_write(project_uav, exists = F, delete = TRUE,
-                           conn = conn, x_name = "project_uav")
-readwritesqlite::rws_disconnect(conn)
-
-```
-
-```{r tab-uav-imagery-cap, results="asis", eval= gitbook_on}
-my_caption <- "Drone imagery download and viewer links."
-
-my_tab_caption()
-```
-
-```{r tab-uav-imagery, eval= gitbook_on}
-project_uav |>
-  my_dt_table(cols_freeze_left = 2, escape = FALSE)
-```
 
 
 ```{r cd-rollup-body, include = FALSE}
@@ -360,77 +159,13 @@ Four findings from the regional climate-departure analysis carry to fish-passage
 
 For barrier prioritisation these signals cut both ways. Where upstream reaches are cold-limited, added growing-degree-days can raise the intrinsic potential of habitat above the barrier and *increase* the value of restoring passage; where upstream reaches sit closer to the upper edge of the cold-water thermal niche, the same warming reduces usable habitat and lowers the payoff. The watershed-group breakdown in [Appendix - Climate Departure](#app-climate-departure) maps the eight-ecoregion signal onto the seven watershed groups via a percentage crosswalk.
 
-## Collaborative GIS Environment
-
-In addition to numerous layers documenting fieldwork activities since `r cat(params$project_start_year)`, a summary of background information spatial layers and tables loaded to the collaborative GIS project (`r params$gis_project_name`) at the time of writing (`r format(lubridate::now(), "%Y-%m-%d")`) are included `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-rfp-tracking).")}`
-
-<br>
-
-```{r rfp-metadata, eval = params$update_gis}
-# grab the metadata
-md <- rfp::rfp_meta_bcd_xref()
-
-# burn locally so we don't nee to wait for it
-md |> 
-  readr::write_csv("data/rfp_metadata.csv")
-```
-
-```{r rfp-tracking-copy, eval = params$update_gis}
-
-md_raw <- readr::read_csv("data/rfp_metadata.csv")
-
-md <- dplyr::bind_rows(
-  md_raw,
-  rfp::rfp_xref_layers_custom
-) 
-                    
-# first we will copy the doc from the Q project to this repo - the location of the Q project is outside of the repo!!
-q_path_stub <- "~/Projects/gis/sern_peace_fwcp_2023/"
-
-# this is differnet than Neexdzii Kwa as it lists layers vs tracking file (tracking file is newer than this project).  
-# could revert really easily to the tracking file if we wanted to.
-gis_layers_ls <- sf::st_layers(paste0(q_path_stub, "background_layers.gpkg")) 
-
-gis_layers <- tibble::tibble(content = gis_layers_ls[["name"]])
-   
-# remove the `_vw` from the end of content
-rfp_tracking_prep <- dplyr::left_join(
-  gis_layers |> 
-    dplyr::distinct(content, .keep_all = FALSE),
-  
-  md |> 
-    dplyr::select(content = object_name, url = url_browser, description),
-  
-  by = "content"
-) |> 
-  dplyr::arrange(content)
-
-rfp_tracking_prep |> 
-  readr::write_csv("data/rfp_tracking_prep.csv")
-
-```
-
-```{r tab-rfp-tracking, eval= gitbook_on}
-rfp_tracking_prep <- readr::read_csv(
-  "data/rfp_tracking_prep.csv"
-) 
-
-rfp_tracking_prep |> 
-  fpr::fpr_kable(caption_text = "Layers loaded to collaborative GIS project.",
-                 footnote_text = "Metadata information for bcfishpass and bcfishobs layers can be provided here in the future but currently can usually be sourced from https://smnorris.github.io/bcfishpass/06_data_dictionary.html .",
-                 scroll = gitbook_on)
-
-
-
-```
-
 ## Planning — Habitat, Connectivity and Floodplain Modelling
 
 ### Habitat Modelling
 Habitat modelling from `bcfishpass` including access model, linear spawning/rearing habitat model and lateral habitat 
 connectivity models for watershed groups within our study area were updated for the spring of 2025 and are included
 spatially in the collaborative GIS project.  A snapshot of these outputs related to each modeled and PSCIS stream 
-crossing structure are also included within an `sqlite` database within this year's project reporting/code repository [here](https://github.com/NewGraphEnvironment/fish_passage_peace_2024_reporting/blob/main/data/bcfishpass.sqlite).
+crossing structure are also included within an `sqlite` database within this year's project reporting/code repository `r ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = "blob/main/data/bcfishpass.sqlite", anchor_text = "here")`.
 
 
 #### Statistical Support for `bcfishpass` Fish Habitat Modelling Updates
@@ -511,11 +246,11 @@ A summary of crossings assessed, a rough cost estimate for remediation, and a pr
 
 ## Habitat Confirmation Assessments
 
-During the `r cat(params$project_year)` field assessments, habitat confirmation assessments were conducted at `r form_fiss_site |> dplyr::filter(is.na(ef)) |> dplyr::distinct(site) |> nrow()` sites within the `r wsg_names |> knitr::combine_words()` watershed groups. A total of approximately `r habitat_confirmations_priorities |> pull(length_surveyed) |> sum(na.rm = TRUE) |> round(-3)/1000` km of stream was assessed.
+During the `r (params$project_year)` field assessments, habitat confirmation assessments were conducted at `r n_hab_conf_sites` sites within the `r wsg_names_hab_conf |> knitr::combine_words()` watershed groups. A total of approximately `r len_surveyed_km` km of stream was assessed, combining reaches surveyed upstream and downstream of each crossing.
 
 <br>
 
-As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Table \@ref(tab:tab-overview) with raw habitat `r if (exists("fish_data_complete")) "and fish sampling " else ""` data included in [Attachment - Data](#attach-dat). A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments (including maps) are presented within site-specific appendices to this document.
+As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Table \@ref(tab:tab-overview) with raw habitat `r if (exists("fish_data_complete")) "and fish sampling " else ""` data included in [Attachment - Data](#attach-dat). A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments, including maps, is presented in the per-site habitat-confirmation appendices: [Tributary to Stony Lake (PSCIS 126158)](#tributary-to-stony-lake---126158---appendix), [Tabor Creek (PSCIS 196085 and 203582)](#tabor-creek---196085-203582---appendix), [South Yuzkli Creek (PSCIS 196332)](#south-yuzkli-creek---196332---appendix), and [Tributary to Fraser River (PSCIS 203581 and 196076)](#tributary-to-fraser-river---203581-196076---appendix).
 
 `r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
 
@@ -581,13 +316,33 @@ tab_cost_est_phase2 |>
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 ```{r tab-habitat-summary}
-tab_hab_summary |> 
-  dplyr::filter(stringr::str_like(Location, 'upstream')) |> 
-  dplyr::select(-Location) |> 
-  dplyr::rename(`PSCIS ID` = Site, `Length surveyed upstream (m)` = `Length Surveyed (m)`) |>
-  fpr::fpr_kable(caption_text = 'Summary of Phase 2 habitat confirmation details.', scroll = F)
+# Match Location exactly rather than with stringr::str_like(). str_like() is
+# case sensitive as of stringr 1.5.0, so str_like(Location, 'upstream') stopped
+# matching the "Upstream" values that 0130-tables.R writes, and this table has
+# been rendering empty ever since.
+tab_hab_upstream <- tab_hab_summary |>
+  dplyr::filter(Location == 'Upstream') |>
+  dplyr::select(-Location) |>
+  dplyr::rename(`PSCIS ID` = Site, `Length surveyed upstream (m)` = `Length Surveyed (m)`)
 
-
+# Total the surveyed length only. The remaining columns are averages, which do
+# not sum, so they are left blank in the total row rather than showing numbers
+# a reader would take for totals.
+tab_hab_upstream |>
+  dplyr::mutate(dplyr::across(dplyr::everything(), as.character)) |>
+  dplyr::bind_rows(
+    tibble::tibble(
+      `PSCIS ID` = "Total",
+      `Length surveyed upstream (m)` = as.character(
+        sum(tab_hab_upstream$`Length surveyed upstream (m)`, na.rm = TRUE))
+    )
+  ) |>
+  fpr::fpr_kable(
+    caption_text = paste0(
+      "Summary of Phase 2 habitat confirmation details. Lengths are for the reach surveyed ",
+      "upstream of each crossing only; downstream reaches are reported in the site appendices, ",
+      "and the combined upstream and downstream total is given in the text above."),
+    scroll = F)
 ```
 
 <br>
@@ -660,7 +415,7 @@ bcfishpass_phase2_plot_prep |>
 # 
 # <br>
 # 
-# Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) and clicking the _Link Report_")}`.
+# Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Assessment Data Summary appendix of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-site-data.html", anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) of [Appendix - Assessment Data Summary](#app-site-data) and clicking the _Link Report_")}`.
 # 
 # <br>
 # 
@@ -737,43 +492,138 @@ plot_fish_hist
 
 ### Environmental DNA (eDNA) sampling
 
-New in 2025, environmental DNA (eDNA) sampling was incorporated into the program at both previously assessed and newly added sites. A total of `r form_edna |> nrow()` samples were collected across `r form_edna |> dplyr::distinct(stream_name) |> nrow()` streams.
+```{r tab-edna-summary-prep, include=FALSE}
+# Loads the Fraser-filtered eDNA inputs (snapshotted from the template repo via
+# scripts/edna_inputs_snapshot.R) and computes the per-species summary below.
+
+# Coerce the control flags to logical with no NAs. readr types these columns as
+# logical when the CSV holds TRUE/FALSE/NA, so an is.logical() early return is
+# NOT enough — the NAs survive, and `any()` over a vector containing NA returns
+# NA, which surfaces in the appendix as an NA in the "Pos. control" column
+# instead of a blank. Absent means "not a positive control", so NA -> FALSE.
+norm_lgl <- function(x) {
+  if (is.logical(x)) {
+    x[is.na(x)] <- FALSE
+    return(x)
+  }
+  out <- toupper(as.character(x)) == "TRUE"
+  out[is.na(out)] <- FALSE
+  out
+}
+
+# Used in main Results, the thematic appendix, and the per-site appendices —
+# defined once here so every consumer downstream in the bookdown merge order can
+# use it without redefinition. A local copy in an appendix WILL drift; that
+# happened in the Peace report and produced inconsistent species labelling in a
+# single build.
+fmt_targets <- function(target, max_pos, retested) {
+  if (length(target) == 0) return("—")
+  parts <- paste0(
+    target,
+    "(", ifelse(is.na(max_pos), "?", max_pos), ")",
+    ifelse(retested, "*", "")
+  )
+  paste(parts, collapse = ", ")
+}
+
+edna_bystargets_fraser <- readr::read_csv(
+  "data/edna_unbc_results_2025_by_site_target.csv",
+  show_col_types = FALSE
+) |>
+  dplyr::filter(grepl(params$gis_project_name, source)) |>
+  # Two samples carry the wrong crossing in the field form — see
+  # edna_site_id_fix() in scripts/functions.R for the correction and why it
+  # lives at the display layer rather than in the form.
+  dplyr::mutate(site_id = edna_site_id_fix(site_id)) |>
+  dplyr::mutate(
+    control_blank_field           = norm_lgl(control_blank_field),
+    control_blank_office          = norm_lgl(control_blank_office),
+    control_species_present_field = norm_lgl(control_species_present_field)
+  )
+
+# Real environmental samples = exclude both blank types.
+#   Office blanks are distilled-water controls filtered at the end of a session
+#   at accommodation — they carry real GPS, just of a hotel rather than a stream,
+#   so they are not sites. (Their `site_id` is borrowed from an unrelated site,
+#   or is a date when none was handy.)
+#   Field blanks are streamside but test protocol cleanliness, not site eDNA —
+#   reported separately in the appendix and on the map's Controls layer.
+edna_real_fraser <- edna_bystargets_fraser |>
+  dplyr::filter(!control_blank_office, !control_blank_field)
+
+n_edna_real_sites    <- dplyr::n_distinct(edna_real_fraser$site_id)
+n_edna_field_blanks  <- edna_bystargets_fraser |>
+  dplyr::filter(control_blank_field)  |> dplyr::distinct(site_id) |> nrow()
+n_edna_office_blanks <- edna_bystargets_fraser |>
+  dplyr::filter(control_blank_office) |> dplyr::distinct(site_id) |> nrow()
+
+# UNBC assay code -> common name
+edna_species_names <- c(
+  BULT  = "Bull Trout",
+  GRAY  = "Arctic Grayling",
+  RAIN  = "Rainbow Trout",
+  RAIN2 = "Rainbow Trout (confirmation primer)",
+  CHIN  = "Chinook Salmon",
+  COHO  = "Coho Salmon",
+  # The Fraser is anadromous, so the SOCK ddPCR assay detects Sockeye Salmon.
+  # Differs from the Peace report, where everything above the Peace Canyon Dam
+  # is landlocked and the same assay is reported as Kokanee.
+  SOCK  = "Sockeye Salmon",
+  BURB  = "Burbot"
+)
+
+edna_summary_fraser <- edna_real_fraser |>
+  dplyr::group_by(target) |>
+  dplyr::summarise(
+    sites_tested        = dplyr::n_distinct(site_id),
+    sites_detected      = dplyr::n_distinct(site_id[any_clean]),
+    sites_subthreshold  = dplyr::n_distinct(site_id[any_crude & !any_clean]),
+    sites_no_detection  = dplyr::n_distinct(site_id[!any_crude]),
+    .groups = "drop"
+  ) |>
+  dplyr::mutate(Species = dplyr::coalesce(edna_species_names[target], target)) |>
+  dplyr::select(
+    Species,
+    `Code`                              = target,
+    `Sites tested`                      = sites_tested,
+    `Detected (≥4 droplets)`            = sites_detected,
+    `Sub-threshold only (1-3 droplets)` = sites_subthreshold,
+    `No detection (0 droplets)`         = sites_no_detection
+  ) |>
+  dplyr::arrange(dplyr::desc(`Detected (≥4 droplets)`), Species)
+```
+
+New in 2025, environmental DNA (eDNA) sampling was incorporated into the program at both previously assessed and newly added sites. A total of `r form_edna |> nrow()` collection events were undertaken across `r form_edna |> dplyr::distinct(stream_name) |> nrow()` streams, comprising `r n_edna_real_sites` real environmental samples, `r n_edna_field_blanks` field blanks, and `r n_edna_office_blanks` office blanks collected for quality assurance.
+
+Per-species detection results across the `r n_edna_real_sites` real environmental samples are summarized in Table \@ref(tab:tab-edna-summary). Detections use the standard ddPCR call threshold of ≥4 positive droplets; sub-threshold signals (1-3 droplets) are tracked separately because they are not interpretable as species presence under ddPCR convention. Non-detections should be read with care: internal amplification controls were reported for only a minority of samples, and where they are absent a zero result cannot be distinguished from a reaction that failed or was inhibited. Detections are unaffected, since a well returning positive droplets demonstrably amplified. Site-level detail — the per-site detection table, field blanks, and retests — is provided in [Appendix - Environmental DNA Results](#app-edna), and the `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "edna_unbc_results_2025_fraser_map.html", anchor_text = "interactive Fraser eDNA map")` shows toggleable per-species layers.
 
 <br>
 
-INCLUDE LAB RESULTS
+```{r tab-edna-summary}
+edna_summary_fraser |>
+  fpr::fpr_kable(
+    caption_text = "Per-species summary of eDNA results across real environmental samples in the Fraser project area (excludes field and office blanks).",
+    scroll = FALSE
+  )
+```
 
 <br>
 
 ## Engineering Design
 
-MIGHT NEED TO UPDATE
-
-No new designs were commissioned in `r cat(params$project_year)` due to uncertainty related to forest harvesting activities and lack of funding
-for the 50% costs of replacing structures.  All sites with a design for remediation of fish passage can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) by filtering using Design = yes")}`.
+No new designs were commissioned in `r (params$project_year)` due to uncertainty related to forest harvesting activities and lack of funding
+for the 50% costs of replacing structures.  All sites with a design for remediation of fish passage can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Assessment Data Summary appendix of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-site-data.html", anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) of [Appendix - Assessment Data Summary](#app-site-data) by filtering using Design = yes")}`.
 
 
-```{r remediations-text, eval=F}
-
-# ## Remediations
-# 
-# In 2024, remediation of fish passage was completed at PSCIS crossing 125231, located on Tributary to Table River at km 21 
-# on the Chuchinka-Table FSR. The crossing was replaced with a clear-span bridge by Canfor with environmental oversight and engineering from DWB Consulting Services Ltd. Half the total funding for the project was provided by FWCP through coordination from SERNbc. More information regarding the crossing can be found within this report [here](https://www.newgraphenvironment.com/fish_passage_peace_2023_reporting/tributary-to-the-table-river---125231---appendix.html).  
-# 
-# <br>
-# 
-# All sites where remediation of fish passage has been completed can be found `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Results and Discussion section of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = "here")))}else{knitr::asis_output("in Table \\@ref(tab:tab-sites-cap) by filtering using Remediation = yes")}`. 
-
-```
 
 
 ## Monitoring
 
-In `r cat(params$project_year)`, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through eDNA sampling and aquistion of aerial imagery at the following sites (Table \@ref(tab:tab-mon-overview):
+In `r (params$project_year)`, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through eDNA sampling and aquistion of aerial imagery at the following sites (Table \@ref(tab:tab-mon-overview):
 
-- Effectiveness monitoring was conducted on Tabor Creek (PSCIS crossing 196085) on Willow-Cale FRS which was replaced in XXXX.
+- Effectiveness monitoring was conducted on Tabor Creek (PSCIS crossing 196085) on Willow Cale FSR, where previous remediation work backwatered the outlet, removed the outlet drop and installed baffles within the culvert. The crossing remains ranked a barrier to upstream passage.
 
-- Effectiveness monitoring was conducted on Bittner Creek (PSCIS crossing 196200) on Foreman Road which was replaced in XXXX.
+- Effectiveness monitoring continued on Bittner Creek (PSCIS crossing 196200) on Forman Road, where the culvert was replaced with a bridge prior to the 2022 reassessment and now ranks passable [@irvine2024EffectivenessMonitoring]. Results are presented in the [Bittner Creek - 196200 - Monitoring Appendix](#bittner-2025).
 
 
 ```{r tab-mon-overview, eval = T}
@@ -795,5 +645,8 @@ form_monitoring |>
 
 ```
 
+<br>
 
+## Collaborative GIS Environment
 
+Fieldwork activities and background spatial layers are maintained in a collaborative QGIS and Mergin Maps environment (`r params$gis_project_name`), which field crews and partners use to view, edit and add data. The layers loaded at the time of writing are listed in [Appendix - Collaborative GIS Layers](#app-gis).

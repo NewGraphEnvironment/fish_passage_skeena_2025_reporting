@@ -1,0 +1,62 @@
+---
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
+# Appendix - Fish Species by Watershed Group {-#app-fish-species}
+
+Historical fish observations recorded in the watershed groups covered by this project [@moe2024KnownBC]. `r if(identical(gitbook_on, FALSE)){knitr::asis_output("The print version collapses presence to a single column listing the watershed groups each species has been recorded in; the online version gives one column per watershed group.")}else{knitr::asis_output("Each watershed group has its own column.")}`
+
+<br>
+
+```{r fiss-species-table}
+fiss_species_table <- readr::read_csv('data/inputs_extracted/fiss_species_table.csv',
+                                      show_col_types = FALSE)
+
+# Build the caption from the watershed-group columns actually present in the
+# cached extract, NOT from params/wsg_names. If the extract is refreshed with
+# different coverage the caption follows it, so the table cannot claim
+# watershed groups the data does not contain.
+cols_meta <- c("Scientific Name", "Species Name", "BC List", "COSEWIC")
+wsg_in_table <- setdiff(names(fiss_species_table), cols_meta)
+
+my_caption <- paste0(
+  "Fish species recorded in the ",
+  knitr::combine_words(wsg_in_table),
+  " watershed groups."
+)
+
+my_footnote <- 'COSEWIC abbreviations :
+                 SC - Special concern
+                 DD - Data deficient
+                 NAR - Not at risk
+                 E - Endangered
+                 T - Threatened
+
+                 BC List definitions :
+                 Yellow - Species that is apparently secure
+                 Blue - Species that is of special concern
+                 Exotic - Species that have been moved beyond their natural range as a result of human activity
+                 '
+
+# One column per watershed group is too wide for paged.js, so the PDF branch
+# collapses presence into a single comma-separated column. One wide source of
+# truth, pivoted only where it has to be.
+tab_fiss_species <- if (isTRUE(gitbook_on)) {
+  fiss_species_table
+} else {
+  fiss_species_table |>
+    tidyr::pivot_longer(dplyr::all_of(wsg_in_table),
+                        names_to = "wsg", values_to = "present") |>
+    dplyr::filter(!is.na(present), trimws(as.character(present)) != "", present != "-") |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(cols_meta))) |>
+    dplyr::summarise(`Present in WSGs` = paste(sort(unique(wsg)), collapse = ", "),
+                     .groups = "drop")
+}
+
+tab_fiss_species |>
+  fpr::fpr_kable(caption_text = my_caption,
+                 footnote_text = my_footnote,
+                 scroll = gitbook_on)
+```

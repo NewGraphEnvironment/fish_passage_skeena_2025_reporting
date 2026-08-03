@@ -26,6 +26,19 @@ streams      <- sf::st_read(gpkg_cd, layer = "streams",    quiet = TRUE)
 highways     <- sf::st_read(gpkg_cd, layer = "highways",   quiet = TRUE)
 wsgs         <- sf::st_read(gpkg_cd, layer = "wsgs",       quiet = TRUE)
 
+# Derive the analysis extent from the data instead of restating it in prose.
+# scripts/gis/climate_departure.R builds the AOI from an explicit `wsg_codes`
+# vector that is NOT the same as params$wsg_code — Lower Salmon River is in the
+# project but not in the climate run. Deriving here means the prose below cannot
+# drift from what was actually analysed if either list changes.
+n_cd_wsg      <- nrow(wsgs)
+n_cd_wsg_word <- c("one", "two", "three", "four", "five", "six", "seven",
+                   "eight", "nine", "ten")[n_cd_wsg]
+cd_wsg_codes  <- paste(sort(as.character(wsgs$code)), collapse = ", ")
+cd_wsg_list   <- knitr::combine_words(
+  paste0(as.character(wsgs$name), " (", as.character(wsgs$code), ")")
+)
+
 cd_data    <- readRDS("data/gis/climate_departure.rds")
 ts         <- cd_data$regional$ts
 bl_early   <- cd_data$regional$bl
@@ -75,20 +88,18 @@ biological inputs.
 ## Area of interest {-}
 
 The study area for this climate-departure analysis is the union of
-seven Freshwater Atlas watershed groups in the upper and central
-Fraser drainage: Lower Chilako (LCHL), Nechako (NECR), Francois
-Lake (FRAN), Morkill River (MORK), Upper Fraser (UFRA), Tabor
-River (TABR), and Willow River (WILL). Together they cover
+`r n_cd_wsg_word` Freshwater Atlas watershed groups in the upper and central
+Fraser drainage: `r cd_wsg_list`. Together they cover
 `r format(round(aoi_km2), big.mark = ",")` km² and span
 `r nrow(ecoregions)` ecoregions
 (Figure \@ref(fig:cd-map-aoi)) — broad climate-physiography zones
 based on latitude, elevation, and dominant vegetation. We carry
 that ecoregion partition through the analysis because climate
 departure can vary across them in ways the regional average
-hides, then map the ecoregion signal back onto the seven
+hides, then map the ecoregion signal back onto the `r n_cd_wsg_word`
 watershed groups at the end of the appendix.
 
-```{r cd-map-aoi, fig.cap = "Study area in central British Columbia, coloured by ecoregion, with the seven watershed groups (heavy black outlines) that define the analysis extent. The Fraser flows south-east through the interior plateau (Fraser Basin / Fraser Plateau ecoregions) before turning south near Prince George; the eastern WSGs sit in the Western Continental Ranges and adjacent Rocky Mountain ecoregions.", fig.height = 6.5}
+```{r cd-map-aoi, fig.cap = paste0("Study area in central British Columbia, coloured by ecoregion, with the ", n_cd_wsg_word, " watershed groups (heavy black outlines) that define the analysis extent. The Fraser flows south-east through the interior plateau (Fraser Basin / Fraser Plateau ecoregions) before turning south near Prince George; the eastern WSGs sit in the Western Continental Ranges and adjacent Rocky Mountain ecoregions."), fig.height = 6.5}
 ggplot() +
   geom_sf(data = ecoregions, aes(fill = name_tc), color = "grey45",
           linewidth = 0.3, alpha = 0.45) +
@@ -110,7 +121,7 @@ ggplot() +
   coord_sf(xlim = c(aoi_bb["xmin"] - 0.4, aoi_bb["xmax"] + 0.4),
            ylim = c(aoi_bb["ymin"] - 0.4, aoi_bb["ymax"] + 0.3)) +
   labs(subtitle = paste0(format(round(aoi_km2), big.mark = ","),
-                          " km² — ", nrow(ecoregions), " ecoregions, 7 watershed groups")) +
+                          " km² — ", nrow(ecoregions), " ecoregions, ", n_cd_wsg, " watershed groups")) +
   theme_minimal(base_size = 11) +
   theme(axis.title = element_blank(),
         legend.position = "bottom",
@@ -709,7 +720,7 @@ Ecoregion codes:
 The study area is reported and managed at the watershed-group
 scale — the British Columbia Freshwater Atlas hydrological
 reporting unit, and the unit that drives barrier prioritisation
-in this report. The seven watershed groups (LCHL, NECR, FRAN,
+in this report. The `r n_cd_wsg_word` watershed groups (`r cd_wsg_codes`)
 MORK, UFRA, TABR, WILL) span the eight ecoregions in different
 ways: some sit cleanly within one or two, others split across
 several (Figure \@ref(fig:cd-map-wsgs)). The table that follows
@@ -779,7 +790,7 @@ not from climate-departure magnitude.
 **Precipitation has not moved.** Across every ecoregion, the
 long-term precipitation trend is not statistically distinguishable
 from natural year-to-year variability. The climate-driven
-hydrology story for these seven watershed groups is dominated by
+hydrology story for these `r n_cd_wsg_word` watershed groups is dominated by
 *atmospheric drying* (rising VPD, significant in every
 ecoregion) and *snowpack timing*, not by precipitation magnitude.
 This is the place where the local result differs from some other
@@ -796,7 +807,7 @@ significance season-by-season. The total annual melt has not
 changed; its centre of mass has moved earlier. The freshet — the
 dominant high-flow event that mobilises spawning gravels, refills
 off-channel rearing habitat, and that crossing structures are
-sized against — is arriving weeks earlier across all seven
+sized against — is arriving weeks earlier across all `r n_cd_wsg_word`
 watershed groups, regardless of which ecoregion they sit in.
 Crossing-structure design assumptions and peak-flow-timing
 baselines baked into the assessment scoring need to track this
@@ -820,7 +831,7 @@ signal.
 For the cold-water resident salmonids the study area supports —
 bull trout, chinook, mountain whitefish, rainbow trout — the
 implication for barrier prioritisation is that two fundamentally
-different climate-departure stories play out across the seven
+different climate-departure stories play out across the `r n_cd_wsg_word`
 watershed groups, and that the priority weight on barrier removal
 should respond to both directions. Headwater reaches that were
 cold-limited (most likely in the mountain-dominated WSGs at

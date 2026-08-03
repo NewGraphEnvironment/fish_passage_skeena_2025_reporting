@@ -4,11 +4,11 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Fish Passage Reporting Template</a></li>
+        <li><a href="./">Fish Passage in the Fraser Region 2025</a></li>
       after: |
-        <li><a href="https://github.com/NewGraphEnvironment/fish_passage_template_reporting" target="blank">Scripts and Data</a></li>
+        <li><a href="https://github.com/NewGraphEnvironment/fish_passage_fraser_2025_reporting" target="blank">Scripts and Data</a></li>
       collapse: section
-    download: ["fish_passage_template_reporting.pdf", "fish_passage_template_reporting.html"]
+    download: ["fish_passage_fraser_2025_reporting.pdf"]
     fontsettings:
       theme: white
       family: sans

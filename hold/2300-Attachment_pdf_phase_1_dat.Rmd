@@ -1,0 +1,3 @@
+# Attachment - Phase 1 Data and Photos {-#attach-pdf-phase1-dat}
+
+Data and photos for all Phase 1 fish passage assessments are provided online at `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "appendix---phase-1-fish-passage-assessment-data-and-photos.html", anchor_text = paste0(params$report_url, "appendix---phase-1-fish-passage-assessment-data-and-photos.html"))`.

@@ -1,0 +1,124 @@
+---
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
+# Appendix - Assessment Data Summary {-#app-site-data}
+
+Fish passage assessment procedures conducted through SERNbc since `r params$project_start_year` are amalgamated here — assessments, habitat confirmations, design, remediation, monitoring, fish sampling, eDNA sampling and drone imagery. `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("The detailed per-site table is interactive and is provided online within this appendix ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-site-data.html", anchor_text = "here"), "."))}else{knitr::asis_output("Table \\@ref(tab:tab-sites-sum-cap) summarizes the procedures by watershed group; Table \\@ref(tab:tab-sites-cap) gives the per-site detail.")}`
+
+<br>
+
+```{r ld-db}
+# Read the committed snapshot rather than querying postgres, so the report
+# builds from a fresh clone with no database access. The snapshot is refreshed
+# with scripts/fp_inputs_snapshot.R, which pulls from the template repo and
+# records the upstream commit in data/fp_inputs_snapshot_manifest.txt.
+# Verified identical to `SELECT * FROM working.fp_sites_tracking` at the time of
+# the swap: 757 rows, 26 within this project's watershed groups.
+sites_all <- arrow::read_parquet("data/snapshots/fp_sites_tracking.parquet")
+```
+
+```{r summarize-sites}
+
+# unique(sites_all$watershed_group_name)
+# 
+# # here is a list of SERN wtershed groups
+# wsg <- c("Bulkley River",
+#               "Zymoetz River",
+#               "Kispiox River", 
+#               "Kalum River", 
+#               "Morice River", 
+#               "Parsnip River",
+#               "Carp Lake", 
+#               "Crooked River")
+
+# wsg <- c(
+#               "Parsnip River",
+#               "Carp Lake",
+#               "Crooked River"
+#               )
+
+wsg <- c(
+  "Lower Chilako River",
+  "Willow River",
+  "Tabor River",
+  "Lower Salmon River",
+  "Upper Fraser River",
+  "Nechako River",
+  "Morkill River",
+  "Francois Lake"
+)
+
+
+# more straight forward is new graph only watersheds
+# wsg_ng <- "Elk River"
+
+# here is a summary with Elk watershed group removed
+sites_all_summary <- sites_all |> 
+  # make a flag column for uav flights
+  dplyr::mutate(
+    uav = dplyr::case_when(
+      !is.na(link_uav1) ~ "yes",
+      T ~ NA_character_
+    )) |> 
+  # remove the elk counts
+  dplyr::filter(watershed_group %in% wsg) |>
+  dplyr::group_by(watershed_group) |> 
+  dplyr::summarise(
+    dplyr::across(assessment:fish_sampling, ~ sum(!is.na(.x))),
+    uav = sum(!is.na(uav))
+  ) |> 
+  sf::st_drop_geometry() |> 
+  # make pretty names
+  dplyr::rename_with(~ stringr::str_replace_all(., "_", " ") |> 
+                       stringr::str_to_title()) |> 
+  # annoying special case
+  dplyr::rename(
+    `Drone Imagery` = Uav) |> 
+  janitor::adorn_totals()
+```
+
+```{r tab-sites-sum-cap, results="asis"}
+my_caption = "Summary of fish passage assessment procedures conducted in northern British Columbia through SERNbc."
+my_tab_caption()
+```
+
+```{r tab-sites-sum}
+sites_all_summary |> 
+  dplyr::mutate(dplyr::across(everything(), as.character)) |> 
+  my_dt_table(
+    page_length = 20,
+    cols_freeze_left = 0
+              )
+```
+
+<br>
+
+
+```{r tab-sites-cap, results="asis"}
+my_caption = "Details of fish passage assessment procedures conducted in northern British Columbia through SERNbc."
+my_tab_caption(tip_flag = FALSE)
+```
+
+```{r tab-sites-all}
+sites_all |>
+  dplyr::filter(watershed_group %in% wsg) |>
+  sf::st_drop_geometry() |>
+  dplyr::mutate(dplyr::across(everything(), as.character)) |> 
+  dplyr::relocate(watershed_group, .after = my_crossing_reference) |> 
+  dplyr::select(-idx) |>
+  # make pretty names
+  dplyr::rename_with(~ . |>
+                       stringr::str_replace_all("_", " ") |>
+                       stringr::str_replace_all("repo", "Report") |>
+                       stringr::str_replace_all("uav", "Drone") |>
+                       stringr::str_to_title()) |> 
+  # dplyr::arrange(desc(stream_crossing_id)) |> 
+  
+  my_dt_table(
+    cols_freeze_left = 1,
+    escape = FALSE
+  )
+```

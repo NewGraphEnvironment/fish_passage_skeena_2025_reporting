@@ -1,12 +1,12 @@
 # Introduction
 
-`r if(identical(gitbook_on, FALSE)) knitr::asis_output(paste0("This report is available as a PDF and as an online interactive report at ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = params$report_url), ". We recommend viewing online as the web-hosted HTML version contains more features and is more easily navigable. Please reference the website for the latest PDF from ", ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = "raw/main/docs/fish_passage_peace_2024_reporting.pdf", anchor_text = "fish_passage_peace_2024_reporting.pdf"), "."))`
+`r if(identical(gitbook_on, FALSE)) { pdf_name <- paste0(yaml::read_yaml("_bookdown.yml")$book_filename, ".pdf"); knitr::asis_output(paste0("This report is available as a PDF and as an online interactive report at ", ngr::ngr_str_link_url(url_base = params$report_url, anchor_text = params$report_url), ". We recommend viewing online as the web-hosted HTML version contains more features and is more easily navigable. Please reference the website for the latest PDF from ", ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = paste0("raw/main/docs/", pdf_name), anchor_text = pdf_name), ".")) }`
 
 `r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br>")}`
 
 ```{r proj-partners-text-into, results='asis'}
 
-project_partners_text <- dplyr::case_when(params$project_region == "fraser" ~ "Since 2023, the Society for Ecosystem Restoration Northern British Columbia (SERNbc), with support from the Ministry of Transportation and Infrastructure, has been actively involved in planning, coordinating, and conducting fish passage restoration efforts within the Nechako River, Lower Chilako River, Morkhill River, Upper Fraser River, and François Lake watershed groups which are sub-basins of the Upper Fraser River watershed. ",
+project_partners_text <- dplyr::case_when(params$project_region == "fraser" ~ "Since 2023, the Society for Ecosystem Restoration Northern British Columbia (SERNbc) has been actively involved in planning, coordinating, and conducting fish passage restoration efforts within the Nechako River, Lower Chilako River, Morkill River, Upper Fraser River, and François Lake watershed groups, which are sub-basins of the Upper Fraser River watershed. That work was supported internally by SERNbc and through the Ministry of Transportation and Infrastructure, and produced the region's 2023 reporting. The project is now also supported by the Habitat Conservation Trust Foundation, alongside Skeena fish passage restoration planning, together forming the Northern British Columbia Fish Passage Restoration project (CAT26-0-636). ",
                                           params$project_region == "peace" ~ "The Society for Ecosystem Restoration in Northern BC (SERNbc) is working together with the McLeod Lake Indian Band, the Peace Region Fish and Wildlife Compensation Program (FWCP), the Provincial Fish Passage Technical Working Group (FPTWG), road/rail tenure holders and other stakeholders/partners to prioritize, plan and fund the restoration of fish passage at road crossing structure barriers within the Parsnip River, Carp River and Crooked River watershed groups. ",
                                           params$project_region == "skeena" ~ "Since 2020, the Society for Ecosystem Restoration Northern British Columbia (SERNbc) has been actively involved in planning, coordinating, and conducting fish passage restoration efforts within the Bulkley River and Morice River watershed groups, which are sub-basins of the Skeena River watershed. In 2022, the study area was expanded to include the Zymoetz River watershed group and the Kispiox River watershed group, followed by an extension in 2023 to encompass sections of the Kitsumkalum River watershed group, particularly where Highway 16 intersects the watershed."
 )
@@ -64,9 +64,9 @@ This project builds on Society for Ecosystem Restoration Northern BC (SERNbc) wo
 
 The health and viability of freshwater fish populations can depend on access to tributary and off channel areas which
 provide refuge during high flows, opportunities for foraging, overwintering habitat, spawning habitat and summer rearing
-habitat [@bramblett_etal2002SeasonalUse; @swalesRoleOffChannelPonds1989; @diebel_etal2015EffectsRoad].  Culverts can
+habitat [@bramblett_etal2002SeasonalUse; @swales_levings1989RoleOffChannel; @diebel_etal2015EffectsRoad].  Culverts can
 present barriers to fish migration due to low water depth, increased water velocity, turbulence, a vertical drop at the
-culvert outlet and/or maintenance issues [@slaneyFishHabitatRehabilitation1997; @cote_etal2005Fishpassage]. As road
+culvert outlet and/or maintenance issues [@slaney_zaldokas1997FishHabitat; @cote_etal2005Fishpassage]. As road
 crossing structures are commonly upgraded or removed there are numerous opportunities to restore connectivity by
 ensuring that fish passage considerations are incorporated into repair, replacement, relocation and deactivation
 designs.

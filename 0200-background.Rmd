@@ -6,7 +6,7 @@ knitr::opts_chunk$set(fig.path = "fig/background/", dev = "png")
 
 ## Approach
 
-Fish passage assessments in British Columbia follow the provincial protocol [@moe2011Fieldassessment], which scores barrier risk at road-stream crossings from structural parameters — culvert embedment, slope, outlet drop, and culvert diameter relative to channel width. The "Barrier" and "Potential Barrier" classifications represent passability for juvenile salmon or small resident rainbow trout under any flow conditions that may occur throughout the year [@clarkinNationalInventoryAssessment2005; @bellFisheriesHandbookEngineering1991; @thompsonAssessingFishPassage2013]. The thresholds are deliberately conservative, so the classifications are risk scores rather than determinations of whether fish actually move through. Many structures classified as "Barrier" still pass some species and life stages at some flows, and natural features in adjacent reaches can be as limiting as the structure itself. Passability can be quantified in other ways — fish length, swim speed, and species physiology all affect connectivity outcomes — and finer-grained scoring methods exist for structures already classified as barriers [@bourne_etal2011Barriersfish; @kemp_ohanley2010Proceduresevaluating; @washingtondepartmentoffishwildlife2009FishPassage]. Whether a remediation changes outcomes for fish therefore depends on the habitat upstream, the species and life stages in question, and the broader condition of the reach the structure connects to — not the classification alone.
+Fish passage assessments in British Columbia follow the provincial protocol [@moe2011Fieldassessment], which scores barrier risk at road-stream crossings from structural parameters — culvert embedment, slope, outlet drop, and culvert diameter relative to channel width. The "Barrier" and "Potential Barrier" classifications represent passability for juvenile salmon or small resident rainbow trout under any flow conditions that may occur throughout the year [@clarkin_etal2005NationalInventory; @bell1991FisheriesHandbook; @thompson2013AssessingFish]. The thresholds are deliberately conservative, so the classifications are risk scores rather than determinations of whether fish actually move through. Many structures classified as "Barrier" still pass some species and life stages at some flows, and natural features in adjacent reaches can be as limiting as the structure itself. Passability can be quantified in other ways — fish length, swim speed, and species physiology all affect connectivity outcomes — and finer-grained scoring methods exist for structures already classified as barriers [@bourne_etal2011Barriersfish; @kemp_ohanley2010Proceduresevaluating; @washingtondepartmentoffishwildlife2009FishPassage]. Whether a remediation changes outcomes for fish therefore depends on the habitat upstream, the species and life stages in question, and the broader condition of the reach the structure connects to — not the classification alone.
 
 <br>
 
@@ -44,56 +44,58 @@ knitr::include_graphics("fig/fishpassage_2024_fraser.png")
 
 <br>
 
-```{r}
+## First Nations
 
-# ## Dakelh
-# 
-# The Dakelh (Carrier) people are indigenous to north-central British Columbia, with a deep connection to the region's waterways. Their name, Dakelh, translates to "people who travel by water," reflecting their reliance on rivers such as the Lhtakoh (Fraser), Nechakoh (Nechako), and Nak'alkoh (Stuart) for transportation, trade, and sustenance [@hudson2010Dakelhcarrier]. 
-# 
-# <br>
-# 
-# The Dakelh were key participants in the Grease Trails, trading inland goods for coastal eulachon oil [@hudson2010Dakelhcarrier]. Their Athabaskan language, Dakelh, has declined due to colonial policies, but revitalization efforts are ongoing. Organizations like the [Yinka Dene Language Institute](https://www.ydli.org/) work to document and promote Dakelh through education, literacy programs, and linguistic research [@yinkadenelanguageinstitute2025]. The Lheidli T'enneh First Nation and local school districts have also developed language programs to preserve and teach Dakelh (@Ourlanguage2025).
-# 
-# <br>
-# 
-# The Dakelh people traditionally organize their lands into Keyohs, family-run territories passed down through generations. Each Keyoh is overseen by a Keyohwhudachun (Keyoh Holder), who manages land use and stewardship [@Keyohhuwunline2025]. Despite historical disruptions, Keyohs remain central to Dakelh identity and land management practices.
-# 
-# 
-# ### Lheidli T’enneh
-# 
-# The Lheidli T'enneh First Nations are a Dakelh sub-group whose traditional territory encompasses the Nechakoh (Nechako) River, Lhtakoh (Fraser) River, and Morkill River, and spans from west of Lheidli (Prince George) to Valemount. "Lheidli" translates to "The People from the Confluence of the River," referring to the meeting of the Nechako ("Nee Incha Koh" – "river with strong undercurrents") and Fraser ("Ltha Koh" – "Big Mouth River") rivers in what is now Prince George, British Columbia [@Ourstory2025]. 
-# 
-# <br>
-# 
-# Located within the traditional territory of the Lheidli T’enneh is Chun T’oh Whudujut (Ancient Forest), a Provincial Park and Protected Area 120km east of Prince George. The park has thousand-year-old western red cedars and a rich biodiversity of plants, mosses, lichens and fungi which can be explored through the trail network. Historically, Lheidli people would visit the stands from summer fishing camps along the upper Fraser River as well as gather medicinal plants, some of which were thought to be extinct. However, the park was not always a protected area and was initially slated for logging until a UNBC graduate student studying lichen biodiversity identified the ancient stands of western red cedars. Recognizing their ecological and cultural significance, trails were developed to highlight the cedars and advocate for their protection. Through partnerships with local hiking groups, UNBC, Lheidli T’enneh, and the Provincial Government, the Ancient Forest biodiversity assessment project has contributed to conservation efforts and tourism-based economic development in the Prince George area [@Chuntohwhudujutancientforest2025].
-# 
-# <br>
-# 
-# ### Carrier Sekani
-# 
-# The Carrier Sekani Tribal Council unifies six nations west of Lheidli (Prince George) whose traditional territories include the Lhtakoh (Fraser), Nechakoh (Nechako), Tsalakoh (Chilako), Endako, and Nadleh (Nautley) Rivers [@CSTCCSFNs]. The Carrier Sekani Tribal Council includes:
-# 
-#   - Ts’il Kaz Koh First Nation - located near Burns Lake 
-#   - Nadleh Whut’en First Nation - located near Fraser Lake 
-#   - Saik’uz First Nation - located near Vanderhoof
-#   - Stellat’en First Nation - located near Fraser Lake
-#   - Takla Nation - located near Takla Lake
-#   - Wet’suwet’en First Nation - located west of Burns Lake
-# 
-# <br>
-# 
-# ### Nazko
-# 
-# Nazko, meaning "river flowing from the south," is a Dakelh sub-group located 120 km west of Quesnel along the Nazko River. Originally known for its strong ranching history, the community expanded into forestry in the 1980s, establishing Nazko Logging, a successful enterprise that created jobs and supported economic growth [@adams_stokes2025Historynazko].
-# 
-# <br>
-# 
-# ## Simpcw
-# 
-# Simpcw, which translates to "People of the Rivers", is one of the 17 campfires (bands) that make up the Secwepemc, or Shuwap Nation. Their traditional territory stretches from north of McBride, south to Barrier, and east to Mt.Robson Provincial Park, and includes the North Thompson River and the Upper Fraser River [@UsSimpcw]. 
-# 
-# <br>
-```
+The watersheds described in this report lie within the traditional territories of several First Nations whose relationships with these rivers long predate the assessments presented here. The summaries below are drawn from each Nation's own published material and are necessarily brief; they are offered as context, not as a description of any Nation's rights, title, or governance.
+
+### Dakelh
+
+The Dakelh (Carrier) people are indigenous to north-central British Columbia, with a deep connection to the region's waterways. Their name, Dakelh, translates to "people who travel by water," reflecting their reliance on rivers such as the Lhtakoh (Fraser), Nechakoh (Nechako), and Nak'alkoh (Stuart) for transportation, trade, and sustenance [@hudson2010Dakelhcarrier].
+
+<br>
+
+The Dakelh were key participants in the Grease Trails, trading inland goods for coastal eulachon oil [@hudson2010Dakelhcarrier]. Their Athabaskan language, Dakelh, has declined due to colonial policies, but revitalization efforts are ongoing. Organizations like the [Yinka Dene Language Institute](https://www.ydli.org/) work to document and promote Dakelh through education, literacy programs, and linguistic research [@yinkadenelanguageinstitute2025]. The Lheidli T'enneh First Nation and local school districts have also developed language programs to preserve and teach Dakelh [@Ourlanguage2025].
+
+<br>
+
+The Dakelh people traditionally organize their lands into Keyohs, family-run territories passed down through generations. Each Keyoh is overseen by a Keyohwhudachun (Keyoh Holder), who manages land use and stewardship [@Keyohhuwunline2025]. Despite historical disruptions, Keyohs remain central to Dakelh identity and land management practices.
+
+<br>
+
+#### Lheidli T'enneh
+
+The Lheidli T'enneh First Nation is a Dakelh sub-group whose traditional territory encompasses the Nechakoh (Nechako) River, Lhtakoh (Fraser) River, and Morkill River, and spans from west of Lheidli (Prince George) to Valemount. "Lheidli" translates to "The People from the Confluence of the River," referring to the meeting of the Nechako ("Nee Incha Koh" — "river with strong undercurrents") and Fraser ("Ltha Koh" — "Big Mouth River") rivers in what is now Prince George, British Columbia [@Ourstory2025].
+
+<br>
+
+Chun T'oh Whudujut (Ancient Forest), a Provincial Park and Protected Area 120 km east of Prince George, lies within Lheidli T'enneh territory. Lheidli people historically visited its thousand-year-old western red cedars from summer fishing camps along the upper Fraser River and gathered medicinal plants there. The stands were slated for logging until their ecological and cultural significance was recognized, and are now protected through a partnership including Lheidli T'enneh, UNBC, local hiking groups, and the Provincial Government [@Chuntohwhudujutancientforest2025].
+
+<br>
+
+#### Nazko
+
+Nazko, meaning "river flowing from the south," is a Dakelh sub-group located 120 km west of Quesnel along the Nazko River [@adams_stokes2025Historynazko].
+
+<br>
+
+### Carrier Sekani
+
+The Carrier Sekani Tribal Council unifies six nations west of Lheidli (Prince George) whose traditional territories include the Lhtakoh (Fraser), Nechakoh (Nechako), Tsalakoh (Chilako), Endako, and Nadleh (Nautley) Rivers [@CSTCCSFNs]. The Carrier Sekani Tribal Council includes:
+
+  - Ts'il Kaz Koh First Nation — located near Burns Lake
+  - Nadleh Whut'en First Nation — located near Fraser Lake
+  - Saik'uz First Nation — located near Vanderhoof
+  - Stellat'en First Nation — located near Fraser Lake
+  - Takla Nation — located near Takla Lake
+  - Wet'suwet'en First Nation — located west of Burns Lake
+
+<br>
+
+### Simpcw
+
+Simpcw, which translates to "People of the Rivers," is one of the 17 campfires (bands) that make up the Secwepemc, or Shuswap, Nation. Their traditional territory stretches from north of McBride, south to Barrier, and east to Mt. Robson Provincial Park, and includes the North Thompson River and the Upper Fraser River [@UsSimpcw].
+
+<br>
 
 
 
@@ -224,7 +226,7 @@ print(plot1$`Long-term_Monthly_Statistics`)
 
 ## Tabor Creek
 
-The Tabor River is a tributary of the Fraser River that drains the eastern portion of the Prince George region. The system originates at Tabor Lake east of Tabor Mountain and flows north–northwest through low-gradient valleys before entering the Fraser River upstream of the Willow River confluence. The watershed is approximately XXXX km^2^ and is classified as a 5th order stream. There are two historic hydrometric stations on Tabor Creek. One located where Tabor Creek crossed Highway 97 which was active from 1974 to 1981, and had a mean annual discharge of `r round(fasstr::calc_longterm_mean(station_number = "08KE028")$LTMAD,1)`m^3^/s (Figure \@ref(fig:hydrograph-tabor)). The second station, active from 1981 to 1999, was located above Swede Creek and had a mean annual discharge of `r round(fasstr::calc_longterm_mean(station_number = "08KE032")$LTMAD,1)` (Figure \@ref(fig:hydrograph-tabor2)). 
+The Tabor River is a tributary of the Fraser River that drains the eastern portion of the Prince George region. The system originates at Tabor Lake east of Tabor Mountain and flows north–northwest through low-gradient valleys before entering the Fraser River upstream of the Willow River confluence. The watershed is approximately 2,004.5km^2^ and is classified as a 5th order stream. There are two historic hydrometric stations on Tabor Creek. One located where Tabor Creek crossed Highway 97 which was active from 1974 to 1981, and had a mean annual discharge of `r round(fasstr::calc_longterm_mean(station_number = "08KE028")$LTMAD,1)`m^3^/s (Figure \@ref(fig:hydrograph-tabor)). The second station, active from 1981 to 1999, was located above Swede Creek and had a mean annual discharge of `r round(fasstr::calc_longterm_mean(station_number = "08KE032")$LTMAD,1)` (Figure \@ref(fig:hydrograph-tabor2)). 
 
 <!-- Over the period of record for the two hydrometric stations (1974–1999), Tabor Creek frequently exhibited very low flows from August to September. -->
 
@@ -381,148 +383,19 @@ The Morkill River, a tributary to the upper Fraser, supports populations of bull
 
 ### Salmon Stock Assessment Data
 
-Fisheries and Oceans Canada stock assessment data was accessed via the [NuSEDS-New Salmon Escapement Database System](https://open.canada.ca/data/en/dataset/c48669a3-045b-400d-b730-48aafe8c5ee6)
-through the [Open Government Portal](https://open.canada.ca/en) with results presented `r if(gitbook_on) { knitr::asis_output("in Table \\@ref(tab:stock-assess-dat-all)") } else { knitr::asis_output(ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "background.html", anchor_text = "here")) }` [@fisheriesandoceanscanadaNuSEDSNewSalmon]. A brief memo on the data extraction process is available [here](http://htmlpreview.github.io/?https://github.com/NewGraphEnvironment/restoration_wedzin_kwa_2024/blob/main/memos/dfo_stock_assess.html).
-
-`r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br>")}`
-
-```{r stock-assess-download, eval=FALSE}
-library("ckanr")
-
-# set up the connection to the data portal
-ckanr_setup(url = "https://open.canada.ca/data/en")
-
-nuseds <- rgovcan::govcan_search(keywords = c("Fraser NuSEDS"), records = 150, format_results = TRUE) |>  
-  pull(resources) %>% 
-  bind_rows()
-
-# Load the most recent Nuseds - currently 20251103 (update Nov 2025)
-url <- "https://api-proxy.edh-cde.dfo-mpo.gc.ca/catalogue/records/c48669a3-045b-400d-b730-48aafe8c5ee6/attachments/All%20Areas%20NuSEDS_20251103.zip"
-
-
-# burn directly without bringing into memory
-nuseds_all_20251103.csv
-ckanr::ckan_fetch(url, store = "disk", path = "data/inputs_raw/nuseds_all_20251103.zip") 
-
-# ignore the huge file
-usethis::use_git_ignore("data/inputs_raw/nuseds_all_20251103.csv")
-
-#read it in
-all_area_nuseds <- readr::read_csv('data/inputs_raw/nuseds_all_20251103.csv')
-
-form_pscis_2025 <- read.csv("~/Projects/repo/fish_passage_template_reporting/data/backup/2025/sern_fraser_2024/form_pscis_2025.csv")
-
-
-# Big study area so lets filter using the stream names from `form_pscis`
-stream_names <- form_pscis_2025 |> 
-  dplyr::pull(stream_name) |> 
-  stringr::str_trim() |> 
-  # Must be upper case to match those in Nuseds
-  stringr::str_to_upper() |> 
-  unique()
-
-# we also need to add in these waterbodies that we didn't explicitly sample but are that heavy hitters in the project area
-major_streams <- "NECHAKO|CHILAKO|ENDAKO|FRANÇOIS LAKE|FRASER RIVER|MORKILL RIVER|WILLOW RIVER|TABOR RIVER|SALMON RIVER"
-
-# Combine into one regex pattern
-stream_names_regex <- c(stream_names, major_streams) |> 
-  stringr::str_c(collapse = "|")
-
-# Filter Nuseds to just include streams we visited
-study_area_streams <- all_area_nuseds |> 
-  dplyr::filter(stringr::str_detect(WATERBODY, stream_names_regex)) |> 
-  # We have some duplicate streams so remove streams with SHORE in the name which are in the Sushwap area
-  # also remove big and little salmon rivers becasue not in study area
-  dplyr::filter(!stringr::str_detect(WATERBODY, "SHORE|BIG|LITTLE")) |>
-  janitor::clean_names() |> 
-  dplyr::arrange(waterbody)
-
-check_names <- study_area_streams |> 
-  dplyr::distinct(waterbody)
-
-## Burn to csv. Updated name so it's clear this contains only the study area streams.
-study_area_streams |> 
-  readr::write_csv('data/inputs_raw/study_area_NuSEDS.csv')
-
-
-```
-
-
-
-```{r stock-assess-dat-all, results="asis", echo=FALSE, eval= gitbook_on}
-
-my_caption <- "Fisheries and Oceans Canada stock assessment data for select watershed groups in the Fraser watershed.  Data can be filtered to specific waterbodies, columns can be dragged to reorder and filtered/reordered table can be exported to csv/excel."
-
-# not the results="asis", echo=FALSE in the chunk header
-my_tab_caption()
-
-dfo_sad_tr <- readr::read_csv('data/inputs_raw/study_area_NuSEDS.csv') |> 
-  # filtering by total_return_to_river doesn't lose any data so lets keep it for this case (it removed data after 19)
-  # dplyr::filter(!is.na(total_return_to_river)) %>%
-  dplyr::arrange(species, analysis_yr) |> 
-  dplyr::select(waterbody,
-                species, 
-                analysis_yr, 
-                total_return_to_river, 
-                start_spawn_dt_from,
-                peak_spawn_dt_from,
-                end_spawn_dt_from, 
-                accuracy,	
-                precision,	
-                index_yn,	
-                # no data here
-                # reliability,	
-                estimate_stage,	
-                estimate_classification,	
-                no_inspections_used,	
-                estimate_method) |> 
-  janitor::clean_names(case = "title") 
-
-dfo_sad_tr |> 
-  my_dt_table()
-
-```
-
-<br>
+Fisheries and Oceans Canada stock assessment data for the study area was accessed via the [NuSEDS-New Salmon Escapement Database System](https://open.canada.ca/data/en/dataset/c48669a3-045b-400d-b730-48aafe8c5ee6) through the [Open Government Portal](https://open.canada.ca/en) [@fisheriesandoceanscanadaNuSEDSNewSalmon]. Records are presented in [Appendix - Salmon Stock Assessment Data](#app-stock-assessment).
 
 ### Fish Species
 
-Summary of historical fish observations in the Upper Fraser River, Nechako River, Lower Chilako River, Willow River, Lower Salmon River, Tabor Creek, and François Lake watershed groups (Table \@ref(tab:fiss-species-table)) [@moe2024KnownBC].
+Historical fish observations recorded in the `r wsg_names |> knitr::combine_words()` watershed groups are summarized in [Appendix - Fish Species by Watershed Group](#app-fish-species) [@moe2024KnownBC].
 
 <br>
 
-A review of available fisheries data, for the Upper Fraser River, Nechako River, Lower Chilako River, Willow River, Lower Salmon River, Tabor Creek, and François Lake watershed groups, stratified by different habitat characteristics can provide insight into which habitats may provide the highest intrinsic value for fish species based on the number of fish captured in those habitats in past assessment work (Figures \@ref(fig:fish-plot-grad) - \@ref(fig:fish-plot-width) - \@ref(fig:fish-plot-wshed)).  It should be noted however that it should not be assumed that all habitat types have been sampled in a non-biased fashion or that particular sites selected do not have a disproportionate influence on the overall dataset composition (ie. fish salvage sites are often located adjacent to construction sites which are more commonly located near lower gradient stream reaches).
+A review of available fisheries data, for the `r wsg_names |> knitr::combine_words()` watershed groups, stratified by different habitat characteristics can provide insight into which habitats may provide the highest intrinsic value for fish species based on the number of fish captured in those habitats in past assessment work (Figures \@ref(fig:fish-plot-grad) - \@ref(fig:fish-plot-width) - \@ref(fig:fish-plot-wshed)).  It should be noted however that it should not be assumed that all habitat types have been sampled in a non-biased fashion or that particular sites selected do not have a disproportionate influence on the overall dataset composition (ie. fish salvage sites are often located adjacent to construction sites which are more commonly located near lower gradient stream reaches).
 
 <br>
 
 
-```{r fiss-species-table}
-fiss_species_table <- readr::read_csv('data/inputs_extracted/fiss_species_table.csv')
-
-my_caption <- paste0(
-  "Fish species recorded in the ", 
-  # provided they are all making the table which prob doesn't work with tons of wsg. Could consider removing wsg in this chunk
-  # vs the build of the table...
-  knitr::asis_output(wsg_names) |> knitr::combine_words(), 
-  " watershed groups."
-  )
-
-fiss_species_table |> 
-  fpr::fpr_kable(caption_text = my_caption, 
-                 footnote_text = 'COSEWIC abbreviations : 
-                 SC - Special concern 
-                 DD - Data deficient
-                 NAR - Not at risk
-                 E - Endangered
-                 T - Threatened
-                 
-                 BC List definitions : 
-                 Yellow - Species that is apparently secure 
-                 Blue - Species that is of special concern
-                 Exotic - Species that have been moved beyond their natural range as a result of human activity
-                 ',
-                 scroll = gitbook_on)
-```
 
 <br>
 

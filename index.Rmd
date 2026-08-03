@@ -3,26 +3,21 @@ title: "Restoring Fish Passage in the Fraser Region - 2025"
 author: |
  |
  | Prepared for
+ | Habitat Conservation Trust Foundation - CAT26-0-636
  | Ministry of Transportation and Infrastructure
- |
- | and
- |
- | Society for Ecosystem Restoration in Northern BC (SERNbc)
  |
  |
  | Prepared by
  | Al Irvine, B.Sc., R.P.Bio. and Lucy Schick, B.Sc.
  | New Graph Environment Ltd.
- |
  | on behalf of
- | 
- | Society for Ecosystem Restoration in Northern BC (SERNbc)
+ | Society for Ecosystem Restoration in Northern British Columbia
 
 date: |
  |
- | Version 0.0.1 `r format(Sys.Date(), "%Y-%m-%d")`
+ | Version 0.3.0 DRAFT `r format(Sys.Date(), "%Y-%m-%d")`
  |
- | *Claude Opus 4.7 (Anthropic) assisted with literature synthesis, drafting, and technical writing. All scientific interpretation, data analysis, and conclusions are the responsibility of the authors.*
+ | *Claude Opus 5 (Anthropic) assisted with literature synthesis, drafting, and technical writing. All scientific interpretation, data analysis, and conclusions are the responsibility of the authors.*
 toc-title: Table of Contents
 site: bookdown::bookdown_site
 output: 
@@ -47,11 +42,11 @@ params:
   update_form_monitoring: FALSE
   update_form_edna: FALSE
   update_gis: FALSE
-  update_bib: FALSE
+  update_bib: TRUE
   update_bcfishpass: FALSE
   pscis_funding_project_number: "fraser_2025_phase1"
 nocite: |
-  @busch_etal2011LandscapeLevelModela, 
+  @busch_etal2011LandscapeLevelModel, 
   @woll_etal2017SalmonEcological,
   @kirsch_etal2014Fishinventory,
   @cooney_holzer2006AppendixInterior,
@@ -127,18 +122,16 @@ knitr::write_bib(c(
 
 # Acknowledgement {.front-matter .unnumbered}
 
-At New Graph Environment, we understand our well-being as inseparable from the health of the land and waters we work within. When we care for ecosystems, we care for ourselves and for the communities connected to them. This relationship is not metaphorical — it is the foundation of our practice.
+At New Graph Environment, we understand our well-being as inseparable from the health of the land and waters we work within. When we care for ecosystems, we care for ourselves and for the communities connected to them.
 
 Modern civilization has a long journey ahead to acknowledge and address the historic and ongoing impacts of colonialism that have resulted in harm to the cultures and livelihoods living interconnected with our ecosystems for many thousands of years.
 
-This work takes place within the territories of [Nations], who have stewarded these lands and waters since time immemorial. [Project-specific connection to territory, governance, species, or watershed.]
-
-[Funding and partner acknowledgements.]
+This work takes place within the territories of First Nations who have stewarded these lands and waters since time immemorial.
 
 
 ```{js, logo-header, echo = FALSE, eval= T}
 title=document.getElementById('header');
-title.innerHTML = '<img src="fig/logo_sern/SERNbc-Logo-HALF.jpg" alt="NewGraph">' + title.innerHTML
+title.innerHTML = '<img src="fig/logo_sern_hctf.png" alt="SERNbc and HCTF">' + title.innerHTML
 
 ```
 

@@ -509,8 +509,6 @@ tab_hab_summary <- form_fiss_site |>
          `Total Cover` = total_cover,
          `Habitat Value` = habitat_value_rating)
 
-
-
 # Phase 1 Appendix ----------------------------------------------
 
 ## make result summary tables for each of the crossings, used to display phase 1 data in the appendix
@@ -570,6 +568,20 @@ rm(pscis_phase1_for_tables,pscis_split)
 # read in the object
 habitat_confirmations_priorities <- readr::read_csv(
   file = "data/habitat_confirmations_priorities.csv")
+
+## Habitat confirmation scope and totals ------------------------------
+# Derived here so the executive summary and the results chapter report the same
+# numbers. Confirmations are completed in a subset of the project's watershed
+# groups, so these come from the confirmation records rather than params$wsg_code.
+hab_conf_sites     <- form_fiss_site |> dplyr::filter(is.na(ef))
+n_hab_conf_sites   <- hab_conf_sites |> dplyr::distinct(site) |> nrow()
+wsg_names_hab_conf <- xref_wsg |>
+  dplyr::filter(watershed_group_code %in% unique(hab_conf_sites$watershed_group_code)) |>
+  dplyr::pull(watershed_group_name)
+
+len_surveyed_m  <- habitat_confirmations_priorities |>
+  dplyr::pull(length_surveyed) |> sum(na.rm = TRUE)
+len_surveyed_km <- round(len_surveyed_m / 1000, 1)
 
 
 # Phase 2 overview table ------------------------------------------

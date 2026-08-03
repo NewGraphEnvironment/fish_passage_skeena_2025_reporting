@@ -134,6 +134,47 @@ tab_edna |>
 
 ```
 
+```{r tab-edna-results-196332-prep, include=FALSE}
+# Detection results for this appendix's crossing(s). Site ids are already
+# corrected by edna_site_id_fix() in the 0400-results.Rmd prep chunk, so the
+# prefix match below is against the corrected id.
+edna_results_196332 <- edna_bystargets_fraser |>
+  dplyr::filter(
+    grepl(paste0("^(", my_site, ")_"), site_id),
+    !control_blank_field,
+    !control_blank_office
+  ) |>
+  dplyr::group_by(site_id) |>
+  dplyr::summarise(
+    `UNBC ID`       = paste(sort(unique(unlist(strsplit(lab_ids, ", ")))), collapse = ", "),
+    `Detected`      = fmt_targets(target[any_clean],
+                                  max_pos[any_clean],
+                                  retested[any_clean]),
+    `Sub-threshold` = fmt_targets(target[any_crude & !any_clean],
+                                  max_pos[any_crude & !any_clean],
+                                  retested[any_crude & !any_clean]),
+    `Not detected`  = fmt_targets(target[!any_crude],
+                                  max_pos[!any_crude],
+                                  retested[!any_crude]),
+    .groups = "drop"
+  ) |>
+  dplyr::rename(`Site ID` = site_id) |>
+  dplyr::arrange(`Site ID`)
+```
+
+Detection results are presented in Table \@ref(tab:tab-edna-results-196332). Format is `CODE(max_droplets)`, with `*` flagging samples UNBC reran. Detected means at least 4 positive droplets, the standard ddPCR call threshold; sub-threshold signals of 1-3 droplets are not interpretable as species presence. Site-level detail for the whole project, along with field blanks and retests, is in [Appendix - Environmental DNA Results](#app-edna).
+
+<br>
+
+```{r tab-edna-results-196332}
+edna_results_196332 |>
+  fpr::fpr_kable(
+    caption_text = paste0("eDNA detection results at PSCIS crossing ", my_site, "."),
+    scroll = FALSE
+  )
+```
+
+
 
  
 <br>
