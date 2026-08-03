@@ -583,6 +583,18 @@ len_surveyed_m  <- habitat_confirmations_priorities |>
   dplyr::pull(length_surveyed) |> sum(na.rm = TRUE)
 len_surveyed_km <- round(len_surveyed_m / 1000, 1)
 
+## Effectiveness monitoring sites -------------------------------------
+# Named in the executive summary as "<stream> (PSCIS <id>)". Pulled from the
+# monitoring form rather than typed so the streams can never drift from the
+# crossing ids they belong to.
+monitoring_sites      <- form_monitoring |>
+  dplyr::distinct(pscis_crossing_id, stream_name) |>
+  dplyr::arrange(pscis_crossing_id)
+n_monitoring_sites    <- nrow(monitoring_sites)
+monitoring_sites_text <- monitoring_sites |>
+  glue::glue_data("{stream_name} (PSCIS crossing {pscis_crossing_id})") |>
+  knitr::combine_words()
+
 
 # Phase 2 overview table ------------------------------------------
 
@@ -995,6 +1007,17 @@ tab_monitoring <- form_monitoring |>
 
 # eDNA table --------------------------------------------------------------
 
+## Sample counts ------------------------------------------------------
+# The executive summary reports environmental samples, not rows. Field and
+# office blanks are protocol controls, not samples, and counting them inflates
+# both totals - the three office blanks carry no stream_name, so they add a
+# phantom stream to any distinct() over the unfiltered form. Same blank
+# predicate as tab_edna below so the prose and the table can never disagree.
+edna_real       <- form_edna |>
+  dplyr::filter(!(control_blank_field|control_blank_office))
+n_edna_real     <- nrow(edna_real)
+n_edna_blanks   <- nrow(form_edna) - n_edna_real
+n_edna_streams  <- edna_real |> dplyr::distinct(stream_name) |> nrow()
 
 tab_edna <- form_edna |>
   dplyr::filter(!(control_blank_field|control_blank_office)) |>
