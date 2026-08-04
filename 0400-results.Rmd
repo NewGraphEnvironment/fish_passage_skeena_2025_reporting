@@ -43,23 +43,28 @@ map <- leaflet::leaflet(height=500, width=780) |>
     labels = c("High", "Moderate", "Low", 'No fix'), opacity = 1,
     title = "Fish Passage Priorities") |> 
   
-leaflet::addCircleMarkers(data=dplyr::filter(tab_map_phase_1, assess_type_phase1 == "Yes" | assess_type_reassessment == "Yes"),
-                 label = dplyr::filter(tab_map_phase_1, assess_type_phase1 == "Yes" | assess_type_reassessment == "Yes") |>
-                   dplyr::pull(pscis_crossing_id),
-                 # label = tab_map_phase_1$pscis_crossing_id,
-                 labelOptions = leaflet::labelOptions(noHide = F, textOnly = TRUE),
-                 popup = leafpop::popupTable(x = dplyr::select((tab_map_phase_1 |> sf::st_set_geometry(NULL) |> dplyr::filter(assess_type_phase1 == "Yes" | assess_type_reassessment == "Yes")),
-                                                        Site = pscis_crossing_id, Priority = priority_phase1, Stream = stream_name, Road = road_name, `Habitat value`= habitat_value, `Barrier Result` = barrier_result, `Culvert data` = data_link, `Culvert photos` = photo_link, `Model data` = model_link),
-                                             feature.id = F,
-                                             row.numbers = F),
-                 radius = 9,
-                 fillColor = ~pal_phase1(priority_phase1),
-                 color= "#ffffff",
-                 stroke = TRUE,
-                 fillOpacity = 1.0,
-                 weight = 2,
-                 opacity = 1.0,
-                 group = "Phase 1") |> 
+  # `assess_type_*` is recorded as "yes" in some regions and "Yes" in others, so
+  # compare case-insensitively. The layer is skipped outright when nothing matches -
+  # leafpop::popupTable() indexes mat[1, 1] and fails on a zero-row table.
+  (\(m) if (nrow(dplyr::filter(tab_map_phase_1, tolower(assess_type_phase1) == "yes" | tolower(assess_type_reassessment) == "yes")) == 0) m else
+    m |>
+  leaflet::addCircleMarkers(data=dplyr::filter(tab_map_phase_1, tolower(assess_type_phase1) == "yes" | tolower(assess_type_reassessment) == "yes"),
+                   label = dplyr::filter(tab_map_phase_1, tolower(assess_type_phase1) == "yes" | tolower(assess_type_reassessment) == "yes") |>
+                     dplyr::pull(pscis_crossing_id),
+                   # label = tab_map_phase_1$pscis_crossing_id,
+                   labelOptions = leaflet::labelOptions(noHide = F, textOnly = TRUE),
+                   popup = leafpop::popupTable(x = dplyr::select((tab_map_phase_1 |> sf::st_set_geometry(NULL) |> dplyr::filter(tolower(assess_type_phase1) == "yes" | tolower(assess_type_reassessment) == "yes")),
+                                                          Site = pscis_crossing_id, Priority = priority_phase1, Stream = stream_name, Road = road_name, `Habitat value`= habitat_value, `Barrier Result` = barrier_result, `Culvert data` = data_link, `Culvert photos` = photo_link, `Model data` = model_link),
+                                               feature.id = F,
+                                               row.numbers = F),
+                   radius = 9,
+                   fillColor = ~pal_phase1(priority_phase1),
+                   color= "#ffffff",
+                   stroke = TRUE,
+                   fillOpacity = 1.0,
+                   weight = 2,
+                   opacity = 1.0,
+                   group = "Phase 1"))() |> 
   # survey tracks are absent until the season's GPS tracks are cleaned and tagged
   (\(m) if (is.null(habitat_confirmation_tracks) || nrow(habitat_confirmation_tracks) == 0) m else
     m |> leaflet::addPolylines(data=habitat_confirmation_tracks,
@@ -134,42 +139,7 @@ Orthoimagery and elevation model rasters generated since `r params$project_start
 <br>
 
 
-```{r cd-rollup-body, include = FALSE}
-cd_data_body <- readRDS("data/gis/climate_departure.rds")
-cmp_body     <- cd_data_body$regional$cmp
-cmp_pct_body <- cd_data_body$regional$cmp_pct
-trn_body     <- cd_data_body$regional$trn
-pick <- function(tbl, var, period = "annual") {
-  tbl[tbl$variable == var & tbl$period == period, ]
-}
-tmean_d        <- pick(cmp_body,     "tmean")$difference
-tmax_d         <- pick(cmp_body,     "tmax")$difference
-tmin_d         <- pick(cmp_body,     "tmin")$difference
-vpd_d          <- pick(cmp_body,     "vpd")$difference
-prcp_p         <- pick(cmp_pct_body, "prcp")$difference
-swe_p          <- pick(cmp_pct_body, "swe")$difference
-snowfall_p     <- pick(cmp_pct_body, "snowfall")$difference
-summer_swe_p   <- pick(cmp_pct_body, "swe",      "summer")$difference
-spring_melt_p  <- pick(cmp_pct_body, "snowmelt", "spring")$difference
-winter_melt_p  <- pick(cmp_pct_body, "snowmelt", "winter")$difference
-doy50_d        <- pick(cmp_body, "snowmelt_doy_50")$difference
-```
-
-## Climate Departure
-
-Four findings from the regional climate-departure analysis carry to fish-passage prioritisation.
-
-**Warming is broad and significant region-wide.** All eight ecoregions of the study area warmed about `r sprintf("%.1f", tmean_d)` °C since 1951 — annual mean (+`r sprintf("%.1f", tmean_d)` °C), daytime maximum (+`r sprintf("%.1f", tmax_d)` °C), and overnight minimum (+`r sprintf("%.1f", tmin_d)` °C) all tell the same story (Mann-Kendall p < 0.001 in every ecoregion). The rate has been steady rather than accelerating — the 1981–present slope is shallower than the 1951–present slope. A west-to-east gradient layers on top, with the interior plateau ecoregions warming roughly 0.5 °C more than the eastern Rocky Mountain ecoregions — see [Appendix - Climate Departure](#app-climate-departure) Figure \@ref(fig:cd-map-tmean).
-
-**The atmosphere is drying despite flat precipitation.** Vapour pressure deficit rose `r sprintf("%.2f", vpd_d)` hPa region-wide, significant in every ecoregion. Annual precipitation rose `r sprintf("%+.0f", prcp_p)` % regionally but the long-term trend is not statistically significant in any of the eight ecoregions; soil moisture is essentially flat because the warmer atmosphere is drinking the modest precipitation increase back through evaporation and transpiration.
-
-**The snowpack signal is about timing, not quantity.** Total annual snowfall is essentially unchanged (`r sprintf("%+.0f", snowfall_p)` %); annual snow water equivalent is down `r sprintf("%.0f", -swe_p)` %, neither significant. The unambiguous signals are on the summer side and at the midpoint: summer SWE collapsed `r sprintf("%.0f", -summer_swe_p)` % and the snowmelt midpoint moved `r sprintf("%.0f", -doy50_d)` days earlier (p < 0.001 regionally and in every ecoregion). Counterbalancing rises in winter snowmelt (+`r sprintf("%.0f", winter_melt_p)` %) and spring snowmelt (+`r sprintf("%.0f", spring_melt_p)` %) point in the same direction but are noisier season-by-season. The freshet is arriving weeks earlier and the high-elevation snowpack that historically lingered into summer no longer does.
-
-**Day-night asymmetry is present.** Overnight minimums warmed `r sprintf("%.1f", tmin_d)` °C while daytime maximums warmed `r sprintf("%.1f", tmax_d)` °C — overnight outpacing daytime is the textbook fingerprint of greenhouse warming [@karl_etal1993NewPerspective]. Mean diurnal range has narrowed by `r sprintf("%.1f", tmin_d - tmax_d)` °C across the record.
-
-For barrier prioritisation these signals cut both ways. Where upstream reaches are cold-limited, added growing-degree-days can raise the intrinsic potential of habitat above the barrier and *increase* the value of restoring passage; where upstream reaches sit closer to the upper edge of the cold-water thermal niche, the same warming reduces usable habitat and lowers the payoff. The watershed-group breakdown in [Appendix - Climate Departure](#app-climate-departure) maps the eight-ecoregion signal onto the seven watershed groups via a percentage crosswalk.
-
-## Planning — Habitat, Connectivity and Floodplain Modelling
+## Planning — Habitat and Connectivity Modelling
 
 ### Habitat Modelling
 Habitat modelling from `bcfishpass` including access model, linear spawning/rearing habitat model and lateral habitat 
@@ -186,321 +156,26 @@ included as [Attachment - Water Temperature Modelling](#attach-bayes).
 
 
 
-```{r flood-rollup-body, include = FALSE}
-gpkg_fp    <- "data/gis/necr.gpkg"
-aoi_fp     <- sf::st_read(gpkg_fp, layer = "aoi", quiet = TRUE)
-streams_fp <- sf::st_read(gpkg_fp, layer = "streams", quiet = TRUE)
-wb_fp      <- sf::st_read(gpkg_fp, layer = "waterbodies", quiet = TRUE)
-fp_poly    <- sf::st_read(gpkg_fp, layer = "floodplain", quiet = TRUE)
+## Fish Passage Assessments
 
-aoi_fp     <- sf::st_make_valid(aoi_fp)
-streams_fp <- suppressWarnings(sf::st_intersection(streams_fp, aoi_fp))
-fp_poly    <- suppressWarnings(sf::st_intersection(fp_poly, aoi_fp))
-
-aoi_area_km2    <- as.numeric(sum(sf::st_area(aoi_fp))) / 1e6
-fp_area_ha      <- as.numeric(sum(sf::st_area(fp_poly))) / 1e4
-fp_pct_aoi      <- 100 * fp_area_ha / (aoi_area_km2 * 100)
-
-streams_in_fp    <- suppressWarnings(sf::st_intersection(streams_fp, fp_poly))
-streams_km_total <- as.numeric(sum(sf::st_length(streams_fp))) / 1e3
-streams_km_in_fp <- as.numeric(sum(sf::st_length(streams_in_fp))) / 1e3
-
-wb_in_fp    <- suppressWarnings(sf::st_intersection(wb_fp, fp_poly))
-lakes_n     <- sum(wb_in_fp$waterbody_type == "L", na.rm = TRUE)
-wetlands_n  <- sum(wb_in_fp$waterbody_type == "W", na.rm = TRUE)
-```
-
-### Floodplain Delineation
-
-Modelled functional floodplain in the Nechako River Watershed Group covers `r format(round(fp_area_ha), big.mark = ",")` ha — `r sprintf("%.1f", fp_pct_aoi)` % of the `r format(round(aoi_area_km2), big.mark = ",")` km² watershed group — attached to `r format(round(streams_km_in_fp), big.mark = ",")` km of chinook accessible order-3+ streams. Within that footprint sit `r lakes_n` lakes and `r format(wetlands_n, big.mark = ",")` mapped wetland polygons — the off-channel inventory that crossing remediations in these reaches stand to reconnect or leave severed, depending on whether design accounts for the floodplain context around the structure. The full metric table, watershed-scale map, and Murray Creek confluence detail map are in [Appendix - Floodplain Delineation](#app-floodplain).
-
-
-## Fish Passage Assessemnts
-
-Field assessments were conducted between `r format(min(form_pscis$date), format="%B %d, %Y")` and `r format(max(form_pscis$date), format="%B %d, %Y")` by Allan Irvine, R.P.Bio. and Lucy Schick, B.Sc. A total of `r form_pscis |> filter(assess_type_phase1 == "Yes"|assess_type_reassessment == "Yes") |> nrow()` Fish Passage Assessments were completed, including `r n_distinct(pscis_phase1$my_crossing_reference)` Phase 1 assessments and `r pscis_reassessments |> nrow()` reassessments.
+Field assessments were conducted between `r format(min(form_pscis$date), format="%B %d, %Y")` and `r format(max(form_pscis$date), format="%B %d, %Y")` by Allan Irvine, R.P.Bio. The `r params$project_year` field season was directed at effectiveness monitoring and environmental DNA sampling rather than at new fish passage assessments. A total of `r form_pscis |> dplyr::filter(tolower(assess_type_phase1) == "yes" | tolower(assess_type_reassessment) == "yes") |> nrow()` crossings were assessed, all of them reassessments of structures already inventoried in PSCIS. No Phase 1 assessments were completed.
 
 <br>
 
-Of the `r form_pscis |> filter(assess_type_phase1 == "Yes"|assess_type_reassessment == "Yes") |> nrow()` sites where fish passage assessments were completed, `r pscis_phase1 |> nrow()` were not yet inventoried in the PSCIS system.  This included `r pscis_phase1 |> filter(barrier_result == 'Passable') |> nrow()` crossings considered "passable", `r pscis_phase1 |> filter(barrier_result == 'Potential') |> nrow() |> english::as.english()` crossings considered a "potential" barrier, and `r pscis_phase1 |> filter(barrier_result == 'Barrier') |> nrow()` crossings were considered "barriers" according to threshold values based on culvert embedment, outlet drop, slope, diameter (relative to channel size) and length [@moe2011Fieldassessment].
-
-<!-- Additionally, although all were considered fully passable, `r pscis_phase1 |> filter(barrier_result == 'Unknown') |> nrow() |> english::as.english()` crossings assessed were fords and ranked as "unknown" according to the provincial protocol. -->
-
-<!-- <br> -->
-
-<!-- Reassessments were completed at `r pscis_reassessments |> nrow()` sites where PSICS data required updating. -->
+Reassessments update the provincial record where a structure has been replaced or remediated, or where the existing PSCIS entry no longer reflects conditions at the crossing. They do not add new crossings to the inventory, so they do not carry the cost estimates and priority rankings that accompany Phase 1 results. The amalgamated assessment record for the study area, spanning `r params$project_start_year` to `r params$project_year`, is presented in [Appendix - Assessment Data Summary](#app-site-data).
 
 <br>
-
-A summary of crossings assessed, a rough cost estimate for remediation, and a priority ranking for follow-up for Phase 1 sites is presented in Table \@ref(tab:cost-est-phase-1). Detailed data with photos are presented in `r if(gitbook_on){knitr::asis_output("[Appendix - Phase 1 Fish Passage Assessment Data and Photos]")}else(knitr::asis_output("[Attachment - Phase 1 Data and Photos](#attach-pdf-phase1-dat)"))`.
-
-
-<br>
-
-
-
-`r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
-
-<br>
-
-
-```{r cost-est-phase-1, eval = T}
-
- tab_cost_est_phase1 |>
-  select(`PSCIS ID`:`Cost Est ( $K)`) |> 
-   fpr::fpr_kable(caption_text = paste0("Upstream habitat estimates and cost benefit analysis for Phase 1 assessments ranked as a 'barrier' or 'potential' barrier. ", sp_network_caption),
-                  scroll = T)
- 
-```
-
-
 
 ## Habitat Confirmation Assessments
 
-During the `r (params$project_year)` field assessments, habitat confirmation assessments were conducted at `r n_hab_conf_sites` sites within the `r wsg_names_hab_conf |> knitr::combine_words()` watershed groups. A total of approximately `r len_surveyed_km` km of stream was assessed, combining reaches surveyed upstream and downstream of each crossing.
+No Phase 2 habitat confirmation assessments were conducted in `r params$project_year`. Habitat confirmations characterise the quantity and quality of habitat upstream and downstream of a crossing prioritised during Phase 1 assessment; with no Phase 1 work completed this season, none were scheduled.
 
 <br>
 
-As collaborative decision-making was ongoing at the time of reporting, site prioritization can be considered preliminary. Results are summarized in `r if(gitbook_on){knitr::asis_output("Figure \\@ref(fig:map-interactive) and ")}` Table \@ref(tab:tab-overview) with raw habitat `r if (exists("fish_data_complete")) "and fish sampling " else ""` data included in [Attachment - Data](#attach-dat). A summary of preliminary modelling results illustrating quantities of `r stringr::str_to_lower(model_species_name)` spawning and rearing habitat potentially available upstream of each crossing as estimated by measured/modelled channel width and upstream accessible stream length are presented in Figure \@ref(fig:plot-model-all). Detailed information for each site assessed with Phase 2 assessments, including maps, is presented in the per-site habitat-confirmation appendices: [Tributary to Stony Lake (PSCIS 126158)](#tributary-to-stony-lake---126158---appendix), [Tabor Creek (PSCIS 196085 and 203582)](#tabor-creek---196085-203582---appendix), [South Yuzkli Creek (PSCIS 196332)](#south-yuzkli-creek---196332---appendix), and [Tributary to Fraser River (PSCIS 203581 and 196076)](#tributary-to-fraser-river---203581-196076---appendix).
-
-`r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
+Habitat confirmation results from previous years in the `r wsg_names |> knitr::combine_words()` watershed groups are carried in the amalgamated record in [Appendix - Assessment Data Summary](#app-site-data), and in the reporting for those years.
 
 <br>
-
-
-```{r tab-overview, eval = TRUE}
-table_phase2_overview <- function(dat, caption_text = '', font = font_set, scroll = TRUE){
-  dat2 <- dat |>
-    kable(caption = caption_text, booktabs = T, label = NA) |>
-    kableExtra::kable_styling(c("condensed"),
-                              full_width = T,
-                              font_size = font) |>
-    kableExtra::column_spec(column = c(11), width_min = '1.5in') |>
-    kableExtra::column_spec(column = c(1:10), width_max = '1in')
-
-  if(identical(scroll,TRUE)){
-    dat2 <- dat2 |>
-      kableExtra::scroll_box(width = "100%", height = "500px")
-  }
-  dat2
-}
-
-tab_overview |> 
-  table_phase2_overview(caption_text = paste0("Overview of habitat confirmation sites. ", sp_rearing_caption), 
-                        scroll = gitbook_on)
-
-```
-
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
-
-
-```{r phase-2-cv-assess-sum}
-fpr::fpr_table_cv_summary(dat = pscis_phase2)  |>  
-  fpr::fpr_kable(caption_text = 'Summary of Phase 2 fish passage reassessments.', scroll = F)
-```
-
-
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
-
-
-```{r cost-est-phase-2, eval=T}
-tab_cost_est_phase2 |>
-    dplyr::rename(
-    `PSCIS ID` = pscis_crossing_id,
-    Stream = stream_name,
-    Road = road_name,
-    `Barrier Result` = barrier_result,
-    `Habitat value` = habitat_value,
-    `Habitat Upstream (m)` = upstream_habitat_length_m,
-    `Stream Width (m)` = avg_channel_width_m,
-    Fix = crossing_fix_code,
-    `Cost Est ( $K)` = cost_est_1000s,
-    `Cost Benefit (m / $K)` = cost_net,
-    `Cost Benefit (m2 / $K)` = cost_area_net
-  ) |> 
-  fpr::fpr_kable(caption_text = paste0("Cost benefit analysis for Phase 2 assessments. ", sp_rearing_caption),
-                 scroll = F)
-
-```
-
-
-`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
-
-```{r tab-habitat-summary}
-# Match Location exactly rather than with stringr::str_like(). str_like() is
-# case sensitive as of stringr 1.5.0, so str_like(Location, 'upstream') stopped
-# matching the "Upstream" values that 0130-tables.R writes, and this table has
-# been rendering empty ever since.
-tab_hab_upstream <- tab_hab_summary |>
-  dplyr::filter(Location == 'Upstream') |>
-  dplyr::select(-Location) |>
-  dplyr::rename(`PSCIS ID` = Site, `Length surveyed upstream (m)` = `Length Surveyed (m)`)
-
-# Total the surveyed length only. The remaining columns are averages, which do
-# not sum, so they are left blank in the total row rather than showing numbers
-# a reader would take for totals.
-tab_hab_upstream |>
-  dplyr::mutate(dplyr::across(dplyr::everything(), as.character)) |>
-  dplyr::bind_rows(
-    tibble::tibble(
-      `PSCIS ID` = "Total",
-      `Length surveyed upstream (m)` = as.character(
-        sum(tab_hab_upstream$`Length surveyed upstream (m)`, na.rm = TRUE))
-    )
-  ) |>
-  fpr::fpr_kable(
-    caption_text = paste0(
-      "Summary of Phase 2 habitat confirmation details. Lengths are for the reach surveyed ",
-      "upstream of each crossing only; downstream reaches are reported in the site appendices, ",
-      "and the combined upstream and downstream total is given in the text above."),
-    scroll = F)
-```
-
-<br>
-
-```{r tab-wshd-sum-all}
-fpr::fpr_table_wshd_sum() |> 
-  fpr::fpr_kable(caption_text = paste0('Summary of watershed area statistics upstream of Phase 2 crossings.'),
-                                 footnote_text = 'Elev P60 = Elevation at which 60% of the watershed area is above', scroll = F)
-
-```
-
-<br>
-
-```{r plot-model-all-cap}
-
-my_caption = paste0("Summary of potential rearing and spawning habitat upstream of habitat confirmation assessment sites. ", model_species_name," rearing and spawning models used for habitat estimates (total length of stream network <", rear_gradient, "% and <", spawn_gradient, "% gradient, respectively).")
-
-```
-
-
-```{r plot-model-all, fig.cap= my_caption, eval=T}
-
-
-bcfp_xref_plot <- xref_bcfishpass_names |> 
-  filter(!is.na(id_join) &
-         !stringr::str_detect(bcfishpass, 'below') &
-         !stringr::str_detect(bcfishpass, 'all') &
-         !stringr::str_detect(bcfishpass, '_ha') &
-         (stringr::str_detect(bcfishpass, 'rearing') | 
-          stringr::str_detect(bcfishpass, 'spawning')))
-
-
-bcfishpass_phase2_plot_prep <- bcfishpass |> 
-  dplyr::mutate(dplyr::across(where(is.numeric), round, 1)) |>
-  dplyr::filter(stream_crossing_id %in% (pscis_phase2 |> dplyr::pull(pscis_crossing_id))) |> 
-  dplyr::select(stream_crossing_id, dplyr::all_of(bcfp_xref_plot$bcfishpass)) |> 
-  dplyr::mutate(stream_crossing_id = as.factor(stream_crossing_id)) |> 
-  tidyr::pivot_longer(cols = bt_rearing_km:bt_spawning_km) |> 
-  dplyr::filter(value > 0.0 &
-                !is.na(value)) |> 
-  dplyr::mutate(
-    name = dplyr::case_when(stringr::str_detect(name, '_rearing') ~ paste0(model_species_name, " rearing km"),
-                            TRUE ~ name),
-    name = dplyr::case_when(stringr::str_detect(name, '_spawning') ~ paste0(model_species_name, " spawning km"),
-                            TRUE ~ name)
-    # Use when more than one modelling species 
-   # name = stringr::str_replace_all(name, '_rearing', ' rearing'),
-   # name = stringr::str_replace_all(name, '_spawning', ' spawning')
-  )
-  
-  
-  
-bcfishpass_phase2_plot_prep |> 
-  ggplot2::ggplot(ggplot2::aes(x = stream_crossing_id, y = value)) +
-  ggplot2::geom_bar(stat = "identity") +
-  ggplot2::facet_wrap(~name, ncol = 2) +
-  # ggdark::dark_theme_bw(base_size = 11) +
-  ggplot2::theme_bw(base_size = 11) +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, vjust = 1)) +
-  ggplot2::labs(x = "Site", y = "Modelled habitat (km)")
-
-
-```
-
-```{r fish-sampling-text, eval = F}
-
-# ### Fish Sampling
-# 
-# Fish sampling was conducted at `r tab_fish_sites_sum |> n_distinct()` sites within 6 streams, with a total of `r tab_fish_summary |> dplyr::pull(count_fish) |> sum(na.rm = TRUE)` fish captured. Fork length, weight, and species were documented for each fish. Salmonids with fork lengths >60mm were PIT-tagged to facilitate long-term tracking of health and movement. Fork length data was used to delineate salmonids based on life stages: fry (0 to 65mm), parr (>65 to 110mm), juvenile (>110mm to 140mm), and adult (>140mm) by visually assessing the histograms presented in Figure \@ref(fig:fish-histogram). A summary of sites assessed is included in Table \@ref(tab:tab-fish-site-summary), and raw data is provided in [Attachment - Data](#attach-dat). A summary of density results is also presented in Figure \@ref(fig:plot-fish-all).
-# 
-# <br>
-# 
-# Results are presented in detail within the individual appendices in this report with the [2023 report](https://newgraphenvironment.github.io/fish_passage_peace_2023_reporting) updated with fish sampling data for PSCIS crossing 125131 on Chuchinka-Table FSR.  Documentation for each site can be accessed `r if(identical(gitbook_on, FALSE)){knitr::asis_output(paste0("online within the Assessment Data Summary appendix of the report found ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-site-data.html", anchor_text = "here")))}else{knitr::asis_output("by searching the site number in Table \\@ref(tab:tab-sites-cap) of [Appendix - Assessment Data Summary](#app-site-data) and clicking the _Link Report_")}`.
-# 
-# <br>
-# 
-# `r if(gitbook_on){knitr::asis_output("")} else knitr::asis_output("<br><br><br><br>")`
-# 
-# <br>
-
-
-```
-
-
-```{r tab-fish-site-summary, eval=FALSE}
-tab_fish_sites_sum |> 
-  fpr::fpr_kable(caption_text = 'Summary of electrofishing sites.')
-```
-
-<br>
-
-```{r plot-fish-all, fig.cap='Boxplots of densities (fish/100m2) of fish captured downstream (ds) and upstream (us) by electrofishing.', eval=FALSE}
-
-plot_fish_box_all <- fish_abund |> 
-  dplyr::filter(
-    !species_code %in% c('Mountain Whitefish', 
-                         'Sucker (General)',
-                         'NFC',
-                         'Longnose Sucker',
-                         'Sculpin (General)')
-  ) |> 
-  ggplot2::ggplot(ggplot2::aes(x = location, y = density_100m2)) +
-  ggplot2::geom_boxplot(fill = NA) +
-  ggplot2::facet_grid(life_stage ~ site, scales = "free_y", as.table = TRUE) +
-
-  # ggplot2::facet_grid(site ~ species_code, scales = "fixed", as.table = TRUE) +
-  ggplot2::theme(legend.position = "none", axis.title.x = ggplot2::element_blank()) +
-  ggplot2::geom_dotplot(binaxis = 'y', stackdir = 'center', dotsize = 1) +
-  ggplot2::ylab(expression(Density ~ (Fish/100 ~  m^2))) +
-  ggplot2::theme_bw()
-  # ggdark::dark_theme_bw()
-
-
-
-plot_fish_box_all
-```
-
-<br>
-
-```{r fish-histogram, fig.cap= 'Histograms of fish lengths by species.  Fish captured by electrofishing during habitat confirmation assessments.', eval = FALSE}
-
-# Fish histogram -----------------------------------------------------------------------
-bin_1 <- floor(min(fish_data_complete$length, na.rm = TRUE) / 5) * 5
-bin_n <- ceiling(max(fish_data_complete$length, na.rm = TRUE) / 5) * 5
-bins <- seq(bin_1, bin_n, by = 5)
-
-# Check what species we have and filter out any we don't want
-# fish_data_complete |> dplyr::distinct(species)
-
-plot_fish_hist <- ggplot2::ggplot(
-  fish_data_complete |> dplyr::filter(!species %in% c('Fish Unidentified Species', 'Sculpin (General)', 'NFC')),
-  ggplot2::aes(x = length)
-) +
-  ggplot2::geom_histogram(breaks = bins, alpha = 0.75,
-                          position = "identity", size = 0.75) +
-  ggplot2::labs(x = "Fork Length (mm)", y = "Count (#)") +
-  ggplot2::facet_wrap(~species) +
-  ggplot2::theme_bw(base_size = 8) +
-  ggplot2::scale_x_continuous(breaks = bins[seq(1, length(bins), by = 2)]) +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
-
-plot_fish_hist
-
-
-```
-
-
-### Environmental DNA (eDNA) sampling
+## Environmental DNA (eDNA) Sampling
 
 ```{r tab-edna-summary-prep, include=FALSE}
 # Loads the Fraser-filtered eDNA inputs (snapshotted from the template repo via
