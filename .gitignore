@@ -18,3 +18,6 @@ scripts/02_reporting/0205_fiss_wrangle.html
 # htmlwidgets sidecar deps when saveWidget(..., selfcontained = TRUE)
 # inlines everything into the HTML; the sidecar is duplicate cruft.
 data/*_files/
+
+# knitr figure output — regenerated on every build (fig.path in 0200-background.Rmd)
+fig/background/
