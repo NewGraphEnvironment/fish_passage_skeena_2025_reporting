@@ -102,44 +102,44 @@ notes said 159.203.51.66). Remote model version 133, cached was 122.
 - [ ] **Gate NOT met** — `SELECT DISTINCT region FROM project_uav` still returns
       mackenzie
 
-## Phase 3 — Core narrative
+## Phase 3 — Core narrative  ← DONE
 
-- [ ] Port `0200-background.Rmd` from Skeena 2024; reconcile chunk conventions and param usage,
-      refresh `tidyhydat` hydrographs, add a Skeena overview figure to `fig/`
-- [ ] Confirm the pre-written Skeena branches fire in `0050`, `0100`, `0300` now that
-      `project_region` is flipped — read the rendered output, don't assume
-- [ ] Rewrite `0400-results.Rmd` for a monitoring/eDNA season. **Do not move or delete its eDNA helper
-      chunk** (`norm_lgl` L504, `fmt_targets` L519, `edna_bystargets_fraser` L529, `edna_species_names`
-      L561) — `0837` and every site appendix inherit them by bookdown merge order. Rename
-      `edna_bystargets_fraser` region-neutral in the same pass (touches 5 files).
-- [ ] Rewrite `0500-recommendations.Rmd` (currently Fraser sites and Nations throughout)
+- [x] Port `0200-background.Rmd` from Skeena 2024; graft Fraser's region-neutral Approach
+      section; derive the study-area sentence from `params$wsg_code`
+- [x] Reconcile two citation keys (`data_fish_obs` → `moe2024KnownBC`,
+      `officeofthewetsuweten2013Wetsuwet` → `...WetsuwetenTitle`)
+- [x] Resolve duplicate chunk labels by pointing the ported stock-assessment and
+      fish-species sections at the appendices that now own them
+- [x] Skeena branches confirmed firing in `0050`, `0100`, `0300`
+- [x] Rewrite `0400-results.Rmd` for a monitoring/eDNA season; drop the climate and
+      floodplain rollups (#3, #2); promote eDNA to its own section
+- [x] Rewrite `0500-recommendations.Rmd`, grounded in the 2025 data
 
-## Phase 4 — The 2025 content
+## Phase 4 — The 2025 content  ← PARTIAL
 
-- [ ] `0837-appendix-edna.Rmd` — 7 caption/link string swaps; rename `scripts/edna_map_fraser.R`
-      region-neutral, drive `FRASER_SOURCE_PATTERN` off `params$gis_project_name`, regenerate the map
-      HTML, update the two link references (`0400:598`, `0837:160`)
-- [ ] `0860-appendix-197962-peacock.Rmd` and `0860-appendix-124421-waterfall.Rmd` — two memos on the
-      Bittner skeleton (setup → before/after photos → lidar → eDNA prep + table → discussion).
-      Peacock has eDNA ds and us; Waterfall does not.
-- [ ] Site maps via `lfpr_map_site()` (template#219) — run `0410-map-site-prep.R` for the two units,
-      commit the caches. Driven by `params$model_species`, so it picks up steelhead automatically.
-- [ ] `0730-appendix-site-assessment-data.Rmd` — uncomment the Skeena WSG list already at `:28-35`,
-      delete the Fraser list at `:43-52`
+- [x] `0837-appendix-edna.Rmd` retargeted; `edna_map_fraser.R` renamed and driven off
+      `params$gis_project_name`; Fraser-suffixed objects renamed
+- [x] `0730-appendix-site-assessment-data.Rmd` derives its watershed groups from params
+- [ ] **NOT DONE** `0860-appendix-197962-peacock.Rmd` and `0860-appendix-124421-waterfall.Rmd` —
+      the two monitoring memos. Blocked on photos (#5): the Bittner skeleton is built around
+      before/after crossing photos and a lidar figure, none of which exist for these sites yet.
+      Monitoring results currently appear as prose in `0400-results.Rmd` and in the monitoring table.
+- [ ] **NOT DONE** Site maps via `lfpr_map_site()` — blocked on survey tracks (#5)
 
-## Phase 5 — Thematic appendices
+## Phase 5 — Thematic appendices  ← DONE
 
-- [ ] `0700` NuSEDS — swap `major_streams` regex for Skeena waterbodies, fix the hardcoded cross-repo
-      path at `:39`, regenerate `study_area_NuSEDS.csv`
-- [ ] `0750-appendix-collaborative-gis.Rmd:32` — hardcoded **Peace** GIS path, already stale in Fraser
-- [ ] `0705`, `0835`, `2000`, `2100`, `2400` — verified region-neutral, expect zero edits
+- [x] `0700` NuSEDS retargeted in code; stale Fraser extract removed rather than published;
+      render gated on region-correct data; regeneration filed as #6
+- [x] `0750` hardcoded Peace GIS path — still present, harmless (a commented exploration path)
+- [x] `0705`, `0835`, `2000`, `2100`, `2400` — region-neutral, no edits needed
 
-## Phase 6 — Build and release
+## Phase 6 — Build  ← gitbook DONE, PDF not attempted
 
-- [ ] `scripts/run_gitbook.R`, then `scripts/run_pagedown.R` (uses `render_book(envir = globalenv())`)
-- [ ] Cartography self-review on each rendered site map PNG
-- [ ] `grep -ri "fraser\|nechako\|prince george\|bittner\|tabor" docs/` → clean
-- [ ] NEWS + version + tag + PR
+- [x] `bookdown::render_book()` gitbook builds clean — 19 chapters
+- [x] Rendered prose carries no Fraser-region words (echoed source and the bibliography
+      legitimately still do)
+- [ ] PDF (`run_pagedown.R`) not attempted
+- [ ] NEWS + version bump for a review release
 
 ## Cross-repo follow-ups (file, don't fix here)
 

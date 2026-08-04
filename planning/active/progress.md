@@ -72,3 +72,25 @@ the branch tip at merge time, or rewrite `main` the same way first. Safe today
 **Also pending:** `project_uav` still holds the inherited Peace rows (code fix
 landed, re-burn needs the STAC chunk run with network access), and the three
 field-data blockers in #5.
+
+## Session 2026-08-03 (phases 3-6)
+
+**Phase 2 completed.** The zero-Phase-2 guards unblocked it. `project_uav` re-burned
+to 170 Skeena records. `photo_metadata` and `wshds` dropped rather than left stale —
+absent beats another region's data.
+
+**Phase 3 done.** Background ported from Skeena 2024. Results and recommendations
+rewritten for a monitoring/eDNA season, grounded in the actual data: 19 eDNA sites
+across 10 streams, rainbow trout detected at nine, bull trout seven, coho three.
+
+**Phase 4 partial.** eDNA appendix and map retargeted. The two monitoring memos and
+the site maps are NOT written — both blocked on #5 (photos uncurated, GPS tracks
+untagged). Monitoring results appear as prose in the results chapter instead.
+
+**Phase 5 done.** NuSEDS retargeted in code; its Fraser extract removed rather than
+published (#6).
+
+**Phase 6 gitbook builds clean** — 19 chapters, no Fraser-region words in rendered
+prose. PDF not attempted.
+
+Still unpushed — see the credential note above.
