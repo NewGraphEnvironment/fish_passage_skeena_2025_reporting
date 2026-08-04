@@ -46,3 +46,29 @@ as #5: GPS tracks untagged, photos uncurated, and `0110-load-wshd_stats.R`
 assuming Phase 2 sites exist when this season has none.
 
 Phases 3-6 not started — they need a data layer that builds.
+
+## Open at end of session 2026-08-03
+
+**The BFG rewrite is local only.** Remote branch is still `85eb02c`, the
+pre-rewrite safety copy; `main` is still `7ef34cc`. GitHub reports the repo at
+132 MB. Local `.git` is 26 MB.
+
+The push failed on credentials, not on anything about the rewrite: the `origin`
+remote is HTTPS and git has no token helper configured, while `gh` itself is
+authenticated. Fix with `gh auth setup-git`, or switch the remote to SSH. Then:
+
+```sh
+git push --force-with-lease origin HEAD
+```
+
+**Decide before landing this branch — the rewritten branch shares no commits
+with `main`.** Every SHA changed, so `main` is still the original lineage
+carrying the fat blobs. An ordinary PR merge would splice that history back in
+alongside the slim one and leave the repo *larger* than it started. To keep the
+slimming, `main` has to end up on the rewritten lineage — force-update `main` to
+the branch tip at merge time, or rewrite `main` the same way first. Safe today
+(one clone, no forks, no collaborators); not safe once anyone else clones.
+
+**Also pending:** `project_uav` still holds the inherited Peace rows (code fix
+landed, re-burn needs the STAC chunk run with network access), and the three
+field-data blockers in #5.
