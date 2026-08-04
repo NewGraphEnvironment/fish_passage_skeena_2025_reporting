@@ -92,10 +92,7 @@ edna_results_197962 <- edna_bystargets |>
   dplyr::summarise(
     `UNBC ID`       = paste(sort(unique(unlist(strsplit(lab_ids, ", ")))), collapse = ", "),
     `Detected`      = fmt_targets(target[any_clean], max_pos[any_clean], retested[any_clean]),
-    `Sub-threshold` = fmt_targets(target[any_crude & !any_clean],
-                                  max_pos[any_crude & !any_clean],
-                                  retested[any_crude & !any_clean]),
-    `Not detected`  = fmt_targets(target[!any_crude], max_pos[!any_crude], retested[!any_crude]),
+    `Not detected`  = fmt_targets(target[!any_clean], max_pos[!any_clean], retested[!any_clean]),
     .groups = "drop"
   ) |>
   dplyr::rename(`Site ID` = site_id)

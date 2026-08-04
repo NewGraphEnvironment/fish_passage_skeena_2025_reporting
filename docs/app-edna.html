@@ -345,7 +345,7 @@ div.csl-indent {
 <p>This appendix carries the site-level detail behind the headline counts in the Results chapter. Field blanks are reported separately because they test the sampling protocol rather than a location. Office blanks are excluded entirely — they are distilled-water controls filtered at the end of a session at accommodation, so although they carry real GPS coordinates, those coordinates record where the filtering happened rather than a stream site. The interactive map is linked at the end.</p>
 <div id="per-site-detection-results" class="section level2 unnumbered hasAnchor">
 <h2>Per-site detection results<a href="app-edna.html#per-site-detection-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Format: <code>CODE(max_droplets)</code>, with <code>*</code> flagging samples that UNBC reran. Detected = ≥4 positive droplets per the standard ddPCR call threshold; Sub-threshold = 1-3 droplets, not interpretable as species presence under ddPCR convention; Not detected = 0 droplets across all runs.</p>
+<p>Format: <code>CODE(max_droplets)</code>, with <code>*</code> flagging samples that UNBC reran. Detected = ≥4 positive droplets, the call threshold applied by the laboratory. Everything below that threshold is reported as not detected, including 2-3 droplet results that were retested without reaching the cutoff.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="app-edna.html#cb61-1" tabindex="-1"></a>edna_per_site <span class="sc">|&gt;</span></span>
 <span id="cb61-2"><a href="app-edna.html#cb61-2" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(</span>
 <span id="cb61-3"><a href="app-edna.html#cb61-3" tabindex="-1"></a>    <span class="at">caption_text =</span> <span class="st">&quot;Site-level eDNA detection results across real environmental samples in the project area. UNBC ID is the lab sample identifier; Pos. control = yes indicates the sample was collected at a site where the target species was also confirmed by electrofishing.&quot;</span>,</span>
@@ -374,9 +374,6 @@ Pos. control
 Detected
 </th>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
-Sub-threshold
-</th>
-<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 Not detected
 </th>
 </tr>
@@ -398,10 +395,7 @@ S61182
 RAIN(36)*
 </td>
 <td style="text-align:left;">
-CHIN(1)<em>, COHO(1)</em>
-</td>
-<td style="text-align:left;">
-BULT(0)*
+BULT(0)<em>, CHIN(1)</em>, COHO(1)*
 </td>
 </tr>
 <tr>
@@ -420,10 +414,7 @@ S61184
 RAIN(512)
 </td>
 <td style="text-align:left;">
-COHO(1)
-</td>
-<td style="text-align:left;">
-BULT(0), CHIN(0)
+BULT(0), CHIN(0), COHO(1)
 </td>
 </tr>
 <tr>
@@ -440,9 +431,6 @@ S61185
 </td>
 <td style="text-align:left;">
 RAIN(679)
-</td>
-<td style="text-align:left;">
-—
 </td>
 <td style="text-align:left;">
 BULT(0), CHIN(0), COHO(0)
@@ -464,9 +452,6 @@ S61186
 RAIN(30)
 </td>
 <td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
 BULT(0), CHIN(0), COHO(0)
 </td>
 </tr>
@@ -486,10 +471,7 @@ S31493
 RAIN(111)
 </td>
 <td style="text-align:left;">
-COHO(1)
-</td>
-<td style="text-align:left;">
-BULT(0), SOCK(0)
+BULT(0), COHO(1), SOCK(0)
 </td>
 </tr>
 <tr>
@@ -506,9 +488,6 @@ S50879
 </td>
 <td style="text-align:left;">
 BULT(113), COHO(12)*
-</td>
-<td style="text-align:left;">
-—
 </td>
 <td style="text-align:left;">
 CHIN(0), SOCK(0)
@@ -530,9 +509,6 @@ S60678
 COHO(8), RAIN(124)
 </td>
 <td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
 CHIN(0), SOCK(0)
 </td>
 </tr>
@@ -550,9 +526,6 @@ S60880
 </td>
 <td style="text-align:left;">
 BULT(84), COHO(6)
-</td>
-<td style="text-align:left;">
-—
 </td>
 <td style="text-align:left;">
 CHIN(0), SOCK(0)
@@ -574,9 +547,6 @@ S61187
 RAIN(96)
 </td>
 <td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
 BULT(0), CHIN(0), COHO(0)
 </td>
 </tr>
@@ -594,9 +564,6 @@ S61188
 </td>
 <td style="text-align:left;">
 BULT(128)
-</td>
-<td style="text-align:left;">
-—
 </td>
 <td style="text-align:left;">
 CHIN(0), COHO(0), RAIN(0)
@@ -619,9 +586,6 @@ yes
 BULT(110)
 </td>
 <td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
 CHIN(0), COHO(0), RAIN(0)
 </td>
 </tr>
@@ -639,9 +603,6 @@ S61190
 </td>
 <td style="text-align:left;">
 BULT(18)
-</td>
-<td style="text-align:left;">
-—
 </td>
 <td style="text-align:left;">
 CHIN(0), COHO(0), RAIN(0)
@@ -663,9 +624,6 @@ S61191
 BULT(63), RAIN(59)
 </td>
 <td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
 CHIN(0), COHO(0)
 </td>
 </tr>
@@ -683,9 +641,6 @@ S61192
 </td>
 <td style="text-align:left;">
 BULT(66), RAIN(57)
-</td>
-<td style="text-align:left;">
-—
 </td>
 <td style="text-align:left;">
 CHIN(0), COHO(0)
@@ -707,10 +662,7 @@ S60881
 —
 </td>
 <td style="text-align:left;">
-BULT(2)*
-</td>
-<td style="text-align:left;">
-CHIN(0), COHO(0), SOCK(0)
+BULT(2)*, CHIN(0), COHO(0), SOCK(0)
 </td>
 </tr>
 <tr>
@@ -724,9 +676,6 @@ Tributary To Mcdonnell Lake
 S60377
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-—
 </td>
 <td style="text-align:left;">
 —
@@ -751,9 +700,6 @@ S60274
 —
 </td>
 <td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
 BULT(0), CHIN(0), COHO(0), SOCK(0)
 </td>
 </tr>
@@ -768,9 +714,6 @@ Bulkley River
 S60275
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-—
 </td>
 <td style="text-align:left;">
 —
@@ -795,10 +738,7 @@ S60276
 —
 </td>
 <td style="text-align:left;">
-BULT(1), COHO(1)*
-</td>
-<td style="text-align:left;">
-CHIN(0), SOCK(0)
+BULT(1), CHIN(0), COHO(1)*, SOCK(0)
 </td>
 </tr>
 </tbody>
@@ -833,10 +773,7 @@ UNBC ID
 Detected
 </th>
 <th style="text-align:left;">
-Sub-threshold
-</th>
-<th style="text-align:left;">
-Clean (0 droplets)
+Not detected
 </th>
 </tr>
 </thead>
@@ -850,9 +787,6 @@ Clean (0 droplets)
 </td>
 <td style="text-align:left;">
 S61183
-</td>
-<td style="text-align:left;">
-—
 </td>
 <td style="text-align:left;">
 —
@@ -934,7 +868,7 @@ environmental
 0
 </td>
 <td style="text-align:left;">
-No detection (0 droplets)
+Not detected
 </td>
 </tr>
 <tr>
@@ -960,7 +894,7 @@ environmental
 1
 </td>
 <td style="text-align:left;">
-Sub-threshold (1-3 droplets, NOT a detection)
+Not detected
 </td>
 </tr>
 <tr>
@@ -986,7 +920,7 @@ environmental
 1
 </td>
 <td style="text-align:left;">
-Sub-threshold (1-3 droplets, NOT a detection)
+Not detected
 </td>
 </tr>
 <tr>
@@ -1038,7 +972,7 @@ field blank
 0
 </td>
 <td style="text-align:left;">
-No detection (0 droplets)
+Not detected
 </td>
 </tr>
 <tr>
@@ -1064,7 +998,7 @@ field blank
 0
 </td>
 <td style="text-align:left;">
-No detection (0 droplets)
+Not detected
 </td>
 </tr>
 <tr>
@@ -1090,7 +1024,7 @@ field blank
 0
 </td>
 <td style="text-align:left;">
-No detection (0 droplets)
+Not detected
 </td>
 </tr>
 <tr>
@@ -1116,7 +1050,7 @@ field blank
 0
 </td>
 <td style="text-align:left;">
-No detection (0 droplets)
+Not detected
 </td>
 </tr>
 <tr>
@@ -1168,7 +1102,7 @@ environmental
 2
 </td>
 <td style="text-align:left;">
-Sub-threshold (1-3 droplets, NOT a detection)
+Not detected
 </td>
 </tr>
 <tr>
@@ -1194,7 +1128,7 @@ environmental
 1
 </td>
 <td style="text-align:left;">
-Sub-threshold (1-3 droplets, NOT a detection)
+Not detected
 </td>
 </tr>
 </tbody>
@@ -1204,7 +1138,7 @@ Sub-threshold (1-3 droplets, NOT a detection)
 </div>
 <div id="interactive-map" class="section level2 unnumbered hasAnchor">
 <h2>Interactive map<a href="app-edna.html#interactive-map" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The interactive eDNA map shows site-level detection results with toggleable per-species layers, an opt-in sub-threshold-signals layer (off by default), and an opt-in Controls layer for field blanks. See the <a href="https://www.newgraphenvironment.com/fish_passage_skeena_2025_reporting//edna_unbc_results_2025_map.html" target="_blank">interactive eDNA map</a>.</p>
+<p>The interactive eDNA map shows site-level detection results with toggleable per-species layers and an opt-in Controls layer for field blanks. See the <a href="https://www.newgraphenvironment.com/fish_passage_skeena_2025_reporting//edna_unbc_results_2025_map.html" target="_blank">interactive eDNA map</a>.</p>
 
 </div>
 </div>

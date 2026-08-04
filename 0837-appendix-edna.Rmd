@@ -46,12 +46,9 @@ edna_per_site <- edna_real_app |>
     `Detected`        = fmt_targets(target[any_clean],
                                     max_pos[any_clean],
                                     retested[any_clean]),
-    `Sub-threshold`   = fmt_targets(target[any_crude & !any_clean],
-                                    max_pos[any_crude & !any_clean],
-                                    retested[any_crude & !any_clean]),
-    `Not detected`    = fmt_targets(target[!any_crude],
-                                    max_pos[!any_crude],
-                                    retested[!any_crude]),
+    `Not detected`    = fmt_targets(target[!any_clean],
+                                    max_pos[!any_clean],
+                                    retested[!any_clean]),
     .groups = "drop"
   ) |>
   dplyr::rename(`Site ID` = site_id, `Stream` = stream_name) |>
@@ -67,12 +64,9 @@ edna_field_blanks <- edna_bystargets_app |>
     `Detected`           = fmt_targets(target[any_clean],
                                        max_pos[any_clean],
                                        retested[any_clean]),
-    `Sub-threshold`      = fmt_targets(target[any_crude & !any_clean],
-                                       max_pos[any_crude & !any_clean],
-                                       retested[any_crude & !any_clean]),
-    `Clean (0 droplets)` = fmt_targets(target[!any_crude],
-                                       max_pos[!any_crude],
-                                       retested[!any_crude]),
+    `Not detected`       = fmt_targets(target[!any_clean],
+                                       max_pos[!any_clean],
+                                       retested[!any_clean]),
     .groups = "drop"
   ) |>
   dplyr::rename(`Site ID` = site_id, `Stream` = stream_name) |>
@@ -86,8 +80,7 @@ edna_retests <- edna_bystargets_app |>
     Species = dplyr::coalesce(edna_species_names[target], target),
     `Result` = dplyr::case_when(
       any_clean ~ "Detected (≥4 droplets)",
-      any_crude ~ "Sub-threshold (1-3 droplets, NOT a detection)",
-      TRUE      ~ "No detection (0 droplets)"
+      TRUE      ~ "Not detected"
     ),
     `Sample type` = dplyr::case_when(
       control_blank_field ~ "field blank",
@@ -109,7 +102,7 @@ edna_retests <- edna_bystargets_app |>
 
 ## Per-site detection results {-}
 
-Format: `CODE(max_droplets)`, with `*` flagging samples that UNBC reran. Detected = ≥4 positive droplets per the standard ddPCR call threshold; Sub-threshold = 1-3 droplets, not interpretable as species presence under ddPCR convention; Not detected = 0 droplets across all runs.
+Format: `CODE(max_droplets)`, with `*` flagging samples that UNBC reran. Detected = ≥4 positive droplets, the call threshold applied by the laboratory. Everything below that threshold is reported as not detected, including 2-3 droplet results that were retested without reaching the cutoff.
 
 ```{r tab-edna-per-site}
 edna_per_site |>
@@ -155,4 +148,4 @@ if (nrow(edna_retests) > 0) {
 
 ## Interactive map {-}
 
-The interactive eDNA map shows site-level detection results with toggleable per-species layers, an opt-in sub-threshold-signals layer (off by default), and an opt-in Controls layer for field blanks. See the `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "edna_unbc_results_2025_map.html", anchor_text = "interactive eDNA map")`.
+The interactive eDNA map shows site-level detection results with toggleable per-species layers and an opt-in Controls layer for field blanks. See the `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "edna_unbc_results_2025_map.html", anchor_text = "interactive eDNA map")`.
