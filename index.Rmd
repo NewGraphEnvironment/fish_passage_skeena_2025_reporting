@@ -1,5 +1,5 @@
 --- 
-title: "Restoring Fish Passage in the Fraser Region - 2025"
+title: "Restoring Fish Passage in the Skeena Region - 2025"
 author: |
  |
  | Prepared for
@@ -15,7 +15,7 @@ author: |
 
 date: |
  |
- | Version 0.3.1 DRAFT `r format(Sys.Date(), "%Y-%m-%d")`
+ | Version 0.0.1 DRAFT `r format(Sys.Date(), "%Y-%m-%d")`
  |
  | *Claude Opus 5 (Anthropic) assisted with literature synthesis, drafting, and technical writing. All scientific interpretation, data analysis, and conclusions are the responsibility of the authors.*
 toc-title: Table of Contents
@@ -26,16 +26,16 @@ output:
             in_header: header.html
 params:
   run_project: TRUE
-  repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_fraser_2025_reporting'
-  report_url: 'https://www.newgraphenvironment.com/fish_passage_fraser_2025_reporting/'
+  repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_skeena_2025_reporting'
+  report_url: 'https://www.newgraphenvironment.com/fish_passage_skeena_2025_reporting/'
   job_name: '2025-076-sern-skeena-fraser-fish-passage'
-  repo_name: "fish_passage_fraser_2025_reporting" 
-  gis_project_name: "sern_fraser_2024" 
-  project_region: "fraser"
+  repo_name: "fish_passage_skeena_2025_reporting"
+  gis_project_name: "sern_skeena_2023"
+  project_region: "skeena"
   project_year: "2025"
-  project_start_year: "2023"
-  model_species: "bt"
-  wsg_code: [LCHL, NECR, FRAN, MORK, UFRA, WILL, TABR, LSAL]
+  project_start_year: "2020"
+  model_species: "st"
+  wsg_code: [BULK, MORR, ZYMO, KISP, KLUM]
   update_packages: FALSE
   update_form_pscis: FALSE
   update_form_fiss_site: FALSE
@@ -44,7 +44,8 @@ params:
   update_gis: FALSE
   update_bib: TRUE
   update_bcfishpass: FALSE
-  pscis_funding_project_number: "fraser_2025_phase1"
+  force_bcfishpass_rebuild: FALSE
+  pscis_funding_project_number: "skeena_2025_phase1"
 nocite: |
   @busch_etal2011LandscapeLevelModel, 
   @woll_etal2017SalmonEcological,

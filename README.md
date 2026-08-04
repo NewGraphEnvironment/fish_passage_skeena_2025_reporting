@@ -1,14 +1,20 @@
-# Restoring Fish Passage in the Fraser Region — 2025
+# Restoring Fish Passage in the Skeena Region — 2025
 
-> Reproducible, web-first fish-passage restoration-planning report for the Fraser Region, prepared on behalf of the Society for Ecosystem Restoration in Northern BC (SERN).
+> Reproducible, web-first fish-passage restoration-planning report for the Skeena Region, prepared on behalf of the Society for Ecosystem Restoration in Northern BC (SERN).
 
-**Read the report:** <https://www.newgraphenvironment.com/fish_passage_fraser_2025_reporting/>
-&middot; **Source:** [`NewGraphEnvironment/fish_passage_fraser_2025_reporting`](https://github.com/NewGraphEnvironment/fish_passage_fraser_2025_reporting)
+**Read the report:** <https://www.newgraphenvironment.com/fish_passage_skeena_2025_reporting/>
+&middot; **Source:** [`NewGraphEnvironment/fish_passage_skeena_2025_reporting`](https://github.com/NewGraphEnvironment/fish_passage_skeena_2025_reporting)
 &middot; **Version history:** [`NEWS.md`](NEWS.md)
 
 ## What this is
 
-The 2025 iteration of the Fraser Region fish-passage restoration-planning report. Assembles crossing-by-crossing assessments, fish-presence and habitat-confirmation data, and prioritization analyses across the region. Each prioritized barrier has a dedicated appendix with photos, field measurements, and recommended remediation; the executive summary rolls them up for partners and decision-makers. A standalone executive-summary PDF is built alongside the gitbook so the headline findings can travel without the full report. Source data and methods are open — anyone can rebuild the report from the scripts in `scripts/` (see [Build](#build)).
+The 2025 iteration of the Skeena Region fish-passage restoration-planning report, covering the Bulkley, Morice, Zymoetz, Kispiox and Kalum watershed groups.
+
+The 2025 field season was a **monitoring and environmental DNA season** rather than an assessment season: two post-remediation effectiveness-monitoring sites, two PSCIS reassessments, and a 20-sample eDNA program across 11 streams. The report is shaped accordingly — the eDNA program and the two monitoring memos carry the substance, alongside the amalgamated assessment record from earlier years.
+
+Source data and methods are open — anyone can rebuild the report from the scripts in `scripts/` (see [Build](#build)).
+
+Spawned from [`fish_passage_fraser_2025_reporting`](https://github.com/NewGraphEnvironment/fish_passage_fraser_2025_reporting) at `7ef34cc`; the shared structure and appendix conventions come from there. Prior Skeena reporting lives in [`fish_passage_skeena_2024_reporting`](https://github.com/NewGraphEnvironment/fish_passage_skeena_2024_reporting).
 
 ## Build
 
@@ -20,6 +26,8 @@ Rscript scripts/run_pagedown.R   # print PDF -> docs/<repo>.pdf
 ```
 
 `run_gitbook.R` builds the full report with the inline Phase 1 data+photos appendix. `run_pagedown.R` swaps that heavy appendix for a slim link-stub so the print PDF stays light, and restores the resting layout afterwards even if the render fails.
+
+The book builds offline from committed caches. Regenerating those caches is deliberate and gated behind params in `index.Rmd` (`update_bcfishpass`, `update_gis`, the `update_form_*` flags) — they need the bcfishpass database tunnel and network access, and are not part of a normal build.
 
 ## Open-source packages used
 

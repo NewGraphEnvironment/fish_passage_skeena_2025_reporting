@@ -33,16 +33,16 @@ memos, built from the same pipeline, with no Fraser content surviving.
 
 ## Phase 0 — Identity
 
-- [ ] `index.Rmd` params: `repo_url`, `report_url`, `repo_name`, `gis_project_name` → `sern_skeena_2023`,
+- [x] `index.Rmd` params: `repo_url`, `report_url`, `repo_name`, `gis_project_name` → `sern_skeena_2023`,
       `project_region` → `skeena`, `model_species` → `st`, `wsg_code` → the five, `project_start_year`
       → `2020`, `pscis_funding_project_number`. Leave `job_name` (already `sern-skeena-fraser`).
-- [ ] Title block; declare `force_bcfishpass_rebuild` explicitly rather than leaving it implicit
+- [x] Title block; declare `force_bcfishpass_rebuild` explicitly rather than leaving it implicit
       (`0100-load-bcfishpass-data.R:36,59` reads a param absent from the YAML)
-- [ ] `_bookdown.yml:1`, `_output.yml:7,9,11`, `README.md`, rename `fish_passage_template_reporting.Rproj`
-- [ ] `_executive_summary_pdf.Rmd:11-16` — the duplicated params block
-- [ ] Reset `NEWS.md` (7 Fraser headings, currently 0.3.1) to `0.0.1`; `DESCRIPTION` to match
-- [ ] Commit the staged `planning/archive/` renames alongside
-- [ ] **Verify:** `grep -ril fraser *.Rmd _*.yml` — remaining hits are the known prose set only
+- [x] `_bookdown.yml:1`, `_output.yml:7,9,11`, `README.md`, rename `fish_passage_template_reporting.Rproj`
+- [x] `_executive_summary_pdf.Rmd:11-16` — the duplicated params block
+- [x] Reset `NEWS.md` (7 Fraser headings, currently 0.3.1) to `0.0.1`; `DESCRIPTION` to match
+- [x] Commit the staged `planning/archive/` renames alongside
+- [x] **Verify:** `grep -ril fraser *.Rmd _*.yml` — remaining hits are the known prose set only
 
 ## Phase 1 — Purge the Fraser payload
 
