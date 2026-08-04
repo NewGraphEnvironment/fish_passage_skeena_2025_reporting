@@ -26,6 +26,10 @@ tab:tab-rfp-tracking
 tab:tab-edna-per-site
 tab:tab-edna-field-blanks
 tab:tab-edna-retests
+fig:photo-197962-before
+fig:photo-197962-after
+fig:photo-197962-substrate
+tab:tab-edna-results-197962
 introduction
 background
 approach

@@ -117,10 +117,26 @@ Both monitoring crossings have a genuine pre-remediation photo record, in
 | 197962 Peacock Ck | 2021-09-07 | Oval Culvert | Barrier | partial inlet drop from LWD and boulders |
 | 124421 Waterfall Ck | 2021-09-16 | Round Culvert | Barrier | bent in middle from road weight, 0.10 m inlet drop both pipes |
 
-**The Peacock bridge was installed in 2021, after these photos were taken** — confirmed
-by Al Irvine, who was on the project. The 2025 monitoring form hedges ("Bridge installed
-in 2020 or 2021"), so the form is not the authority here. The September 2021 photos are
-genuinely pre-bridge and can be captioned as such.
+**Peacock Creek 2021 timeline, confirmed by Al Irvine who was on the project:**
+
+| Date | Event |
+|---|---|
+| 2021-09-07 | PSCIS assessment — culvert, Barrier. Photo shows perched outlet over a plunge pool |
+| 2021-09-11 | Habitat confirmation, both reaches high value |
+| 2021-09-17 | Electrofishing — three closed-site multi-pass locations up, three down |
+| **2021-09-20** | **Culvert replacement began** |
+| 2025-09-29 | Effectiveness monitoring — open-span bridge |
+
+So the whole 2021 record is pre-remediation. Two source records contradict this and
+should not be trusted here:
+
+- the 2025 monitoring form hedges, "Bridge installed in 2020 or 2021"
+- **the 2021-09-11 habitat confirmation comment on `197962_us` reads "Culvert has been
+  replaced with a bridge" — this is wrong.** It was written after the fact. The
+  2021-09-07 photograph shows a corrugated metal culvert with a perched outlet, and the
+  replacement did not start until nine days after the comment's own date.
+
+Anyone re-deriving this from the field records alone will reach the wrong answer.
 
 Current photos live in two OneDrive directories under
 `2025-076-sern-skeena-fraser-fish-passage/data/photos/skeena/`:

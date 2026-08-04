@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Appendix - Salmon Stock Assessment Data | Restoring Fish Passage in the Skeena Region - 2025</title>
+  <title>Peacock Creek - 197962 - Monitoring Appendix | Restoring Fish Passage in the Skeena Region - 2025</title>
   <meta name="description" content="My Description." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Appendix - Salmon Stock Assessment Data | Restoring Fish Passage in the Skeena Region - 2025" />
+  <meta property="og:title" content="Peacock Creek - 197962 - Monitoring Appendix | Restoring Fish Passage in the Skeena Region - 2025" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="My Description." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Appendix - Salmon Stock Assessment Data | Restoring Fish Passage in the Skeena Region - 2025" />
+  <meta name="twitter:title" content="Peacock Creek - 197962 - Monitoring Appendix | Restoring Fish Passage in the Skeena Region - 2025" />
   
   <meta name="twitter:description" content="My Description." />
   
@@ -28,8 +28,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="recommendations.html"/>
-<link rel="next" href="app-fish-species.html"/>
+<link rel="prev" href="app-edna.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -340,78 +340,147 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="app-stock-assessment" class="section level1 unnumbered hasAnchor">
-<h1>Appendix - Salmon Stock Assessment Data<a href="app-stock-assessment.html#app-stock-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The stock assessment extract has not yet been regenerated for this region. The previous extract covered a different study area and was removed rather than published here. See the repository issues for the regeneration task.</p>
-<p>Fisheries and Oceans Canada stock assessment data was accessed via the <a href="https://open.canada.ca/data/en/dataset/c48669a3-045b-400d-b730-48aafe8c5ee6">NuSEDS-New Salmon Escapement Database System</a>
-through the <a href="https://open.canada.ca/en">Open Government Portal</a> with results presented in Table <a href="#tab:stock-assess-dat-all"><strong>??</strong></a> <span class="citation">(Fisheries and Oceans Canada, n.d.)</span>. A brief memo on the data extraction process is available <a href="http://htmlpreview.github.io/?https://github.com/NewGraphEnvironment/restoration_wedzin_kwa_2024/blob/main/memos/dfo_stock_assess.html">here</a>.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="app-stock-assessment.html#cb46-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ckanr&quot;</span>)</span>
-<span id="cb46-2"><a href="app-stock-assessment.html#cb46-2" tabindex="-1"></a></span>
-<span id="cb46-3"><a href="app-stock-assessment.html#cb46-3" tabindex="-1"></a><span class="co"># set up the connection to the data portal</span></span>
-<span id="cb46-4"><a href="app-stock-assessment.html#cb46-4" tabindex="-1"></a><span class="fu">ckanr_setup</span>(<span class="at">url =</span> <span class="st">&quot;https://open.canada.ca/data/en&quot;</span>)</span>
-<span id="cb46-5"><a href="app-stock-assessment.html#cb46-5" tabindex="-1"></a></span>
-<span id="cb46-6"><a href="app-stock-assessment.html#cb46-6" tabindex="-1"></a>nuseds <span class="ot">&lt;-</span> rgovcan<span class="sc">::</span><span class="fu">govcan_search</span>(<span class="at">keywords =</span> <span class="fu">c</span>(<span class="st">&quot;Skeena NuSEDS&quot;</span>), <span class="at">records =</span> <span class="dv">150</span>, <span class="at">format_results =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span>  </span>
-<span id="cb46-7"><a href="app-stock-assessment.html#cb46-7" tabindex="-1"></a>  <span class="fu">pull</span>(resources) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-8"><a href="app-stock-assessment.html#cb46-8" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
-<span id="cb46-9"><a href="app-stock-assessment.html#cb46-9" tabindex="-1"></a></span>
-<span id="cb46-10"><a href="app-stock-assessment.html#cb46-10" tabindex="-1"></a><span class="co"># Load the most recent Nuseds - currently 20251103 (update Nov 2025)</span></span>
-<span id="cb46-11"><a href="app-stock-assessment.html#cb46-11" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://api-proxy.edh-cde.dfo-mpo.gc.ca/catalogue/records/c48669a3-045b-400d-b730-48aafe8c5ee6/attachments/All%20Areas%20NuSEDS_20251103.zip&quot;</span></span>
-<span id="cb46-12"><a href="app-stock-assessment.html#cb46-12" tabindex="-1"></a></span>
-<span id="cb46-13"><a href="app-stock-assessment.html#cb46-13" tabindex="-1"></a></span>
-<span id="cb46-14"><a href="app-stock-assessment.html#cb46-14" tabindex="-1"></a><span class="co"># burn directly without bringing into memory</span></span>
-<span id="cb46-15"><a href="app-stock-assessment.html#cb46-15" tabindex="-1"></a>nuseds_all_20251103.csv</span>
-<span id="cb46-16"><a href="app-stock-assessment.html#cb46-16" tabindex="-1"></a>ckanr<span class="sc">::</span><span class="fu">ckan_fetch</span>(url, <span class="at">store =</span> <span class="st">&quot;disk&quot;</span>, <span class="at">path =</span> <span class="st">&quot;data/inputs_raw/nuseds_all_20251103.zip&quot;</span>) </span>
-<span id="cb46-17"><a href="app-stock-assessment.html#cb46-17" tabindex="-1"></a></span>
-<span id="cb46-18"><a href="app-stock-assessment.html#cb46-18" tabindex="-1"></a><span class="co"># ignore the huge file</span></span>
-<span id="cb46-19"><a href="app-stock-assessment.html#cb46-19" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_ignore</span>(<span class="st">&quot;data/inputs_raw/nuseds_all_20251103.csv&quot;</span>)</span>
-<span id="cb46-20"><a href="app-stock-assessment.html#cb46-20" tabindex="-1"></a></span>
-<span id="cb46-21"><a href="app-stock-assessment.html#cb46-21" tabindex="-1"></a><span class="co">#read it in</span></span>
-<span id="cb46-22"><a href="app-stock-assessment.html#cb46-22" tabindex="-1"></a>all_area_nuseds <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;data/inputs_raw/nuseds_all_20251103.csv&#39;</span>)</span>
-<span id="cb46-23"><a href="app-stock-assessment.html#cb46-23" tabindex="-1"></a></span>
-<span id="cb46-24"><a href="app-stock-assessment.html#cb46-24" tabindex="-1"></a><span class="co"># repo-relative and params-driven; this pointed at another repo and another region</span></span>
-<span id="cb46-25"><a href="app-stock-assessment.html#cb46-25" tabindex="-1"></a>form_pscis_2025 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(fs<span class="sc">::</span><span class="fu">path</span>(<span class="st">&quot;data/backup&quot;</span>, params<span class="sc">$</span>project_year, params<span class="sc">$</span>gis_project_name, <span class="fu">paste0</span>(<span class="st">&quot;form_pscis_&quot;</span>, params<span class="sc">$</span>project_year, <span class="st">&quot;.csv&quot;</span>)))</span>
-<span id="cb46-26"><a href="app-stock-assessment.html#cb46-26" tabindex="-1"></a></span>
-<span id="cb46-27"><a href="app-stock-assessment.html#cb46-27" tabindex="-1"></a></span>
-<span id="cb46-28"><a href="app-stock-assessment.html#cb46-28" tabindex="-1"></a><span class="co"># Big study area so lets filter using the stream names from `form_pscis`</span></span>
-<span id="cb46-29"><a href="app-stock-assessment.html#cb46-29" tabindex="-1"></a>stream_names <span class="ot">&lt;-</span> form_pscis_2025 <span class="sc">|&gt;</span> </span>
-<span id="cb46-30"><a href="app-stock-assessment.html#cb46-30" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">pull</span>(stream_name) <span class="sc">|&gt;</span> </span>
-<span id="cb46-31"><a href="app-stock-assessment.html#cb46-31" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_trim</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb46-32"><a href="app-stock-assessment.html#cb46-32" tabindex="-1"></a>  <span class="co"># Must be upper case to match those in Nuseds</span></span>
-<span id="cb46-33"><a href="app-stock-assessment.html#cb46-33" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_to_upper</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb46-34"><a href="app-stock-assessment.html#cb46-34" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
-<span id="cb46-35"><a href="app-stock-assessment.html#cb46-35" tabindex="-1"></a></span>
-<span id="cb46-36"><a href="app-stock-assessment.html#cb46-36" tabindex="-1"></a><span class="co"># we also need to add in these waterbodies that we didn&#39;t explicitly sample but are that heavy hitters in the project area</span></span>
-<span id="cb46-37"><a href="app-stock-assessment.html#cb46-37" tabindex="-1"></a>major_streams <span class="ot">&lt;-</span> <span class="st">&quot;BULKLEY|MORICE|ZYMOETZ|KISPIOX|KITSUMKALUM|SKEENA RIVER|SUSKWA|TELKWA|BABINE&quot;</span></span>
-<span id="cb46-38"><a href="app-stock-assessment.html#cb46-38" tabindex="-1"></a></span>
-<span id="cb46-39"><a href="app-stock-assessment.html#cb46-39" tabindex="-1"></a><span class="co"># Combine into one regex pattern</span></span>
-<span id="cb46-40"><a href="app-stock-assessment.html#cb46-40" tabindex="-1"></a>stream_names_regex <span class="ot">&lt;-</span> <span class="fu">c</span>(stream_names, major_streams) <span class="sc">|&gt;</span> </span>
-<span id="cb46-41"><a href="app-stock-assessment.html#cb46-41" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="at">collapse =</span> <span class="st">&quot;|&quot;</span>)</span>
-<span id="cb46-42"><a href="app-stock-assessment.html#cb46-42" tabindex="-1"></a></span>
-<span id="cb46-43"><a href="app-stock-assessment.html#cb46-43" tabindex="-1"></a><span class="co"># Filter Nuseds to just include streams we visited</span></span>
-<span id="cb46-44"><a href="app-stock-assessment.html#cb46-44" tabindex="-1"></a>study_area_streams <span class="ot">&lt;-</span> all_area_nuseds <span class="sc">|&gt;</span> </span>
-<span id="cb46-45"><a href="app-stock-assessment.html#cb46-45" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(WATERBODY, stream_names_regex)) <span class="sc">|&gt;</span> </span>
-<span id="cb46-46"><a href="app-stock-assessment.html#cb46-46" tabindex="-1"></a>  <span class="co"># We have some duplicate streams so remove streams with SHORE in the name which are in the Sushwap area</span></span>
-<span id="cb46-47"><a href="app-stock-assessment.html#cb46-47" tabindex="-1"></a>  <span class="co"># also remove big and little salmon rivers becasue not in study area</span></span>
-<span id="cb46-48"><a href="app-stock-assessment.html#cb46-48" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>stringr<span class="sc">::</span><span class="fu">str_detect</span>(WATERBODY, <span class="st">&quot;SHORE|BIG|LITTLE&quot;</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb46-49"><a href="app-stock-assessment.html#cb46-49" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb46-50"><a href="app-stock-assessment.html#cb46-50" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(waterbody)</span>
-<span id="cb46-51"><a href="app-stock-assessment.html#cb46-51" tabindex="-1"></a></span>
-<span id="cb46-52"><a href="app-stock-assessment.html#cb46-52" tabindex="-1"></a>check_names <span class="ot">&lt;-</span> study_area_streams <span class="sc">|&gt;</span> </span>
-<span id="cb46-53"><a href="app-stock-assessment.html#cb46-53" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(waterbody)</span>
-<span id="cb46-54"><a href="app-stock-assessment.html#cb46-54" tabindex="-1"></a></span>
-<span id="cb46-55"><a href="app-stock-assessment.html#cb46-55" tabindex="-1"></a><span class="do">## Burn to csv. Updated name so it&#39;s clear this contains only the study area streams.</span></span>
-<span id="cb46-56"><a href="app-stock-assessment.html#cb46-56" tabindex="-1"></a>study_area_streams <span class="sc">|&gt;</span> </span>
-<span id="cb46-57"><a href="app-stock-assessment.html#cb46-57" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&#39;data/inputs_raw/study_area_NuSEDS.csv&#39;</span>)</span></code></pre></div>
+<div id="peacock-2025" class="section level1 unnumbered hasAnchor">
+<h1>Peacock Creek - 197962 - Monitoring Appendix<a href="peacock-2025.html#peacock-2025" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>PSCIS crossing 197962 on Peacock Creek is located on the Morice Forest Service Road within the Morice River watershed group. The culvert at this crossing was replaced with a bridge in 2021, and the site was revisited in 2025 under the effectiveness monitoring program.</p>
 <p><br></p>
+<div id="crossing-characteristics" class="section level2 unnumbered hasAnchor">
+<h2>Crossing Characteristics<a href="peacock-2025.html#crossing-characteristics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before replacement, the structure was a corrugated metal culvert with a concrete headwall, ranked a barrier to upstream migration under the provincial protocol <span class="citation">(MoE 2011)</span>. The assessment recorded a partial inlet drop of varying height caused by large woody debris and boulders. Photographs taken during the September 2021 assessment show the outlet perched above a plunge pool, with the drop and the pool visible below the headwall (Figure <a href="peacock-2025.html#fig:photo-197962-before">5.1</a>).</p>
+<p><br></p>
+<p>The replacement structure is an open-span bridge. Photographs from the 2025 monitoring visit show an unconstricted channel through the crossing, with the bed continuous through the opening and no residual outlet drop (Figure <a href="peacock-2025.html#fig:photo-197962-after">5.2</a>).</p>
+<p><br></p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="peacock-2025.html#cb64-1" tabindex="-1"></a>my_caption <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;Culvert on Peacock Creek at PSCIS crossing &quot;</span>, my_site_mon,</span>
+<span id="cb64-2"><a href="peacock-2025.html#cb64-2" tabindex="-1"></a>                     <span class="st">&quot; on the Morice FSR, photographed on 2021-09-07 before replacement. &quot;</span>,</span>
+<span id="cb64-3"><a href="peacock-2025.html#cb64-3" tabindex="-1"></a>                     <span class="st">&quot;The outlet is perched above a plunge pool.&quot;</span>)</span>
+<span id="cb64-4"><a href="peacock-2025.html#cb64-4" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;data/photos/197962/before/crossing_all.JPG&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:photo-197962-before"></span>
+<img src="data/photos/197962/before/crossing_all.JPG" alt="Culvert on Peacock Creek at PSCIS crossing 197962 on the Morice FSR, photographed on 2021-09-07 before replacement. The outlet is perched above a plunge pool." width="100%" />
+<p class="caption">
+Figure 5.1: Culvert on Peacock Creek at PSCIS crossing 197962 on the Morice FSR, photographed on 2021-09-07 before replacement. The outlet is perched above a plunge pool.
+</p>
+</div>
+<p><br></p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="peacock-2025.html#cb65-1" tabindex="-1"></a>my_caption <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;Channel upstream of the replacement bridge at PSCIS crossing &quot;</span>, my_site_mon,</span>
+<span id="cb65-2"><a href="peacock-2025.html#cb65-2" tabindex="-1"></a>                     <span class="st">&quot;, photographed on 2025-09-29 from the bridge deck.&quot;</span>)</span>
+<span id="cb65-3"><a href="peacock-2025.html#cb65-3" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;data/photos/197962/IMG_0574_upstream.JPG&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:photo-197962-after"></span>
+<img src="data/photos/197962/IMG_0574_upstream.JPG" alt="Channel upstream of the replacement bridge at PSCIS crossing 197962, photographed on 2025-09-29 from the bridge deck." width="100%" />
+<p class="caption">
+Figure 5.2: Channel upstream of the replacement bridge at PSCIS crossing 197962, photographed on 2025-09-29 from the bridge deck.
+</p>
+</div>
+<p><br></p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="peacock-2025.html#cb66-1" tabindex="-1"></a>my_caption <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;Substrate condition through the crossing at PSCIS crossing &quot;</span>, my_site_mon,</span>
+<span id="cb66-2"><a href="peacock-2025.html#cb66-2" tabindex="-1"></a>                     <span class="st">&quot;, recorded during the &quot;</span>, params<span class="sc">$</span>project_year, <span class="st">&quot; effectiveness monitoring visit.&quot;</span>)</span>
+<span id="cb66-3"><a href="peacock-2025.html#cb66-3" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;data/photos/197962/20250929_173127_NA_substrate.JPG&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:photo-197962-substrate"></span>
+<img src="data/photos/197962/20250929_173127_NA_substrate.JPG" alt="Substrate condition through the crossing at PSCIS crossing 197962, recorded during the 2025 effectiveness monitoring visit." width="100%" />
+<p class="caption">
+Figure 5.3: Substrate condition through the crossing at PSCIS crossing 197962, recorded during the 2025 effectiveness monitoring visit.
+</p>
+</div>
+<p><br></p>
+</div>
+<div id="habitat-and-fish-presence" class="section level2 unnumbered hasAnchor">
+<h2>Habitat and Fish Presence<a href="peacock-2025.html#habitat-and-fish-presence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Habitat confirmation assessments were completed at this site in September 2021, before the culvert was replaced. Both the reach upstream and the reach downstream of the crossing were rated high habitat value, with 750 m surveyed upstream and 600 m downstream. The upstream reach was described as complex habitat with undercut banks, large and small woody debris and pools; the downstream reach as carrying consistent undercut banks with woody debris and overhanging vegetation providing cover. Approximately 4.8 km of upstream habitat length was estimated, and the site was ranked a high priority for remediation.</p>
+<p><br></p>
+<p>The site was electrofished on 2021-09-17 at three closed-site multi-pass locations upstream of the crossing and three downstream. Replacement of the culvert began three days later, on 2021-09-20, so the entire 2021 record — assessment, habitat confirmation and fish sampling — describes the site in its pre-remediation condition.</p>
+<p><br></p>
+<p>In 2025, environmental DNA was collected both upstream and downstream of the crossing. Both samples returned detections (Table <a href="peacock-2025.html#tab:tab-edna-results-197962">5.9</a>). Downstream returned rainbow trout at 124 positive droplets and coho at 8; upstream returned bull trout at 84 positive droplets and coho at 6. Chinook and sockeye returned zero positive droplets in every run at both locations.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="peacock-2025.html#cb67-1" tabindex="-1"></a>edna_results_197962 <span class="sc">|&gt;</span></span>
+<span id="cb67-2"><a href="peacock-2025.html#cb67-2" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(</span>
+<span id="cb67-3"><a href="peacock-2025.html#cb67-3" tabindex="-1"></a>    <span class="at">caption_text =</span> <span class="fu">paste0</span>(<span class="st">&quot;Environmental DNA detection results at PSCIS crossing &quot;</span>, my_site_mon,</span>
+<span id="cb67-4"><a href="peacock-2025.html#cb67-4" tabindex="-1"></a>                          <span class="st">&quot;, upstream and downstream of the crossing.&quot;</span>),</span>
+<span id="cb67-5"><a href="peacock-2025.html#cb67-5" tabindex="-1"></a>    <span class="at">scroll =</span> <span class="cn">FALSE</span></span>
+<span id="cb67-6"><a href="peacock-2025.html#cb67-6" tabindex="-1"></a>  )</span></code></pre></div>
+<table class="table table-condensed table-responsive" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tab-edna-results-197962">Table 5.9: </span>Environmental DNA detection results at PSCIS crossing 197962, upstream and downstream of the crossing.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Site ID
+</th>
+<th style="text-align:left;">
+UNBC ID
+</th>
+<th style="text-align:left;">
+Detected
+</th>
+<th style="text-align:left;">
+Sub-threshold
+</th>
+<th style="text-align:left;">
+Not detected
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+197962_ds_ed
+</td>
+<td style="text-align:left;">
+S60678
+</td>
+<td style="text-align:left;">
+COHO(8), RAIN(124)
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+CHIN(0), SOCK(0)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+197962_us_ed
+</td>
+<td style="text-align:left;">
+S60880
+</td>
+<td style="text-align:left;">
+BULT(84), COHO(6)
+</td>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+CHIN(0), SOCK(0)
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Internal amplification controls were not reported for either sample. The detections are unaffected — a well returning positive droplets demonstrably amplified — but the chinook and sockeye zeros cannot be distinguished from reactions that failed or were inhibited, and should not be read as evidence of absence.</p>
+<p><br></p>
+</div>
+<div id="discussion" class="section level2 unnumbered hasAnchor">
+<h2>Discussion<a href="peacock-2025.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The evidence at this site is consistent across methods and across four years, which is not the usual outcome of effectiveness monitoring. The pre-remediation habitat confirmation rated both reaches high value and estimated 4.8 km of habitat upstream; the 2025 environmental DNA confirms that the upstream reach is occupied, by bull trout and coho, and that the downstream reach carries rainbow trout and coho. The species detected upstream differ from those detected downstream, which is worth resolving rather than assuming: it may reflect real distribution, or the limits of a single grab sample at each location.</p>
+<p><br></p>
+<p>Recommendations for continued monitoring at this site:</p>
+<ul>
+<li><p>Resample for environmental DNA at both locations across multiple points in the season, so detections can be read against flow rather than as single observations. The 2025 samples were collected on one day at the end of September.</p></li>
+<li><p>Add rainbow trout to the upstream assay panel and bull trout to the downstream panel, so the two locations are directly comparable. As sampled, each location was assayed for a different set of targets, which is enough on its own to explain the difference between them.</p></li>
+<li><p>Confirm with the laboratory whether amplification control results exist for these samples. If the controls were run and simply not returned, the chinook and sockeye zeros can be interpreted without resampling.</p></li>
+<li><p>Repeat the electrofishing conducted in 2021 at the same closed-site locations. Pre-remediation multi-pass data exist for three sites upstream and three downstream, which is an uncommonly strong baseline and the most direct available measure of whether the replacement changed fish use rather than only passage condition.</p></li>
+<li><p>Continue photographic monitoring of substrate, cover, bank stability and revegetation through the crossing, so channel recovery following construction can be tracked over time.</p></li>
+</ul>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="recommendations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="app-fish-species.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="app-edna.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
