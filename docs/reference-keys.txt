@@ -15,14 +15,11 @@ tab:tab-barrier-result
 tab:tab-cost-mult
 tab:tab-moti-params
 tab:tab-monitoring-metrics
-fig:map-interactive
 tab:tab-edna-summary
 tab:tab-mon-overview
 tab:fiss-species-table
 tab:tab-sites-sum-cap
 tab:tab-sites-cap
-tab:tab-uav-imagery-cap
-tab:tab-rfp-tracking
 tab:tab-edna-per-site
 tab:tab-edna-field-blanks
 tab:tab-edna-retests
@@ -86,4 +83,3 @@ engineering-design-1
 monitoring-1
 collaborative-gis-environment-1
 recommendations
-methodology

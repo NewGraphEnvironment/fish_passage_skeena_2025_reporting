@@ -15,7 +15,7 @@ author: |
 
 date: |
  |
- | Version 0.0.1 DRAFT `r format(Sys.Date(), "%Y-%m-%d")`
+ | Version 0.1.0 DRAFT `r format(Sys.Date(), "%Y-%m-%d")`
  |
  | *Claude Opus 5 (Anthropic) assisted with literature synthesis, drafting, and technical writing. All scientific interpretation, data analysis, and conclusions are the responsibility of the authors.*
 toc-title: Table of Contents
@@ -127,7 +127,15 @@ At New Graph Environment, we understand our well-being as inseparable from the h
 
 Modern civilization has a long journey ahead to acknowledge and address the historic and ongoing impacts of colonialism that have resulted in harm to the cultures and livelihoods living interconnected with our ecosystems for many thousands of years.
 
-This work takes place within the territories of First Nations who have stewarded these lands and waters since time immemorial.
+This work takes place within the territories of the Wet'suwet'en, Gitxsan and Tsimshian, who have stewarded these lands and waters since time immemorial.
+
+Wet'suwet'en hereditary territory covers the Bulkley and Morice watersheds, governed through thirteen Yikhs under the Gilseyhu, Laksilyu, Tsayu, Gitdumden and Laksamshu clans, where Inuk Nu'at'en governs the harvest of fish under laws founded on thousands of years of relationship with the Yintahk. Gitxsan territory covers the Kispiox and the upper Skeena, and Tsimshian territory the lower Skeena and Kitsumkalum. The Wedzin Kwa carries chinook, coho, sockeye, pink and steelhead through all of it, and the Neexdzii Kwa above the Morice confluence supports stocks that have declined within living memory.
+
+The `r params$project_year` field work was conducted on these territories, and the crossings assessed sit on streams these Nations have relied on for far longer than the roads that cross them. At Waterfall Creek, the culvert this report describes was removed by the Gitksan Watershed Authorities — the restoration documented here is theirs.
+
+## Funding and Partners {.front-matter .unnumbered}
+
+This work was funded by the Habitat Conservation Trust Foundation under the Northern British Columbia Fish Passage Restoration project (CAT26-0-636), and supported by the Ministry of Transportation and Infrastructure. Laboratory analysis of environmental DNA samples was conducted by the University of Northern British Columbia.
 
 
 ```{js, logo-header, echo = FALSE, eval= T}
