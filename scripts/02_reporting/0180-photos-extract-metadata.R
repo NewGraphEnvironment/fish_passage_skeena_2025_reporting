@@ -1,27 +1,45 @@
 ##here we need to pull all the metadata from all the marked photos so we can use it to have our photos show on the leaflet map
 ## NOTE: this script needs to be re run if photos are deleted or new ones added
 
+# `data/photos` is empty in a freshly spawned repo, or in a season whose photos
+# have not been tagged `_k_` yet. exifr fails outright on an empty directory
+# ("parse error: premature EOF"), and leaving the existing table alone is worse
+# than failing: its rows carry the *ancestor* repo's raw.githubusercontent URLs,
+# so the interactive map would serve another region's photos. Drop it instead.
+photos_present <- fs::dir_exists("data/photos") &&
+  length(fs::dir_ls("data/photos", recurse = TRUE, type = "file")) > 0
 
-photo_metadata <- exifr::read_exif('data/photos', recursive=T) |>
-  janitor::clean_names() |>
-  dplyr::select(file_name, source_file, create_date, gps_latitude, gps_longitude) |>
-  dplyr::mutate(url  = paste0(params$repo_url, '/raw/main/',
-                       source_file)) |>
-  # filter photos used in hab con site memos, but do not include photos used for pscis phase 2 submission portal as we don't want to clutter map
-  # portal photos have been labelled '_k_nm' to distinguish them, they are still committed to repo
-  dplyr::filter(
-    stringr::str_detect(file_name, "_k_") & !stringr::str_detect(file_name, "_nm_")
-  ) |>
-  dplyr::mutate(create_date = lubridate::as_datetime(create_date, tz="America/Vancouver"))
+if (!photos_present) {
+
+  conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
+  readwritesqlite::rws_drop_table("photo_metadata", conn = conn)
+  readwritesqlite::rws_disconnect(conn)
+
+  message("No photos in data/photos - `photo_metadata` dropped.")
+
+} else {
+
+  photo_metadata <- exifr::read_exif('data/photos', recursive=T) |>
+    janitor::clean_names() |>
+    dplyr::select(file_name, source_file, create_date, gps_latitude, gps_longitude) |>
+    dplyr::mutate(url  = paste0(params$repo_url, '/raw/main/',
+                         source_file)) |>
+    # filter photos used in hab con site memos, but do not include photos used for pscis phase 2 submission portal as we don't want to clutter map
+    # portal photos have been labelled '_k_nm' to distinguish them, they are still committed to repo
+    dplyr::filter(
+      stringr::str_detect(file_name, "_k_") & !stringr::str_detect(file_name, "_nm_")
+    ) |>
+    dplyr::mutate(create_date = lubridate::as_datetime(create_date, tz="America/Vancouver"))
 
 
 
-# Add the data to the sqlite
-conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
-readwritesqlite::rws_list_tables(conn)
-readwritesqlite::rws_drop_table("photo_metadata", conn = conn) ##now drop the table so you can replace it
-readwritesqlite::rws_write(photo_metadata, exists = F, delete = TRUE,
-          conn = conn, x_name = "photo_metadata")
-readwritesqlite::rws_list_tables(conn)
-readwritesqlite::rws_disconnect(conn)
+  # Add the data to the sqlite
+  conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
+  readwritesqlite::rws_list_tables(conn)
+  readwritesqlite::rws_drop_table("photo_metadata", conn = conn) ##now drop the table so you can replace it
+  readwritesqlite::rws_write(photo_metadata, exists = F, delete = TRUE,
+            conn = conn, x_name = "photo_metadata")
+  readwritesqlite::rws_list_tables(conn)
+  readwritesqlite::rws_disconnect(conn)
 
+}

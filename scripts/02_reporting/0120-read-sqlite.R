@@ -26,7 +26,13 @@ xref_pscis_my_crossing_modelled <- readwritesqlite::rws_read_table("xref_pscis_m
 rd_class_surface <- readwritesqlite::rws_read_table("rd_class_surface", conn = conn)
 
 # Table containing photo metadata. Used in the iteractive map
-photo_metadata <- readwritesqlite::rws_read_table("photo_metadata", conn = conn)
+# Absent when data/photos is empty - see the guard in 0180-photos-extract-metadata.R
+photo_metadata <- if ("photo_metadata" %in% DBI::dbListTables(conn)) {
+  readwritesqlite::rws_read_table("photo_metadata", conn = conn)
+} else {
+  message("No `photo_metadata` table - no tagged photos this season.")
+  NULL
+}
 
 #Read in the form_pscis
 form_pscis <- readwritesqlite::rws_read_table("form_pscis", conn = conn)

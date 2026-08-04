@@ -60,16 +60,20 @@ leaflet::addCircleMarkers(data=dplyr::filter(tab_map_phase_1, assess_type_phase1
                  weight = 2,
                  opacity = 1.0,
                  group = "Phase 1") |> 
-  leaflet::addPolylines(data=habitat_confirmation_tracks,
+  # survey tracks are absent until the season's GPS tracks are cleaned and tagged
+  (\(m) if (is.null(habitat_confirmation_tracks) || nrow(habitat_confirmation_tracks) == 0) m else
+    m |> leaflet::addPolylines(data=habitat_confirmation_tracks,
                opacity=0.75, color = '#e216c4',
-               fillOpacity = 0.75, weight=5, group = "Phase 2") |>
+               fillOpacity = 0.75, weight=5, group = "Phase 2"))() |>
 
-leaflet::addAwesomeMarkers(
+  # `photo_metadata` is NULL when no photos are tagged for publication
+  (\(m) if (is.null(photo_metadata) || nrow(photo_metadata) == 0) m else
+    m |> leaflet::addAwesomeMarkers(
     lng = as.numeric(photo_metadata$gps_longitude),
     lat = as.numeric(photo_metadata$gps_latitude),
     popup = leafpop::popupImage(photo_metadata$url, src = "remote"),
     clusterOptions = leaflet::markerClusterOptions(),
-    group = "Phase 2") |>
+    group = "Phase 2"))() |>
 
 
   # `tab_map_phase_2` is NULL in a season with no Phase 2 habitat confirmation sites
