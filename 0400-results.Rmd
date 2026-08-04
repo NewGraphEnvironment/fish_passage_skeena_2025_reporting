@@ -306,7 +306,7 @@ for the 50% costs of replacing structures.  All sites with a design for remediat
 
 In `r (params$project_year)`, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through eDNA sampling and aquistion of aerial imagery at the following sites (Table \@ref(tab:tab-mon-overview):
 
-- Effectiveness monitoring was conducted on Peacock Creek (PSCIS crossing 197962) on the Morice FSR, where a bridge was installed in 2020 or 2021. Environmental DNA sampling upstream and downstream of the crossing confirmed coho, rainbow trout and bull trout in the reach.
+- Effectiveness monitoring was conducted on Peacock Creek (PSCIS crossing 197962) on the Morice FSR, where the oval culvert was replaced with a bridge in 2021. Environmental DNA sampling upstream and downstream of the crossing confirmed coho, rainbow trout and bull trout in the reach.
 
 - Effectiveness monitoring was conducted on Waterfall Creek (PSCIS crossing 124421) at 11th Avenue, where the culvert was removed by the Gitksan Watershed Authorities. Riprap at the site has been buried and seeded, with good regrowth of grasses established and shrub planting planned.
 

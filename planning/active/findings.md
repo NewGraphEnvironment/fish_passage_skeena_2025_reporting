@@ -104,3 +104,37 @@ The spawn carried Fraser's `planning/archive/` — issues #5, #6, #10. Skeena's 
 `fraser-` qualifier. The ~60 bare `#N` references *inside* those archived files were left alone —
 rewriting archived records is worse than the ambiguity, and the parent directory name now
 disambiguates.
+
+## Monitoring site photos — before/after provenance
+
+Both monitoring crossings have a genuine pre-remediation photo record, in
+`fish_passage_skeena_2021_reporting` (the only repo carrying either).
+
+2021 PSCIS records, which date the "before" state:
+
+| Site | Date | Structure | Result | Field comment |
+|---|---|---|---|---|
+| 197962 Peacock Ck | 2021-09-07 | Oval Culvert | Barrier | partial inlet drop from LWD and boulders |
+| 124421 Waterfall Ck | 2021-09-16 | Round Culvert | Barrier | bent in middle from road weight, 0.10 m inlet drop both pipes |
+
+**The Peacock bridge was installed in 2021, after these photos were taken** — confirmed
+by Al Irvine, who was on the project. The 2025 monitoring form hedges ("Bridge installed
+in 2020 or 2021"), so the form is not the authority here. The September 2021 photos are
+genuinely pre-bridge and can be captioned as such.
+
+Current photos live in two OneDrive directories under
+`2025-076-sern-skeena-fraser-fish-passage/data/photos/skeena/`:
+
+- `renamed/` — sorted and descriptively named: effectiveness monitoring metrics
+  (revegetation, stability, cover, substrate, velocity, flow depth) and eDNA site photos
+- `extra/` — the crossing series from the same visits. **This is where the crossing photos
+  were.** Peacock's six are named (road, upstream, downstream, inlet, outlet, barrel);
+  Waterfall's fourteen are still camera defaults.
+
+The two sets share no files, and EXIF puts all of them inside the site-visit windows
+(197962 on 2025-09-29 16:55-17:31, form logged 17:19; 124421 on 2025-10-04 10:04-10:43,
+form logged 10:22).
+
+**Why #5 originally said the photos did not exist:** `0160-photos-import.Rmd` copies only
+files matching `_k_` or `crossing_all`, and neither OneDrive directory uses those tags.
+The absence was a tagging convention gap, not missing data.
