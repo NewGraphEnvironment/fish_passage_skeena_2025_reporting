@@ -72,12 +72,10 @@ gitbook_on <- TRUE
 # gitbook_on <- FALSE  ##we just need turn  this on and off to switch between gitbook and pdf via paged.js
 ```
 
-
 ```{r jquery, echo=FALSE, eval=FALSE}
 #see https://github.com/NewGraphEnvironment/mybookdown-template/issues/16
 htmltools::tagList(rmarkdown::html_dependency_jquery())
 ```
-
 
 ```{r setup, echo=identical(gitbook_on, TRUE), include = TRUE}
 knitr::opts_chunk$set(echo=identical(gitbook_on, TRUE), message=FALSE, warning=FALSE, dpi=60, out.width = "100%")
@@ -98,7 +96,6 @@ photo_width <- "80%"
 font_set <- 9
 ```
 
-
 ```{r source}
 source('scripts/packages.R')
 staticimports::import()
@@ -109,10 +106,7 @@ source("scripts/02_reporting/0120-read-sqlite.R")
 source("scripts/02_reporting/0105-params-derived.R")
 source('scripts/02_reporting/0130-tables.R')
 
-
-
 ```
-
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
@@ -126,17 +120,6 @@ knitr::write_bib(c(
 At New Graph Environment, we understand our well-being as inseparable from the health of the land and waters we work within. When we care for ecosystems, we care for ourselves and for the communities connected to them.
 
 Modern civilization has a long journey ahead to acknowledge and address the historic and ongoing impacts of colonialism that have resulted in harm to the cultures and livelihoods living interconnected with our ecosystems for many thousands of years.
-
-This work takes place within the territories of the Wet'suwet'en, Gitxsan and Tsimshian, who have stewarded these lands and waters since time immemorial.
-
-Wet'suwet'en hereditary territory covers the Bulkley and Morice watersheds, governed through thirteen Yikhs under the Gilseyhu, Laksilyu, Tsayu, Gitdumden and Laksamshu clans, where Inuk Nu'at'en governs the harvest of fish under laws founded on thousands of years of relationship with the Yintahk. Gitxsan territory covers the Kispiox and the upper Skeena, and Tsimshian territory the lower Skeena and Kitsumkalum. The Wedzin Kwa carries chinook, coho, sockeye, pink and steelhead through all of it, and the Neexdzii Kwa above the Morice confluence supports stocks that have declined within living memory.
-
-The `r params$project_year` field work was conducted on these territories, and the crossings assessed sit on streams these Nations have relied on for far longer than the roads that cross them. At Waterfall Creek, the culvert this report describes was removed by the Gitksan Watershed Authorities — the restoration documented here is theirs.
-
-## Funding and Partners {.front-matter .unnumbered}
-
-This work was funded by the Habitat Conservation Trust Foundation under the Northern British Columbia Fish Passage Restoration project (CAT26-0-636), and supported by the Ministry of Transportation and Infrastructure. Laboratory analysis of environmental DNA samples was conducted by the University of Northern British Columbia.
-
 
 ```{js, logo-header, echo = FALSE, eval= T}
 title=document.getElementById('header');
