@@ -46,17 +46,17 @@ memos, built from the same pipeline, with no Fraser content surviving.
 
 ## Phase 1 — Purge the Fraser payload
 
-- [ ] Delete the four `0840-*` site appendices and `0860-appendix-196200-bittner.Rmd` — bookdown has
+- [x] Delete the four `0840-*` site appendices and `0860-appendix-196200-bittner.Rmd` — bookdown has
       no `rmd_files:` list and globs every root `.Rmd`, so leaving them ships Fraser sites
-- [ ] Delete `data/photos/` (17 Fraser crossing folders), `data/spreadsheets/2025/sern_fraser_2024/`,
+- [x] Delete `data/photos/` (17 Fraser crossing folders), `data/spreadsheets/2025/sern_fraser_2024/`,
       `data/gis/necr_*`, `data/gis/climate_departure_*`, `data/edna_unbc_results_2025_fraser_map.html`,
       `fig/fishpassage_2024_fraser.png`, stale `docs/`
-- [ ] Delete `data/backup/2025/sern_peace_fwcp_2023/` and `sern_fraser_2024/` — peace#1's finding, that
+- [x] Delete `data/backup/2025/sern_peace_fwcp_2023/` and `sern_fraser_2024/` — peace#1's finding, that
       every spawned repo carries all three regions. Keep the top-level combined files: `0400-results.Rmd`
       and `0837` filter them by `params$gis_project_name`, so they are live inputs, not bloat.
-- [ ] Remove `0710-appendix-climate-departure.Rmd` and `0720-appendix-floodplain.Rmd` from the build;
+- [x] Remove `0710-appendix-climate-departure.Rmd` and `0720-appendix-floodplain.Rmd` from the build;
       file follow-up issues (floodplain scoped to **Bulkley only**)
-- [ ] **Gate:** the build fails loudly on missing Skeena inputs, not silently on Fraser ones
+- [x] **Gate:** the build fails loudly on missing Skeena inputs, not silently on Fraser ones
 
 **Then, and only then, strip the history.** Ordering is load-bearing: BFG protects whatever is in
 HEAD, so `necr.gpkg` (15.2 MB), `docs/fish_passage_fraser_2025_reporting.pdf` (14.4 MB) and
