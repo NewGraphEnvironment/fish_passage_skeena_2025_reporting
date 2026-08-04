@@ -67,7 +67,7 @@ fish-handling-and-processing
 pit-tagging
 environmental-dna-edna-sampling
 edna-sampling-and-filtration
-edna-extraction
+edna-analysis
 open-source-reporting-framework
 aerial-imagery
 engineering-design
