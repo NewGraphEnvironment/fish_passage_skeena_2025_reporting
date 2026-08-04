@@ -68,10 +68,12 @@ tab_uav <- tibble::tibble(url_download = purrr::map_chr(r$features, ~ purrr::plu
 
 
 # grab the imagery for this project area
-project_region <- "skeena"
-
-project_uav <- tab_uav |> 
-  dplyr::filter(region == project_region)
+# Driven from the param, not hardcoded. A literal here shadows params$project_region
+# and, because this chunk is eval = F, the table it writes to sqlite outlives the
+# repo it was written in — that is how the Fraser 2025 report came to publish Peace
+# imagery. See NewGraphEnvironment/fish_passage_fraser_2025_reporting#19.
+project_uav <- tab_uav |>
+  dplyr::filter(region == params$project_region)
 
 # how many distinct items are there
 # length(unique(project_uav$item))
