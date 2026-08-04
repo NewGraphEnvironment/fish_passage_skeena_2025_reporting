@@ -18,7 +18,6 @@ tab:tab-monitoring-metrics
 fig:map-interactive
 tab:tab-edna-summary
 tab:tab-mon-overview
-tab:stock-assess-dat-all
 tab:fiss-species-table
 tab:tab-sites-sum-cap
 tab:tab-sites-cap

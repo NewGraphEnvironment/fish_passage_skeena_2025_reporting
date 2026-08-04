@@ -6,6 +6,14 @@ editor_options:
 
 # Appendix - Salmon Stock Assessment Data {-#app-stock-assessment}
 
+```{r stock-assess-pending, results="asis", echo=FALSE, eval = !file.exists("data/inputs_raw/study_area_NuSEDS.csv")}
+knitr::asis_output(paste0(
+  "The stock assessment extract has not yet been regenerated for this region. ",
+  "The previous extract covered a different study area and was removed rather than ",
+  "published here. See the repository issues for the regeneration task.\n\n"))
+```
+
+
 
 Fisheries and Oceans Canada stock assessment data was accessed via the [NuSEDS-New Salmon Escapement Database System](https://open.canada.ca/data/en/dataset/c48669a3-045b-400d-b730-48aafe8c5ee6)
 through the [Open Government Portal](https://open.canada.ca/en) with results presented `r if(gitbook_on) { knitr::asis_output("in Table \\@ref(tab:stock-assess-dat-all)") } else { knitr::asis_output(paste0("online in this appendix at ", ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "app-stock-assessment.html", anchor_text = "app-stock-assessment.html"))) }` [@fisheriesandoceanscanadaNuSEDSNewSalmon]. A brief memo on the data extraction process is available [here](http://htmlpreview.github.io/?https://github.com/NewGraphEnvironment/restoration_wedzin_kwa_2024/blob/main/memos/dfo_stock_assess.html).
@@ -18,7 +26,7 @@ library("ckanr")
 # set up the connection to the data portal
 ckanr_setup(url = "https://open.canada.ca/data/en")
 
-nuseds <- rgovcan::govcan_search(keywords = c("Fraser NuSEDS"), records = 150, format_results = TRUE) |>  
+nuseds <- rgovcan::govcan_search(keywords = c("Skeena NuSEDS"), records = 150, format_results = TRUE) |>  
   pull(resources) %>% 
   bind_rows()
 
@@ -36,7 +44,8 @@ usethis::use_git_ignore("data/inputs_raw/nuseds_all_20251103.csv")
 #read it in
 all_area_nuseds <- readr::read_csv('data/inputs_raw/nuseds_all_20251103.csv')
 
-form_pscis_2025 <- read.csv("~/Projects/repo/fish_passage_template_reporting/data/backup/2025/sern_fraser_2024/form_pscis_2025.csv")
+# repo-relative and params-driven; this pointed at another repo and another region
+form_pscis_2025 <- read.csv(fs::path("data/backup", params$project_year, params$gis_project_name, paste0("form_pscis_", params$project_year, ".csv")))
 
 
 # Big study area so lets filter using the stream names from `form_pscis`
@@ -48,7 +57,7 @@ stream_names <- form_pscis_2025 |>
   unique()
 
 # we also need to add in these waterbodies that we didn't explicitly sample but are that heavy hitters in the project area
-major_streams <- "NECHAKO|CHILAKO|ENDAKO|FRANÇOIS LAKE|FRASER RIVER|MORKILL RIVER|WILLOW RIVER|TABOR RIVER|SALMON RIVER"
+major_streams <- "BULKLEY|MORICE|ZYMOETZ|KISPIOX|KITSUMKALUM|SKEENA RIVER|SUSKWA|TELKWA|BABINE"
 
 # Combine into one regex pattern
 stream_names_regex <- c(stream_names, major_streams) |> 
@@ -75,9 +84,9 @@ study_area_streams |>
 
 
 
-```{r stock-assess-dat-all, results="asis", echo=FALSE, eval= gitbook_on}
+```{r stock-assess-dat-all, results="asis", echo=FALSE, eval = gitbook_on && file.exists("data/inputs_raw/study_area_NuSEDS.csv")}
 
-my_caption <- "Fisheries and Oceans Canada stock assessment data for select watershed groups in the Fraser watershed.  Data can be filtered to specific waterbodies, columns can be dragged to reorder and filtered/reordered table can be exported to csv/excel."
+my_caption <- "Fisheries and Oceans Canada stock assessment data for select watershed groups in the Skeena watershed.  Data can be filtered to specific waterbodies, columns can be dragged to reorder and filtered/reordered table can be exported to csv/excel."
 
 # not the results="asis", echo=FALSE in the chunk header
 my_tab_caption()

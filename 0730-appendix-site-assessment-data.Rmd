@@ -40,16 +40,9 @@ sites_all <- arrow::read_parquet("data/snapshots/fp_sites_tracking.parquet")
 #               "Crooked River"
 #               )
 
-wsg <- c(
-  "Lower Chilako River",
-  "Willow River",
-  "Tabor River",
-  "Lower Salmon River",
-  "Upper Fraser River",
-  "Nechako River",
-  "Morkill River",
-  "Francois Lake"
-)
+# derived from params$wsg_code in 0105-params-derived.R rather than restated here -
+# a hardcoded list is how this appendix ends up describing the wrong region
+wsg <- wsg_names
 
 
 # more straight forward is new graph only watersheds

@@ -69,21 +69,21 @@ which includes links to project reporting for each site.
 
 <br>
 
-In 2025, the project area was expanded to include the Willow river, Lower Salmon River, and Tabor River watershed groups. Fish passage assessments were completed at 12 new sites, focusing on structures with potential barriers to upstream fish movement using standard provincial criteria.
+The `r params$project_year` field season was directed at effectiveness monitoring and environmental DNA sampling rather than at new fish passage assessments. Two crossings already inventoried in PSCIS were reassessed; no Phase 1 assessments were completed.
 
 <br>
   
-Habitat confirmation assessments were conducted at `r n_hab_conf_sites` sites within the `r wsg_names_hab_conf |> knitr::combine_words()` watershed groups, covering approximately `r len_surveyed_km` km of stream length. Detailed habitat metrics were documented alongside eDNA samples to evaluate habitat quality and presence of fish species. 
+No Phase 2 habitat confirmation assessments were conducted. Habitat confirmations follow from crossings prioritised during Phase 1 assessment, and no Phase 1 work was completed this season. 
 
 <br>
 
 
-New in 2025, environmental DNA (eDNA) sampling was incorporated into the program at both previously assessed and newly added sites. A total of `r n_edna_real` samples were collected across `r n_edna_streams` streams, alongside `r n_edna_blanks` field and office blanks run as protocol controls.
+Environmental DNA (eDNA) sampling was the substantive field programme this season. A total of `r n_edna_real` samples were collected across `r n_edna_streams` streams, alongside `r n_edna_blanks` field and office blanks run as protocol controls.
 
 <br>
 
  
-  Monitoring was conducted at `r xfun::numbers_to_words(n_monitoring_sites)` sites near Prince George, including post-remediation evaluations at `r monitoring_sites_text`. Monitoring included eDNA sampling and habitat observations. A custom effectiveness monitoring form tailored to fish passage projects
+  Monitoring was conducted at `r xfun::numbers_to_words(n_monitoring_sites)` sites, including post-remediation evaluations at `r monitoring_sites_text`. Monitoring included eDNA sampling and habitat observations. A custom effectiveness monitoring form tailored to fish passage projects
   was used and metrics assessed included flow velocity, substrate condition, channel constriction, riparian condition, and cover 
   availability. 
   

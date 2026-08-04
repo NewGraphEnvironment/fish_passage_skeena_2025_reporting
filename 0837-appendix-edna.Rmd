@@ -116,7 +116,7 @@ A non-detection is only as strong as the evidence that the reaction worked. Inte
 ```{r tab-edna-per-site}
 edna_per_site |>
   fpr::fpr_kable(
-    caption_text = "Site-level eDNA detection results across real environmental samples in the Fraser project area. UNBC ID is the lab sample identifier; Pos. control = yes indicates the sample was collected at a site where the target species was also confirmed by electrofishing.",
+    caption_text = "Site-level eDNA detection results across real environmental samples in the project area. UNBC ID is the lab sample identifier; Pos. control = yes indicates the sample was collected at a site where the target species was also confirmed by electrofishing.",
     scroll = gitbook_on
   )
 ```
@@ -130,7 +130,7 @@ Field blanks filter distilled water at the field site to test for protocol conta
 ```{r tab-edna-field-blanks}
 edna_field_blanks |>
   fpr::fpr_kable(
-    caption_text = "Field blanks collected during the 2025 eDNA program in the Fraser project area. Detections in blanks reflect protocol-side contamination, not site eDNA.",
+    caption_text = "Field blanks collected during the `r params$project_year` eDNA program in the project area. Detections in blanks reflect protocol-side contamination, not site eDNA.",
     scroll = FALSE
   )
 ```
@@ -145,11 +145,11 @@ UNBC reran a subset of samples to confirm borderline results. The table below li
 if (nrow(edna_retests) > 0) {
   edna_retests |>
     fpr::fpr_kable(
-      caption_text = "UNBC retests for the 2025 Fraser eDNA samples. Runs is the total number of times the sample x species combination was assayed; Max droplets is the highest positive-droplet count observed across all runs.",
+      caption_text = "UNBC retests for the `r params$project_year` eDNA samples. Runs is the total number of times the sample x species combination was assayed; Max droplets is the highest positive-droplet count observed across all runs.",
       scroll = gitbook_on
     )
 } else {
-  cat("No retests in the Fraser 2025 batch.\n")
+  cat("No retests in this batch.\n")
 }
 ```
 
@@ -157,4 +157,4 @@ if (nrow(edna_retests) > 0) {
 
 ## Interactive map {-}
 
-The interactive Fraser eDNA map shows site-level detection results with toggleable per-species layers, an opt-in sub-threshold-signals layer (off by default), and an opt-in Controls layer for field blanks. See the `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "edna_unbc_results_2025_fraser_map.html", anchor_text = "interactive Fraser eDNA map")`.
+The interactive eDNA map shows site-level detection results with toggleable per-species layers, an opt-in sub-threshold-signals layer (off by default), and an opt-in Controls layer for field blanks. See the `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "edna_unbc_results_2025_map.html", anchor_text = "interactive eDNA map")`.

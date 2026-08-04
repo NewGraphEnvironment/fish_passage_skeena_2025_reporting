@@ -211,7 +211,7 @@ fmt_targets <- function(target, max_pos, retested) {
   paste(parts, collapse = ", ")
 }
 
-edna_bystargets_fraser <- readr::read_csv(
+edna_bystargets <- readr::read_csv(
   "data/edna_unbc_results_2025_by_site_target.csv",
   show_col_types = FALSE
 ) |>
@@ -233,13 +233,13 @@ edna_bystargets_fraser <- readr::read_csv(
 #   or is a date when none was handy.)
 #   Field blanks are streamside but test protocol cleanliness, not site eDNA —
 #   reported separately in the appendix and on the map's Controls layer.
-edna_real_fraser <- edna_bystargets_fraser |>
+edna_real <- edna_bystargets |>
   dplyr::filter(!control_blank_office, !control_blank_field)
 
-n_edna_real_sites    <- dplyr::n_distinct(edna_real_fraser$site_id)
-n_edna_field_blanks  <- edna_bystargets_fraser |>
+n_edna_real_sites    <- dplyr::n_distinct(edna_real$site_id)
+n_edna_field_blanks  <- edna_bystargets |>
   dplyr::filter(control_blank_field)  |> dplyr::distinct(site_id) |> nrow()
-n_edna_office_blanks <- edna_bystargets_fraser |>
+n_edna_office_blanks <- edna_bystargets |>
   dplyr::filter(control_blank_office) |> dplyr::distinct(site_id) |> nrow()
 
 # UNBC assay code -> common name
@@ -257,7 +257,7 @@ edna_species_names <- c(
   BURB  = "Burbot"
 )
 
-edna_summary_fraser <- edna_real_fraser |>
+edna_summary <- edna_real |>
   dplyr::group_by(target) |>
   dplyr::summarise(
     sites_tested        = dplyr::n_distinct(site_id),
@@ -280,14 +280,14 @@ edna_summary_fraser <- edna_real_fraser |>
 
 New in 2025, environmental DNA (eDNA) sampling was incorporated into the program at both previously assessed and newly added sites. A total of `r form_edna |> nrow()` collection events were undertaken across `r form_edna |> dplyr::distinct(stream_name) |> nrow()` streams, comprising `r n_edna_real_sites` real environmental samples, `r n_edna_field_blanks` field blanks, and `r n_edna_office_blanks` office blanks collected for quality assurance.
 
-Per-species detection results across the `r n_edna_real_sites` real environmental samples are summarized in Table \@ref(tab:tab-edna-summary). Detections use the standard ddPCR call threshold of ≥4 positive droplets; sub-threshold signals (1-3 droplets) are tracked separately because they are not interpretable as species presence under ddPCR convention. Non-detections should be read with care: internal amplification controls were reported for only a minority of samples, and where they are absent a zero result cannot be distinguished from a reaction that failed or was inhibited. Detections are unaffected, since a well returning positive droplets demonstrably amplified. Site-level detail — the per-site detection table, field blanks, and retests — is provided in [Appendix - Environmental DNA Results](#app-edna), and the `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "edna_unbc_results_2025_fraser_map.html", anchor_text = "interactive Fraser eDNA map")` shows toggleable per-species layers.
+Per-species detection results across the `r n_edna_real_sites` real environmental samples are summarized in Table \@ref(tab:tab-edna-summary). Detections use the standard ddPCR call threshold of ≥4 positive droplets; sub-threshold signals (1-3 droplets) are tracked separately because they are not interpretable as species presence under ddPCR convention. Non-detections should be read with care: internal amplification controls were reported for only a minority of samples, and where they are absent a zero result cannot be distinguished from a reaction that failed or was inhibited. Detections are unaffected, since a well returning positive droplets demonstrably amplified. Site-level detail — the per-site detection table, field blanks, and retests — is provided in [Appendix - Environmental DNA Results](#app-edna), and the `r ngr::ngr_str_link_url(url_base = params$report_url, url_resource = "edna_unbc_results_2025_map.html", anchor_text = "interactive eDNA map")` shows toggleable per-species layers.
 
 <br>
 
 ```{r tab-edna-summary}
-edna_summary_fraser |>
+edna_summary |>
   fpr::fpr_kable(
-    caption_text = "Per-species summary of eDNA results across real environmental samples in the Fraser project area (excludes field and office blanks).",
+    caption_text = "Per-species summary of eDNA results across real environmental samples in the project area (excludes field and office blanks).",
     scroll = FALSE
   )
 ```
@@ -306,9 +306,9 @@ for the 50% costs of replacing structures.  All sites with a design for remediat
 
 In `r (params$project_year)`, baseline or follow up monitoring data was gathered through completion of an effectivness montoring form (sites where remediation has been completed) and/or through eDNA sampling and aquistion of aerial imagery at the following sites (Table \@ref(tab:tab-mon-overview):
 
-- Effectiveness monitoring was conducted on Tabor Creek (PSCIS crossing 196085) on Willow Cale FSR, where previous remediation work backwatered the outlet, removed the outlet drop and installed baffles within the culvert. The crossing remains ranked a barrier to upstream passage.
+- Effectiveness monitoring was conducted on Peacock Creek (PSCIS crossing 197962) on the Morice FSR, where a bridge was installed in 2020 or 2021. Environmental DNA sampling upstream and downstream of the crossing confirmed coho, rainbow trout and bull trout in the reach.
 
-- Effectiveness monitoring continued on Bittner Creek (PSCIS crossing 196200) on Forman Road, where the culvert was replaced with a bridge prior to the 2022 reassessment and now ranks passable [@irvine2024EffectivenessMonitoring]. Results are presented in the [Bittner Creek - 196200 - Monitoring Appendix](#bittner-2025).
+- Effectiveness monitoring was conducted on Waterfall Creek (PSCIS crossing 124421) at 11th Avenue, where the culvert was removed by the Gitksan Watershed Authorities. Riprap at the site has been buried and seeded, with good regrowth of grasses established and shrub planting planned.
 
 
 ```{r tab-mon-overview, eval = T}

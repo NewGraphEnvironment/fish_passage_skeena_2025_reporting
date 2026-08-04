@@ -1,13 +1,13 @@
 # =============================================================================
-# Fraser-only interactive eDNA map.
+# Interactive eDNA map for this report's project area.
 #
 # Reads the snapshotted by_site_target CSV (region-tagged via `source` column),
-# filters to Fraser via `source` matching `sern_fraser_2024`, builds a
+# filters to this project via `source` matching params$gis_project_name, builds a
 # mapgl interactive map mirroring the combined-region template map but
-# scoped to Fraser sites only.
+# scoped to this project's sites only.
 #
-# Output: data/edna_unbc_results_2025_fraser_map.html
-#         docs/edna_unbc_results_2025_fraser_map.html   (copied by this script)
+# Output: data/edna_unbc_results_2025_map.html
+#         docs/edna_unbc_results_2025_map.html   (copied by this script)
 #
 # The docs/ copy is what `params$report_url` resolves against, so the report's
 # map links work. Peace does this copy by hand; scripting it here means a
@@ -15,20 +15,22 @@
 #
 # Refresh procedure (when upstream data changes):
 #   1. source('scripts/edna_inputs_snapshot.R')  # re-snapshot CSVs from template
-#   2. source('scripts/edna_map_fraser.R')       # rebuild this map + docs copy
+#   2. source('scripts/edna_map.R')              # rebuild this map + docs copy
 #
 # Logic mirrors fish_passage_template_reporting/scripts/edna_unbc_results_explore.R
 # (the combined map). When map-build code stabilizes across both, factor the
-# shared bits into a helper (likely in ngr/fpr) — until then, keeping a Fraser
+# shared bits into a helper (likely in ngr/fpr) — until then, keeping a region-
 # copy here keeps the report self-contained per issue #10.
 # =============================================================================
 
 POS_FLOOR <- 4   # ddPCR confident-call threshold (matches upstream)
-FRASER_SOURCE_PATTERN <- "sern_fraser_2024"
-out_html      <- "data/edna_unbc_results_2025_fraser_map.html"
-out_html_docs <- "docs/edna_unbc_results_2025_fraser_map.html"
+# region comes from the report params, not a literal - the source column in
+# edna_unbc_results_2025_by_site_target.csv carries all three regions
+SOURCE_PATTERN <- params$gis_project_name
+out_html      <- "data/edna_unbc_results_2025_map.html"
+out_html_docs <- "docs/edna_unbc_results_2025_map.html"
 
-# --- Load snapshotted by_site_target + filter to Fraser ----------------------
+# --- Load snapshotted by_site_target + filter to this project ----------------
 #
 # Controls handling:
 #   - Office blanks: distilled-water controls filtered at the end of a session
@@ -53,7 +55,7 @@ by_site_target_full <- readr::read_csv(
   "data/edna_unbc_results_2025_by_site_target.csv",
   show_col_types = FALSE
 ) |>
-  dplyr::filter(grepl(FRASER_SOURCE_PATTERN, source)) |>
+  dplyr::filter(grepl(SOURCE_PATTERN, source)) |>
   dplyr::mutate(site_id = edna_site_id_fix(site_id))
 
 # Coerce blank flags to logical with no NAs. readr types these as logical when
@@ -87,7 +89,7 @@ by_site_target_blanks <- by_site_target |>
 by_site_target_real <- by_site_target |>
   dplyr::filter(!control_blank_field)
 
-cat(sprintf("Fraser summary:\n"))
+cat(sprintf("Project summary:\n"))
 cat(sprintf("  Total sites x targets (after office-blank filter): %d rows, %d sites\n",
             nrow(by_site_target),
             dplyr::n_distinct(by_site_target$site_id)))
@@ -175,7 +177,7 @@ pts <- pts |>
 
 # Name each colour against its assay code rather than relying on positional
 # order — Peace pairs a 7-colour vector with setNames() against its species
-# list, so dropping a species (GRAY, absent from the Fraser batch) silently
+# list, so dropping a species (GRAY, absent from that batch) silently
 # leaves an unnamed 7th colour and the categorical legend errors out on the
 # length mismatch.
 species_colors <- c(
@@ -393,16 +395,16 @@ m <- m |>
 
 htmlwidgets::saveWidget(
   m, out_html, selfcontained = TRUE,
-  title = "eDNA UNBC 2025 Results — Fraser"
+  title = paste0("eDNA UNBC ", params$project_year, " Results — ", stringr::str_to_title(params$project_region))
 )
 
 # Favicon: rely on browser fallback to apex `/favicon.ico` at the published
 # host. No explicit injection here — the apex NGE favicon serves any page
-# under newgraphenvironment.com automatically. If/when Fraser publishes to a
+# under newgraphenvironment.com automatically. If/when this report publishes to a
 # different host, revisit. (See template's edna_unbc_results_explore.R for
 # the htmlwidgets preload-scanner gotcha and inline injection workaround.)
 
-cat(sprintf("Wrote map %s  (%d Fraser sites)\n", out_html, nrow(pts)))
+cat(sprintf("Wrote map %s  (%d sites)\n", out_html, nrow(pts)))
 
 # --- Copy to docs/ so the report's map links resolve ------------------------
 # `params$report_url` points at the published site, so the map has to exist
