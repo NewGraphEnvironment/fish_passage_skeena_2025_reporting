@@ -25,7 +25,9 @@ map <- leaflet::leaflet(height=500, width=780) |>
   leaflet::addPolygons(data = wshd_study_areas, color = "#F29A6E", weight = 1, smoothFactor = 0.5,
               opacity = 1.0, fillOpacity = 0,
               fillColor = "#F29A6E", label = wshd_study_areas$watershed_group_name) |>
-  leaflet::addPolygons(data = wshds, color = "#0859C6", weight = 1, smoothFactor = 0.5,
+  # `wshds` is NULL in a season with no Phase 2 habitat confirmation sites
+  (\(m) if (is.null(wshds) || nrow(wshds) == 0) m else
+    m |> leaflet::addPolygons(data = wshds, color = "#0859C6", weight = 1, smoothFactor = 0.5,
               opacity = 1.0, fillOpacity = 0.25,
               fillColor = "#00DBFF",
               label = wshds$stream_crossing_id,
@@ -34,7 +36,7 @@ map <- leaflet::leaflet(height=500, width=780) |>
                                                      elev_site:area_km),
                                           feature.id = F,
                                           row.numbers = F),
-              group = "Phase 2") |> 
+              group = "Phase 2"))() |>
   leaflet::addLegend(
     position = "topright",
     colors = c("red", "yellow", "grey", "black"),
@@ -70,31 +72,35 @@ leaflet::addAwesomeMarkers(
     group = "Phase 2") |>
 
 
-  leaflet::addCircleMarkers(
-    data=tab_map_phase_2,
-    label = tab_map_phase_2$pscis_crossing_id,
-    labelOptions = leaflet::labelOptions(noHide = T, textOnly = TRUE),
-    popup = leafpop::popupTable(x = dplyr::select((tab_map_phase_2 |> sf::st_drop_geometry()),
-                                           Site = pscis_crossing_id,
-                                           Priority = priority,
-                                           Stream = stream_name,
-                                           Road = road_name,
-                                           `Habitat (m)`= upstream_habitat_length_m,
-                                           Comments = comments,
-                                           `Culvert data` = data_link,
-                                           `Culvert photos` = photo_link,
-                                           `Model data` = model_link),
-                                feature.id = F,
-                                row.numbers = F),
-    radius = 9,
-    fillColor = ~pal(priority),
-    color= "#ffffff",
-    stroke = TRUE,
-    fillOpacity = 1.0,
-    weight = 2,
-    opacity = 1.0,
-    group = "Phase 2"
-    ) |>
+  # `tab_map_phase_2` is NULL in a season with no Phase 2 habitat confirmation sites
+  (\(m) if (is.null(tab_map_phase_2) || nrow(tab_map_phase_2) == 0) m else
+    m |>
+    leaflet::addCircleMarkers(
+      data=tab_map_phase_2,
+      label = tab_map_phase_2$pscis_crossing_id,
+      labelOptions = leaflet::labelOptions(noHide = T, textOnly = TRUE),
+      popup = leafpop::popupTable(x = dplyr::select((tab_map_phase_2 |> sf::st_drop_geometry()),
+                                             Site = pscis_crossing_id,
+                                             Priority = priority,
+                                             Stream = stream_name,
+                                             Road = road_name,
+                                             `Habitat (m)`= upstream_habitat_length_m,
+                                             Comments = comments,
+                                             `Culvert data` = data_link,
+                                             `Culvert photos` = photo_link,
+                                             `Model data` = model_link),
+                                  feature.id = F,
+                                  row.numbers = F),
+      radius = 9,
+      fillColor = ~pal(priority),
+      color= "#ffffff",
+      stroke = TRUE,
+      fillOpacity = 1.0,
+      weight = 2,
+      opacity = 1.0,
+      group = "Phase 2"
+      )
+  )() |>
 
   leaflet::addLayersControl(
     baseGroups = c(

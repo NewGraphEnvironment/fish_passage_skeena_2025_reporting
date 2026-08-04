@@ -943,45 +943,61 @@ tab_map_phase_1 <- tab_map_phase_1_prep |>
 ## Phase 2 --------------------------------------------------------------
 
 #please note that the photos are only in those files because they are referenced in other parts of the document
-tab_map_phase_2 <- dplyr::left_join(
-  tab_cost_est_prep9,
-  form_fiss_site |>
-    dplyr::filter(is.na(ef) & location == "us") |>
-    dplyr::select(site, utm_zone, easting = utm_easting, northing = utm_northing, comments),
-  by = c('pscis_crossing_id' = 'site')
-) |>
-  # we must transform the data to latitude/longitude (CRS 4326)
-  fpr::fpr_sp_assign_sf_from_utm() |>
-  sf::st_transform(4326) |>
-  # We don't have a priority ranking for the hab con sites at the moment so just just add the priority from the phase 1 assessments.
-  dplyr::left_join(tab_map_phase_1 |>
-                     sf::st_drop_geometry() |>
-                     dplyr::select(pscis_crossing_id, priority = priority_phase1),
-                   by = 'pscis_crossing_id') |>
+# A season with no Phase 2 habitat confirmations leaves `tab_cost_est_prep9`
+# empty, so the join below yields zero rows and `fpr_sp_assign_sf_from_utm()`
+# has no coordinates to build geometry from - it hands back a plain tibble and
+# the `st_transform()` that follows fails on it. NULL rather than an empty sf,
+# so consumers decide what to do; the interactive map in 0400-results.Rmd skips
+# the layer. See the matching guard in 0110-load-wshd_stats.R.
+if (nrow(tab_cost_est_prep9) == 0) {
 
-  # Update the data link to point to the new location in docs
-  dplyr::mutate(
-    data_link = paste0(
-      '<a href =',
-      'sum/cv/', pscis_crossing_id,
-      '.html ', 'target="_blank">Culvert Data</a>'
-    )
+  message("No Phase 2 habitat confirmation sites - `tab_map_phase_2` is NULL.")
+  tab_map_phase_2 <- NULL
+
+} else {
+
+  tab_map_phase_2 <- dplyr::left_join(
+    tab_cost_est_prep9,
+    form_fiss_site |>
+      dplyr::filter(is.na(ef) & location == "us") |>
+      dplyr::select(site, utm_zone, easting = utm_easting, northing = utm_northing, comments),
+    by = c('pscis_crossing_id' = 'site')
   ) |>
-  dplyr::mutate(
-    model_link = paste0(
-      '<a href =',
-      'sum/bcfp/', pscis_crossing_id,
-      '.html ', 'target="_blank">Model Data</a>'
+    # we must transform the data to latitude/longitude (CRS 4326)
+    fpr::fpr_sp_assign_sf_from_utm() |>
+    sf::st_transform(4326) |>
+    # We don't have a priority ranking for the hab con sites at the moment so just just add the priority from the phase 1 assessments.
+    dplyr::left_join(tab_map_phase_1 |>
+                       sf::st_drop_geometry() |>
+                       dplyr::select(pscis_crossing_id, priority = priority_phase1),
+                     by = 'pscis_crossing_id') |>
+
+    # Update the data link to point to the new location in docs
+    dplyr::mutate(
+      data_link = paste0(
+        '<a href =',
+        'sum/cv/', pscis_crossing_id,
+        '.html ', 'target="_blank">Culvert Data</a>'
+      )
+    ) |>
+    dplyr::mutate(
+      model_link = paste0(
+        '<a href =',
+        'sum/bcfp/', pscis_crossing_id,
+        '.html ', 'target="_blank">Model Data</a>'
+      )
+    ) |>
+    dplyr::mutate(
+      photo_link = paste0(
+        '<a href =',
+        'https://raw.githubusercontent.com/NewGraphEnvironment/', params$repo_name, '/main/data/photos/',
+        pscis_crossing_id, '/crossing_all.JPG ',
+        'target="_blank">Culvert Photos</a>'
+      )
     )
-  ) |>
-  dplyr::mutate(
-    photo_link = paste0(
-      '<a href =',
-      'https://raw.githubusercontent.com/NewGraphEnvironment/', params$repo_name, '/main/data/photos/',
-      pscis_crossing_id, '/crossing_all.JPG ',
-      'target="_blank">Culvert Photos</a>'
-    )
-  )
+
+}
+
 
 
 # Monitoring --------------------------------------------------------------

@@ -50,12 +50,20 @@ project_uav <- readwritesqlite::rws_read_table("project_uav", conn = conn)
 wshd_study_areas <- readwritesqlite::rws_read_table("wshd_study_areas", conn = conn)
 
 
-# You must run `0170-load-wshd_stats.R` at before this
+# You must run `0110-load-wshd_stats.R` before this
 # watershed stats for the watersheds in this project
-wshds <- readwritesqlite::rws_read_table("wshds", conn = conn) |>
-  # remove any negative values
-  dplyr::mutate(dplyr::across(contains('elev'), ~ replace(., . < 0, NA))) |>
-  dplyr:: mutate(aspect = as.character(aspect))
+# Absent when the season had no Phase 2 habitat confirmation sites - see the
+# guard in 0110-load-wshd_stats.R. NULL rather than an empty table, so consumers
+# have to decide what to do rather than silently drawing nothing.
+wshds <- if ("wshds" %in% DBI::dbListTables(conn)) {
+  readwritesqlite::rws_read_table("wshds", conn = conn) |>
+    # remove any negative values
+    dplyr::mutate(dplyr::across(contains('elev'), ~ replace(., . < 0, NA))) |>
+    dplyr::mutate(aspect = as.character(aspect))
+} else {
+  message("No `wshds` table - no Phase 2 sites this season.")
+  NULL
+}
 
 
 
