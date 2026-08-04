@@ -361,13 +361,13 @@ Figure 5.1: Culvert on Peacock Creek at PSCIS crossing 197962 on the Morice FSR,
 </p>
 </div>
 <p><br></p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="peacock-2025.html#cb65-1" tabindex="-1"></a>my_caption <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;Channel upstream of the replacement bridge at PSCIS crossing &quot;</span>, my_site_mon,</span>
-<span id="cb65-2"><a href="peacock-2025.html#cb65-2" tabindex="-1"></a>                     <span class="st">&quot;, photographed on 2025-09-29 from the bridge deck.&quot;</span>)</span>
-<span id="cb65-3"><a href="peacock-2025.html#cb65-3" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;data/photos/197962/IMG_0574_upstream.JPG&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="peacock-2025.html#cb65-1" tabindex="-1"></a>my_caption <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;Bridge on Peacock Creek at PSCIS crossing &quot;</span>, my_site_mon,</span>
+<span id="cb65-2"><a href="peacock-2025.html#cb65-2" tabindex="-1"></a>                     <span class="st">&quot; on the Morice FSR, photographed on 2025-09-29 following replacement.&quot;</span>)</span>
+<span id="cb65-3"><a href="peacock-2025.html#cb65-3" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;data/photos/197962/crossing_all.JPG&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:photo-197962-after"></span>
-<img src="data/photos/197962/IMG_0574_upstream.JPG" alt="Channel upstream of the replacement bridge at PSCIS crossing 197962, photographed on 2025-09-29 from the bridge deck." width="100%" />
+<img src="data/photos/197962/crossing_all.JPG" alt="Bridge on Peacock Creek at PSCIS crossing 197962 on the Morice FSR, photographed on 2025-09-29 following replacement." width="100%" />
 <p class="caption">
-Figure 5.2: Channel upstream of the replacement bridge at PSCIS crossing 197962, photographed on 2025-09-29 from the bridge deck.
+Figure 5.2: Bridge on Peacock Creek at PSCIS crossing 197962 on the Morice FSR, photographed on 2025-09-29 following replacement.
 </p>
 </div>
 <p><br></p>
@@ -386,18 +386,128 @@ Figure 5.3: Substrate condition through the crossing at PSCIS crossing 197962, r
 <h2>Habitat and Fish Presence<a href="peacock-2025.html#habitat-and-fish-presence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Habitat confirmation assessments were completed at this site in September 2021, before the culvert was replaced. Both the reach upstream and the reach downstream of the crossing were rated high habitat value, with 750 m surveyed upstream and 600 m downstream. The upstream reach was described as complex habitat with undercut banks, large and small woody debris and pools; the downstream reach as carrying consistent undercut banks with woody debris and overhanging vegetation providing cover. Approximately 4.8 km of upstream habitat length was estimated, and the site was ranked a high priority for remediation.</p>
 <p><br></p>
-<p>The site was electrofished on 2021-09-17 at three closed-site multi-pass locations upstream of the crossing and three downstream. Replacement of the culvert began three days later, on 2021-09-20, so the entire 2021 record — assessment, habitat confirmation and fish sampling — describes the site in its pre-remediation condition.</p>
+<p>The site was electrofished on 2021-09-17 at three closed-site multi-pass locations upstream of the crossing and three downstream, capturing 96 fish across four species (Table <a href="peacock-2025.html#tab:tab-fish-197962">5.9</a>). Dolly Varden and rainbow trout were caught on both sides of the crossing. Coho salmon and cutthroat trout were caught only downstream. Fork lengths ranged from 48 to 148 mm across all species, with coho between 63 and 85 mm.</p>
 <p><br></p>
-<p>In 2025, environmental DNA was collected both upstream and downstream of the crossing. Both samples returned detections (Table <a href="peacock-2025.html#tab:tab-edna-results-197962">5.9</a>). Downstream returned rainbow trout at 124 positive droplets and coho at 8; upstream returned bull trout at 84 positive droplets and coho at 6. Chinook and sockeye returned zero positive droplets in every run at both locations.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="peacock-2025.html#cb67-1" tabindex="-1"></a>edna_results_197962 <span class="sc">|&gt;</span></span>
-<span id="cb67-2"><a href="peacock-2025.html#cb67-2" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(</span>
-<span id="cb67-3"><a href="peacock-2025.html#cb67-3" tabindex="-1"></a>    <span class="at">caption_text =</span> <span class="fu">paste0</span>(<span class="st">&quot;Environmental DNA detection results at PSCIS crossing &quot;</span>, my_site_mon,</span>
-<span id="cb67-4"><a href="peacock-2025.html#cb67-4" tabindex="-1"></a>                          <span class="st">&quot;, upstream and downstream of the crossing.&quot;</span>),</span>
-<span id="cb67-5"><a href="peacock-2025.html#cb67-5" tabindex="-1"></a>    <span class="at">scroll =</span> <span class="cn">FALSE</span></span>
-<span id="cb67-6"><a href="peacock-2025.html#cb67-6" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="peacock-2025.html#cb67-1" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb67-2"><a href="peacock-2025.html#cb67-2" tabindex="-1"></a>  <span class="sc">~</span>Species,            <span class="sc">~</span>Downstream, <span class="sc">~</span>Upstream, <span class="sc">~</span>Total,</span>
+<span id="cb67-3"><a href="peacock-2025.html#cb67-3" tabindex="-1"></a>  <span class="st">&quot;Coho Salmon&quot;</span>,                <span class="dv">10</span><span class="dt">L</span>,        <span class="dv">0</span><span class="dt">L</span>,    <span class="dv">10</span><span class="dt">L</span>,</span>
+<span id="cb67-4"><a href="peacock-2025.html#cb67-4" tabindex="-1"></a>  <span class="st">&quot;Cutthroat Trout&quot;</span>,             <span class="dv">1</span><span class="dt">L</span>,        <span class="dv">0</span><span class="dt">L</span>,     <span class="dv">1</span><span class="dt">L</span>,</span>
+<span id="cb67-5"><a href="peacock-2025.html#cb67-5" tabindex="-1"></a>  <span class="st">&quot;Dolly Varden&quot;</span>,               <span class="dv">16</span><span class="dt">L</span>,       <span class="dv">40</span><span class="dt">L</span>,    <span class="dv">56</span><span class="dt">L</span>,</span>
+<span id="cb67-6"><a href="peacock-2025.html#cb67-6" tabindex="-1"></a>  <span class="st">&quot;Rainbow Trout&quot;</span>,              <span class="dv">26</span><span class="dt">L</span>,        <span class="dv">3</span><span class="dt">L</span>,    <span class="dv">29</span><span class="dt">L</span>,</span>
+<span id="cb67-7"><a href="peacock-2025.html#cb67-7" tabindex="-1"></a>  <span class="st">&quot;Total&quot;</span>,                      <span class="dv">53</span><span class="dt">L</span>,       <span class="dv">43</span><span class="dt">L</span>,    <span class="dv">96</span><span class="dt">L</span></span>
+<span id="cb67-8"><a href="peacock-2025.html#cb67-8" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb67-9"><a href="peacock-2025.html#cb67-9" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(</span>
+<span id="cb67-10"><a href="peacock-2025.html#cb67-10" tabindex="-1"></a>    <span class="at">caption_text =</span> <span class="fu">paste0</span>(<span class="st">&quot;Fish captured by multi-pass closed-site electrofishing at PSCIS crossing &quot;</span>,</span>
+<span id="cb67-11"><a href="peacock-2025.html#cb67-11" tabindex="-1"></a>                          my_site_mon, <span class="st">&quot; on 2021-09-17, before the culvert was replaced. &quot;</span>,</span>
+<span id="cb67-12"><a href="peacock-2025.html#cb67-12" tabindex="-1"></a>                          <span class="st">&quot;Three sites upstream and three downstream.&quot;</span>),</span>
+<span id="cb67-13"><a href="peacock-2025.html#cb67-13" tabindex="-1"></a>    <span class="at">scroll =</span> <span class="cn">FALSE</span></span>
+<span id="cb67-14"><a href="peacock-2025.html#cb67-14" tabindex="-1"></a>  )</span></code></pre></div>
 <table class="table table-condensed table-responsive" style="font-size: 11px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tab-edna-results-197962">Table 5.9: </span>Environmental DNA detection results at PSCIS crossing 197962, upstream and downstream of the crossing.
+<span id="tab:tab-fish-197962">Table 5.9: </span>Fish captured by multi-pass closed-site electrofishing at PSCIS crossing 197962 on 2021-09-17, before the culvert was replaced. Three sites upstream and three downstream.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Species
+</th>
+<th style="text-align:right;">
+Downstream
+</th>
+<th style="text-align:right;">
+Upstream
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Coho Salmon
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cutthroat Trout
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dolly Varden
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rainbow Trout
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+96
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Replacement of the culvert began three days later, on 2021-09-20, so the entire 2021 record — assessment, habitat confirmation and fish sampling — describes the site in its pre-remediation condition.</p>
+<p><br></p>
+<p>In 2025, environmental DNA was collected both upstream and downstream of the crossing. Downstream, rainbow trout and coho were detected. Upstream, bull trout and coho were detected. Chinook and sockeye were not detected at either location (Table <a href="peacock-2025.html#tab:tab-edna-results-197962">5.10</a>).</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="peacock-2025.html#cb68-1" tabindex="-1"></a>edna_results_197962 <span class="sc">|&gt;</span></span>
+<span id="cb68-2"><a href="peacock-2025.html#cb68-2" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(</span>
+<span id="cb68-3"><a href="peacock-2025.html#cb68-3" tabindex="-1"></a>    <span class="at">caption_text =</span> <span class="fu">paste0</span>(<span class="st">&quot;Environmental DNA detection results at PSCIS crossing &quot;</span>, my_site_mon,</span>
+<span id="cb68-4"><a href="peacock-2025.html#cb68-4" tabindex="-1"></a>                          <span class="st">&quot;, upstream and downstream of the crossing.&quot;</span>),</span>
+<span id="cb68-5"><a href="peacock-2025.html#cb68-5" tabindex="-1"></a>    <span class="at">scroll =</span> <span class="cn">FALSE</span></span>
+<span id="cb68-6"><a href="peacock-2025.html#cb68-6" tabindex="-1"></a>  )</span></code></pre></div>
+<table class="table table-condensed table-responsive" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tab-edna-results-197962">Table 5.10: </span>Environmental DNA detection results at PSCIS crossing 197962, upstream and downstream of the crossing.
 </caption>
 <thead>
 <tr>
@@ -456,18 +566,17 @@ CHIN(0), SOCK(0)
 </tbody>
 </table>
 <p><br></p>
-<p>Internal amplification controls were not reported for either sample. The detections are unaffected — a well returning positive droplets demonstrably amplified — but the chinook and sockeye zeros cannot be distinguished from reactions that failed or were inhibited, and should not be read as evidence of absence.</p>
-<p><br></p>
 </div>
 <div id="discussion" class="section level2 unnumbered hasAnchor">
 <h2>Discussion<a href="peacock-2025.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The evidence at this site is consistent across methods and across four years, which is not the usual outcome of effectiveness monitoring. The pre-remediation habitat confirmation rated both reaches high value and estimated 4.8 km of habitat upstream; the 2025 environmental DNA confirms that the upstream reach is occupied, by bull trout and coho, and that the downstream reach carries rainbow trout and coho. The species detected upstream differ from those detected downstream, which is worth resolving rather than assuming: it may reflect real distribution, or the limits of a single grab sample at each location.</p>
+<p>The site carries an uncommonly strong record. The pre-remediation habitat confirmation rated both reaches high value and estimated 4.8 km of habitat upstream, multi-pass electrofishing established what was present on each side of the culvert before it was replaced, and the 2025 environmental DNA re-establishes species presence four years after replacement.</p>
+<p><br></p>
+<p>Coho and cutthroat trout were captured only downstream of the culvert in 2021. In 2025, coho was detected on both sides of the bridge.</p>
 <p><br></p>
 <p>Recommendations for continued monitoring at this site:</p>
 <ul>
-<li><p>Resample for environmental DNA at both locations across multiple points in the season, so detections can be read against flow rather than as single observations. The 2025 samples were collected on one day at the end of September.</p></li>
-<li><p>Add rainbow trout to the upstream assay panel and bull trout to the downstream panel, so the two locations are directly comparable. As sampled, each location was assayed for a different set of targets, which is enough on its own to explain the difference between them.</p></li>
-<li><p>Confirm with the laboratory whether amplification control results exist for these samples. If the controls were run and simply not returned, the chinook and sockeye zeros can be interpreted without resampling.</p></li>
+<li><p>Resample for environmental DNA at both locations across multiple points in the season. The 2025 samples were collected on one day at the end of September.</p></li>
+<li><p>Assay the same species panel at both locations so the two are directly comparable. In 2025 the upstream and downstream samples were assayed for different sets of targets.</p></li>
 <li><p>Repeat the electrofishing conducted in 2021 at the same closed-site locations. Pre-remediation multi-pass data exist for three sites upstream and three downstream, which is an uncommonly strong baseline and the most direct available measure of whether the replacement changed fish use rather than only passage condition.</p></li>
 <li><p>Continue photographic monitoring of substrate, cover, bank stability and revegetation through the crossing, so channel recovery following construction can be tracked over time.</p></li>
 </ul>

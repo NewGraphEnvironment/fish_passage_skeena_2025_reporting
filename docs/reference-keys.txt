@@ -26,6 +26,7 @@ tab:tab-edna-retests
 fig:photo-197962-before
 fig:photo-197962-after
 fig:photo-197962-substrate
+tab:tab-fish-197962
 tab:tab-edna-results-197962
 introduction
 background

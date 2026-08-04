@@ -51,8 +51,6 @@ To advance fish passage restoration in the Skeena region:
 
 **Environmental DNA — resolving what the detections mean**
 
-- Resolve the amplification control gap. Internal controls were reported for only a minority of `r params$project_year` samples. Where they are absent, a non-detection cannot be distinguished from a reaction that failed or was inhibited, which limits how far the negative results can be read. Detections are unaffected. Reporting controls consistently is the single change that would most improve the interpretability of this dataset.
-
 - Follow up the multi-species detections at Peacock Creek, where coho, rainbow trout and bull trout were all confirmed, and at Corya Creek and Sandstone Creek. These are the sites where eDNA has established that the habitat is occupied and where passage condition therefore carries the clearest consequence.
 
 - Carry environmental DNA results into prioritization rather than reporting them alongside it. The detections establish species presence at sites with no habitat confirmation assessment, and that belongs in the ranking.
