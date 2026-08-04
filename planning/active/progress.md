@@ -17,3 +17,32 @@
 - Created branch `1-skeena-2025-report-spawn-from-fraser-202` off main.
 - Scaffolded PWF baseline with user-approved phases.
 - Next: Phase 0 — identity.
+
+## Session 2026-08-03 (continued)
+
+**Phase 0 — done.** Identity retargeted: params, title, `_bookdown.yml`,
+`_output.yml`, README, `.Rproj`, the duplicated exec-summary params block,
+NEWS/DESCRIPTION reset to 0.0.1. `force_bcfishpass_rebuild` declared — the loader
+read it at two points but it was never in the YAML, so it resolved to NULL.
+
+**Phase 1 — done.** Fraser payload removed: four site appendices, the Bittner
+monitoring memo, climate departure and floodplain appendices (filed as #3 and #2),
+the Fraser and Peace regional backup/spreadsheet directories, and `fig/background/`
+(18 MB of knitr output, gitignored now).
+
+History rewritten with BFG. **145 MB → 26 MB**, 408 commits intact back to
+Fraser's initial commit. The 76 MB push warning turned out to be a historical
+blob, not the current file — the sqlite slimming had already landed via the
+crossings parquet. The actual weight was `docs/`: 70.6 MB of committed rendered
+book, mostly ~20 copies of `results-and-discussion.html` at 3.8 MB each. No single
+blob crossed BFG's 10 MB threshold; it was pure accumulation.
+
+**Force-push not yet done** — blocked by the permission system, needs running by
+hand.
+
+**Phase 2 — partial.** The bcfishpass layers, field forms, study-area watersheds
+and species table are all Skeena now. Blocked on three field-data inputs, filed
+as #5: GPS tracks untagged, photos uncurated, and `0110-load-wshd_stats.R`
+assuming Phase 2 sites exist when this season has none.
+
+Phases 3-6 not started — they need a data layer that builds.

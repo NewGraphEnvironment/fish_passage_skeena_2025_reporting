@@ -72,24 +72,35 @@ HEAD, so `necr.gpkg` (15.2 MB), `docs/fish_passage_fraser_2025_reporting.pdf` (1
 - [ ] Force-push. Safe today — one clone, no forks, no collaborators. Re-clone to verify.
 - [ ] **Gate:** `.git` under ~20 MB, `git log` still reaches Fraser's history, report still builds
 
-## Phase 2 — Rebuild the data layer  ← the load-bearing phase
+## Phase 2 — Rebuild the data layer  ← PARTIAL, blocked by #5
 
-Needs the bcfishpass tunnel on **:63333** (`sleep 1200`, not the documented `sleep 10`). If ssh
-reports a changed host key, stop and verify out-of-band — do not auto-accept.
+Tunnel confirmed up on :63333 (host is now 104.248.107.222; it moved since the
+notes said 159.203.51.66). Remote model version 133, cached was 122.
 
-- [ ] Flip `update_bcfishpass: TRUE`, run `0100-load-bcfishpass-data.R`, confirm the parquet and
-      sqlite rebuild against Skeena WSGs — skipping this leaves Fraser's cache in place invisibly
-- [ ] Run the non-sourced burn scripts in order: `0110-load-wshd_stats.R`, `0140-extract-inputs.R`,
-      `0180-photos-extract-metadata.R`, and `0740`'s `uav-clean-burn` chunk
-- [ ] Param-drive `0740-appendix-uav-imagery.Rmd:71` (`project_region <- params$project_region`) so it
-      stops shadowing, then re-burn `project_uav`
-- [ ] Create `fishpass_mapping.gpkg` under `~/Projects/gis/sern_skeena_2023/data_field/2025/` —
-      absent, and `0110-load-wshd_stats.R:109-115` writes to it
-- [ ] **Column-drift guard:** assert the Skeena forms' columns before use (100 vs 101, 122 vs 127)
-- [ ] Fix `scripts/functions.R:73-92` `edna_site_id_fix()` (Fraser 196076/203581 remaps) and
-      `0140-extract-inputs.R:103-106` (Fraser 196085 road-class override)
-- [ ] **Gate:** `0120-read-sqlite.R` reads all 13 tables clean, and
-      `SELECT DISTINCT region FROM project_uav` returns skeena — the Fraser bug, not reproduced
+- [x] Flip `update_bcfishpass`, rebuild parquet + sqlite against Skeena WSGs —
+      2,452 PSCIS crossings, 14,299 modelled crossings
+- [x] Re-burn the four field forms — 2 PSCIS, 2 monitoring, 1 fiss_site, 20 eDNA
+- [x] `wshd_study_areas` rebuilt to the five Skeena groups
+- [x] Species table regenerated with Skeena watershed group columns
+- [x] Param-drive `0740-appendix-uav-imagery.Rmd:71` — the hardcode that shipped
+      Peace imagery in Fraser (fraser#19)
+- [x] Param-drive `0160-photos-import.Rmd` repo path (was hardcoded to the template)
+- [x] Column drift characterised: Skeena `form_pscis`/`form_monitoring` carry
+      `easting`/`northing` where Fraser carries `utm_easting`/`utm_northing`.
+      `fpr_sp_gpkg_backup(update_utm = TRUE)` creates them, so it warns rather
+      than fails — forms burned correctly.
+- [ ] **BLOCKED** `habitat_confirmation_tracks` = 0 rows — the 2025 GPS tracks are
+      untagged and uncleaned for Skeena (#5)
+- [ ] **BLOCKED** `wshds` still Fraser's 6 — `0110-load-wshd_stats.R` part 2 assumes
+      Phase 2 sites exist and Skeena has none (#5)
+- [ ] **BLOCKED** `data/photos/` empty — Skeena photos are untagged eDNA site photos,
+      and the amalgamation step aborts on empty folders (#5)
+- [ ] **NOT DONE** `project_uav` still holds the inherited Peace rows; the code fix
+      is in but re-burning needs the STAC chunk run with network access
+- [ ] Not reached: `0140-extract-inputs.R`, `0180-photos-extract-metadata.R`,
+      `edna_site_id_fix()` Fraser remaps, `0140:103-106` Fraser 196085 override
+- [ ] **Gate NOT met** — `SELECT DISTINCT region FROM project_uav` still returns
+      mackenzie
 
 ## Phase 3 — Core narrative
 
