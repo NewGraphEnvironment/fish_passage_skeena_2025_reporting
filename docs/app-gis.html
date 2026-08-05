@@ -299,6 +299,27 @@ div.csl-indent {
 <li class="chapter" data-level="5" data-path="recommendations.html"><a href="recommendations.html"><i class="fa fa-check"></i><b>5</b> Recommendations</a></li>
 <li class="chapter" data-level="" data-path="app-stock-assessment.html"><a href="app-stock-assessment.html"><i class="fa fa-check"></i>Appendix - Salmon Stock Assessment Data</a></li>
 <li class="chapter" data-level="" data-path="app-fish-species.html"><a href="app-fish-species.html"><i class="fa fa-check"></i>Appendix - Fish Species by Watershed Group</a></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html"><i class="fa fa-check"></i>Appendix - Climate Departure</a>
+<ul>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#climate-departure-and-fish-passage"><i class="fa fa-check"></i>Climate departure and fish passage</a></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#area-of-interest"><i class="fa fa-check"></i>Area of interest</a></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#recent-decade-versus-pre-warming-reference"><i class="fa fa-check"></i>Recent decade versus pre-warming reference</a></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#trends-over-the-long-record"><i class="fa fa-check"></i>Trends over the long record</a></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#daytime-highs-and-overnight-lows"><i class="fa fa-check"></i>Daytime highs and overnight lows</a></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#snowpack"><i class="fa fa-check"></i>Snowpack</a>
+<ul>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#seasonal-snowpack-curve"><i class="fa fa-check"></i>Seasonal snowpack curve</a></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#annual-snowpack-signals"><i class="fa fa-check"></i>Annual snowpack signals</a></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#what-this-means"><i class="fa fa-check"></i>What this means</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#spatial-pattern-of-warming"><i class="fa fa-check"></i>Spatial pattern of warming</a></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#per-ecoregion-variation"><i class="fa fa-check"></i>Per-ecoregion variation</a>
+<ul>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#snow-by-ecoregion"><i class="fa fa-check"></i>Snow by ecoregion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#watershed-groups-across-ecoregions"><i class="fa fa-check"></i>Watershed groups across ecoregions</a></li>
+<li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#interpretation-for-fish-passage"><i class="fa fa-check"></i>Interpretation for fish passage</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="app-site-data.html"><a href="app-site-data.html"><i class="fa fa-check"></i>Appendix - Assessment Data Summary</a></li>
 <li class="chapter" data-level="" data-path="app-uav.html"><a href="app-uav.html"><i class="fa fa-check"></i>Appendix - UAV Imagery</a></li>
 <li class="chapter" data-level="" data-path="app-gis.html"><a href="app-gis.html"><i class="fa fa-check"></i>Appendix - Collaborative GIS Layers</a></li>
@@ -352,56 +373,56 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="app-gis" class="section level1 unnumbered hasAnchor">
 <h1>Appendix - Collaborative GIS Layers<a href="app-gis.html#app-gis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>In addition to numerous layers documenting fieldwork activities since 2020, a summary of background information spatial layers and tables loaded to the collaborative GIS project (sern_skeena_2023) at the time of writing (2026-08-05) are listed below. See Table <a href="app-gis.html#tab:tab-rfp-tracking">5.6</a>.</p>
+<p>In addition to numerous layers documenting fieldwork activities since 2020, a summary of background information spatial layers and tables loaded to the collaborative GIS project (sern_skeena_2023) at the time of writing (2026-08-05) are listed below. See Table <a href="app-gis.html#tab:tab-rfp-tracking">5.11</a>.</p>
 <p><br></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="app-gis.html#cb58-1" tabindex="-1"></a><span class="co"># grab the metadata</span></span>
-<span id="cb58-2"><a href="app-gis.html#cb58-2" tabindex="-1"></a>md <span class="ot">&lt;-</span> rfp<span class="sc">::</span><span class="fu">rfp_meta_bcd_xref</span>()</span>
-<span id="cb58-3"><a href="app-gis.html#cb58-3" tabindex="-1"></a></span>
-<span id="cb58-4"><a href="app-gis.html#cb58-4" tabindex="-1"></a><span class="co"># burn locally so we don&#39;t nee to wait for it</span></span>
-<span id="cb58-5"><a href="app-gis.html#cb58-5" tabindex="-1"></a>md <span class="sc">|&gt;</span> </span>
-<span id="cb58-6"><a href="app-gis.html#cb58-6" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&quot;data/rfp_metadata.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="app-gis.html#cb59-1" tabindex="-1"></a>md_raw <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;data/rfp_metadata.csv&quot;</span>)</span>
-<span id="cb59-2"><a href="app-gis.html#cb59-2" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="app-gis.html#cb59-3" tabindex="-1"></a>md <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
-<span id="cb59-4"><a href="app-gis.html#cb59-4" tabindex="-1"></a>  md_raw,</span>
-<span id="cb59-5"><a href="app-gis.html#cb59-5" tabindex="-1"></a>  rfp<span class="sc">::</span>rfp_xref_layers_custom</span>
-<span id="cb59-6"><a href="app-gis.html#cb59-6" tabindex="-1"></a>) </span>
-<span id="cb59-7"><a href="app-gis.html#cb59-7" tabindex="-1"></a>                    </span>
-<span id="cb59-8"><a href="app-gis.html#cb59-8" tabindex="-1"></a><span class="co"># first we will copy the doc from the Q project to this repo - the location of the Q project is outside of the repo!!</span></span>
-<span id="cb59-9"><a href="app-gis.html#cb59-9" tabindex="-1"></a>q_path_stub <span class="ot">&lt;-</span> <span class="st">&quot;~/Projects/gis/sern_peace_fwcp_2023/&quot;</span></span>
-<span id="cb59-10"><a href="app-gis.html#cb59-10" tabindex="-1"></a></span>
-<span id="cb59-11"><a href="app-gis.html#cb59-11" tabindex="-1"></a><span class="co"># this is differnet than Neexdzii Kwa as it lists layers vs tracking file (tracking file is newer than this project).  </span></span>
-<span id="cb59-12"><a href="app-gis.html#cb59-12" tabindex="-1"></a><span class="co"># could revert really easily to the tracking file if we wanted to.</span></span>
-<span id="cb59-13"><a href="app-gis.html#cb59-13" tabindex="-1"></a>gis_layers_ls <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_layers</span>(<span class="fu">paste0</span>(q_path_stub, <span class="st">&quot;background_layers.gpkg&quot;</span>)) </span>
-<span id="cb59-14"><a href="app-gis.html#cb59-14" tabindex="-1"></a></span>
-<span id="cb59-15"><a href="app-gis.html#cb59-15" tabindex="-1"></a>gis_layers <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">content =</span> gis_layers_ls[[<span class="st">&quot;name&quot;</span>]])</span>
-<span id="cb59-16"><a href="app-gis.html#cb59-16" tabindex="-1"></a>   </span>
-<span id="cb59-17"><a href="app-gis.html#cb59-17" tabindex="-1"></a><span class="co"># remove the `_vw` from the end of content</span></span>
-<span id="cb59-18"><a href="app-gis.html#cb59-18" tabindex="-1"></a>rfp_tracking_prep <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(</span>
-<span id="cb59-19"><a href="app-gis.html#cb59-19" tabindex="-1"></a>  gis_layers <span class="sc">|&gt;</span> </span>
-<span id="cb59-20"><a href="app-gis.html#cb59-20" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">distinct</span>(content, <span class="at">.keep_all =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb59-21"><a href="app-gis.html#cb59-21" tabindex="-1"></a>  </span>
-<span id="cb59-22"><a href="app-gis.html#cb59-22" tabindex="-1"></a>  md <span class="sc">|&gt;</span> </span>
-<span id="cb59-23"><a href="app-gis.html#cb59-23" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">content =</span> object_name, <span class="at">url =</span> url_browser, description),</span>
-<span id="cb59-24"><a href="app-gis.html#cb59-24" tabindex="-1"></a>  </span>
-<span id="cb59-25"><a href="app-gis.html#cb59-25" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">&quot;content&quot;</span></span>
-<span id="cb59-26"><a href="app-gis.html#cb59-26" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb59-27"><a href="app-gis.html#cb59-27" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(content)</span>
-<span id="cb59-28"><a href="app-gis.html#cb59-28" tabindex="-1"></a></span>
-<span id="cb59-29"><a href="app-gis.html#cb59-29" tabindex="-1"></a>rfp_tracking_prep <span class="sc">|&gt;</span> </span>
-<span id="cb59-30"><a href="app-gis.html#cb59-30" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&quot;data/rfp_tracking_prep.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="app-gis.html#cb60-1" tabindex="-1"></a>rfp_tracking_prep <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
-<span id="cb60-2"><a href="app-gis.html#cb60-2" tabindex="-1"></a>  <span class="st">&quot;data/rfp_tracking_prep.csv&quot;</span></span>
-<span id="cb60-3"><a href="app-gis.html#cb60-3" tabindex="-1"></a>) </span>
-<span id="cb60-4"><a href="app-gis.html#cb60-4" tabindex="-1"></a></span>
-<span id="cb60-5"><a href="app-gis.html#cb60-5" tabindex="-1"></a>rfp_tracking_prep <span class="sc">|&gt;</span> </span>
-<span id="cb60-6"><a href="app-gis.html#cb60-6" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(<span class="at">caption_text =</span> <span class="st">&quot;Layers loaded to collaborative GIS project.&quot;</span>,</span>
-<span id="cb60-7"><a href="app-gis.html#cb60-7" tabindex="-1"></a>                 <span class="at">footnote_text =</span> <span class="st">&quot;Metadata information for bcfishpass and bcfishobs layers can be provided here in the future but currently can usually be sourced from https://smnorris.github.io/bcfishpass/06_data_dictionary.html .&quot;</span>,</span>
-<span id="cb60-8"><a href="app-gis.html#cb60-8" tabindex="-1"></a>                 <span class="at">scroll =</span> gitbook_on)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="app-gis.html#cb80-1" tabindex="-1"></a><span class="co"># grab the metadata</span></span>
+<span id="cb80-2"><a href="app-gis.html#cb80-2" tabindex="-1"></a>md <span class="ot">&lt;-</span> rfp<span class="sc">::</span><span class="fu">rfp_meta_bcd_xref</span>()</span>
+<span id="cb80-3"><a href="app-gis.html#cb80-3" tabindex="-1"></a></span>
+<span id="cb80-4"><a href="app-gis.html#cb80-4" tabindex="-1"></a><span class="co"># burn locally so we don&#39;t nee to wait for it</span></span>
+<span id="cb80-5"><a href="app-gis.html#cb80-5" tabindex="-1"></a>md <span class="sc">|&gt;</span> </span>
+<span id="cb80-6"><a href="app-gis.html#cb80-6" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&quot;data/rfp_metadata.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="app-gis.html#cb81-1" tabindex="-1"></a>md_raw <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;data/rfp_metadata.csv&quot;</span>)</span>
+<span id="cb81-2"><a href="app-gis.html#cb81-2" tabindex="-1"></a></span>
+<span id="cb81-3"><a href="app-gis.html#cb81-3" tabindex="-1"></a>md <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
+<span id="cb81-4"><a href="app-gis.html#cb81-4" tabindex="-1"></a>  md_raw,</span>
+<span id="cb81-5"><a href="app-gis.html#cb81-5" tabindex="-1"></a>  rfp<span class="sc">::</span>rfp_xref_layers_custom</span>
+<span id="cb81-6"><a href="app-gis.html#cb81-6" tabindex="-1"></a>) </span>
+<span id="cb81-7"><a href="app-gis.html#cb81-7" tabindex="-1"></a>                    </span>
+<span id="cb81-8"><a href="app-gis.html#cb81-8" tabindex="-1"></a><span class="co"># first we will copy the doc from the Q project to this repo - the location of the Q project is outside of the repo!!</span></span>
+<span id="cb81-9"><a href="app-gis.html#cb81-9" tabindex="-1"></a>q_path_stub <span class="ot">&lt;-</span> <span class="st">&quot;~/Projects/gis/sern_peace_fwcp_2023/&quot;</span></span>
+<span id="cb81-10"><a href="app-gis.html#cb81-10" tabindex="-1"></a></span>
+<span id="cb81-11"><a href="app-gis.html#cb81-11" tabindex="-1"></a><span class="co"># this is differnet than Neexdzii Kwa as it lists layers vs tracking file (tracking file is newer than this project).  </span></span>
+<span id="cb81-12"><a href="app-gis.html#cb81-12" tabindex="-1"></a><span class="co"># could revert really easily to the tracking file if we wanted to.</span></span>
+<span id="cb81-13"><a href="app-gis.html#cb81-13" tabindex="-1"></a>gis_layers_ls <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_layers</span>(<span class="fu">paste0</span>(q_path_stub, <span class="st">&quot;background_layers.gpkg&quot;</span>)) </span>
+<span id="cb81-14"><a href="app-gis.html#cb81-14" tabindex="-1"></a></span>
+<span id="cb81-15"><a href="app-gis.html#cb81-15" tabindex="-1"></a>gis_layers <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">content =</span> gis_layers_ls[[<span class="st">&quot;name&quot;</span>]])</span>
+<span id="cb81-16"><a href="app-gis.html#cb81-16" tabindex="-1"></a>   </span>
+<span id="cb81-17"><a href="app-gis.html#cb81-17" tabindex="-1"></a><span class="co"># remove the `_vw` from the end of content</span></span>
+<span id="cb81-18"><a href="app-gis.html#cb81-18" tabindex="-1"></a>rfp_tracking_prep <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(</span>
+<span id="cb81-19"><a href="app-gis.html#cb81-19" tabindex="-1"></a>  gis_layers <span class="sc">|&gt;</span> </span>
+<span id="cb81-20"><a href="app-gis.html#cb81-20" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">distinct</span>(content, <span class="at">.keep_all =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb81-21"><a href="app-gis.html#cb81-21" tabindex="-1"></a>  </span>
+<span id="cb81-22"><a href="app-gis.html#cb81-22" tabindex="-1"></a>  md <span class="sc">|&gt;</span> </span>
+<span id="cb81-23"><a href="app-gis.html#cb81-23" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">content =</span> object_name, <span class="at">url =</span> url_browser, description),</span>
+<span id="cb81-24"><a href="app-gis.html#cb81-24" tabindex="-1"></a>  </span>
+<span id="cb81-25"><a href="app-gis.html#cb81-25" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">&quot;content&quot;</span></span>
+<span id="cb81-26"><a href="app-gis.html#cb81-26" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb81-27"><a href="app-gis.html#cb81-27" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(content)</span>
+<span id="cb81-28"><a href="app-gis.html#cb81-28" tabindex="-1"></a></span>
+<span id="cb81-29"><a href="app-gis.html#cb81-29" tabindex="-1"></a>rfp_tracking_prep <span class="sc">|&gt;</span> </span>
+<span id="cb81-30"><a href="app-gis.html#cb81-30" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&quot;data/rfp_tracking_prep.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="app-gis.html#cb82-1" tabindex="-1"></a>rfp_tracking_prep <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb82-2"><a href="app-gis.html#cb82-2" tabindex="-1"></a>  <span class="st">&quot;data/rfp_tracking_prep.csv&quot;</span></span>
+<span id="cb82-3"><a href="app-gis.html#cb82-3" tabindex="-1"></a>) </span>
+<span id="cb82-4"><a href="app-gis.html#cb82-4" tabindex="-1"></a></span>
+<span id="cb82-5"><a href="app-gis.html#cb82-5" tabindex="-1"></a>rfp_tracking_prep <span class="sc">|&gt;</span> </span>
+<span id="cb82-6"><a href="app-gis.html#cb82-6" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(<span class="at">caption_text =</span> <span class="st">&quot;Layers loaded to collaborative GIS project.&quot;</span>,</span>
+<span id="cb82-7"><a href="app-gis.html#cb82-7" tabindex="-1"></a>                 <span class="at">footnote_text =</span> <span class="st">&quot;Metadata information for bcfishpass and bcfishobs layers can be provided here in the future but currently can usually be sourced from https://smnorris.github.io/bcfishpass/06_data_dictionary.html .&quot;</span>,</span>
+<span id="cb82-8"><a href="app-gis.html#cb82-8" tabindex="-1"></a>                 <span class="at">scroll =</span> gitbook_on)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-condensed table-responsive" style="font-size: 11px; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption style="font-size: initial !important;">
-<span id="tab:tab-rfp-tracking">Table 5.6: </span>Layers loaded to collaborative GIS project.
+<span id="tab:tab-rfp-tracking">Table 5.11: </span>Layers loaded to collaborative GIS project.
 </caption>
 <thead>
 <tr>

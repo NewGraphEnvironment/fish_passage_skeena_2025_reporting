@@ -86,19 +86,31 @@ every ecoregion returned a trend, and Mann-Kendall p-values are populated throug
 
 ## Phase 3 — Port the appendix
 
-- [ ] Copy `0710-appendix-climate-departure.Rmd` from Fraser
-- [ ] Re-derive the ecoregion names in prose from the actual Skeena ecoregion set
-- [ ] **Verify:** no duplicate chunk labels against the existing Skeena appendices, figures resolve
+- [x] Copy `0710-appendix-climate-departure.Rmd` from Fraser
+- [x] Re-derive the ecoregion names in prose from the actual Skeena ecoregion set
+- [x] **Verify:** no duplicate chunk labels — all 24 are `cd-` prefixed and none collide with the
+      existing Skeena appendices; figures resolve; build 231/231 chunks
 
 ## Phase 4 — Re-verify every interpretive claim  ← the load-bearing phase
 
-- [ ] Walk all 16 hardcoded numbers against the regenerated Skeena outputs. Each is either corrected or
-      converted to an inline R expression driven by the data
-- [ ] Prefer conversion where the value is derivable, so the next region cannot inherit a stale finding
-      the way this one would have
-- [ ] Re-read the interpretation sections end to end. Directional claims ("the dominant pattern is…")
-      need checking too, not just the numbers — a sign can flip
-- [ ] **Verify:** no claim in the appendix is traceable to Fraser data
+- [x] Walked every hardcoded number. All converted to inline R rather than corrected in place, except
+      one generic explanation of what "+1.5 °C" means, which is not a finding
+- [x] **A directional claim did flip, exactly as anticipated.** Fraser has the interior-plateau
+      ecoregions leading and the high-elevation ranges trailing. Here the mountains lead (Nass Ranges
+      +2.70, Skeena Mountains +2.62) and the plateau ecoregions trail (Fraser Plateau +2.45, Fraser
+      Basin +2.42). Carried over verbatim it would have stated the opposite of the data
+- [x] **A second conclusion had to be withdrawn, not just renumbered.** Fraser's appendix concludes the
+      spatial gradient supports ranking watershed groups for prioritisation. On this AOI it does not —
+      all five groups fall within 0.23 °C of each other and the ecoregion spread is 0.20 °C. That
+      section now says prioritisation gains nothing from climate-departure geography here
+- [x] Also fixed: the winter/spring snowmelt sentence. Fraser presents both as counterbalancing rises
+      that miss significance; here spring is +52 % and highly significant while winter misses
+- [x] **Verify:** rendered page carries only Skeena values, and no Fraser watershed-group code survives
+
+**Found while sweeping — a live defect in the Fraser report.** Its published appendix reads "The seven
+watershed groups (FRAN, LCHL, MORK, NECR, TABR, UFRA, WILL) **MORK, UFRA, TABR, WILL)** span the eight
+ecoregions" — a duplicated fragment with an unmatched paren, from a hardcoded list half-converted to an
+inline expression. It came across in the port. Fixed here, filed there as fraser#28.
 
 ## Phase 5 — Build, review, release
 

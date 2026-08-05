@@ -15,5 +15,14 @@
   and the template) is unfiled.
 - Created branch `3-climate-departure-appendix-swap-the-aoi` off main and scaffolded this baseline with
   the approved phases.
-- Next: Phase 1 — retarget the three literals and settle the three tuning constants against the actual
-  Skeena AOI area.
+- **Phases 1-4 complete.** Generator retargeted (three literals), tuning constants checked and left
+  alone on the evidence, cd pipeline run, appendix ported and every interpretive claim re-derived.
+- The load-bearing phase earned its billing. Two conclusions in the Fraser appendix are not merely
+  numerically stale on this data — they are wrong in direction. The elevation ordering inverts, and the
+  claim that the spatial gradient supports ranking watershed groups does not survive an AOI where all
+  five groups sit within 0.23 °C of one another. Both rewritten rather than renumbered.
+- Every figure in the appendix prose is now an inline R expression, so the next region gets a
+  recomputed number or a build error rather than an inherited one.
+- Filed fraser#28: the Fraser report publishes a duplicated watershed-group fragment with an unmatched
+  paren, which came across in the port.
+- Next: Phase 5 — PDF, cartographic read, NEWS and version bump, PR, merge, tag.
