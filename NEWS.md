@@ -1,3 +1,8 @@
+# fish_passage_skeena_2025_reporting 0.4.0 (2026-08-05)
+
+* Summarise the climate departure analysis in the methods and results chapters, matching how the Peace and Fraser reports present it. The appendix held the full analysis but neither chapter mentioned it, so a reader of the report body had no way to know the work existed or what it found.
+* State the finding that distinguishes this study area, which is a negative one. Warming across the five watershed groups is remarkably even, so the thermal question for a given barrier falls to elevation and reach-scale conditions rather than to which watershed group it sits in.
+
 # fish_passage_skeena_2025_reporting 0.2.0 (2026-08-05)
 
 * Add a climate departure appendix for the Skeena. Long-term climate data for the five watershed groups is compared between a recent decade (2015-2025) and a pre-warming reference period (1951-1980), then broken down by ecoregion and mapped back onto the watershed groups that organise barrier prioritisation. The analysis was rebuilt for this study area rather than carried over; the version the Fraser report published covers a different part of the province ([Issue #3](https://github.com/NewGraphEnvironment/fish_passage_skeena_2025_reporting/issues/3)).

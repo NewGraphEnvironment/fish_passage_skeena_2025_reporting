@@ -15,7 +15,7 @@ author: |
 
 date: |
  |
- | Version 0.2.0 DRAFT `r format(Sys.Date(), "%Y-%m-%d")`
+ | Version 0.4.0 DRAFT `r format(Sys.Date(), "%Y-%m-%d")`
  |
  | *Claude Opus 5 (Anthropic) assisted with literature synthesis, drafting, and technical writing. All scientific interpretation, data analysis, and conclusions are the responsibility of the authors.*
 toc-title: Table of Contents
@@ -56,7 +56,11 @@ nocite: |
   @woll_etal2017SalmonEcological,
   @porter_etal2008DevelopingFish,
   @rosenfeld_etal2000Habitatfactors,
-  @irvine_schick2024Restoringfish
+  @irvine_schick2024Restoringfish,
+  @irvine2023BulkleyWatershed,
+  @irvine_wintersheidt2023SkeenaWatershed,
+  @irvine_schick2023SkeenaWatershed,
+  @irvine_schick2025SkeenaWatershed
 documentclass: book
 bibliography: "`r if (isTRUE(params$update_bib)) rbbt::bbt_write_bib('references.bib', overwrite = TRUE) else 'references.bib'`"
 biblio-style: apalike
