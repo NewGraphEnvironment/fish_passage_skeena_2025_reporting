@@ -26,7 +26,7 @@ conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
 readwritesqlite::rws_list_tables(conn)
 
 # load the watersheds for the  phase 2 habitat confirmation sites
-readwritesqlite::rws_drop_table("wshd_study_areas", conn = conn) ##now drop the table so you can replace it
+lngr_drop_table_if_exists("wshd_study_areas", conn)
 readwritesqlite::rws_write(wshd_study_areas, exists = F, delete = TRUE,
                            conn = conn, x_name = "wshd_study_areas")
 
@@ -46,26 +46,30 @@ readwritesqlite::rws_disconnect(conn)
 # stale table is the *previous* region's site watersheds, and the interactive map
 # in 0400-results.Rmd will happily draw them. `0120-read-sqlite.R` tolerates the
 # table being absent.
-if (nrow(pscis_phase2) == 0) {
+# Sites needing an upstream watershed: Phase 2 habitat confirmations and
+# effectiveness monitoring sites. Monitoring sites were previously excluded,
+# which left a monitoring-only season with no watershed polygons at all and no
+# way to draw a site map.
+sites_wshd <- unique(c(
+  pscis_phase2$pscis_crossing_id,
+  form_monitoring$pscis_crossing_id
+))
+sites_wshd <- sites_wshd[!is.na(sites_wshd)]
+
+if (length(sites_wshd) == 0) {
 
   conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
-  readwritesqlite::rws_drop_table("wshds", conn = conn)
+  lngr_drop_table_if_exists("wshds", conn)
   readwritesqlite::rws_disconnect(conn)
 
-  message("No Phase 2 habitat confirmation sites - `wshds` dropped and ",
+  message("No Phase 2 or monitoring sites - `wshds` dropped and ",
           "per-site watershed stats skipped.")
 
 } else {
 
   ## Filter the bcfishpass data to just the phase 2 sites -------------------------------------------------
   bcfishpass_phase2 <- bcfishpass |>
-    dplyr::filter(
-      stringr::str_detect(
-        stream_crossing_id,
-        paste0(pscis_phase2 |>
-                 pull(pscis_crossing_id),
-               collapse = "|")
-      ))
+    dplyr::filter(stream_crossing_id %in% as.character(sites_wshd))
 
 
   ## Remove crossings on first order streams -------------------------------------------------
@@ -149,7 +153,7 @@ if (nrow(pscis_phase2) == 0) {
   ## Add to the sqlite -------------------------------------------------
   conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
   readwritesqlite::rws_list_tables(conn)
-  readwritesqlite::rws_drop_table("wshds", conn = conn) ##now drop the table so you can replace it
+  lngr_drop_table_if_exists("wshds", conn)  # tolerant - the table is absent on a first run
   readwritesqlite::rws_write(wshds, exists = F, delete = TRUE,
                              conn = conn, x_name = "wshds")
   readwritesqlite::rws_list_tables(conn)

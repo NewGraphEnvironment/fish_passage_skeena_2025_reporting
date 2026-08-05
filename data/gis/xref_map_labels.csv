@@ -1,0 +1,4 @@
+layer_key,label_field,label_scope,label_size,label_color,label_max,note
+crossings_pscis_assessment,stream_crossing_id,watershed,0.4,#2a2a2a,40,PSCIS crossings inside the upstream watershed carry their id. Outside it they are context and stay unlabelled.
+crossings_modelled,modelled_crossing_id,watershed,0.34,#333333,25,Modelled crossings never assessed. Inside the watershed only - elsewhere they are noise. Suppressed entirely above label_max.
+fish_obs,species_code,watershed_or_stream,0.32,#8f1420,200,FISS observations get their species code inside the watershed or on the subject stream. Elsewhere the marker alone is enough.

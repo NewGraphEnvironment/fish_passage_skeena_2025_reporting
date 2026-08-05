@@ -1,0 +1,12 @@
+name_new,stream_crossing_id,location,label_exists,dist_m,note
+126185_ds,126158,ds,FALSE,8,label id 126185 exists in no form or PSCIS table; digit transposition of 126158. Nearest crossing 126158 at 8 m; next nearest 203579 at 6572 m.
+126185_us,126158,us,FALSE,36,as above. Nearest crossing 126158 at 36 m; next nearest 203579 at 6726 m.
+205214_ds,203581,ds,FALSE,18,label id 205214 exists in no form or PSCIS table. Nearest crossing 203581 at 18 m; next nearest 196076 at 1198 m.
+205214_us,203581,us,FALSE,0,as above. Nearest crossing 203581 at 0 m; next nearest 196076 at 690 m.
+205215_us,203582,us,FALSE,28,label id 205215 exists in no form or PSCIS table. Nearest crossing 203582 at 28 m; next nearest 196085 at 339 m.
+196076_ds,196076,ds,TRUE,0,label matches. Nearest crossing 196076 at 0 m.
+196076_us,196076,us,TRUE,35,label matches. Nearest crossing 196076 at 35 m.
+196085_ds,196085,ds,TRUE,40,label matches. Nearest crossing 196085 at 40 m; next nearest 203582 at 382 m.
+196085_us,196085,us,TRUE,3,label matches. Nearest crossing 196085 at 3 m but 203582 is only 23 m away - the Tabor pair sits ~400 m apart on one stream and the track runs past both. Reviewed by hand rather than derived.
+196332_ds,196332,ds,TRUE,5,label matches. Nearest crossing 196332 at 5 m.
+196332_us,196332,us,TRUE,5,label matches. Nearest crossing 196332 at 5 m.
