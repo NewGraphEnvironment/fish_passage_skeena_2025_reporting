@@ -94,3 +94,23 @@ published (#6).
 prose. PDF not attempted.
 
 Still unpushed — see the credential note above.
+
+## Session 2026-08-04
+
+Released **v0.1.0** — 21 chapters, gitbook and PDF, pushed. `main` force-updated to the rewritten
+lineage, so the BFG slimming finally took effect.
+
+**Both monitoring memos written.** Peacock carries a verified before/after pair, the 2021 catch (96
+fish, 4 species, coho and cutthroat only downstream) and 2025 eDNA. Waterfall documents a culvert
+removed outright by the Gitksan Watershed Authorities. #5 was wrong that the photos did not exist —
+they were untagged in OneDrive `extra/`.
+
+**Two claims removed as unsupported.** The eDNA non-detection caveat (four places, two inherited from
+Fraser) and the sub-threshold tier — UNBC's report sets the four-droplet call threshold and treats
+anything below it as negative. Methods now point at their report, which is committed to
+`data/inputs_raw/` and `docs/`.
+
+**Two of my own errors corrected:** the Waterfall watershed group (Kispiox → Bulkley, caught by the
+S3 imagery path) and the territorial acknowledgement, removed at the author's direction.
+
+**Next:** #9 — run `0410-map-site-prep.R` for both units, add map chunks, rebuild. Tunnel needed.
