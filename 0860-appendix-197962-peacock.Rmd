@@ -133,6 +133,25 @@ edna_results_197962 |>
 
 <br>
 
+## Aerial Imagery {.unnumbered}
+
+An aerial survey was conducted with a remotely piloted aircraft and the resulting imagery was processed into an orthomosaic available to view and download `r if(gitbook_on){knitr::asis_output("in Figure \\@ref(fig:uav-ortho-197962)")}else(knitr::asis_output("[here](https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/skeena/morice/2025/197962_peacock_morice/odm_orthophoto/odm_orthophoto.tif)"))`.
+
+<br>
+
+```{r uav-ortho-197962-prep, eval = gitbook_on}
+viewer_url <- '<iframe src="https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/skeena/morice/2025/197962_peacock_morice/odm_orthophoto/odm_orthophoto.tif" scrolling="no" title="UAV Viewer" width="100%" height="600" frameBorder="0"></iframe>'
+
+knitr::asis_output(viewer_url)
+```
+
+```{r uav-ortho-197962, out.width = "0.01%", eval = gitbook_on, fig.cap = my_caption}
+my_caption <- paste0("Orthomosaic of Peacock Creek at PSCIS crossing ", my_site_mon, ".")
+knitr::include_graphics("fig/pixel.png")
+```
+
+<br>
+
 ## Discussion {.unnumbered}
 
 The site carries an uncommonly strong record. The pre-remediation habitat confirmation rated both reaches high value and estimated 4.8 km of habitat upstream, multi-pass electrofishing established what was present on each side of the culvert before it was replaced, and the `r params$project_year` environmental DNA re-establishes species presence four years after replacement.
