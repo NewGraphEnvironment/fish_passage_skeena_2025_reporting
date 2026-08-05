@@ -18,6 +18,7 @@ tab:tab-monitoring-metrics
 fig:map-interactive
 tab:tab-edna-summary
 tab:tab-mon-overview
+tab:stock-assess-dat-all
 tab:fiss-species-table
 tab:tab-sites-sum-cap
 tab:tab-sites-cap
@@ -26,10 +27,18 @@ tab:tab-rfp-tracking
 tab:tab-edna-per-site
 tab:tab-edna-field-blanks
 tab:tab-edna-retests
+fig:photo-124421-before
+fig:photo-124421-after
+fig:photo-124421-reveg
+tab:tab-monitoring-124421
+fig:uav-ortho-124421
 fig:photo-197962-before
 fig:photo-197962-after
 fig:photo-197962-substrate
+tab:tab-monitoring-197962
+tab:tab-fish-197962
 tab:tab-edna-results-197962
+fig:uav-ortho-197962
 introduction
 background
 approach
@@ -69,7 +78,7 @@ fish-handling-and-processing
 pit-tagging
 environmental-dna-edna-sampling
 edna-sampling-and-filtration
-edna-extraction
+edna-analysis
 open-source-reporting-framework
 aerial-imagery
 engineering-design

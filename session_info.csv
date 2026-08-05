@@ -8,15 +8,15 @@
  collate  en_US.UTF-8
  ctype    en_US.UTF-8
  tz       America/Vancouver
- date     2026-08-04
+ date     2026-08-05
  pandoc   3.9.0.2 @ /opt/homebrew/bin/ (via rmarkdown)
  quarto   1.4.553 @ /usr/local/bin/quarto
 
 ─ Packages ───────────────────────────────────────────────────────────────────
  package           * version    date (UTC) lib source
- arrow             * 22.0.0.1   2025-12-23 [2] CRAN (R 4.5.2)
+ arrow             * 25.0.0     2026-07-16 [1] CRAN (R 4.5.2)
  askpass             1.2.1      2024-10-04 [1] CRAN (R 4.5.0)
- assertthat          0.2.1      2019-03-21 [2] CRAN (R 4.5.0)
+ assertthat          0.2.1      2019-03-21 [1] CRAN (R 4.5.0)
  base64enc           0.1-6      2026-02-02 [1] CRAN (R 4.5.2)
  bit                 4.6.0      2025-03-06 [1] CRAN (R 4.5.0)
  bit64               4.8.0      2026-04-21 [1] CRAN (R 4.5.2)
@@ -54,7 +54,7 @@
  fs                  2.1.0      2026-04-18 [1] CRAN (R 4.5.2)
  generics            0.1.4      2025-05-09 [1] CRAN (R 4.5.0)
  ggplot2           * 4.0.3      2026-04-22 [1] CRAN (R 4.5.2)
- gh                  1.5.0      2025-05-26 [2] CRAN (R 4.5.0)
+ gh                  1.6.1      2026-07-20 [1] CRAN (R 4.5.2)
  glue                1.8.1      2026-04-17 [1] CRAN (R 4.5.2)
  gtable              0.3.6      2024-10-25 [1] CRAN (R 4.5.0)
  here                1.0.2      2025-09-15 [2] CRAN (R 4.5.0)
@@ -81,7 +81,7 @@
  magick              2.9.0      2025-09-08 [2] CRAN (R 4.5.0)
  magrittr            2.0.5      2026-04-04 [1] CRAN (R 4.5.2)
  memoise             2.0.1      2021-11-26 [1] CRAN (R 4.5.0)
- ngr               * 0.0.1      2026-01-22 [2] Github (newgraphenvironment/ngr@22c9714)
+ ngr               * 0.0.1      2026-08-05 [1] Github (NewGraphEnvironment/ngr@519c03b)
  otel                0.2.0      2025-08-29 [1] CRAN (R 4.5.0)
  pagedown          * 0.23       2025-08-20 [2] CRAN (R 4.5.0)
  pak                 0.11.1     2026-07-22 [1] CRAN (R 4.5.2)
@@ -111,13 +111,13 @@
  readwritesqlite   * 0.2.0.9021 2026-01-15 [2] Github (poissonconsulting/readwritesqlite@ccdb297)
  remotes             2.5.0      2024-03-17 [2] CRAN (R 4.5.0)
  rgl                 1.3.31     2025-11-14 [2] CRAN (R 4.5.2)
- rlang               1.2.0      2026-04-06 [1] CRAN (R 4.5.2)
+ rlang               1.3.0      2026-07-05 [1] CRAN (R 4.5.2)
  rmarkdown         * 2.31       2026-03-26 [1] CRAN (R 4.5.2)
  RPostgres         * 1.4.10     2026-02-16 [1] CRAN (R 4.5.2)
  rprojroot           2.1.1      2025-08-26 [2] CRAN (R 4.5.0)
  RSQLite             3.52.0     2026-05-10 [1] CRAN (R 4.5.2)
  rstudioapi          0.18.0     2026-01-16 [2] CRAN (R 4.5.2)
- rvest               1.0.5      2025-08-29 [2] CRAN (R 4.5.0)
+ rvest               1.0.5      2025-08-29 [1] CRAN (R 4.5.0)
  s2                  1.1.9      2025-05-23 [1] CRAN (R 4.5.0)
  S7                  0.2.2      2026-04-22 [1] CRAN (R 4.5.2)
  sass                0.4.10     2025-04-11 [1] CRAN (R 4.5.0)
@@ -134,11 +134,11 @@
  terra               1.9-11     2026-03-26 [1] CRAN (R 4.5.2)
  textshaping         1.0.4      2025-10-10 [2] CRAN (R 4.5.0)
  tibble            * 3.3.1      2026-01-11 [1] CRAN (R 4.5.2)
- tidyhydat           0.7.2      2025-10-23 [2] CRAN (R 4.5.0)
+ tidyhydat           1.0.1      2026-06-11 [1] CRAN (R 4.5.2)
  tidyr             * 1.3.2      2025-12-19 [1] CRAN (R 4.5.2)
  tidyselect          1.2.1      2024-03-11 [1] CRAN (R 4.5.0)
  tidyverse         * 2.0.0      2023-02-22 [2] CRAN (R 4.5.0)
- tidyxl              1.0.10     2026-01-15 [2] Github (nacnudus/tidyxl@7e2fbe7)
+ tidyxl              1.0.10     2026-01-15 [1] Github (nacnudus/tidyxl@7e2fbe7)
  timechange          0.4.0      2026-01-29 [1] CRAN (R 4.5.2)
  tzdb                0.5.0      2025-03-15 [1] CRAN (R 4.5.0)
  units               1.0-1      2026-03-11 [1] CRAN (R 4.5.2)

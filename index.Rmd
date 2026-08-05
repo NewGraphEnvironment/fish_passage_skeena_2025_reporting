@@ -15,7 +15,7 @@ author: |
 
 date: |
  |
- | Version 0.0.1 DRAFT `r format(Sys.Date(), "%Y-%m-%d")`
+ | Version 0.1.0 DRAFT `r format(Sys.Date(), "%Y-%m-%d")`
  |
  | *Claude Opus 5 (Anthropic) assisted with literature synthesis, drafting, and technical writing. All scientific interpretation, data analysis, and conclusions are the responsibility of the authors.*
 toc-title: Table of Contents
@@ -72,12 +72,10 @@ gitbook_on <- TRUE
 # gitbook_on <- FALSE  ##we just need turn  this on and off to switch between gitbook and pdf via paged.js
 ```
 
-
 ```{r jquery, echo=FALSE, eval=FALSE}
 #see https://github.com/NewGraphEnvironment/mybookdown-template/issues/16
 htmltools::tagList(rmarkdown::html_dependency_jquery())
 ```
-
 
 ```{r setup, echo=identical(gitbook_on, TRUE), include = TRUE}
 knitr::opts_chunk$set(echo=identical(gitbook_on, TRUE), message=FALSE, warning=FALSE, dpi=60, out.width = "100%")
@@ -98,7 +96,6 @@ photo_width <- "80%"
 font_set <- 9
 ```
 
-
 ```{r source}
 source('scripts/packages.R')
 staticimports::import()
@@ -109,10 +106,7 @@ source("scripts/02_reporting/0120-read-sqlite.R")
 source("scripts/02_reporting/0105-params-derived.R")
 source('scripts/02_reporting/0130-tables.R')
 
-
-
 ```
-
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
@@ -126,9 +120,6 @@ knitr::write_bib(c(
 At New Graph Environment, we understand our well-being as inseparable from the health of the land and waters we work within. When we care for ecosystems, we care for ourselves and for the communities connected to them.
 
 Modern civilization has a long journey ahead to acknowledge and address the historic and ongoing impacts of colonialism that have resulted in harm to the cultures and livelihoods living interconnected with our ecosystems for many thousands of years.
-
-This work takes place within the territories of First Nations who have stewarded these lands and waters since time immemorial.
-
 
 ```{js, logo-header, echo = FALSE, eval= T}
 title=document.getElementById('header');

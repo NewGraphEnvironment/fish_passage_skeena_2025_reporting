@@ -21,62 +21,69 @@ through the [Open Government Portal](https://open.canada.ca/en) with results pre
 `r if(identical(gitbook_on, FALSE)){knitr::asis_output("<br>")}`
 
 ```{r stock-assess-download, eval=FALSE}
-library("ckanr")
+# Run by hand to regenerate `data/inputs_raw/study_area_NuSEDS.csv`. Needs network.
+#
+# The snapshot URL is resolved from the catalogue rather than hardcoded. DFO
+# republishes NuSEDS under a new date-stamped filename and the previous one 404s -
+# the hardcoded `All Areas NuSEDS_20251103.zip` here was already dead by
+# 2026-08, which is why the table stopped rendering and the prose was left
+# pointing at a `Table ??`.
 
-# set up the connection to the data portal
-ckanr_setup(url = "https://open.canada.ca/data/en")
+pkg_id <- "c48669a3-045b-400d-b730-48aafe8c5ee6"
 
-nuseds <- rgovcan::govcan_search(keywords = c("Skeena NuSEDS"), records = 150, format_results = TRUE) |>  
-  pull(resources) %>% 
-  bind_rows()
+res <- jsonlite::fromJSON(
+  paste0("https://open.canada.ca/data/en/api/3/action/package_show?id=", pkg_id)
+)$result$resources
 
-# Load the most recent Nuseds - currently 20251103 (update Nov 2025)
-url <- "https://api-proxy.edh-cde.dfo-mpo.gc.ca/catalogue/records/c48669a3-045b-400d-b730-48aafe8c5ee6/attachments/All%20Areas%20NuSEDS_20251103.zip"
+# the all-areas zip, whatever it is called this month
+url <- res$url[grepl("^All Areas NuSEDS.*\\.zip$", res$name)][1]
 
+# ~10 MB zipped, ~230 MB unzipped, so keep it out of the repo entirely
+tmp_zip <- fs::file_temp(ext = "zip")
+tmp_dir <- fs::path_temp("nuseds")
+download.file(url, tmp_zip, mode = "wb")
+utils::unzip(tmp_zip, exdir = tmp_dir)
 
-# burn directly without bringing into memory
-nuseds_all_20251103.csv
-ckanr::ckan_fetch(url, store = "disk", path = "data/inputs_raw/nuseds_all_20251103.zip") 
-
-# ignore the huge file
-usethis::use_git_ignore("data/inputs_raw/nuseds_all_20251103.csv")
-
-#read it in
-all_area_nuseds <- readr::read_csv('data/inputs_raw/nuseds_all_20251103.csv')
+all_area_nuseds <- readr::read_csv(fs::dir_ls(tmp_dir, glob = "*.csv")[1])
 
 # repo-relative and params-driven; this pointed at another repo and another region
 form_pscis_2025 <- read.csv(fs::path("data/backup", params$project_year, params$gis_project_name, paste0("form_pscis_", params$project_year, ".csv")))
 
 
 # Big study area so lets filter using the stream names from `form_pscis`
-stream_names <- form_pscis_2025 |> 
-  dplyr::pull(stream_name) |> 
-  stringr::str_trim() |> 
+stream_names <- form_pscis_2025 |>
+  dplyr::pull(stream_name) |>
+  stringr::str_trim() |>
   # Must be upper case to match those in Nuseds
-  stringr::str_to_upper() |> 
+  stringr::str_to_upper() |>
   unique()
 
 # we also need to add in these waterbodies that we didn't explicitly sample but are that heavy hitters in the project area
 major_streams <- "BULKLEY|MORICE|ZYMOETZ|KISPIOX|KITSUMKALUM|SKEENA RIVER|SUSKWA|TELKWA|BABINE"
 
 # Combine into one regex pattern
-stream_names_regex <- c(stream_names, major_streams) |> 
+stream_names_regex <- c(stream_names, major_streams) |>
   stringr::str_c(collapse = "|")
 
 # Filter Nuseds to just include streams we visited
-study_area_streams <- all_area_nuseds |> 
-  dplyr::filter(stringr::str_detect(WATERBODY, stream_names_regex)) |> 
-  # We have some duplicate streams so remove streams with SHORE in the name which are in the Sushwap area
-  # also remove big and little salmon rivers becasue not in study area
-  dplyr::filter(!stringr::str_detect(WATERBODY, "SHORE|BIG|LITTLE")) |>
-  janitor::clean_names() |> 
+study_area_streams <- all_area_nuseds |>
+  # Constrain to DFO Area 4, the Skeena, BEFORE matching on name. Stream names
+  # are not unique across the coast: WATERFALL CREEK, one of this season's two
+  # reassessment sites, also names a Haida Gwaii stream in area 2E, which put 224
+  # rows of another region's escapement in the table. Filtering by area is the
+  # discriminator; the previous name-exclusion list (`SHORE|BIG|LITTLE`) was
+  # tuned to the Fraser and does nothing here.
+  dplyr::filter(stringr::str_detect(AREA, "^4")) |>
+  dplyr::filter(stringr::str_detect(WATERBODY, stream_names_regex)) |>
+  janitor::clean_names() |>
   dplyr::arrange(waterbody)
 
-check_names <- study_area_streams |> 
-  dplyr::distinct(waterbody)
+# worth eyeballing before the write - confirms nothing out of area crept in
+check_names <- study_area_streams |>
+  dplyr::distinct(area, waterbody)
 
 ## Burn to csv. Updated name so it's clear this contains only the study area streams.
-study_area_streams |> 
+study_area_streams |>
   readr::write_csv('data/inputs_raw/study_area_NuSEDS.csv')
 
 

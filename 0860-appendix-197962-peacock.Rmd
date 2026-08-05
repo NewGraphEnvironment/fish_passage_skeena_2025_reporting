@@ -34,9 +34,9 @@ knitr::include_graphics("data/photos/197962/before/crossing_all.JPG")
 <br>
 
 ```{r photo-197962-after, fig.cap = my_caption, out.width = photo_width}
-my_caption <- paste0("Channel upstream of the replacement bridge at PSCIS crossing ", my_site_mon,
-                     ", photographed on 2025-09-29 from the bridge deck.")
-knitr::include_graphics("data/photos/197962/IMG_0574_upstream.JPG")
+my_caption <- paste0("Bridge on Peacock Creek at PSCIS crossing ", my_site_mon,
+                     " on the Morice FSR, photographed on 2025-09-29 following replacement.")
+knitr::include_graphics("data/photos/197962/crossing_all.JPG")
 ```
 
 <br>
@@ -49,17 +49,64 @@ knitr::include_graphics("data/photos/197962/20250929_173127_NA_substrate.JPG")
 
 <br>
 
+## Monitoring Form {.unnumbered}
+
+`r params$project_year` effectiveness monitoring form results are summarized in Table \@ref(tab:tab-monitoring-197962).
+
+<br>
+
+```{r tab-monitoring-197962}
+tab_monitoring |>
+  dplyr::filter(`Pscis Crossing Id` == my_site_mon) |>
+  dplyr::mutate(dplyr::across(dplyr::everything(), as.character)) |>
+  tidyr::pivot_longer(
+    cols = dplyr::everything(),
+    names_to = "Variable",
+    values_to = "Value"
+  ) |>
+  fpr::fpr_kable(
+    caption_text = paste0("Summary of effectiveness monitoring form results for site ", my_site_mon,
+                          " in ", params$project_year, "."),
+    scroll = gitbook_on
+  )
+```
+
+<br>
+
 ## Habitat and Fish Presence {.unnumbered}
 
 Habitat confirmation assessments were completed at this site in September 2021, before the culvert was replaced. Both the reach upstream and the reach downstream of the crossing were rated high habitat value, with 750 m surveyed upstream and 600 m downstream. The upstream reach was described as complex habitat with undercut banks, large and small woody debris and pools; the downstream reach as carrying consistent undercut banks with woody debris and overhanging vegetation providing cover. Approximately 4.8 km of upstream habitat length was estimated, and the site was ranked a high priority for remediation.
 
 <br>
 
-The site was electrofished on 2021-09-17 at three closed-site multi-pass locations upstream of the crossing and three downstream. Replacement of the culvert began three days later, on 2021-09-20, so the entire 2021 record — assessment, habitat confirmation and fish sampling — describes the site in its pre-remediation condition.
+The site was electrofished on 2021-09-17 at three closed-site multi-pass locations upstream of the crossing and three downstream, capturing 96 fish across four species (Table \@ref(tab:tab-fish-197962)). Dolly Varden and rainbow trout were caught on both sides of the crossing. Coho salmon and cutthroat trout were caught only downstream. Fork lengths ranged from 48 to 148 mm across all species, with coho between 63 and 85 mm.
 
 <br>
 
-In `r params$project_year`, environmental DNA was collected both upstream and downstream of the crossing. Both samples returned detections (Table \@ref(tab:tab-edna-results-197962)). Downstream returned rainbow trout at 124 positive droplets and coho at 8; upstream returned bull trout at 84 positive droplets and coho at 6. Chinook and sockeye returned zero positive droplets in every run at both locations.
+```{r tab-fish-197962}
+tibble::tribble(
+  ~Species,            ~Downstream, ~Upstream, ~Total,
+  "Coho Salmon",                10L,        0L,    10L,
+  "Cutthroat Trout",             1L,        0L,     1L,
+  "Dolly Varden",               16L,       40L,    56L,
+  "Rainbow Trout",              26L,        3L,    29L,
+  "Total",                      53L,       43L,    96L
+) |>
+  fpr::fpr_kable(
+    caption_text = paste0("Fish captured by multi-pass closed-site electrofishing at PSCIS crossing ",
+                          my_site_mon, " on 2021-09-17, before the culvert was replaced. ",
+                          "Three sites upstream and three downstream."),
+    scroll = FALSE
+  )
+```
+
+<br>
+
+Replacement of the culvert began three days later, on 2021-09-20, so the entire 2021 record — assessment, habitat confirmation and fish sampling — describes the site in its pre-remediation condition.
+
+<br>
+
+In `r params$project_year`, environmental DNA was collected both upstream and downstream of the crossing. Downstream, rainbow trout and coho were detected. Upstream, bull trout and coho were detected. Chinook and sockeye were not detected at either location (Table \@ref(tab:tab-edna-results-197962)).
 
 ```{r tab-edna-results-197962-prep, include = FALSE}
 edna_results_197962 <- edna_bystargets |>
@@ -69,10 +116,7 @@ edna_results_197962 <- edna_bystargets |>
   dplyr::summarise(
     `UNBC ID`       = paste(sort(unique(unlist(strsplit(lab_ids, ", ")))), collapse = ", "),
     `Detected`      = fmt_targets(target[any_clean], max_pos[any_clean], retested[any_clean]),
-    `Sub-threshold` = fmt_targets(target[any_crude & !any_clean],
-                                  max_pos[any_crude & !any_clean],
-                                  retested[any_crude & !any_clean]),
-    `Not detected`  = fmt_targets(target[!any_crude], max_pos[!any_crude], retested[!any_crude]),
+    `Not detected`  = fmt_targets(target[!any_clean], max_pos[!any_clean], retested[!any_clean]),
     .groups = "drop"
   ) |>
   dplyr::rename(`Site ID` = site_id)
@@ -89,23 +133,38 @@ edna_results_197962 |>
 
 <br>
 
-Internal amplification controls were not reported for either sample. The detections are unaffected — a well returning positive droplets demonstrably amplified — but the chinook and sockeye zeros cannot be distinguished from reactions that failed or were inhibited, and should not be read as evidence of absence.
+## Aerial Imagery {.unnumbered}
+
+An aerial survey was conducted with a remotely piloted aircraft and the resulting imagery was processed into an orthomosaic available to view and download `r if(gitbook_on){knitr::asis_output("in Figure \\@ref(fig:uav-ortho-197962)")}else(knitr::asis_output("[here](https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/skeena/morice/2025/197962_peacock_morice/odm_orthophoto/odm_orthophoto.tif)"))`.
+
+<br>
+
+```{r uav-ortho-197962-prep, eval = gitbook_on}
+knitr::asis_output(ngr::ngr_str_viewer_cog("https://imagery-uav-bc.s3.amazonaws.com/skeena/morice/2025/197962_peacock_morice/odm_orthophoto/odm_orthophoto.tif"))
+```
+
+```{r uav-ortho-197962, out.width = "0.01%", eval = gitbook_on, fig.cap = my_caption}
+my_caption <- paste0("Orthomosaic of Peacock Creek at PSCIS crossing ", my_site_mon, ".")
+knitr::include_graphics("fig/pixel.png")
+```
 
 <br>
 
 ## Discussion {.unnumbered}
 
-The evidence at this site is consistent across methods and across four years, which is not the usual outcome of effectiveness monitoring. The pre-remediation habitat confirmation rated both reaches high value and estimated 4.8 km of habitat upstream; the `r params$project_year` environmental DNA confirms that the upstream reach is occupied, by bull trout and coho, and that the downstream reach carries rainbow trout and coho. The species detected upstream differ from those detected downstream, which is worth resolving rather than assuming: it may reflect real distribution, or the limits of a single grab sample at each location.
+The site carries an uncommonly strong record. The pre-remediation habitat confirmation rated both reaches high value and estimated 4.8 km of habitat upstream, multi-pass electrofishing established what was present on each side of the culvert before it was replaced, and the `r params$project_year` environmental DNA re-establishes species presence four years after replacement.
+
+<br>
+
+Coho and cutthroat trout were captured only downstream of the culvert in 2021. In `r params$project_year`, coho was detected on both sides of the bridge.
 
 <br>
 
 Recommendations for continued monitoring at this site:
 
-- Resample for environmental DNA at both locations across multiple points in the season, so detections can be read against flow rather than as single observations. The `r params$project_year` samples were collected on one day at the end of September.
+- Resample for environmental DNA at both locations across multiple points in the season. The `r params$project_year` samples were collected on one day at the end of September.
 
-- Add rainbow trout to the upstream assay panel and bull trout to the downstream panel, so the two locations are directly comparable. As sampled, each location was assayed for a different set of targets, which is enough on its own to explain the difference between them.
-
-- Confirm with the laboratory whether amplification control results exist for these samples. If the controls were run and simply not returned, the chinook and sockeye zeros can be interpreted without resampling.
+- Assay the same species panel at both locations so the two are directly comparable. In `r params$project_year` the upstream and downstream samples were assayed for different sets of targets.
 
 - Repeat the electrofishing conducted in 2021 at the same closed-site locations. Pre-remediation multi-pass data exist for three sites upstream and three downstream, which is an uncommonly strong baseline and the most direct available measure of whether the replacement changed fish use rather than only passage condition.
 

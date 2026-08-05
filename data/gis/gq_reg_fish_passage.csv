@@ -1,0 +1,11 @@
+layer_key,type,source_layer,class_field,class_value,class_label,fill_color,fill_opacity,stroke_color,stroke_width,stroke_opacity,mark_color,mark_shape,mark_radius,mark_stroke_color,mark_stroke_width,label_color,label_size,label_font,label_halo_color,label_halo_width,label_offset_x,label_offset_y,note
+survey_track,line,habitat_confirmation_tracks,,,,,,#e216c4,1.6,1,,,,,,,,,,,,,Ground walked during a habitat confirmation. Casing drawn beneath at 7x width / 0.30 alpha.
+survey_track_casing,line,habitat_confirmation_tracks,,,,,,#e216c4,7,0.3,,,,,,,,,,,,,Translucent halo under the habitat lines so survey extent reads without masking the model.
+site_assessed,point,form_pscis,,,,,,,,,#ffd400,circle,0.8,#1a1a1a,1.6,#1a1a1a,0.6,,#ffffff,1,0,0.9,Crossing assessed by this project. Yellow ring; barrier result fills the centre.
+site_assessed_core,point,form_pscis,,,,,,,,,#999999,circle,0.34,,0,,,,,,,,Inner disc of site_assessed. mark_color is a placeholder only - the fill is replaced per feature with the PSCIS barrier result colour. gq_reg_custom drops the whole mark block if mark_color is empty.
+edna_sample,point,form_edna,,,,,,,,,#00a99d,diamond,0.45,#ffffff,0.6,#00554f,0.46,,#ffffff,1,0,-0.8,eDNA sample site.
+watershed_upstream,polygon,wshds,,,,#4a90c4,0.22,#14304a,2.2,1,,,,,,,,,,,,,Watershed upstream of the subject crossing.
+class_unknown,line,,,,,,,#999999,1,1,#999999,circle,0.3,#ffffff,0.5,,,,,,,,Fallback for a class value the registry does not carry - drawn neutral rather than erroring.
+inset_waterbody,polygon,,,,,#c9e2f0,1,#7fa8c4,0.4,1,,,,,,,,,,,,,Muted waterbody for keymap/inset context.
+inset_stream,line,,,,,,,#a9d3ec,0.7,1,,,,,,,,,,,,,Muted stream for keymap/inset context.
+inset_road,line,,,,,,,#5a5a5a,0.9,1,,,,,,#3a3a3a,0.42,,#ffffff,1,0,0,Muted road for keymap/inset context; label_size used for road names.

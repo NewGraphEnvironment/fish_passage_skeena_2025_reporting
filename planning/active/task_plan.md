@@ -120,11 +120,14 @@ notes said 159.203.51.66). Remote model version 133, cached was 122.
 - [x] `0837-appendix-edna.Rmd` retargeted; `edna_map_fraser.R` renamed and driven off
       `params$gis_project_name`; Fraser-suffixed objects renamed
 - [x] `0730-appendix-site-assessment-data.Rmd` derives its watershed groups from params
-- [ ] **NOT DONE** `0860-appendix-197962-peacock.Rmd` and `0860-appendix-124421-waterfall.Rmd` —
-      the two monitoring memos. Blocked on photos (#5): the Bittner skeleton is built around
-      before/after crossing photos and a lidar figure, none of which exist for these sites yet.
-      Monitoring results currently appear as prose in `0400-results.Rmd` and in the monitoring table.
-- [ ] **NOT DONE** Site maps via `lfpr_map_site()` — blocked on survey tracks (#5)
+- [x] `0860-appendix-197962-peacock.Rmd` and `0860-appendix-124421-waterfall.Rmd` — both written.
+      The photos were never missing: they were in OneDrive `extra/` (crossing series) and `renamed/`
+      (monitoring metrics), untagged, so the `_k_|crossing_all` importer filter skipped them. 2021
+      pre-remediation photos came from `fish_passage_skeena_2021_reporting`.
+- [x] Monitoring form table in both memos, and UAV orthomosaic viewers via `ngr_str_viewer_cog()`
+- [ ] **IN PROGRESS** Site maps — scripts and sidecar CSVs ported from the template, `0110` extended
+      to derive watersheds for monitoring sites. Peacock has its watershed (36.3 km2); Waterfall is
+      on a first-order stream so fwapgr returns nothing. Prep pull and map chunks outstanding — #9
 
 ## Phase 5 — Thematic appendices  ← DONE
 
