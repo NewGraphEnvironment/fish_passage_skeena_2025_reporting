@@ -76,6 +76,7 @@ kitsumkalum-river-1
 salmon-stock-assessment-data
 fish-species
 methods
+climate-departure
 collaborative-gis-environment
 mapping
 planning-habitat-and-connectivity-modelling
@@ -101,6 +102,7 @@ remediations
 monitoring
 results-and-discussion
 site-assessment-data
+climate-departure-1
 planning-habitat-and-connectivity-modelling-1
 habitat-modelling-1
 statistical-support-for-bcfishpass-fish-habitat-modelling-updates-1

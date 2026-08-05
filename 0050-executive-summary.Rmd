@@ -80,6 +80,33 @@ No Phase 2 habitat confirmation assessments were conducted. Habitat confirmation
 
 Environmental DNA (eDNA) sampling was the substantive field programme this season. A total of `r n_edna_real` samples were collected across `r n_edna_streams` streams, alongside `r n_edna_blanks` field and office blanks run as protocol controls.
 
+```{r edna-exec-prep, include = FALSE}
+# Self-contained on purpose. The results chapter builds the same summary, but it
+# renders after this file, so its objects are not in scope here.
+edna_exec <- readr::read_csv("data/edna_unbc_results_2025_by_site_target.csv",
+                             show_col_types = FALSE) |>
+  dplyr::filter(grepl(params$gis_project_name, source))
+lgl0 <- function(x) { x <- as.logical(x); x[is.na(x)] <- FALSE; x }
+edna_exec <- edna_exec |>
+  dplyr::filter(!lgl0(control_blank_field), !lgl0(control_blank_office)) |>
+  dplyr::mutate(any_clean = lgl0(any_clean))
+
+edna_exec_sum <- edna_exec |>
+  dplyr::group_by(target) |>
+  dplyr::summarise(tested = dplyr::n_distinct(site_id),
+                   detected = dplyr::n_distinct(site_id[any_clean]),
+                   .groups = "drop") |>
+  dplyr::mutate(name = dplyr::recode(target,
+    RAIN = "rainbow trout", BULT = "bull trout", COHO = "coho salmon",
+    CHIN = "chinook salmon", SOCK = "sockeye salmon", .default = target)) |>
+  dplyr::arrange(dplyr::desc(detected))
+
+edna_found  <- edna_exec_sum |> dplyr::filter(detected > 0)
+edna_absent <- edna_exec_sum |> dplyr::filter(detected == 0)
+```
+
+Of the `r nrow(edna_exec_sum)` species assayed, `r knitr::combine_words(paste0(edna_found$name, " (", edna_found$detected, " of ", edna_found$tested, " sites)"))` were detected. `r knitr::combine_words(edna_absent$name)` were not detected in any sample. Detections use the four-droplet call threshold applied by the laboratory. A single season of sampling establishes presence, not absence — a species may go undetected because it is absent, or because it was not shedding detectable DNA at the place and moment sampled — which is why the value of this layer grows with repetition.
+
 <br>
 
  
@@ -87,11 +114,30 @@ Environmental DNA (eDNA) sampling was the substantive field programme this seaso
   was used and metrics assessed included flow velocity, substrate condition, channel constriction, riparian condition, and cover 
   availability. 
   
+```{r cd-exec-prep, include = FALSE}
+cd_exec      <- readRDS("data/gis/climate_departure.rds")
+cd_exec_cmp  <- as.data.frame(cd_exec$regional$cmp)
+cd_exec_pct  <- as.data.frame(cd_exec$regional$cmp_pct)
+cd_pick <- function(tbl, var, period = "annual") {
+  tbl$difference[tbl$variable == var & tbl$period == period][1]
+}
+cd_tmean  <- cd_pick(cd_exec_cmp, "tmean")
+cd_doy50  <- cd_pick(cd_exec_cmp, "snowmelt_doy_50")
+cd_swe_su <- cd_pick(cd_exec_pct, "swe", "summer")
+cd_er_cum <- vapply(cd_exec$ecoregion, function(x) {
+  t <- as.data.frame(x$trn)
+  t <- t[t$variable == "tmean" & t$period == "annual" & t$trend_start == 1951, ]
+  t$slope[1] * t$n_years[1]
+}, numeric(1))
+```
+
+A climate departure analysis was completed for the study area, comparing the recent decade against a pre-warming reference period of 1951 to 1980. Mean annual air temperature is `r sprintf("%.1f", cd_tmean)` °C above that reference, and the warming is strikingly even across the region — the `r length(cd_er_cum)` ecoregions spanning the study area differ by only `r sprintf("%.2f", max(cd_er_cum) - min(cd_er_cum))` °C in warming accumulated since 1951. The clearest signal is in the snowpack, and it is one of timing rather than of quantity: the snowmelt midpoint now falls `r sprintf("%.0f", -cd_doy50)` days earlier in the year and summer snow water equivalent has fallen `r sprintf("%.0f", -cd_swe_su)` per cent. The freshet that crossing structures were sized against is arriving substantially earlier than the record they were designed from, and the late-summer cold water that snowpack once supplied is declining. Because the warming is so uniform, the thermal outlook for a given barrier is a question of elevation and local reach conditions rather than of which watershed group it sits in.
+
   <!-- Project specific above -->
-  
+
   <br>
 
-  
+
 A major challenge in advancing fish passage restoration is the complexity of working across jurisdictions and with multiple stakeholders—rail and highway authorities, forestry ministries, licensees, and private landowners. These partners are often being asked to accommodate priorities that originate outside their mandates and budgets. Convincing them to invest in difficult, high-cost interventions—like modifying crossings or relocating infrastructure—requires navigating uncertainty about costs and ecological outcomes, as well as a disconnect between the benefits to watershed health and the internal pressures or performance goals of these agencies. It’s a tough ask: to take on massive, uncertain projects when they’re already stretched thin with their own responsibilities.
 
 <br>
@@ -108,9 +154,9 @@ A single definitive ranking of remediation priorities is not achievable, because
   
 Looking ahead, priorities for the program are:
 
-- Continue and extend the long-term effectiveness monitoring program so decisions elsewhere are better informed.
+- Continue and extend the effectiveness monitoring program across the region's remediated crossings, carrying enough sites to span a range of structure types, treatment approaches and stream sizes, and continue developing a cost-effective framework that ties baseline and post-remediation data to measurable productivity gains.
 - Continue environmental DNA sampling as an annual, region-wide layer, building single-year detections into distribution and trend information.
-- Extend functional floodplain mapping and the climate departure analysis across the project area, so watershed condition sits alongside barrier status wherever prioritization is done.
+- Extend functional floodplain mapping across the project area so watershed condition sits alongside barrier status wherever prioritization is done.
 - Commission engineering designs at the Ministry of Transportation and Infrastructure crossings identified in previous reporting, and advance the highest ranked sites assessed this year.
 - Resolve species use through targeted fish sampling where habitat ranks high but detections are absent or unresolved.
 - Continue working with First Nations, stewardship groups, educational institutions and tenure holders, feeding monitoring results back into prioritization and design as adaptive management.

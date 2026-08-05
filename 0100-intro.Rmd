@@ -51,7 +51,7 @@ This project builds on Society for Ecosystem Restoration Northern BC (SERNbc) wo
 
 - [Bulkley River and Morice River Watershed Groups Fish Passage Restoration Planning (2020)](https://newgraphenvironment.github.io/fish_passage_bulkley_2020_reporting/) [@irvine2021BulkleyRiver]
 - [Bulkley River and Morice River Watershed Groups Fish Passage Restoration Planning 2021](https://newgraphenvironment.github.io/fish_passage_skeena_2021_reporting/) [@irvine2022BulkleyRiver]
-- [Bulkley River Watershed Fish Passage Restoration Planning 2022](https://newgraphenvironment.github.io/fish_passage_bulkley_2022_reporting/) [@irvine_etal2023BulkleyWatershed]
+- [Bulkley River Watershed Fish Passage Restoration Planning 2022](https://newgraphenvironment.github.io/fish_passage_bulkley_2022_reporting/) [@irvine2023BulkleyWatershed]
 - [Skeena Watershed Fish Passage Restoration Planning 2022](https://newgraphenvironment.github.io/fish_passage_skeena_2022_reporting/) [@irvine_wintersheidt2023SkeenaWatershed]
 - [Skeena Watershed Fish Passage Restoration Planning 2023](https://newgraphenvironment.github.io/fish_passage_skeena_2023_reporting/) [@irvine_schick2023SkeenaWatershed]
 - [Skeena Watershed Fish Passage Restoration Planning 2024](https://newgraphenvironment.github.io/fish_passage_skeena_2024_reporting/) [@irvine_schick2025SkeenaWatershed]

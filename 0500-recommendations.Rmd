@@ -21,15 +21,11 @@ To advance fish passage restoration in the Skeena region:
 
 **Effectiveness monitoring and building the state of knowledge**
 
-- Continue the effectiveness monitoring program at PSCIS crossings 197962 (Peacock Creek, Morice FSR) and 124421 (Waterfall Creek, 11th Avenue). Monitoring is where the program learns whether a remediation delivered what it was designed to deliver, and that is only visible over multiple years. Documenting an outcome that did not hold is as valuable as documenting one that did.
-
-- Extend monitoring to additional remediated sites across the region so the record spans a range of structure types, treatment approaches and stream sizes rather than a small number of long-running sites.
+- Continue and extend the effectiveness monitoring program across the region's remediated crossings, and continue developing a cost-effective framework that ties baseline and post-remediation data to measurable productivity gains from improved passage. Monitoring is where the program learns whether a remediation delivered what it was designed to deliver, and that is only visible over multiple years. Carrying enough sites to span a range of structure types, treatment approaches and stream sizes is what allows those outcomes to be compared rather than read one at a time.
 
 - Share monitoring outcomes openly with tenure holders, regulators, First Nations and other restoration practitioners, so decisions elsewhere are informed by what has and has not worked here.
 
 - Continue environmental DNA sampling as an annual, region-wide data layer. Sustained annual sampling is what turns single-year detections into distribution and trend information. The `r params$project_year` results already establish species presence at sites carrying no habitat confirmation assessment.
-
-- Continue to develop a cost-effective monitoring framework that ties baseline and post-remediation data to measurable productivity gains from improved passage.
 
 **Partnerships, capacity and adaptive management**
 
@@ -39,7 +35,7 @@ To advance fish passage restoration in the Skeena region:
 
 - Maintain partnerships with rail, highway and forestry tenure holders, and with the Habitat Conservation Trust Foundation and the Ministry of Transportation and Infrastructure, to support funding, site selection, remediation and monitoring.
 
-- Feed monitoring results back into prioritization and design. The purpose of a monitoring program is adaptive management, and what is learned at Peacock Creek and Waterfall Creek should change which treatments are proposed elsewhere.
+- Feed monitoring results back into prioritization and design. The purpose of a monitoring program is adaptive management, and what is learned at monitored sites should change which treatments are proposed elsewhere.
 
 **Watershed-scale context — floodplain health and climate departure**
 

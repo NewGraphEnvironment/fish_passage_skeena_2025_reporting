@@ -520,15 +520,14 @@ high-latitude amplification. The warmest ecoregion is the
 `r tools::toTitleCase(tolower(er_cool$name))` at
 +`r fmt2(er_cool$dep)` °C.
 
-The implication for fish passage is that geography offers little
-refuge here. The warmest and coolest watershed groups —
+The implication for fish passage is that the thermal question is an
+elevation and reach-scale one. The warmest and coolest watershed groups —
 `r knitr::combine_words(paste0(as.character(wsg_warm$name), " (+", fmt2(wsg_warm$dep), " °C)"))`
 against `r as.character(wsg_cool$name)`
 (+`r fmt2(wsg_cool$dep)` °C) — differ by less than
-`r fmt1(max(wsg_r$dep) - min(wsg_r$dep))` °C. Barrier reaches cannot be
-triaged by which watershed group they sit in the way a steeper
-gradient would allow; the differences that matter here are
-elevational and local rather than regional.
+`r fmt1(max(wsg_r$dep) - min(wsg_r$dep))` °C, so the differences that
+separate one barrier reach from another are local: elevation, aspect,
+riparian cover and groundwater contribution.
 
 ```{r cd-map-tmean, fig.cap = "Spatial pattern of annual mean temperature departure across the AOI (2015-2025 mean minus 1951-1980 mean, degrees C). Warming is close to uniform, with a weak west-warm to east-cool axis and a secondary south-to-north amplification.", fig.height = 6.5}
 ggplot() +
@@ -593,18 +592,15 @@ for tmean in every ecoregion), and the range between them is narrow:
 lead, `r er_nm(er_trail)` trails at
 +`r sprintf("%.2f", min(er_tmean))` °C, and the whole spread is
 `r sprintf("%.2f", max(er_tmean) - min(er_tmean))` °C of cumulative
-warming since 1951. The mountain ecoregions warm slightly faster than
-the interior plateau here, the opposite of the pattern reported for the
-upper Fraser, but the difference is small enough that it carries little
-practical weight. The day-night asymmetry (tmin > tmax) holds in every
+warming since 1951. The mountain ecoregions warm marginally faster than
+the interior plateau, though the difference is small enough to carry
+little practical weight. The day-night asymmetry (tmin > tmax) holds in every
 ecoregion. Vapour pressure deficit rose significantly
 (p `r if (max(er_vpd_p) < 0.05) "< 0.05" else sprintf("<= %.3f", max(er_vpd_p))`)
 in every ecoregion.
 
-**Precipitation is the variable that does not move.** Unlike some
-other BC regions where the long-term precipitation trend is
-significant in a subset of ecoregions, here annual precipitation
-shows no significant trend in any of the `r n_er_word` ecoregions
+**Precipitation is the variable that does not move.** Annual
+precipitation shows no significant trend in any of the `r n_er_word` ecoregions
 (Mann-Kendall p ranges `r sprintf("%.2f", min(er_prcp_p))` to
 `r sprintf("%.2f", max(er_prcp_p))`). The climate signal for this study
 area is unambiguously about temperature and snowpack timing, not
@@ -863,9 +859,6 @@ from natural year-to-year variability. The climate-driven
 hydrology story for these `r n_cd_wsg_word` watershed groups is dominated by
 *atmospheric drying* (rising VPD, significant in every
 ecoregion) and *snowpack timing*, not by precipitation magnitude.
-This is the place where the local result differs from some other
-BC regions: there is no precipitation-trend gradient within the
-AOI for barrier prioritisation to lean on.
 
 **Snow is leaving the AOI earlier, not falling less.** The
 snowmelt midpoint shifted
@@ -904,11 +897,9 @@ but the separation is small enough to be immaterial next to
 within-watershed variation in elevation, aspect and groundwater
 contribution.
 
-This is a genuine difference from the upper Fraser, where the same
-analysis found a spread several times larger and could rank watershed
-groups by it. Here it cannot. Barrier prioritisation in this study area
-gains nothing from climate-departure geography and should lean on
-reach-scale thermal and habitat evidence instead.
+Warming this even means barrier prioritisation rests on reach-scale
+thermal and habitat evidence rather than on where a crossing sits in
+the region.
 
 For the cold-water salmonids the study area supports — steelhead,
 coho, chinook, bull trout, Dolly Varden and rainbow trout — the
