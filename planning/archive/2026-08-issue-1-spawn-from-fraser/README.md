@@ -33,15 +33,21 @@ are either stale (the work landed, the checkbox was never flipped — the BFG fo
 | GPS tracks untagged, photos uncurated | #5 |
 | Site maps for the monitoring appendices | #9 |
 
-**Two loose ends had no issue and would have been lost here:**
+**One loose end had no issue and would have been lost here**, now filed as
+NewGraphEnvironment/fish_passage_template_reporting#227: the dead `bcfishpass.sqlite` blobs this repo
+was BFG'd to remove still sit in the peer repos. Measured 2026-08-05 — 37 blobs / 1052 MB in the
+template, 37 / 1052 MB in `peace_2025`, 31 / 901 MB in `fraser_2025`, and **zero** here. Riskier there
+than it was here, because those repos have other clones and a history rewrite changes every SHA.
 
-1. **The PDF has never been built for this report.** Only gitbook has been rendered. `run_pagedown.R`
-   exists but has not been run, so the paged output is unverified — and the template's PDF path has a
-   known trap (`render_book(envir = globalenv())`).
-2. **Peer-repo history sweep.** The same dead sqlite blobs this repo was BFG'd to remove still sit in
-   `fish_passage_fraser_2025_reporting` (~168 MB), `fish_passage_peace_2025_reporting` (~298 MB) and
-   `fish_passage_template_reporting` (~402 MB). Riskier there than here, because those repos have other
-   clones and a force-push needs coordination. This repo's rewrite is the working recipe.
+**A second one turned out to be a stale checkbox, not a loose end.** `task_plan.md` carries
+"PDF (`run_pagedown.R`) not attempted", and that is wrong — `docs/fish_passage_skeena_2025_reporting.pdf`
+is committed at 6.2 MB and reads Version 0.1.0, last written in `6cfe322`. It trails `main` by the
+NuSEDS commit, which the next release regenerates. Worth noting how many boxes in that file are stale in
+the same direction: the BFG force-push, the `project_uav` re-burn (verified returning `skeena`, 170
+rows), and the v0.1.0 release are all done and all still show unchecked. **Read the artifact, not the
+checkbox.**
 
-Related and still true: this repo's remote carries **Fraser's `v0.3.0` and `v0.3.1` tags**, inherited on
-the spawn. They pin old objects and are part of why GitHub still reports ~198 MB.
+Also inherited: this repo's remote carries **Fraser's `v0.3.0` and `v0.3.1` tags** from the spawn. Unlike
+the stray tags that a `git fetch template` drops into a report repo, these are genuine ancestors of
+`main` here, so they are not deletable as foreign — they are simply Fraser's release names sitting in
+Skeena's namespace. This repo's own releases start at `v0.1.0`.
