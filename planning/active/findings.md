@@ -1,156 +1,134 @@
-# Findings — Skeena 2025 report (#1)
+# Findings — Climate departure appendix for the Skeena (#3)
 
-## The pipeline is parameterised, but the cache defeats it silently
+## The generator is complete; its own header says otherwise
 
-`scripts/02_reporting/0100-load-bcfishpass-data.R` builds every SQL pull from `params$wsg_code`
-(lines 70–78, 115–125) and guards on it (lines 8–10). Form paths come off `params$gis_project_name`
-(`0130-tables.R:8,17,26,35`). The eDNA region filter is `grepl(params$gis_project_name, source)`
-(`0400-results.Rmd:533`, `0837:26`) against a file holding all three regions — 146 Fraser, 128 Peace,
-80 Skeena rows.
+`scripts/gis/climate_departure.R` carries a header note reading "Phase 2 (separate commit): extends
+this script with the cd pipeline to produce the rds + tif + csv". That note is **stale**. The script has
+16 sections and Phase 2 landed:
 
-**But** lines 34–63 skip the rebuild entirely unless `update_bcfishpass: TRUE`, the version file is
-missing, or `force_bcfishpass_rebuild` is set. **Changing `wsg_code` alone does nothing.**
-
-## Spawned repos inherit stale sqlite tables and publish them
-
-Confirmed, not theorised. Fraser 2025 v0.3.1's published `docs/app-uav.html` renders **Peace**
-imagery:
-
-```
-region    watershed_group  year  item
-mackenzie parsnip          2023  125231_table_trib_tablefsr_21k
-mackenzie parsnip          2022  125000_parsnip_trib_arctic
-mackenzie carp             2024  198692_kerry_lake_trib
-```
-
-18 rows, all Parsnip and Carp. `0740-appendix-uav-imagery.Rmd:71` hardcodes
-`project_region <- "skeena"`, shadowing the param, in a chunk marked `eval = F`; the rendering chunk
-reads `project_uav` from the committed sqlite, which Peace burned before Fraser was spawned and
-Fraser never re-burned.
-
-Five sqlite tables are written by scripts `index.Rmd` never sources — `rd_class_surface`,
-`photo_metadata`, `project_uav`, `wshd_study_areas`, `wshds`. Each is a repeat of this waiting to
-happen.
-
-## Column drift between regions
-
-| File | Skeena | Fraser / Peace |
-|---|---|---|
-| `form_pscis_2025.csv` | 100 cols | 101 (Skeena lacks `assessment_comments_og`) |
-| `form_monitoring_2025.csv` | 122 cols | 127 |
-| `form_fiss_site_2025.csv` | 162 | 162 |
-| `form_edna_2025.csv` | 62 | 62 |
-
-Anything that rbinds across regions, or names those columns unconditionally, breaks on Skeena only.
-
-## Region hardcoding distribution
-
-312 region-word occurrences across 26 root `.Rmd` files. **125 (40%) are in `0200-background.Rmd`
-alone.** Seven files need zero edits (`0705`, `0740`, `0750`, `0835`, `2000`, `2100`, `2400`).
-Six files (~1,700 lines) need full replacement: the four `0840-*`, `0860-*`, `0500-recommendations`.
-
-`0050`, `0100` and `0300` already contain **written Skeena branches** in `params$project_region`
-`case_when`/`if-else` blocks, including fish-collection permit numbers and species lists. Flipping
-one param activates them.
-
-## Skeena 2024 as the background source
-
-Skeena 2024 (`fish_passage_skeena_2024_reporting`) has **no** eDNA appendix and **no** standalone
-monitoring memo — monitoring was inline prose in `0400-results.Rmd` plus one site appendix
-(`0800-appendix-197967-taman.Rmd`). It uses the older `0050/0600/0800-*` numbering.
-
-But its `0200-background.Rmd` (534 lines) already carries Wet'suwet'en, Gitxsan, Tsimshian and the
-Bulkley River. Its params: `gis_project_name: "sern_skeena_2023"`, `model_species: "st"`,
-`project_region` absent from params (hardcoded at `0400-results.Rmd:367`).
-
-Watershed groups, hardcoded in three places in 2024: `c('BULK', 'MORR', 'ZYMO', 'KISP', 'KLUM')`.
-
-## Repo weight — the 76 MB warning was a historical blob
-
-The content fix already landed: `crossings_vw` (33K rows) lives in
-`data/bcfishpass_crossings_vw.parquet` (5.3 MB), and `fp_sites_tracking` in a committed parquet
-snapshot (peace#10, closed). Worktree sqlite is **3.2 MB**, largest table `pscis_assessment_svw` at
-1,314 rows.
-
-History was never fixed. `git rev-list --objects --all`: 78.3 MB + 76.4 MB ×3 + 19.8 MB ×11 of dead
-`data/bcfishpass.sqlite` blobs, inherited from Fraser.
-
-| Repo | `.git` | worktree `data/` |
-|---|---|---|
-| skeena_2025 (created today) | 145 M | 63 M |
-| fraser_2025 | 168 M | 63 M |
-| peace_2025 | 298 M | 155 M |
-| template | 402 M | 3.8 G |
-
-Still open upstream: **template#156** (eliminate sqlite bloat — four architecture options, never
-decided) and **peace#1** (every repo's `data/backup/2025/` carries all three regions).
-
-BFG is installed at `/opt/homebrew/bin/bfg`; precedent is `restoration_wedzin_kwa_2024`, 2024-03-18.
-`git-filter-repo` is not installed.
-
-**Ordering is load-bearing.** BFG protects HEAD, so these must be deleted and committed *before* the
-rewrite or they are frozen in permanently:
-
-```
-15.2 MB  data/gis/necr.gpkg
-14.4 MB  docs/fish_passage_fraser_2025_reporting.pdf
-13.8 MB  fig/fishpassage_2024_fraser.png  (and its docs/ copy)
-```
-
-## Inherited PWF archives collided with Skeena's issue numbering
-
-The spawn carried Fraser's `planning/archive/` — issues #5, #6, #10. Skeena's numbering restarted at
-#1, so those directory names would eventually point at the wrong repo's issues. Renamed with a
-`fraser-` qualifier. The ~60 bare `#N` references *inside* those archived files were left alone —
-rewriting archived records is worse than the ambiguity, and the parent directory name now
-disambiguates.
-
-## Monitoring site photos — before/after provenance
-
-Both monitoring crossings have a genuine pre-remediation photo record, in
-`fish_passage_skeena_2021_reporting` (the only repo carrying either).
-
-2021 PSCIS records, which date the "before" state:
-
-| Site | Date | Structure | Result | Field comment |
-|---|---|---|---|---|
-| 197962 Peacock Ck | 2021-09-07 | Oval Culvert | Barrier | partial inlet drop from LWD and boulders |
-| 124421 Waterfall Ck | 2021-09-16 | Round Culvert | Barrier | bent in middle from road weight, 0.10 m inlet drop both pipes |
-
-**Peacock Creek 2021 timeline, confirmed by Al Irvine who was on the project:**
-
-| Date | Event |
+| Sections | What they do |
 |---|---|
-| 2021-09-07 | PSCIS assessment — culvert, Barrier. Photo shows perched outlet over a plunge pool |
-| 2021-09-11 | Habitat confirmation, both reaches high value |
-| 2021-09-17 | Electrofishing — three closed-site multi-pass locations up, three down |
-| **2021-09-20** | **Culvert replacement began** |
-| 2025-09-29 | Effectiveness monitoring — open-span bridge |
+| 1-10 | fwapg + BCDC → AOI, WSGs, towns, lakes, rivers, streams, highways, ecoregions → `climate_departure.gpkg` |
+| 11-15 | `cd_catalog` → `cd_extract` → `cd_baseline` → `cd_anomaly` → `cd_trend` → `cd_compare`, per-ecoregion loop, tmean raster, WSG × ecoregion crosswalk |
+| 16 | snapshot manifest |
 
-So the whole 2021 record is pre-remediation. Two source records contradict this and
-should not be trusted here:
+Confirmed by grep: `cd::cd_catalog()` at `:296`, `cd::cd_extract()` at `:299`, and the per-ecoregion
+loop from `:310`.
 
-- the 2025 monitoring form hedges, "Bridge installed in 2020 or 2021"
-- **the 2021-09-11 habitat confirmation comment on `197962_us` reads "Culvert has been
-  replaced with a bridge" — this is wrong.** It was written after the fact. The
-  2021-09-07 photograph shows a corrugated metal culvert with a perched outlet, and the
-  replacement did not start until nine days after the comment's own date.
+## Region-specific literals: three, not two
 
-Anyone re-deriving this from the field records alone will reach the wrong answer.
+The header documents two vectors needing edits for a new AOI. Grepping for Fraser place names and WSG
+codes across the whole script turns up **one more** the header does not mention:
 
-Current photos live in two OneDrive directories under
-`2025-076-sern-skeena-fraser-fish-passage/data/photos/skeena/`:
+```r
+:123  aoi_3005 <- sf::st_sf(region = "FWCP Fraser climate-departure", geom = aoi_3005)
+```
 
-- `renamed/` — sorted and descriptively named: effectiveness monitoring metrics
-  (revegetation, stability, cover, substrate, velocity, flow depth) and eDNA site photos
-- `extra/` — the crossing series from the same visits. **This is where the crossing photos
-  were.** Peacock's six are named (road, upstream, downstream, inlet, outlet, barrel);
-  Waterfall's fourteen are still camera defaults.
+Cosmetic — it labels the AOI feature — but it would travel into the gpkg and out the other side.
 
-The two sets share no files, and EXIF puts all of them inside the site-visit windows
-(197962 on 2025-09-29 16:55-17:31, form logged 17:19; 124421 on 2025-10-04 10:04-10:43,
-form logged 10:22).
+## The generator cannot read `params`, and the issue was wrong to ask
 
-**Why #5 originally said the photos did not exist:** `0160-photos-import.Rmd` copies only
-files matching `_k_` or `crossing_all`, and neither OneDrive directory uses those tags.
-The absence was a tagging convention gap, not missing data.
+The original issue proposed making `:41` read `params$wsg_code`. Not possible as written: the script is
+standalone, run by hand via `Rscript`, and `grep -rn 'climate_departure.R'` across every `.R` and `.Rmd`
+returns **no caller**. There is no `params` object in scope. Driving it from the report's own parameter
+would mean parsing `index.Rmd`'s YAML — worth doing at template level if a fourth region appears, not a
+two-character fix, and not a blocker.
+
+## Where this can go wrong: hardcoded findings in prose
+
+The Fraser appendix is 846 lines with **31 inline R expressions**, so extent, watershed-group lists and
+counts re-derive themselves. But **16 prose lines carry numbers with units baked in**:
+
+```
+:485  about +1.1 to +2.0 °C across the AOI, and ecoregion means span
+:486  +1.4 to +2.0 °C (Figure \@ref(fig:cd-map-tmean)). The dominant
+:377  Summer SWE collapse (-52 %, p ≈ 0.01) and summer snowmelt fall (-37 %, p ≈ 0.02)
+```
+
+Port the appendix, rebuild on Skeena data, and each of these becomes wrong but entirely plausible. The
+build does not complain — nothing here is a broken reference or a missing file. This is the same shape
+as the Peace imagery in Fraser's UAV appendix and the Haida Gwaii escapement in the NuSEDS table.
+
+Where the value is derivable, converting to an inline R expression is better than correcting it, since
+that stops the next region inheriting the same problem.
+
+## Place names: fewer than expected
+
+Only 7 lines match Fraser place names, and several are **ecoregion** names rather than prose choices —
+`Fraser Basin`, `Fraser Plateau`, and `Eastern Hazelton Mountains` (already a Skeena-area ecoregion
+appearing in the Fraser AOI). These must be re-derived from the Skeena AOI's actual ecoregion set, not
+swapped by hand.
+
+## Prerequisites, all present
+
+| | |
+|---|---|
+| fwapg PostgreSQL | reachable on **5432** — not the bcfishpass tunnel on 63333 |
+| `cd` | 0.3.0 (preflight `stopifnot()` requires >= 0.3.0) |
+| `fresh` | 0.32.0 — supplies `frs_db_conn()` |
+| `bcdata` | 0.5.2 — ecoregions come from BCDC, not fwapg |
+
+## Skeena results — what the numbers actually are
+
+Generated 2026-08-05. These are what the ported prose has to be rewritten against.
+
+**Six ecoregions, not eight.** NRA Nass Ranges, SKM Skeena Mountains, EHM Eastern Hazelton Mountains,
+COG Coastal Gap, FAP Fraser Plateau, FAB Fraser Basin. Fraser Basin and Fraser Plateau are genuine
+Skeena-AOI ecoregions — they extend north — so the names survive even though the region changed.
+
+**Cumulative warming since 1951 (trend slope × 75 years), °C:**
+
+| | | tmean | tmax | tmin | prcp p |
+|---|---|---|---|---|---|
+| NRA | Nass Ranges | **2.70** | 2.42 | 2.91 | 0.83 |
+| SKM | Skeena Mountains | 2.62 | 2.36 | 2.75 | 0.35 |
+| EHM | Eastern Hazelton Mountains | 2.49 | 2.27 | 2.58 | 0.95 |
+| COG | Coastal Gap | 2.48 | 2.26 | 2.67 | 0.88 |
+| FAP | Fraser Plateau | 2.45 | 2.31 | 2.51 | 0.69 |
+| FAB | Fraser Basin | **2.42** | 2.29 | 2.48 | 0.87 |
+
+Regional: **+2.59 °C** cumulative, Mann-Kendall p < 0.0001. Every ecoregion significant at p ≈ 0.
+`tmin > tmax` in all six, so the day-night asymmetry holds. No significant precipitation trend
+anywhere (p 0.35–0.95).
+
+**The elevation story inverts.** Fraser's appendix has the interior-plateau ecoregions (Fraser Basin,
+Fraser Plateau) *leading* and high-elevation ranges *trailing*. In the Skeena those same two plateau
+ecoregions **trail** at +2.42 and +2.45, and the Nass Ranges and Skeena Mountains lead at +2.70 and
++2.62. Porting the Fraser sentence would have stated the opposite of what this data shows.
+
+**Recent decade vs pre-warming reference, regional annual:** tmean +2.07 °C, tmax +1.91, tmin +2.19
+(all p < 0.0001). Summer tmean +2.75, winter +2.15.
+
+**Spatial tmean departure raster:** +1.78 to +2.43 °C across the AOI, mean +2.07. Fraser's range was
++1.1 to +2.0.
+
+**Snowpack, recent decade vs reference, percent change:**
+
+| | change | p |
+|---|---|---|
+| summer SWE | **−60.3 %** | 0.0001 |
+| summer snowmelt | **−40.9 %** | 0.0027 |
+| spring snowmelt | **+51.5 %** | 0.0005 |
+| winter snowmelt | +46.4 % | **0.55 — not significant** |
+| annual SWE | −20.2 % | 0.0075 |
+
+The winter figure matters for the port: Fraser's prose reads "counterbalancing winter (+45 %) and
+spring (+18 %) snowmelt rises", with both treated as real. Here winter is a similar magnitude but
+**not statistically significant**, while spring is nearly three times Fraser's and highly significant.
+Carrying that sentence over would assert a counterbalancing pair the Skeena data does not support.
+
+**WSG × ecoregion crosswalk:** Kalum is 100 % Nass Ranges; Kispiox 78 % Nass / 22 % Skeena Mountains;
+Morice 68 % Eastern Hazelton / 23 % Coastal Gap; Zymoetz 73 % Nass / 23 % Eastern Hazelton; Bulkley is
+the only genuinely mixed group, spread across five ecoregions with no majority (40 % Fraser Plateau).
+
+## Route considered and rejected
+
+`cd` carries a deliberate regional-vignette template (`peace-fwcp.Rmd`, `kootenay-lake.Rmd`) whose
+project memory states a third regional vignette is expected, and `/vignette-to-appendix` is calibrated
+on four transfers including `cd`→Fraser. That route puts heavy inputs in `inst/vignette-data/` inside
+the package rather than this repo's `data/gis/`, which matters because `output_dir: "docs"` means report
+data is committed twice.
+
+Rejected for this issue only: the report-side generator is three literals from working, and the
+appendix already exists in report register so there is no vignette→appendix tone transfer to perform.
+Worth revisiting when a fourth region needs the same edits.
