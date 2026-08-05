@@ -61,18 +61,28 @@ report register. Revisit if a fourth region needs the same edits.
 
 ## Phase 1 — Retarget the generator
 
-- [ ] The three literals above
-- [ ] Compute the Skeena AOI area first, compare against Peace's ~73,000 km², and set
-      `min_lake_area_ha` / `min_stream_order` / `simplify_tol_m` from that rather than inheriting
-- [ ] **Verify:** sections 1-10 run, `climate_departure.gpkg` written with all eight layers, AOI area
-      and WSG list match `params$wsg_code`
+- [x] The three literals above, plus the stale "Phase 2 (separate commit)" note in the header
+- [x] Tuning constants checked rather than inherited, and **left unchanged on the evidence**: the
+      Skeena five are 25,334 km² against the Fraser seven at 34,019 km² — 0.74×, not the
+      order-of-magnitude drop that would force a retune — and at order ≥ 7 the two AOIs carry
+      comparable stream density (1,865 segments here, 2,100 there). The comment citing Peace's
+      ~73,000 km² was itself stale; Fraser had already run these values at half that
+- [x] **Verify:** all eight gpkg layers written; six towns all resolved (Smithers, Houston, Telkwa,
+      Hazelton, Terrace, Kitimat); 37 lakes; AOI 25,334 km² across the five `params$wsg_code` groups
 
 ## Phase 2 — Run the cd pipeline
 
-- [ ] Sections 11-15 → `climate_departure.rds`, `climate_departure_tmean.tif`,
+- [x] Sections 11-15 → `climate_departure.rds` (325 KB), `climate_departure_tmean.tif` (3.4 KB),
       `climate_departure_wsg_ecoregion.csv`, plus the section 16 snapshot manifest
-- [ ] **Verify:** ecoregions returned are Skeena ecoregions, not Fraser's eight; crosswalk percentages
-      sum sanely per watershed group; raster masked to the new AOI
+- [x] **Verify:** **six** ecoregions, not Fraser's eight — NRA Nass Ranges, SKM Skeena Mountains,
+      EHM Eastern Hazelton Mountains, COG Coastal Gap, FAP Fraser Plateau, FAB Fraser Basin. Note
+      Fraser Basin and Fraser Plateau are genuine Skeena-AOI ecoregions, so those names in the prose
+      are not automatically wrong — the interpretation around them is. Crosswalk sums to 100 % per
+      group; raster masked to the new AOI, 435 cells
+
+**Benign warnings:** `Error exit, tauk2. IFAULT = 12` appeared several times during the per-ecoregion
+loop. That is the Kendall tau routine refusing a series it cannot rank cleanly; the pipeline completed,
+every ecoregion returned a trend, and Mann-Kendall p-values are populated throughout.
 
 ## Phase 3 — Port the appendix
 

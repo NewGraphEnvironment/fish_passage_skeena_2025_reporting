@@ -23,10 +23,9 @@
 #   climate_departure_wsg_ecoregion.csv    WSG × ecoregion percentage
 #                                          crosswalk
 #
-# Phase 1 (this script as committed): AOI + context + ecoregions →
-#   climate_departure.gpkg
-# Phase 2 (separate commit): extends this script with the cd pipeline
-#   to produce the rds + tif + csv.
+# Sections 1-10 build the AOI, context layers and ecoregions into
+#   climate_departure.gpkg; sections 11-15 run the cd pipeline to produce
+#   the rds + tif + csv; section 16 writes the snapshot manifest.
 #
 # Prerequisites:
 #   - SSH tunnel to fwapg PostgreSQL up; PG_* env vars set
@@ -38,19 +37,26 @@
 
 # ---- params -------------------------------------------------------------
 
-wsg_codes <- c("LCHL", "NECR", "FRAN", "MORK", "UFRA", "TABR", "WILL")
+wsg_codes <- c("BULK", "MORR", "ZYMO", "KISP", "KLUM")
 
 # Towns to label on AOI maps. Curated list of cities / towns / villages
 # inside or adjacent to the AOI. Missing names are logged so the list
 # can be revised if a place renames or wasn't in the gns table.
+# Kept short deliberately - more names means label clutter at this scale.
 town_names <- c(
-  "Prince George", "Quesnel", "Williams Lake", "Vanderhoof",
-  "Fraser Lake", "100 Mile House", "McBride", "Valemount"
+  "Smithers", "Houston", "Telkwa", "Hazelton", "Terrace", "Kitimat"
 )
 
 # Lake size threshold and stream-order cutoff are tuned for a multi-WSG
-# regional AOI of this scale — same tuning Peace used for its ~73,000
-# km² AOI.
+# regional AOI of this scale.
+#
+# Checked rather than inherited when this moved from the Fraser AOI to the
+# Skeena. The Skeena five are 25,334 km2 against the Fraser seven at 34,019
+# km2 - 0.74x, not the order-of-magnitude drop that would force a retune -
+# and at order >= 7 the two AOIs carry comparable stream density (1,865
+# segments here, 2,100 there). Left as they are on that evidence.
+# (The note this replaced cited Peace's ~73,000 km2 AOI, which had already
+# stopped being the baseline by the time Fraser ran these same values.)
 min_lake_area_ha <- 1000
 min_stream_order <- 7
 
@@ -120,7 +126,7 @@ message(sprintf("  found: %s", paste(wsgs$code, collapse = ", ")))
 # AOI = dissolved union of the WSGs. Keep in 3005 for spatial-filter
 # queries below; transform to 4326 just before the final write.
 aoi_3005 <- sf::st_union(wsgs)
-aoi_3005 <- sf::st_sf(region = "FWCP Fraser climate-departure",
+aoi_3005 <- sf::st_sf(region = "Skeena climate-departure",
                       geom = aoi_3005)
 aoi_km2 <- as.numeric(sum(sf::st_area(aoi_3005))) / 1e6
 message(sprintf("  AOI area: %.0f km²", aoi_km2))

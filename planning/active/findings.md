@@ -68,6 +68,59 @@ swapped by hand.
 | `fresh` | 0.32.0 — supplies `frs_db_conn()` |
 | `bcdata` | 0.5.2 — ecoregions come from BCDC, not fwapg |
 
+## Skeena results — what the numbers actually are
+
+Generated 2026-08-05. These are what the ported prose has to be rewritten against.
+
+**Six ecoregions, not eight.** NRA Nass Ranges, SKM Skeena Mountains, EHM Eastern Hazelton Mountains,
+COG Coastal Gap, FAP Fraser Plateau, FAB Fraser Basin. Fraser Basin and Fraser Plateau are genuine
+Skeena-AOI ecoregions — they extend north — so the names survive even though the region changed.
+
+**Cumulative warming since 1951 (trend slope × 75 years), °C:**
+
+| | | tmean | tmax | tmin | prcp p |
+|---|---|---|---|---|---|
+| NRA | Nass Ranges | **2.70** | 2.42 | 2.91 | 0.83 |
+| SKM | Skeena Mountains | 2.62 | 2.36 | 2.75 | 0.35 |
+| EHM | Eastern Hazelton Mountains | 2.49 | 2.27 | 2.58 | 0.95 |
+| COG | Coastal Gap | 2.48 | 2.26 | 2.67 | 0.88 |
+| FAP | Fraser Plateau | 2.45 | 2.31 | 2.51 | 0.69 |
+| FAB | Fraser Basin | **2.42** | 2.29 | 2.48 | 0.87 |
+
+Regional: **+2.59 °C** cumulative, Mann-Kendall p < 0.0001. Every ecoregion significant at p ≈ 0.
+`tmin > tmax` in all six, so the day-night asymmetry holds. No significant precipitation trend
+anywhere (p 0.35–0.95).
+
+**The elevation story inverts.** Fraser's appendix has the interior-plateau ecoregions (Fraser Basin,
+Fraser Plateau) *leading* and high-elevation ranges *trailing*. In the Skeena those same two plateau
+ecoregions **trail** at +2.42 and +2.45, and the Nass Ranges and Skeena Mountains lead at +2.70 and
++2.62. Porting the Fraser sentence would have stated the opposite of what this data shows.
+
+**Recent decade vs pre-warming reference, regional annual:** tmean +2.07 °C, tmax +1.91, tmin +2.19
+(all p < 0.0001). Summer tmean +2.75, winter +2.15.
+
+**Spatial tmean departure raster:** +1.78 to +2.43 °C across the AOI, mean +2.07. Fraser's range was
++1.1 to +2.0.
+
+**Snowpack, recent decade vs reference, percent change:**
+
+| | change | p |
+|---|---|---|
+| summer SWE | **−60.3 %** | 0.0001 |
+| summer snowmelt | **−40.9 %** | 0.0027 |
+| spring snowmelt | **+51.5 %** | 0.0005 |
+| winter snowmelt | +46.4 % | **0.55 — not significant** |
+| annual SWE | −20.2 % | 0.0075 |
+
+The winter figure matters for the port: Fraser's prose reads "counterbalancing winter (+45 %) and
+spring (+18 %) snowmelt rises", with both treated as real. Here winter is a similar magnitude but
+**not statistically significant**, while spring is nearly three times Fraser's and highly significant.
+Carrying that sentence over would assert a counterbalancing pair the Skeena data does not support.
+
+**WSG × ecoregion crosswalk:** Kalum is 100 % Nass Ranges; Kispiox 78 % Nass / 22 % Skeena Mountains;
+Morice 68 % Eastern Hazelton / 23 % Coastal Gap; Zymoetz 73 % Nass / 23 % Eastern Hazelton; Bulkley is
+the only genuinely mixed group, spread across five ecoregions with no majority (40 % Fraser Plateau).
+
 ## Route considered and rejected
 
 `cd` carries a deliberate regional-vignette template (`peace-fwcp.Rmd`, `kootenay-lake.Rmd`) whose
