@@ -23,9 +23,14 @@ tab:tab-sites-cap
 tab:tab-edna-per-site
 tab:tab-edna-field-blanks
 tab:tab-edna-retests
+fig:photo-124421-before
+fig:photo-124421-after
+fig:photo-124421-reveg
+tab:tab-monitoring-124421
 fig:photo-197962-before
 fig:photo-197962-after
 fig:photo-197962-substrate
+tab:tab-monitoring-197962
 tab:tab-fish-197962
 tab:tab-edna-results-197962
 introduction

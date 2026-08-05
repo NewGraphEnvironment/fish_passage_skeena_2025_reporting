@@ -49,6 +49,30 @@ knitr::include_graphics("data/photos/197962/20250929_173127_NA_substrate.JPG")
 
 <br>
 
+## Monitoring Form {.unnumbered}
+
+`r params$project_year` effectiveness monitoring form results are summarized in Table \@ref(tab:tab-monitoring-197962).
+
+<br>
+
+```{r tab-monitoring-197962}
+tab_monitoring |>
+  dplyr::filter(`Pscis Crossing Id` == my_site_mon) |>
+  dplyr::mutate(dplyr::across(dplyr::everything(), as.character)) |>
+  tidyr::pivot_longer(
+    cols = dplyr::everything(),
+    names_to = "Variable",
+    values_to = "Value"
+  ) |>
+  fpr::fpr_kable(
+    caption_text = paste0("Summary of effectiveness monitoring form results for site ", my_site_mon,
+                          " in ", params$project_year, "."),
+    scroll = gitbook_on
+  )
+```
+
+<br>
+
 ## Habitat and Fish Presence {.unnumbered}
 
 Habitat confirmation assessments were completed at this site in September 2021, before the culvert was replaced. Both the reach upstream and the reach downstream of the crossing were rated high habitat value, with 750 m surveyed upstream and 600 m downstream. The upstream reach was described as complex habitat with undercut banks, large and small woody debris and pools; the downstream reach as carrying consistent undercut banks with woody debris and overhanging vegetation providing cover. Approximately 4.8 km of upstream habitat length was estimated, and the site was ranked a high priority for remediation.

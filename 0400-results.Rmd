@@ -308,7 +308,7 @@ In `r (params$project_year)`, baseline or follow up monitoring data was gathered
 
 - Effectiveness monitoring was conducted on Peacock Creek (PSCIS crossing 197962) on the Morice FSR, where the oval culvert was replaced with a bridge in 2021. Environmental DNA sampling upstream and downstream of the crossing confirmed coho, rainbow trout and bull trout in the reach. Results are presented in the [Peacock Creek - 197962 - Monitoring Appendix](#peacock-2025).
 
-- Effectiveness monitoring was conducted on Waterfall Creek (PSCIS crossing 124421) at 11th Avenue, where the culvert was removed by the Gitksan Watershed Authorities. Riprap at the site has been buried and seeded, with good regrowth of grasses established and shrub planting planned.
+- Effectiveness monitoring was conducted on Waterfall Creek (PSCIS crossing 124421) at 11th Avenue, where the culvert was removed by the Gitksan Watershed Authorities. Riprap at the site has been buried and seeded, with good regrowth of grasses established and shrub planting planned. Results are presented in the [Waterfall Creek - 124421 - Monitoring Appendix](#waterfall-2025).
 
 
 ```{r tab-mon-overview, eval = T}
