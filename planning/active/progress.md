@@ -1,116 +1,19 @@
-# Progress — Skeena 2025 report (#1)
+# Progress — Climate departure appendix for the Skeena (#3)
 
-## Session 2026-08-03
+## Session 2026-08-05
 
-- Repo bootstrapped: branched from `fish_passage_fraser_2025_reporting` main at `7ef34cc`, created
-  public as `NewGraphEnvironment/fish_passage_skeena_2025_reporting`, cloned locally.
-  `gh issue transfer` from the private template was refused by GitHub (private → public), so
-  template#221 was re-filed here as #1 and closed with a pointer.
-- Renamed the three inherited Fraser PWF archives with a `fraser-` qualifier — their issue numbers
-  (#5, #6, #10) collided with Skeena's fresh numbering.
-- Plan-mode exploration across three agents: pipeline parameterisation, Rmd inventory and region
-  hardcoding, Skeena 2024 precedent + 2025 backup data.
-- Confirmed a live defect in the **published Fraser 2025 report** — `docs/app-uav.html` renders Peace
-  imagery from a stale inherited sqlite table.
-- Corrected the repo-weight picture: the 76 MB push warning was a historical blob, not the current
-  file. The sqlite slimming already landed; the git history was never cleaned.
-- Created branch `1-skeena-2025-report-spawn-from-fraser-202` off main.
-- Scaffolded PWF baseline with user-approved phases.
-- Next: Phase 0 — identity.
-
-## Session 2026-08-03 (continued)
-
-**Phase 0 — done.** Identity retargeted: params, title, `_bookdown.yml`,
-`_output.yml`, README, `.Rproj`, the duplicated exec-summary params block,
-NEWS/DESCRIPTION reset to 0.0.1. `force_bcfishpass_rebuild` declared — the loader
-read it at two points but it was never in the YAML, so it resolved to NULL.
-
-**Phase 1 — done.** Fraser payload removed: four site appendices, the Bittner
-monitoring memo, climate departure and floodplain appendices (filed as #3 and #2),
-the Fraser and Peace regional backup/spreadsheet directories, and `fig/background/`
-(18 MB of knitr output, gitignored now).
-
-History rewritten with BFG. **145 MB → 26 MB**, 408 commits intact back to
-Fraser's initial commit. The 76 MB push warning turned out to be a historical
-blob, not the current file — the sqlite slimming had already landed via the
-crossings parquet. The actual weight was `docs/`: 70.6 MB of committed rendered
-book, mostly ~20 copies of `results-and-discussion.html` at 3.8 MB each. No single
-blob crossed BFG's 10 MB threshold; it was pure accumulation.
-
-**Force-push not yet done** — blocked by the permission system, needs running by
-hand.
-
-**Phase 2 — partial.** The bcfishpass layers, field forms, study-area watersheds
-and species table are all Skeena now. Blocked on three field-data inputs, filed
-as #5: GPS tracks untagged, photos uncurated, and `0110-load-wshd_stats.R`
-assuming Phase 2 sites exist when this season has none.
-
-Phases 3-6 not started — they need a data layer that builds.
-
-## Open at end of session 2026-08-03
-
-**The BFG rewrite is local only.** Remote branch is still `85eb02c`, the
-pre-rewrite safety copy; `main` is still `7ef34cc`. GitHub reports the repo at
-132 MB. Local `.git` is 26 MB.
-
-The push failed on credentials, not on anything about the rewrite: the `origin`
-remote is HTTPS and git has no token helper configured, while `gh` itself is
-authenticated. Fix with `gh auth setup-git`, or switch the remote to SSH. Then:
-
-```sh
-git push --force-with-lease origin HEAD
-```
-
-**Decide before landing this branch — the rewritten branch shares no commits
-with `main`.** Every SHA changed, so `main` is still the original lineage
-carrying the fat blobs. An ordinary PR merge would splice that history back in
-alongside the slim one and leave the repo *larger* than it started. To keep the
-slimming, `main` has to end up on the rewritten lineage — force-update `main` to
-the branch tip at merge time, or rewrite `main` the same way first. Safe today
-(one clone, no forks, no collaborators); not safe once anyone else clones.
-
-**Also pending:** `project_uav` still holds the inherited Peace rows (code fix
-landed, re-burn needs the STAC chunk run with network access), and the three
-field-data blockers in #5.
-
-## Session 2026-08-03 (phases 3-6)
-
-**Phase 2 completed.** The zero-Phase-2 guards unblocked it. `project_uav` re-burned
-to 170 Skeena records. `photo_metadata` and `wshds` dropped rather than left stale —
-absent beats another region's data.
-
-**Phase 3 done.** Background ported from Skeena 2024. Results and recommendations
-rewritten for a monitoring/eDNA season, grounded in the actual data: 19 eDNA sites
-across 10 streams, rainbow trout detected at nine, bull trout seven, coho three.
-
-**Phase 4 partial.** eDNA appendix and map retargeted. The two monitoring memos and
-the site maps are NOT written — both blocked on #5 (photos uncurated, GPS tracks
-untagged). Monitoring results appear as prose in the results chapter instead.
-
-**Phase 5 done.** NuSEDS retargeted in code; its Fraser extract removed rather than
-published (#6).
-
-**Phase 6 gitbook builds clean** — 19 chapters, no Fraser-region words in rendered
-prose. PDF not attempted.
-
-Still unpushed — see the credential note above.
-
-## Session 2026-08-04
-
-Released **v0.1.0** — 21 chapters, gitbook and PDF, pushed. `main` force-updated to the rewritten
-lineage, so the BFG slimming finally took effect.
-
-**Both monitoring memos written.** Peacock carries a verified before/after pair, the 2021 catch (96
-fish, 4 species, coho and cutthroat only downstream) and 2025 eDNA. Waterfall documents a culvert
-removed outright by the Gitksan Watershed Authorities. #5 was wrong that the photos did not exist —
-they were untagged in OneDrive `extra/`.
-
-**Two claims removed as unsupported.** The eDNA non-detection caveat (four places, two inherited from
-Fraser) and the sub-threshold tier — UNBC's report sets the four-droplet call threshold and treats
-anything below it as negative. Methods now point at their report, which is committed to
-`data/inputs_raw/` and `docs/`.
-
-**Two of my own errors corrected:** the Waterfall watershed group (Kispiox → Bulkley, caught by the
-S3 imagery path) and the territorial acknowledgement, removed at the author's direction.
-
-**Next:** #9 — run `0410-map-site-prep.R` for both units, add map chunks, rebuild. Tunnel needed.
+- Explored before planning, and the exploration changed the issue. Rewrote #3: the generator is
+  complete rather than half-built, the change is three literals rather than two, and the original
+  proposal to make `wsg_codes` read `params$wsg_code` is not possible in a standalone script that never
+  sees `params`.
+- Weighed building this as a `cd` regional vignette via `/vignette-to-appendix` — better in principle,
+  not worth it here. Recorded in `findings.md` with the condition that would change the answer.
+- Merged the long-lived spawn branch first. `main` had been 11 commits behind with no PR open,
+  including the v0.1.0 release commit itself. Merged as PR #10, tagged **v0.1.0**, #6 auto-closed.
+- Archived #1's PWF, carrying forward two loose ends that had no issue: the PDF has never been built
+  for this report, and the peer-repo history sweep (dead sqlite blobs still in fraser_2025, peace_2025
+  and the template) is unfiled.
+- Created branch `3-climate-departure-appendix-swap-the-aoi` off main and scaffolded this baseline with
+  the approved phases.
+- Next: Phase 1 — retarget the three literals and settle the three tuning constants against the actual
+  Skeena AOI area.
