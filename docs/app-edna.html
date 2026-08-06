@@ -262,9 +262,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="methods.html"><a href="methods.html#mapping"><i class="fa fa-check"></i><b>3.2.1</b> Mapping</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="methods.html"><a href="methods.html#planning-habitat-and-connectivity-modelling"><i class="fa fa-check"></i><b>3.3</b> Planning — Habitat and Connectivity Modelling</a>
+<li class="chapter" data-level="3.3" data-path="methods.html"><a href="methods.html#planning-habitat-connectivity-and-floodplain-modelling"><i class="fa fa-check"></i><b>3.3</b> Planning — Habitat, Connectivity and Floodplain Modelling</a>
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="methods.html"><a href="methods.html#habitat-modelling"><i class="fa fa-check"></i><b>3.3.1</b> Habitat Modelling</a></li>
+<li class="chapter" data-level="3.3.2" data-path="methods.html"><a href="methods.html#floodplain-delineation"><i class="fa fa-check"></i><b>3.3.2</b> Floodplain Delineation</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="methods.html"><a href="methods.html#fish-passage-assessments"><i class="fa fa-check"></i><b>3.4</b> Fish Passage Assessments</a>
 <ul>
@@ -288,9 +289,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="4.1" data-path="results-and-discussion.html"><a href="results-and-discussion.html#site-assessment-data"><i class="fa fa-check"></i><b>4.1</b> Site Assessment Data</a></li>
 <li class="chapter" data-level="4.2" data-path="results-and-discussion.html"><a href="results-and-discussion.html#climate-departure-1"><i class="fa fa-check"></i><b>4.2</b> Climate Departure</a></li>
-<li class="chapter" data-level="4.3" data-path="results-and-discussion.html"><a href="results-and-discussion.html#planning-habitat-and-connectivity-modelling-1"><i class="fa fa-check"></i><b>4.3</b> Planning — Habitat and Connectivity Modelling</a>
+<li class="chapter" data-level="4.3" data-path="results-and-discussion.html"><a href="results-and-discussion.html#planning-habitat-connectivity-and-floodplain-modelling-1"><i class="fa fa-check"></i><b>4.3</b> Planning — Habitat, Connectivity and Floodplain Modelling</a>
 <ul>
 <li class="chapter" data-level="4.3.1" data-path="results-and-discussion.html"><a href="results-and-discussion.html#habitat-modelling-1"><i class="fa fa-check"></i><b>4.3.1</b> Habitat Modelling</a></li>
+<li class="chapter" data-level="4.3.2" data-path="results-and-discussion.html"><a href="results-and-discussion.html#floodplain-delineation-1"><i class="fa fa-check"></i><b>4.3.2</b> Floodplain Delineation</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="results-and-discussion.html"><a href="results-and-discussion.html#fish-passage-assessments-1"><i class="fa fa-check"></i><b>4.4</b> Fish Passage Assessments</a></li>
 <li class="chapter" data-level="4.5" data-path="results-and-discussion.html"><a href="results-and-discussion.html#habitat-confirmation-assessments-1"><i class="fa fa-check"></i><b>4.5</b> Habitat Confirmation Assessments</a></li>
@@ -322,6 +324,7 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#watershed-groups-across-ecoregions"><i class="fa fa-check"></i>Watershed groups across ecoregions</a></li>
 <li class="chapter" data-level="" data-path="app-climate-departure.html"><a href="app-climate-departure.html#interpretation-for-fish-passage"><i class="fa fa-check"></i>Interpretation for fish passage</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="app-floodplain.html"><a href="app-floodplain.html"><i class="fa fa-check"></i>Appendix - Floodplain Delineation</a></li>
 <li class="chapter" data-level="" data-path="app-site-data.html"><a href="app-site-data.html"><i class="fa fa-check"></i>Appendix - Assessment Data Summary</a></li>
 <li class="chapter" data-level="" data-path="app-uav.html"><a href="app-uav.html"><i class="fa fa-check"></i>Appendix - UAV Imagery</a></li>
 <li class="chapter" data-level="" data-path="app-gis.html"><a href="app-gis.html"><i class="fa fa-check"></i>Appendix - Collaborative GIS Layers</a></li>
@@ -379,15 +382,15 @@ div.csl-indent {
 <div id="per-site-detection-results" class="section level2 unnumbered hasAnchor">
 <h2>Per-site detection results<a href="app-edna.html#per-site-detection-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Format: <code>CODE(max_droplets)</code>, with <code>*</code> flagging samples that UNBC reran. Detected = ≥4 positive droplets, the call threshold applied by the laboratory. Everything below that threshold is reported as not detected, including 2-3 droplet results that were retested without reaching the cutoff.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="app-edna.html#cb83-1" tabindex="-1"></a>edna_per_site <span class="sc">|&gt;</span></span>
-<span id="cb83-2"><a href="app-edna.html#cb83-2" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(</span>
-<span id="cb83-3"><a href="app-edna.html#cb83-3" tabindex="-1"></a>    <span class="at">caption_text =</span> <span class="st">&quot;Site-level eDNA detection results across real environmental samples in the project area. UNBC ID is the lab sample identifier; Pos. control = yes indicates the sample was collected at a site where the target species was also confirmed by electrofishing.&quot;</span>,</span>
-<span id="cb83-4"><a href="app-edna.html#cb83-4" tabindex="-1"></a>    <span class="at">scroll =</span> gitbook_on</span>
-<span id="cb83-5"><a href="app-edna.html#cb83-5" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="app-edna.html#cb88-1" tabindex="-1"></a>edna_per_site <span class="sc">|&gt;</span></span>
+<span id="cb88-2"><a href="app-edna.html#cb88-2" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(</span>
+<span id="cb88-3"><a href="app-edna.html#cb88-3" tabindex="-1"></a>    <span class="at">caption_text =</span> <span class="st">&quot;Site-level eDNA detection results across real environmental samples in the project area. UNBC ID is the lab sample identifier; Pos. control = yes indicates the sample was collected at a site where the target species was also confirmed by electrofishing.&quot;</span>,</span>
+<span id="cb88-4"><a href="app-edna.html#cb88-4" tabindex="-1"></a>    <span class="at">scroll =</span> gitbook_on</span>
+<span id="cb88-5"><a href="app-edna.html#cb88-5" tabindex="-1"></a>  )</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-condensed table-responsive" style="font-size: 11px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tab-edna-per-site">Table 5.12: </span>Site-level eDNA detection results across real environmental samples in the project area. UNBC ID is the lab sample identifier; Pos. control = yes indicates the sample was collected at a site where the target species was also confirmed by electrofishing.
+<span id="tab:tab-edna-per-site">Table 5.13: </span>Site-level eDNA detection results across real environmental samples in the project area. UNBC ID is the lab sample identifier; Pos. control = yes indicates the sample was collected at a site where the target species was also confirmed by electrofishing.
 </caption>
 <thead>
 <tr>
@@ -782,14 +785,14 @@ BULT(1), CHIN(0), COHO(1)*, SOCK(0)
 <div id="field-blanks" class="section level2 unnumbered hasAnchor">
 <h2>Field blanks<a href="app-edna.html#field-blanks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Field blanks filter distilled water at the field site to test for protocol contamination during collection and processing. <strong>Detections in blanks indicate potential cross-contamination, not species presence at the location</strong> — these rows are presented for QA transparency only, not as eDNA detections.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="app-edna.html#cb84-1" tabindex="-1"></a>edna_field_blanks <span class="sc">|&gt;</span></span>
-<span id="cb84-2"><a href="app-edna.html#cb84-2" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(</span>
-<span id="cb84-3"><a href="app-edna.html#cb84-3" tabindex="-1"></a>    <span class="at">caption_text =</span> <span class="st">&quot;Field blanks collected during the `r params$project_year` eDNA program in the project area. Detections in blanks reflect protocol-side contamination, not site eDNA.&quot;</span>,</span>
-<span id="cb84-4"><a href="app-edna.html#cb84-4" tabindex="-1"></a>    <span class="at">scroll =</span> <span class="cn">FALSE</span></span>
-<span id="cb84-5"><a href="app-edna.html#cb84-5" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="app-edna.html#cb89-1" tabindex="-1"></a>edna_field_blanks <span class="sc">|&gt;</span></span>
+<span id="cb89-2"><a href="app-edna.html#cb89-2" tabindex="-1"></a>  fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(</span>
+<span id="cb89-3"><a href="app-edna.html#cb89-3" tabindex="-1"></a>    <span class="at">caption_text =</span> <span class="st">&quot;Field blanks collected during the `r params$project_year` eDNA program in the project area. Detections in blanks reflect protocol-side contamination, not site eDNA.&quot;</span>,</span>
+<span id="cb89-4"><a href="app-edna.html#cb89-4" tabindex="-1"></a>    <span class="at">scroll =</span> <span class="cn">FALSE</span></span>
+<span id="cb89-5"><a href="app-edna.html#cb89-5" tabindex="-1"></a>  )</span></code></pre></div>
 <table class="table table-condensed table-responsive" style="font-size: 11px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tab-edna-field-blanks">Table 5.13: </span>Field blanks collected during the <code>r params$project_year</code> eDNA program in the project area. Detections in blanks reflect protocol-side contamination, not site eDNA.
+<span id="tab:tab-edna-field-blanks">Table 5.14: </span>Field blanks collected during the <code>r params$project_year</code> eDNA program in the project area. Detections in blanks reflect protocol-side contamination, not site eDNA.
 </caption>
 <thead>
 <tr>
@@ -835,19 +838,19 @@ BULT(0)<em>, CHIN(0)</em>, COHO(0)<em>, RAIN(0)</em>
 <div id="retests" class="section level2 unnumbered hasAnchor">
 <h2>Retests<a href="app-edna.html#retests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>UNBC reran a subset of samples to confirm borderline results. The table below lists every site × species combination that was rerun, including reruns of both real environmental samples and field blanks.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="app-edna.html#cb85-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(edna_retests) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb85-2"><a href="app-edna.html#cb85-2" tabindex="-1"></a>  edna_retests <span class="sc">|&gt;</span></span>
-<span id="cb85-3"><a href="app-edna.html#cb85-3" tabindex="-1"></a>    fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(</span>
-<span id="cb85-4"><a href="app-edna.html#cb85-4" tabindex="-1"></a>      <span class="at">caption_text =</span> <span class="st">&quot;UNBC retests for the `r params$project_year` eDNA samples. Runs is the total number of times the sample x species combination was assayed; Max droplets is the highest positive-droplet count observed across all runs.&quot;</span>,</span>
-<span id="cb85-5"><a href="app-edna.html#cb85-5" tabindex="-1"></a>      <span class="at">scroll =</span> gitbook_on</span>
-<span id="cb85-6"><a href="app-edna.html#cb85-6" tabindex="-1"></a>    )</span>
-<span id="cb85-7"><a href="app-edna.html#cb85-7" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb85-8"><a href="app-edna.html#cb85-8" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;No retests in this batch.</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb85-9"><a href="app-edna.html#cb85-9" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="app-edna.html#cb90-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(edna_retests) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb90-2"><a href="app-edna.html#cb90-2" tabindex="-1"></a>  edna_retests <span class="sc">|&gt;</span></span>
+<span id="cb90-3"><a href="app-edna.html#cb90-3" tabindex="-1"></a>    fpr<span class="sc">::</span><span class="fu">fpr_kable</span>(</span>
+<span id="cb90-4"><a href="app-edna.html#cb90-4" tabindex="-1"></a>      <span class="at">caption_text =</span> <span class="st">&quot;UNBC retests for the `r params$project_year` eDNA samples. Runs is the total number of times the sample x species combination was assayed; Max droplets is the highest positive-droplet count observed across all runs.&quot;</span>,</span>
+<span id="cb90-5"><a href="app-edna.html#cb90-5" tabindex="-1"></a>      <span class="at">scroll =</span> gitbook_on</span>
+<span id="cb90-6"><a href="app-edna.html#cb90-6" tabindex="-1"></a>    )</span>
+<span id="cb90-7"><a href="app-edna.html#cb90-7" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb90-8"><a href="app-edna.html#cb90-8" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;No retests in this batch.</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb90-9"><a href="app-edna.html#cb90-9" tabindex="-1"></a>}</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-condensed table-responsive" style="font-size: 11px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tab-edna-retests">Table 5.14: </span>UNBC retests for the <code>r params$project_year</code> eDNA samples. Runs is the total number of times the sample x species combination was assayed; Max droplets is the highest positive-droplet count observed across all runs.
+<span id="tab:tab-edna-retests">Table 5.15: </span>UNBC retests for the <code>r params$project_year</code> eDNA samples. Runs is the total number of times the sample x species combination was assayed; Max droplets is the highest positive-droplet count observed across all runs.
 </caption>
 <thead>
 <tr>

@@ -8,43 +8,77 @@
 #
 # Generates (under data/gis/, namespaced by WSG code):
 #   <wsg>.gpkg              multi-layer GeoPackage with the sf layers:
-#                             aoi, streams, waterbodies, floodplain,
+#                             aoi, streams, waterbodies, <sp>_ff<nn>,
 #                             railways, roads, reserves, parks,
-#                             named_streams
+#                             named_streams, municipalities
 #   <wsg>_dem.tif           MRDEM-30 clip cropped to streams + 2 km buffer
-#   <wsg>_valleys.tif       fl_valley_confine() binary output (1=valley)
+#   <wsg>_meta.rds          provenance: bcfishpass model stamp, plus the
+#                           floodplain source URL and its md5
 #
 # Bundling the sf layers into a single multi-layer gpkg matches how QGIS
 # expects a per-WSG project bundle and keeps the cache to three files per
 # WSG. Rasters stay separate (terra writes COG/GeoTIFF, not into gpkg).
 #
-# Streams come from `bcfishpass.streams_ch_vw` (chinook accessible
+# The floodplain is NOT delineated here. It is already published to the
+# stac-floodplains-bc collection (https://images.a11s.one), so section 6
+# downloads it rather than re-running flooded::fl_valley_confine(). The
+# layer keeps the name it carries on the catalogue (`<sp>_ff<nn>`, e.g.
+# `co_ff04`) so the cached copy is traceable back to its STAC item without
+# a lookup table. Re-run the delineation only to publish a group the
+# catalogue does not yet carry.
+#
+# Streams come from `bcfishpass.streams_co_vw` (coho accessible
 # network — every row has `access IN (1, 2)` by construction). Filtering
 # to `access IN (1, 2) AND stream_order >= min_order` plus the
 # `watershed_group_code` filter gives "best accessible habitat order 3+"
 # without needing a working-table classification pipeline.
 #
+# Species matters for more than the streams layer: the published
+# floodplain was delineated on a specific species-accessible network, so
+# `species_view` must match the species in the STAC item id or the
+# "streams within floodplain" metric measures two different networks
+# against each other.
+#
 # Waterbodies (lakes + wetlands) are picked up via `waterbody_key`
 # linkage from the filtered stream list — only those physically anchored
-# to the network are included. They feed `fl_valley_confine(waterbodies =)`
-# so the final valley raster fills lake / wetland cells the gradient and
-# cost-distance masks would otherwise carve donut holes around.
+# to the network are included. They are carried for the appendix maps.
 #
-# To swap species: change `species_view` to e.g. `"streams_co_vw"` for
-# coho or `"streams_st_vw"` for steelhead — same column shape (`access`,
-# `spawning`, `rearing`).
+# To swap species: change `species_view` to e.g. `"streams_ch_vw"` for
+# chinook or `"streams_st_vw"` for steelhead — same column shape
+# (`access`, `spawning`, `rearing`) — and confirm the catalogue carries a
+# matching item.
 #
 # Prerequisites:
-#   - SSH tunnel to fwapg PostgreSQL up; PG_*_SHARE env vars set
-#     (defaults of fresh::frs_db_conn())
+#   - SSH tunnel to the bcfishpass PostgreSQL up; PG_*_SHARE env vars set
+#     (defaults of fresh::frs_db_conn()). This is bcfishpass, NOT the
+#     fwapg database — the whse_* schemas queried below live in the same
+#     bcfishpass database.
 #   - Outbound HTTPS to s3.ca-central-1.amazonaws.com for MRDEM /vsicurl/
+#     and to stac-floodplains-bc.s3.us-west-2.amazonaws.com for the
+#     published floodplain
 #   - flooded package installed (pak::pak("NewGraphEnvironment/flooded"))
 
 # ---- params -------------------------------------------------------------
 
-wsg <- "NECR"                       # any 4-letter BC watershed group code
-species_view <- "streams_ch_vw"     # bcfishpass species-accessible view
+wsg <- "BULK"                       # any 4-letter BC watershed group code
+species_view <- "streams_co_vw"     # bcfishpass species-accessible view
 min_order <- 3                      # minimum stream order to keep
+flood_factor <- 4                   # selects the published ff<nn> scenario
+
+# Vertex thinning for the context layers only (railways, roads, reserves,
+# parks, named_streams, municipalities) — everything routed through
+# fetch_layer() below. These are drawn but never measured. 10 m sits well
+# under the ~22 m/pixel of the appendix detail map and ~91 m/pixel of the
+# watershed-wide map, so it is invisible at render scale while cutting the
+# roads layer by about a third. Deliberately NOT applied to aoi, streams,
+# waterbodies or the floodplain: those feed the reported areas and lengths,
+# and thinning them would silently move the numbers.
+simplify_tol_m <- 10
+
+# stac-floodplains-bc asset base. Item ids are <wsg>_<species>_ff<nn>;
+# `scenario` is not exposed as a queryable STAC property
+# (NewGraphEnvironment/stac_floodplains_bc#9), so it is composed here.
+stac_base <- "https://stac-floodplains-bc.s3.us-west-2.amazonaws.com"
 
 # ---- env ----------------------------------------------------------------
 
@@ -178,6 +212,12 @@ fetch_layer <- function(query_sql, layer_name, label) {
     return(invisible(NULL))
   }
   layer <- sf::st_zm(layer)
+  if (simplify_tol_m > 0) {
+    layer <- suppressWarnings(
+      sf::st_simplify(layer, dTolerance = simplify_tol_m,
+                      preserveTopology = TRUE)
+    )
+  }
   write_layer(layer, layer_name)
   message(sprintf("  %s: %d features", label, nrow(layer)))
 }
@@ -228,17 +268,14 @@ fetch_layer(
 
 # Cache the bcfishpass model version + date so the vignette can stamp
 # data provenance without needing a DB connection at render time.
+# Written to disk at the end of section 6, once the floodplain source and
+# checksum are known, so provenance for both inputs lands in one file.
 message("Caching bcfishpass version stamp ...")
 bp_log <- DBI::dbGetQuery(conn, "
   SELECT model_version, date_completed
   FROM bcfishpass.log
   WHERE model_type = 'LINEAR'
   ORDER BY date_completed DESC LIMIT 1")
-saveRDS(
-  list(bcfishpass_version = bp_log$model_version,
-       bcfishpass_date    = format(bp_log$date_completed, "%Y-%m-%d")),
-  file.path(out_dir, paste0(stub, "_meta.rds"))
-)
 
 DBI::dbDisconnect(conn)
 
@@ -256,34 +293,50 @@ message(sprintf("  %d x %d cells (%.1f Mcells)",
                 ncol(dem), nrow(dem),
                 ncol(dem) * nrow(dem) / 1e6))
 
-# ---- 6. Run flooded VCA pipeline ----------------------------------------
+# ---- 6. Floodplain from stac-floodplains-bc -----------------------------
 
-message("Running fl_valley_confine() with waterbodies ...")
-terra::terraOptions(threads = max(1L, parallel::detectCores() - 2L))
+# Already delineated and published, so fetch rather than re-run the VCA.
+# Both the item id and the layer name are the catalogue's, not ours.
 
-valleys <- fl_valley_confine(
-  dem = dem,
-  streams = streams,
-  field = "upstream_area_ha",
-  precip = fl_stream_rasterize(streams, dem, field = "map_upstream"),
-  waterbodies = waterbodies,
-  flood_factor = 4   # ff04 — functional floodplain (recurrent inundation)
+species  <- sub("^streams_(.+)_vw$", "\\1", species_view)
+scenario <- sprintf("ff%02d", flood_factor)
+item_id  <- paste(stub, species, scenario, sep = "_")
+fp_layer <- paste(species, scenario, sep = "_")
+fp_url   <- sprintf("%s/%s/floodplain.gpkg", stac_base, item_id)
+
+message("Fetching published floodplain: ", fp_url, " ...")
+fp_tmp <- tempfile(fileext = ".gpkg")
+utils::download.file(fp_url, fp_tmp, mode = "wb", quiet = TRUE)
+fp_md5 <- unname(tools::md5sum(fp_tmp))
+
+# The asset carries ff02/ff04/ff06; we keep only the requested scenario.
+if (!fp_layer %in% sf::st_layers(fp_tmp)$name) {
+  stop(sprintf("Layer '%s' absent from %s — layers present: %s",
+               fp_layer, fp_url,
+               paste(sf::st_layers(fp_tmp)$name, collapse = ", ")))
+}
+floodplain <- sf::st_read(fp_tmp, layer = fp_layer, quiet = TRUE)
+write_layer(floodplain, fp_layer)
+unlink(fp_tmp)
+
+message(sprintf("  %s: %.2f km²", fp_layer,
+                as.numeric(sum(sf::st_area(floodplain))) / 1e6))
+message("  md5: ", fp_md5)
+
+saveRDS(
+  list(bcfishpass_version = bp_log$model_version,
+       bcfishpass_date    = format(bp_log$date_completed, "%Y-%m-%d"),
+       floodplain_item    = item_id,
+       floodplain_layer   = fp_layer,
+       floodplain_url     = fp_url,
+       floodplain_md5     = fp_md5),
+  file.path(out_dir, paste0(stub, "_meta.rds"))
 )
-terra::writeRaster(
-  valleys, out("valleys.tif"),
-  overwrite = TRUE,
-  datatype = "INT1U",
-  gdal = c("COMPRESS=DEFLATE", "TILED=YES")
-)
-
-message("Polygonizing valleys ...")
-floodplain <- fl_valley_poly(valleys)
-write_layer(floodplain, "floodplain")
 
 # ---- 7. Report cache size -----------------------------------------------
 
 cache_files <- c(gpkg, list.files(out_dir,
-                                  pattern = paste0("^", stub, "_.*\\.tif$"),
+                                  pattern = paste0("^", stub, "_.*\\.(tif|rds)$"),
                                   full.names = TRUE))
 cache_sizes <- file.info(cache_files)$size
 total_mb <- sum(cache_sizes) / 1024^2

@@ -39,7 +39,7 @@ To advance fish passage restoration in the Skeena region:
 
 **Watershed-scale context — floodplain health and climate departure**
 
-- Map functional floodplain extent for the Bulkley River watershed group, then extend to Morice, Zymoetz and Kispiox. Passage and floodplain health are the same problem viewed from two angles: reconnecting a stream longitudinally achieves less where the floodplain is severed laterally. Starting with one watershed group also allows the delivery route — publishing to a spatial catalogue that the report reads from, rather than committing rasters to the repository — to be proven before it is repeated.
+- Extend functional floodplain mapping from the Bulkley to Morice, Zymoetz and Kispiox. Passage and floodplain health are the same problem viewed from two angles: reconnecting a stream longitudinally achieves less where the floodplain is severed laterally. The delivery route is now proven — the Bulkley delineation is published to a spatial catalogue that this report reads from rather than carrying a copy of its own — and Morice and Kispiox are already published, so extending to them is a matter of reading them in. Zymoetz still needs the model run.
 
 - Extend the climate departure analysis to the study area watershed groups, so climate trajectory sits alongside barrier status wherever prioritization is done.
 

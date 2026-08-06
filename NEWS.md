@@ -1,3 +1,8 @@
+# fish_passage_skeena_2025_reporting 0.5.0 (2026-08-05)
+
+* Add a floodplain delineation appendix for the Bulkley River watershed group, matching how the Peace and Fraser reports present the same analysis ([Issue #2](https://github.com/NewGraphEnvironment/fish_passage_skeena_2025_reporting/issues/2)). Modelled functional floodplain covers 483 km² — 6.2 % of the watershed group — attached to 1,587 km of the 2,206 km coho accessible order-3+ network. The report body already listed floodplain extent among the layers it compiles, so the appendix makes a standing claim true. The methods and results chapters now carry matching sections, and a detail map covers the valley north of Smithers, where Highway 16, the Canadian National Railway and agricultural conversion all intersect the floodplain.
+* Read the delineation from the spatial catalogue rather than regenerating it. The Bulkley floodplain is published as an item in the `stac-floodplains-bc` collection, so the report caches that published product instead of re-running the valley confinement model, and the cached layer keeps the catalogue's own name so it stays traceable to its source. One modelled product now serves every report that needs it. Morice and Kispiox are already published and can follow the same way, so the recommendations and executive summary are updated to say so rather than continuing to propose the Bulkley as future work.
+
 # fish_passage_skeena_2025_reporting 0.4.0 (2026-08-05)
 
 * Summarise the climate departure analysis in the methods and results chapters, matching how the Peace and Fraser reports present it. The appendix held the full analysis but neither chapter mentioned it, so a reader of the report body had no way to know the work existed or what it found.

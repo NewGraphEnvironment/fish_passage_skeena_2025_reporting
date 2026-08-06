@@ -39,6 +39,9 @@ fig:cd-facet-doy-50
 tab:cd-rollup
 fig:cd-map-wsgs
 tab:cd-wsg-xref-table
+tab:flood-table
+fig:flood-map-wsg
+fig:flood-map-detail
 tab:tab-sites-sum-cap
 tab:tab-sites-cap
 tab:tab-edna-per-site
@@ -79,9 +82,10 @@ methods
 climate-departure
 collaborative-gis-environment
 mapping
-planning-habitat-and-connectivity-modelling
+planning-habitat-connectivity-and-floodplain-modelling
 habitat-modelling
 statistical-support-for-bcfishpass-fish-habitat-modelling-updates
+floodplain-delineation
 fish-passage-assessments
 natural-barriers-to-fish-passage
 road-stream-crossings
@@ -103,9 +107,10 @@ monitoring
 results-and-discussion
 site-assessment-data
 climate-departure-1
-planning-habitat-and-connectivity-modelling-1
+planning-habitat-connectivity-and-floodplain-modelling-1
 habitat-modelling-1
 statistical-support-for-bcfishpass-fish-habitat-modelling-updates-1
+floodplain-delineation-1
 fish-passage-assessments-1
 habitat-confirmation-assessments-1
 engineering-design-1
