@@ -1,6 +1,10 @@
 
 # Recommendations
 
+This program is organized around a single question: what condition are these watersheds in, and where will restoration effort do the most good. No one line of evidence answers it. Barrier assessments and the provincial habitat model establish where fish can reach and what lies above each crossing. Environmental DNA, fish sampling and habitat confirmations establish where fish are and what the habitat supports. Floodplain delineation and aerial imagery establish how infrastructure has altered the valley bottom. Climate departure and water temperature establish the trajectory, and how the flows that formed these channels are changing. Effectiveness monitoring tests whether the decisions taken were the right ones. The recommendations below are directed at strengthening each of those lines of evidence, and at making what they produce usable by the people whose decisions shape these watersheds.
+
+<br>
+
 A major challenge in advancing fish passage restoration is the complexity of working across jurisdictions and with multiple stakeholders—rail and highway authorities, forestry ministries, licensees, and private landowners. These partners are often being asked to accommodate priorities that originate outside their mandates and budgets. Convincing them to invest in difficult, high-cost interventions—like modifying crossings or relocating infrastructure—requires navigating uncertainty about costs and ecological outcomes, as well as a disconnect between the benefits to watershed health and the internal pressures or performance goals of these agencies. It's a tough ask: to take on massive, uncertain projects when they're already stretched thin with their own responsibilities.
 
 <br>
@@ -19,50 +23,42 @@ Government, community groups, landowners, non-profits, industry and other stakeh
 
 To advance fish passage restoration in the Skeena region:
 
-**Effectiveness monitoring and building the state of knowledge**
+**Extending the lines of evidence**
 
-- Continue and extend the effectiveness monitoring program across the region's remediated crossings, and continue developing a cost-effective framework that ties baseline and post-remediation data to measurable productivity gains from improved passage. Monitoring is where the program learns whether a remediation delivered what it was designed to deliver, and that is only visible over multiple years. Carrying enough sites to span a range of structure types, treatment approaches and stream sizes is what allows those outcomes to be compared rather than read one at a time.
+- Resume Phase 1 fish passage assessments. `r params$project_year` added two reassessments and no new inventory, and the candidate set that prioritization draws on only grows through Phase 1 work.
 
-- Share monitoring outcomes openly with tenure holders, regulators, First Nations and other restoration practitioners, so decisions elsewhere are informed by what has and has not worked here.
-
-- Continue environmental DNA sampling as an annual, region-wide data layer. Sustained annual sampling is what turns single-year detections into distribution and trend information. The `r params$project_year` results already establish species presence at sites carrying no habitat confirmation assessment.
-
-**Partnerships, capacity and adaptive management**
-
-- Continue working with First Nations across the study area — Wet'suwet'en, Gitxsan and Tsimshian — on site selection, monitoring, and interpretation of what the data show.
-
-- Continue partnerships with stewardship groups and educational institutions, including the University of Northern British Columbia, so field programs double as training and research opportunities and the regional knowledge base grows beyond any single project.
-
-- Maintain partnerships with rail, highway and forestry tenure holders, and with the Habitat Conservation Trust Foundation and the Ministry of Transportation and Infrastructure, to support funding, site selection, remediation and monitoring.
-
-- Feed monitoring results back into prioritization and design. The purpose of a monitoring program is adaptive management, and what is learned at monitored sites should change which treatments are proposed elsewhere.
-
-**Watershed-scale context — floodplain health and climate departure**
+- Continue environmental DNA sampling as an annual, region-wide layer so single-year detections become distribution and trend information, and carry the results into prioritization rather than reporting them alongside it. The `r params$project_year` detections establish species presence at sites with no habitat confirmation assessment, which belongs in the ranking. Follow up the multi-species detections at Peacock Creek, Corya Creek and Sandstone Creek with targeted fish sampling to resolve what they mean.
 
 - Extend functional floodplain mapping from the Bulkley to Morice, Zymoetz and Kispiox. Passage and floodplain health are the same problem viewed from two angles: reconnecting a stream longitudinally achieves less where the floodplain is severed laterally. The delivery route is now proven — the Bulkley delineation is published to a spatial catalogue that this report reads from rather than carrying a copy of its own — and Morice and Kispiox are already published, so extending to them is a matter of reading them in. Zymoetz still needs the model run.
 
-- Extend the climate departure analysis to the study area watershed groups, so climate trajectory sits alongside barrier status wherever prioritization is done.
-
-- Build capacity in partner organizations to interpret and use the floodplain and climate departure layers, so the opportunities and constraints these analyses surface are visible to the people whose decisions shape watershed-scale outcomes.
-
-**Environmental DNA — resolving what the detections mean**
-
-- Follow up the multi-species detections at Peacock Creek, where coho, rainbow trout and bull trout were all confirmed, and at Corya Creek and Sandstone Creek. These are the sites where eDNA has established that the habitat is occupied and where passage condition therefore carries the clearest consequence.
-
-- Carry environmental DNA results into prioritization rather than reporting them alongside it. The detections establish species presence at sites with no habitat confirmation assessment, and that belongs in the ranking.
-
-**Prioritization and modelling integration**
-
-- Continue integrating climate and temperature modelling into prioritization, in both directions. Prioritizing crossings that open access to cold, drought-resistant habitat addresses reaches at the warm edge of their thermal range. The same data answers the opposite question: modelling growing season degree days identifies reaches currently too cold to support production where warming may be making production possible, meaning the restoration value of a barrier below such a reach can be rising rather than falling.
+- Continue integrating climate departure and water temperature into prioritization, in both directions. Opening access to cold, drought-resistant habitat addresses reaches at the warm edge of their thermal range; the same data identifies reaches currently too cold to support production, where warming may be raising rather than lowering the restoration value of a barrier below them.
 
 - Calibrate intrinsic habitat models against areas of known high-value spawning and rearing identified through fish presence observations, quantifying model uncertainty and refining prioritization.
 
-- Resume Phase 1 fish passage assessments in the study area. `r params$project_year` added two reassessments and no new inventory; the candidate set that prioritization draws on only grows through Phase 1 work.
+**Testing whether the work delivers**
 
-**Data infrastructure and open access**
+- Continue and extend effectiveness monitoring across the region's remediated crossings, and continue developing a cost-effective framework that ties baseline and post-remediation data to measurable productivity gains. Outcomes are only visible over multiple years, and carrying enough sites to span a range of structure types, treatments and stream sizes is what allows them to be compared rather than read one at a time.
 
-- Develop a public webmap interface to communicate fish passage priorities, baseline conditions, monitoring results and partner activities to collaborators, First Nations, industry, regulators and the public.
+- Feed monitoring results back into prioritization and design. The purpose of monitoring is adaptive management, and what is learned at monitored sites should change which treatments are proposed elsewhere.
 
-- Extend the open-access pattern to environmental DNA data, making detections, samples, methods and metadata queryable through a shared interface rather than scattered across project repositories.
+**Making the knowledge usable**
 
-- Support a community of practice around regional water temperature and fish presence data with the University of Northern British Columbia, partner organizations and other researchers, focused on collective capacity to ask and answer regional questions rather than every program reconstructing the same picture from fragmented sources.
+- Develop a public web map to communicate fish passage priorities, baseline conditions, monitoring results and partner activities to collaborators, First Nations, industry, regulators and the public. Analysis that cannot be found or interrogated does not inform decisions.
+
+- Continue publishing project data to shared, open catalogues rather than to individual project repositories, extending the pattern already used for aerial imagery and floodplain extent to environmental DNA and to regional water temperature. Each layer placed where others can find it compounds the value of the work that produced it.
+
+- Keep methods documented alongside the code and field forms that implement them, so results stay reproducible and each season's work is legible to the next.
+
+- Share monitoring outcomes openly with tenure holders, regulators, First Nations and other practitioners, so decisions elsewhere are informed by what has and has not worked here.
+
+**Partnerships and capacity**
+
+- Continue working with First Nations across the study area — Wet'suwet'en, Gitxsan and Tsimshian — on site selection, monitoring, and interpretation of what the data show.
+
+- Continue partnerships with stewardship groups and educational institutions, including the University of Northern British Columbia, so field programs double as training and research opportunities, and support a community of practice around regional water temperature and fish presence data rather than every program reconstructing the same picture from fragmented sources.
+
+- Build capacity in partner organizations to interpret and use the floodplain, climate and habitat layers, so the opportunities and constraints they surface are visible to the people whose decisions shape watershed-scale outcomes.
+
+- Maintain partnerships with rail, highway and forestry tenure holders, and with the Habitat Conservation Trust Foundation and the Ministry of Transportation and Infrastructure, to support funding, site selection, remediation and monitoring.
+
+- Commission engineering designs at the Ministry of Transportation and Infrastructure crossings identified in previous reporting, and advance the highest ranked sites assessed this year.

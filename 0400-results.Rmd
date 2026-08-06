@@ -202,11 +202,11 @@ spatially in the collaborative GIS project.  A snapshot of these outputs related
 crossing structure are also included within an `sqlite` database within this year's project reporting/code repository `r ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = "blob/main/data/bcfishpass.sqlite", anchor_text = "here")`.
 
 
-#### Statistical Support for `bcfishpass` Fish Habitat Modelling Updates
-Initial mapping of stream discharge and temperature causal effects pathways for the future purpose of focusing aquatic restoration 
-actions in areas of highest potential for positive impacts on fisheries values (ie. elimination of areas from intrinsic models 
-where water temperatures are likely too cold to support fish production) are detailed in @hill_etal2024Spatialstream which is 
-included as [Attachment - Water Temperature Modelling](#attach-bayes).
+### Statistical Support for Habitat Modelling
+
+The statistical modelling underpinning these outputs — channel-width prediction, and Bayesian Spatial Stream Network modelling of stream temperature with Poisson Consulting [@hill_etal2024Spatialstream; @hill_etal2025Spatialstream] — is described in the Methods chapter. The 2025 effort was carried out in this study area, extending the approach to a larger network and adding Growing-Season Degree Days as the productivity-relevant thermal metric, with observations drawn from [`water-temp-bc`](https://www.newgraphenvironment.com/water-temp-bc) [@irvine2025NewGraphEnvironmentwatertempbc]. Both studies are linked in [Attachment - Water Temperature Modelling](#attach-bayes).
+
+These predictions are the route by which thermal condition enters prioritization: reaches too cold to support production can be discounted from intrinsic habitat models, and reaches becoming warm enough to support it recognised as gaining value.
 
 
 ```{r flood-rollup-body, include = FALSE}

@@ -137,6 +137,14 @@ A climate departure analysis was completed for the study area, comparing the rec
 
   <br>
 
+These are not separate studies. Each activity answers a different part of one question: what condition are these watersheds in, and where will restoration effort do the most good. Fish passage assessments and the provincial barrier model describe where fish can currently reach. Habitat confirmations, fish sampling and environmental DNA describe where fish are and what the habitat could support. Floodplain delineation and aerial imagery describe how infrastructure has reshaped the valley bottom that the stream depends on. Climate departure and water temperature describe the trajectory the system is on, and how the flows that formed these channels are changing. Effectiveness monitoring closes the loop, testing whether completed work delivered what it was designed to deliver.
+
+<br>
+
+Assembling these layers is a way of being explicit about what is known, what is not, and what should be measured next, so that restoration decisions rest on evidence rather than assumption. Making that evidence usable is treated as part of the work rather than a by-product: field data are collected on structured digital forms, methods are documented alongside the code that implements them, spatial layers are published to open catalogues instead of being held in project folders, and reporting is written so that partners, First Nations, regulators and tenure holders can read it, question it and build on it. Each year's work is intended to be legible to the next, so understanding accumulates across the program rather than being rebuilt each season.
+
+<br>
+
 
 A major challenge in advancing fish passage restoration is the complexity of working across jurisdictions and with multiple stakeholders—rail and highway authorities, forestry ministries, licensees, and private landowners. These partners are often being asked to accommodate priorities that originate outside their mandates and budgets. Convincing them to invest in difficult, high-cost interventions—like modifying crossings or relocating infrastructure—requires navigating uncertainty about costs and ecological outcomes, as well as a disconnect between the benefits to watershed health and the internal pressures or performance goals of these agencies. It’s a tough ask: to take on massive, uncertain projects when they’re already stretched thin with their own responsibilities.
 
@@ -154,11 +162,12 @@ A single definitive ranking of remediation priorities is not achievable, because
   
 Looking ahead, priorities for the program are:
 
-- Continue and extend the effectiveness monitoring program across the region's remediated crossings, carrying enough sites to span a range of structure types, treatment approaches and stream sizes, and continue developing a cost-effective framework that ties baseline and post-remediation data to measurable productivity gains.
-- Continue environmental DNA sampling as an annual, region-wide layer, building single-year detections into distribution and trend information.
-- Extend functional floodplain mapping from the Bulkley to the remaining watershed groups so watershed condition sits alongside barrier status wherever prioritization is done.
+- Continue and extend effectiveness monitoring across the region's remediated crossings, spanning a range of structure types, treatments and stream sizes, and continue developing a cost-effective framework that ties baseline and post-remediation data to measurable productivity gains.
+- Continue environmental DNA sampling as an annual, region-wide layer so single-year detections become distribution and trend information, and resolve species use through targeted fish sampling where habitat ranks high but detections are absent or unresolved.
+- Extend functional floodplain mapping from the Bulkley to the remaining watershed groups, and carry climate departure and water temperature into prioritization, so watershed condition and trajectory sit alongside barrier status wherever ranking is done.
+- Resume Phase 1 assessments and continue calibrating the provincial habitat model against observed conditions, so the candidate set that prioritization draws on keeps growing and improving.
 - Commission engineering designs at the Ministry of Transportation and Infrastructure crossings identified in previous reporting, and advance the highest ranked sites assessed this year.
-- Resolve species use through targeted fish sampling where habitat ranks high but detections are absent or unresolved.
+- Continue developing the shared data and reporting infrastructure — open spatial catalogues, a public web map, and common repositories for water temperature and environmental DNA — so results are findable and reusable by everyone working in these watersheds.
 - Continue working with First Nations, stewardship groups, educational institutions and tenure holders, feeding monitoring results back into prioritization and design as adaptive management.
 
   <!-- Project specific above -->
