@@ -80,8 +80,6 @@ salmon-stock-assessment-data
 fish-species
 methods
 climate-departure
-collaborative-gis-environment
-mapping
 planning-habitat-connectivity-and-floodplain-modelling
 habitat-modelling
 floodplain-delineation
@@ -106,6 +104,8 @@ aerial-imagery
 engineering-design
 remediations
 monitoring
+collaborative-gis-environment
+mapping
 results-and-discussion
 site-assessment-data
 climate-departure-1

@@ -7,5 +7,3 @@ The 2024 study mapped stream discharge and temperature causal effects pathways a
 The 2025 study was carried out in this study area. It extended the approach to a larger spatial network and added Growing-Season Degree Days — accumulated thermal units during the season when stream temperature remains at or above 5 °C — as the productivity-relevant metric for age-0 salmonid growth — [Spatial Stream Network Analysis of Skeena Watershed Stream Temperatures](https://www.poissonconsulting.ca/f/1130667589) [@hill_etal2025Spatialstream].
 
 The water temperature observations feeding this work are organized in [`water-temp-bc`](https://www.newgraphenvironment.com/water-temp-bc) [@irvine2025NewGraphEnvironmentwatertempbc], which publishes Environment Canada hydrometric and water-quality records as a partitioned-parquet layer on Amazon S3.
-
-At the time of reporting, ongoing work regarding the projects was tracked at https://github.com/NewGraphEnvironment/fish-passage-22/issues and https://github.com/NewGraphEnvironment/fish-passage-22b/issues.

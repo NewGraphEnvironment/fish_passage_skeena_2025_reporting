@@ -69,15 +69,6 @@ which includes links to project reporting for each site.
 
 <br>
 
-The `r params$project_year` field season was directed at effectiveness monitoring and environmental DNA sampling rather than at new fish passage assessments. Two crossings already inventoried in PSCIS were reassessed; no Phase 1 assessments were completed.
-
-<br>
-  
-No Phase 2 habitat confirmation assessments were conducted. Habitat confirmations follow from crossings prioritised during Phase 1 assessment, and no Phase 1 work was completed this season. 
-
-<br>
-
-
 Environmental DNA (eDNA) sampling was the substantive field programme this season. A total of `r n_edna_real` samples were collected across `r n_edna_streams` streams, alongside `r n_edna_blanks` field and office blanks run as protocol controls.
 
 ```{r edna-exec-prep, include = FALSE}
@@ -133,15 +124,26 @@ cd_er_cum <- vapply(cd_exec$ecoregion, function(x) {
 
 A climate departure analysis was completed for the study area, comparing the recent decade against a pre-warming reference period of 1951 to 1980. Mean annual air temperature is `r sprintf("%.1f", cd_tmean)` °C above that reference, and the warming is strikingly even across the region — the `r length(cd_er_cum)` ecoregions spanning the study area differ by only `r sprintf("%.2f", max(cd_er_cum) - min(cd_er_cum))` °C in warming accumulated since 1951. The clearest signal is in the snowpack, and it is one of timing rather than of quantity: the snowmelt midpoint now falls `r sprintf("%.0f", -cd_doy50)` days earlier in the year and summer snow water equivalent has fallen `r sprintf("%.0f", -cd_swe_su)` per cent. The freshet that crossing structures were sized against is arriving substantially earlier than the record they were designed from, and the late-summer cold water that snowpack once supplied is declining. Because the warming is so uniform, the thermal outlook for a given barrier is a question of elevation and local reach conditions rather than of which watershed group it sits in.
 
+```{r fp-exec-prep, include = FALSE}
+# Self-contained on purpose — the results chapter computes the same rollup but
+# renders after this file. Only the two single-feature layers are read, so this
+# stays cheap; the stream-length intersection is left to the appendix.
+sf::sf_use_s2(FALSE)
+fp_exec_aoi <- sf::st_read("data/gis/bulk.gpkg", layer = "aoi", quiet = TRUE)
+fp_exec_poly <- sf::st_read("data/gis/bulk.gpkg", layer = "co_ff04", quiet = TRUE)
+fp_exec_poly <- suppressWarnings(sf::st_intersection(fp_exec_poly, fp_exec_aoi))
+fp_exec_wsg_km2 <- as.numeric(sum(sf::st_area(fp_exec_aoi))) / 1e6
+fp_exec_ha <- as.numeric(sum(sf::st_area(fp_exec_poly))) / 1e4
+fp_exec_pct <- 100 * fp_exec_ha / (fp_exec_wsg_km2 * 100)
+```
+
+Functional floodplain extent was mapped for the Bulkley River watershed group, the first of the study area's watershed groups to be delineated. Modelled floodplain covers `r format(round(fp_exec_ha), big.mark = ",")` ha, or `r sprintf("%.1f", fp_exec_pct)` per cent of the `r format(round(fp_exec_wsg_km2), big.mark = ",")` km² group. Passage and floodplain condition are the same problem viewed from two angles — reconnecting a stream longitudinally achieves less where the floodplain is severed laterally — so the layer indicates where remediation should account for more than the structure itself. The delineation is published to a shared spatial catalogue and read into this report rather than regenerated for it, so one modelled product serves every report that needs it; Morice and Kispiox are already published and can follow without re-running the model.
+
   <!-- Project specific above -->
 
   <br>
 
-These are not separate studies. Each activity answers a different part of one question: what condition are these watersheds in, and where will restoration effort do the most good. Fish passage assessments and the provincial barrier model describe where fish can currently reach. Habitat confirmations, fish sampling and environmental DNA describe where fish are and what the habitat could support. Floodplain delineation and aerial imagery describe how infrastructure has reshaped the valley bottom that the stream depends on. Climate departure and water temperature describe the trajectory the system is on, and how the flows that formed these channels are changing. Effectiveness monitoring closes the loop, testing whether completed work delivered what it was designed to deliver.
-
-<br>
-
-Assembling these layers is a way of being explicit about what is known, what is not, and what should be measured next, so that restoration decisions rest on evidence rather than assumption. Making that evidence usable is treated as part of the work rather than a by-product: field data are collected on structured digital forms, methods are documented alongside the code that implements them, spatial layers are published to open catalogues instead of being held in project folders, and reporting is written so that partners, First Nations, regulators and tenure holders can read it, question it and build on it. Each year's work is intended to be legible to the next, so understanding accumulates across the program rather than being rebuilt each season.
+These are not separate studies. Each answers part of one question: what condition are these watersheds in, and where will restoration effort do the most good. Passage assessments and the provincial model establish where fish can reach; habitat confirmations, fish sampling and environmental DNA establish where they are; floodplain delineation and aerial imagery establish how infrastructure has altered the valley bottom; climate departure and water temperature establish the trajectory; effectiveness monitoring tests whether the work delivered. Assembling these layers makes explicit what is known, what is not, and what should be measured next. Making that evidence usable is part of the work — data collected on structured digital forms, methods documented alongside the code that implements them, layers published to open catalogues, and reporting written so partners, First Nations, regulators and tenure holders can question it and build on it — so understanding accumulates across the program rather than being rebuilt each season.
 
 <br>
 
