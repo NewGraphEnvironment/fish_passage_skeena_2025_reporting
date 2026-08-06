@@ -122,7 +122,11 @@ Floodplain footprints were delineated using the [`flooded`](https://newgraphenvi
 
 <br>
 
-We mapped the **functional floodplain**: the area a river actively inundates and reworks during regular high-flow events. This sits between two other scales — the narrow active channel (the wetted perimeter at low flow) and the broader geologic valley bottom (which includes terraces untouched by water for centuries). The functional floodplain matters most for habitat planning because it is the ground where side channels form, seasonal flooding sustains wetlands, and riparian forests recruit. Inputs were the [MRDEM-30](https://open.canada.ca/data/en/dataset/18752265-bda3-498c-a4ba-9dfe68cb98da) 30 m DEM, the coho accessible stream network (stream order ≥ 3) from [bcfishpass](https://github.com/smnorris/bcfishpass), and BC Freshwater Atlas lakes and wetlands on that network. Waterbodies were included so the valley confinement model fills cells that gradient and cost-distance masks would otherwise exclude.
+We mapped the **functional floodplain**: the area a river actively inundates and reworks during regular high-flow events. This sits between two other scales — the narrow active channel (the wetted perimeter at low flow) and the broader geologic valley bottom (which includes terraces untouched by water for centuries). The functional floodplain matters most for habitat planning because it is the ground where side channels form, seasonal flooding sustains wetlands, and riparian forests recruit. Inputs to the published delineation were the [MRDEM-30](https://open.canada.ca/data/en/dataset/18752265-bda3-498c-a4ba-9dfe68cb98da) 30 m DEM, a coho accessible stream network of stream order ≥ 3 built with [`link`](https://github.com/NewGraphEnvironment/link) over the BC Freshwater Atlas, and Freshwater Atlas lakes and wetlands on that network. Waterbodies were included so the valley confinement model fills cells that gradient and cost-distance masks would otherwise exclude.
+
+<br>
+
+The stream lengths reported below are measured against the coho accessible network from [bcfishpass](https://github.com/smnorris/bcfishpass), which is the network used throughout the rest of this report. It is not the network the delineation itself was built on, and the two are aligned by intent rather than by construction, so the lengths should be read as close estimates rather than exact intersections.
 
 <br>
 
