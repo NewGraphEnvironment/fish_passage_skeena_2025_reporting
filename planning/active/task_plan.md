@@ -42,17 +42,26 @@ KLUM.
 
 ## Phase 1: Retarget the generator
 
-- [ ] `scripts/gis/floodplain.R:45` `wsg <- "NECR"` → `"BULK"`
-- [ ] `:46` `species_view <- "streams_ch_vw"` → `"streams_co_vw"`
-- [ ] Replace section 6 (`fl_valley_confine` / `fl_valley_poly`) with a fetch of
+- [x] `scripts/gis/floodplain.R:45` `wsg <- "NECR"` → `"BULK"`
+- [x] `:46` `species_view <- "streams_ch_vw"` → `"streams_co_vw"`
+- [x] Replace section 6 (`fl_valley_confine` / `fl_valley_poly`) with a fetch of
       `bulk_co_ff04/floodplain.gpkg`, cached under the STAC's own name, layer `co_ff04` preserved.
       Record source URL + checksum so the copy verifies against the catalogue.
-- [ ] Drop the now-dead `<stub>_valleys.tif` output and its size accounting
-- [ ] Fix three stale header claims: `municipalities` missing from the layer manifest, "three files
+- [x] Drop the now-dead `<stub>_valleys.tif` output and its size accounting
+- [x] Fix three stale header claims: `municipalities` missing from the layer manifest, "three files
       per WSG" now four, and `:38` "fwapg" which is actually bcfishpass on 63333
-- [ ] Verify: sections 1-5 run; `bulk.gpkg` written with all context layers; AOI matches BULK
-- [ ] Measure and report committed footprint against Fraser's 18.6 MB; trim `roads` if it dominates,
+- [x] Verify: sections 1-5 run; `bulk.gpkg` written with all context layers; AOI matches BULK
+      (7,762 km²); floodplain reads back at **490.47 km²**, matching the published property exactly
+- [x] Measure and report committed footprint against Fraser's 18.6 MB; trim `roads` if it dominates,
       but not blind — the detail map needs Highway 16 and CN Rail
+
+**Trim outcome.** Roads were 20.90 MB of geometry across 21,781 features — 73% of the gpkg. A
+proximity trim was measured and rejected: **21,667 of 21,781 roads are already within 5 km of the
+floodplain**, because the Bulkley valley is settled and the road network hugs it. Vertex
+simplification at 10 m (well under the ~22 m/pixel of the detail map) was applied to the
+cartography-only layers, leaving the metric-bearing layers untouched. Cache went **28.6 MB → 21.3 MB**
+(gpkg 18.99 → 11.64 MB, DEM 9.62 MB unchanged). Still above Fraser's 18.6 MB, for a watershed group
+roughly 1.5× the area.
 
 ## Phase 2: Port the appendix
 

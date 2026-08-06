@@ -193,10 +193,10 @@ For barrier prioritisation these signals cut both ways. Where upstream reaches a
 
 <br>
 
-## Planning — Habitat and Connectivity Modelling
+## Planning — Habitat, Connectivity and Floodplain Modelling
 
 ### Habitat Modelling
-Habitat modelling from `bcfishpass` including access model, linear spawning/rearing habitat model and lateral habitat 
+Habitat modelling from `bcfishpass` including access model, linear spawning/rearing habitat model and lateral habitat
 connectivity models for watershed groups within our study area were updated for the spring of 2025 and are included
 spatially in the collaborative GIS project.  A snapshot of these outputs related to each modeled and PSCIS stream 
 crossing structure are also included within an `sqlite` database within this year's project reporting/code repository `r ngr::ngr_str_link_url(url_base = params$repo_url, url_resource = "blob/main/data/bcfishpass.sqlite", anchor_text = "here")`.
@@ -208,6 +208,34 @@ actions in areas of highest potential for positive impacts on fisheries values (
 where water temperatures are likely too cold to support fish production) are detailed in @hill_etal2024Spatialstream which is 
 included as [Attachment - Water Temperature Modelling](#attach-bayes).
 
+
+```{r flood-rollup-body, include = FALSE}
+gpkg_fp    <- "data/gis/bulk.gpkg"
+aoi_fp     <- sf::st_read(gpkg_fp, layer = "aoi", quiet = TRUE)
+streams_fp <- sf::st_read(gpkg_fp, layer = "streams", quiet = TRUE)
+wb_fp      <- sf::st_read(gpkg_fp, layer = "waterbodies", quiet = TRUE)
+fp_poly    <- sf::st_read(gpkg_fp, layer = "co_ff04", quiet = TRUE)
+
+aoi_fp     <- sf::st_make_valid(aoi_fp)
+streams_fp <- suppressWarnings(sf::st_intersection(streams_fp, aoi_fp))
+fp_poly    <- suppressWarnings(sf::st_intersection(fp_poly, aoi_fp))
+
+aoi_area_km2    <- as.numeric(sum(sf::st_area(aoi_fp))) / 1e6
+fp_area_ha      <- as.numeric(sum(sf::st_area(fp_poly))) / 1e4
+fp_pct_aoi      <- 100 * fp_area_ha / (aoi_area_km2 * 100)
+
+streams_in_fp    <- suppressWarnings(sf::st_intersection(streams_fp, fp_poly))
+streams_km_total <- as.numeric(sum(sf::st_length(streams_fp))) / 1e3
+streams_km_in_fp <- as.numeric(sum(sf::st_length(streams_in_fp))) / 1e3
+
+wb_in_fp    <- suppressWarnings(sf::st_intersection(wb_fp, fp_poly))
+lakes_n     <- sum(wb_in_fp$waterbody_type == "L", na.rm = TRUE)
+wetlands_n  <- sum(wb_in_fp$waterbody_type == "W", na.rm = TRUE)
+```
+
+### Floodplain Delineation
+
+Modelled functional floodplain in the Bulkley River Watershed Group covers `r format(round(fp_area_ha), big.mark = ",")` ha — `r sprintf("%.1f", fp_pct_aoi)` % of the `r format(round(aoi_area_km2), big.mark = ",")` km² watershed group — attached to `r format(round(streams_km_in_fp), big.mark = ",")` km of coho accessible order-3+ streams. Within that footprint sit `r lakes_n` lakes and `r format(wetlands_n, big.mark = ",")` mapped wetland polygons — the off-channel inventory that crossing remediations in these reaches stand to reconnect or leave severed, depending on whether design accounts for the floodplain context around the structure. The full metric table, watershed-scale map, and a detail map of the valley north of Smithers are in [Appendix - Floodplain Delineation](#app-floodplain).
 
 
 ## Fish Passage Assessments
