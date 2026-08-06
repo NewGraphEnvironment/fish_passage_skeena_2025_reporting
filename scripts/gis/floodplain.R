@@ -63,6 +63,29 @@
 wsg <- "BULK"                       # any 4-letter BC watershed group code
 species_view <- "streams_co_vw"     # bcfishpass species-accessible view
 min_order <- 3                      # minimum stream order to keep
+
+# These streams are NOT the network the published floodplain was delineated
+# on, and cannot be. That network was built by `link` orchestrating `fresh`
+# over a local fwapg database (floodplains/scripts/floodplain_lcc/
+# 01_network_extract.R); this is bcfishpass, a different pipeline. The two are
+# aligned by intent, not construction — link only reached parity on access
+# segmentation at 0.44.0, and 0.43.x over-credited reaches above gradient>15%
+# barriers. So "streams within floodplain" is a close estimate, not an exact
+# intersection, and the appendix says so.
+#
+# The delineation's own network is not published to the catalogue: the item
+# ships only polygon layers, no line geometry. Publishing it, and the network
+# provenance, is NewGraphEnvironment/stac_floodplains_bc#17 (upstream of that,
+# NewGraphEnvironment/link#127). Until then this cannot be made exact here.
+#
+# Keep `species_view` and `min_order` matching the published scenario anyway,
+# so the estimate stays as close as it can be. The model's parameters are in
+# the floodplains driver repo at config/<wsg>/flood_scenarios.csv — for
+# BULK / co_ff04 that is species co, min_order 3, flood_factor 4. Species and
+# flood factor are self-enforcing, since both are composed into the STAC item
+# id below and a mismatch 404s on download. **min_order is not** — it appears
+# in neither the item id nor the item properties, so changing it here leaves
+# the download succeeding and the reported lengths quietly further off.
 flood_factor <- 4                   # selects the published ff<nn> scenario
 
 # Vertex thinning for the context layers only (railways, roads, reserves,
