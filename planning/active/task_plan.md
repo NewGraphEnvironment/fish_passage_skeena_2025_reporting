@@ -96,31 +96,35 @@ polygon border, then as alpha over varying hillshade. Both were wrong; it was a 
 
 ## Phase 3: Reconnect the body text
 
-- [ ] Restore section headers renamed on spawn: `## Planning — Habitat and Connectivity Modelling` →
+- [x] Restore section headers renamed on spawn: `## Planning — Habitat and Connectivity Modelling` →
       `... Habitat, Connectivity and Floodplain Modelling` in `0300-methods.Rmd:74` and
       `0400-results.Rmd:196`
-- [ ] Port Fraser's `### Floodplain Delineation` methods and results subsections
-- [ ] Add `@nagel_etal2014LandscapeScale` and `@hall_etal2007Predictingriver` — both absent from
-      Skeena's `references.bib`
-- [ ] Reframe the two forward-looking statements this work completes:
+- [x] Port Fraser's `### Floodplain Delineation` methods and results subsections
+- [x] Add `@nagel_etal2014LandscapeScale` and `@hall_etal2007Predictingriver` — both absent from
+      Skeena's `references.bib`. **Not** hand-added: `references.bib` is rbbt-generated and
+      `update_bib: TRUE`, so a manual entry would be overwritten on the next build. The keys appear
+      as ordinary markdown in the prose, which is what rbbt scans, and both resolved on a clean
+      build with zero Citeproc failures.
+- [x] Reframe the two forward-looking statements this work completes:
       `0500-recommendations.Rmd:42` and `0050-executive-summary.Rmd:159`
 
 ## Phase 4: Build, review, release
 
-- [ ] Clean gitbook build (`rm _main.Rmd` first — incremental builds under-report missing citations)
-- [ ] `grep -c 'Citeproc: citation .* not found'` on the build log
-- [ ] PDF via `bookdown::render_book(envir = globalenv())`; verify by polling the artifact checksum,
+- [x] Clean gitbook build (`rm _main.Rmd` first — incremental builds under-report missing citations)
+- [x] `grep -c 'Citeproc: citation .* not found'` on the build log
+- [x] PDF via `bookdown::render_book(envir = globalenv())`; verify by polling the artifact checksum,
       not by waiting on a process
-- [ ] Cartographic read of both maps against the self-review checklist
-- [ ] NEWS + version bump (next free is v0.5.0), PR, merge, tag
-- [ ] Record added weight on the repo-bloat issue
+- [x] Cartographic read of both maps against the self-review checklist
+- [x] NEWS entry + version bump to 0.5.0 in `DESCRIPTION` and `index.Rmd`
+- [ ] PR, merge, tag v0.5.0
+- [ ] Record added weight on the repo-bloat issue (21.3 MB: gpkg 11.64, DEM 9.62)
 
 ## Validation
 
-- [ ] Cached floodplain verifies against the live catalogue by checksum; area recomputes to 490.47 km²
-- [ ] `grep -iE 'nechako|murray|vanderhoof'` across the rendered appendix returns nothing
-- [ ] Every prose number is an inline R expression (true of Fraser's; confirm the port kept it so)
-- [ ] Both formats build clean, zero Citeproc failures
+- [x] Cached floodplain verifies against the live catalogue by checksum; area recomputes to 490.47 km²
+- [x] `grep -iE 'nechako|murray|vanderhoof'` across the rendered appendix returns nothing
+- [x] Every prose number is an inline R expression (true of Fraser's; confirm the port kept it so)
+- [x] Both formats build clean, zero Citeproc failures
 - [ ] `/code-check` clean on each commit
 - [ ] PWF checkboxes match landed work
 - [ ] `/planning-archive` on completion
