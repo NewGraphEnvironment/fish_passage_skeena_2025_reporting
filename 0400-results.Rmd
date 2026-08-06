@@ -235,7 +235,7 @@ wetlands_n  <- sum(wb_in_fp$waterbody_type == "W", na.rm = TRUE)
 
 ### Floodplain Delineation
 
-Modelled functional floodplain in the Bulkley River Watershed Group covers `r format(round(fp_area_ha), big.mark = ",")` ha — `r sprintf("%.1f", fp_pct_aoi)` % of the `r format(round(aoi_area_km2), big.mark = ",")` km² watershed group — attached to `r format(round(streams_km_in_fp), big.mark = ",")` km of coho accessible order-3+ streams. Within that footprint sit `r lakes_n` lakes and `r format(wetlands_n, big.mark = ",")` mapped wetland polygons — the off-channel inventory that crossing remediations in these reaches stand to reconnect or leave severed, depending on whether design accounts for the floodplain context around the structure. The full metric table, watershed-scale map, and a detail map of the valley north of Smithers are in [Appendix - Floodplain Delineation](#app-floodplain).
+Modelled functional floodplain in the Bulkley River Watershed Group covers `r format(round(fp_area_ha), big.mark = ",")` ha — `r sprintf("%.1f", fp_pct_aoi)` % of the `r format(round(aoi_area_km2), big.mark = ",")` km² watershed group — attached to `r format(round(streams_km_in_fp), big.mark = ",")` km of coho accessible order-3+ streams. Within that footprint sit `r lakes_n` lakes and `r format(wetlands_n, big.mark = ",")` mapped wetland polygons — the off-channel inventory that crossing remediations in these reaches stand to reconnect or leave severed, depending on whether design accounts for the floodplain context around the structure. The full metric table, watershed-scale map, and a detail map of the valley south of Smithers are in [Appendix - Floodplain Delineation](#app-floodplain).
 
 
 ## Fish Passage Assessments
