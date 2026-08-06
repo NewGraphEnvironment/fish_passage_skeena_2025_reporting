@@ -65,6 +65,53 @@ lakes_ha    <- as.numeric(sum(sf::st_area(wb_in_fp[wb_in_fp$waterbody_type == "L
 wetlands_ha <- as.numeric(sum(sf::st_area(wb_in_fp[wb_in_fp$waterbody_type == "W", ]))) / 1e4
 ```
 
+```{r flood-fig-prep, include = FALSE}
+# Cartographic prep, kept out of the map chunks so both figures can size
+# themselves from the data.
+
+# Legal municipality names ("The Corporation of the Village of Telkwa") are
+# long enough to collide with each other on the watershed-wide map. Label
+# with the place name alone.
+muni_short <- function(x) {
+  x <- sub("^The Corporation of the ", "", x)
+  sub("^(Town|City|District|Village|Regional District) of ", "", x)
+}
+if (!is.null(municipalities)) {
+  municipalities$label <- muni_short(municipalities$admin_area_name)
+}
+
+# Detail window: sits on Smithers and extends north down the Bulkley toward
+# Witset. Fail loudly rather than falling back to a generic view — a silently
+# re-centred map would render cleanly while showing the wrong place.
+smithers <- if (is.null(municipalities)) NULL else
+  municipalities[grepl("Smithers", municipalities$admin_area_name,
+                       ignore.case = TRUE), ]
+if (is.null(smithers) || nrow(smithers) == 0L) {
+  stop("Smithers absent from the municipalities layer — cannot derive the ",
+       "detail map extent. Re-run scripts/gis/floodplain.R.")
+}
+sc <- sf::st_coordinates(
+  suppressWarnings(sf::st_centroid(sf::st_geometry(smithers),
+                                   of_largest_polygon = TRUE))
+)
+half_w <- 15000   # metres; BC Albers
+inset_bbox <- sf::st_bbox(c(
+  xmin = unname(sc[1, 1] - half_w),
+  ymin = unname(sc[1, 2] -  3000),
+  xmax = unname(sc[1, 1] + half_w),
+  ymax = unname(sc[1, 2] + 27000)
+), crs = sf::st_crs(streams))
+
+# Size each figure to its own data aspect. terra::plot holds the map aspect
+# fixed, so a device that does not match leaves white bands down the sides —
+# the Bulkley group is markedly taller than it is wide. Derived rather than
+# hardcoded so this appendix travels to another watershed group unchanged.
+fig_aspect <- function(b) unname((b["ymax"] - b["ymin"]) / (b["xmax"] - b["xmin"]))
+fig_w_flood  <- 7
+fig_h_wsg    <- fig_w_flood * fig_aspect(sf::st_bbox(aoi)) + 0.7  # + title/margins
+fig_h_detail <- fig_w_flood * fig_aspect(inset_bbox) + 0.7
+```
+
 This appendix details the floodplain delineation for the Bulkley River Watershed Group. The rationale for mapping floodplain extent alongside the fish passage barrier inventory is described in the report background — in brief, the off-channel habitats that floodplains sustain are often as important to fish productivity as the mainstem passage that crossing remediations restore, and infrastructure corridors can compromise floodplain function in ways that structure replacement alone does not address.
 
 <br>
@@ -132,7 +179,7 @@ Figure \@ref(fig:flood-map-wsg); a detail view of the valley
 immediately north of Smithers is shown in
 Figure \@ref(fig:flood-map-detail).
 
-```{r flood-map-wsg, fig.cap = "Bulkley River Watershed Group functional floodplain (green) over hillshaded terrain. Coho accessible order-3+ streams in blue; lakes and wetlands in light blue; parks light green; First Nations reserves light grey with diamond markers and labels; municipalities outlined in red; forest service / resource roads grey; railways black dashed; watershed boundary heavy black."}
+```{r flood-map-wsg, fig.width = fig_w_flood, fig.height = fig_h_wsg, fig.cap = "Bulkley River Watershed Group functional floodplain (green) over hillshaded terrain. Coho accessible order-3+ streams in blue; lakes and wetlands in light blue; parks and protected areas outlined purple dashed; First Nations reserves light grey with diamond markers; municipalities outlined and labelled in red; forest service / resource roads grey; railways black dashed; watershed boundary heavy black. Reserves are labelled on the detail map, where the labels are legible."}
 hill <- terra::shade(
   terra::terrain(dem, "slope",  unit = "radians"),
   terra::terrain(dem, "aspect", unit = "radians")
@@ -142,7 +189,11 @@ terra::plot(hill, col = grey(0:100 / 100), legend = FALSE, axes = FALSE,
             mar = c(2, 2, 4, 2),
             main = "Bulkley River Watershed Group\nfunctional floodplain, accessible order 3+")
 
-plot(sf::st_geometry(floodplain), col = "#2c7a2c8c", border = NA, add = TRUE)
+# Floodplain is the subject of the map but only 6 % of the area and mostly a
+# narrow valley-bottom ribbon, so it needs to read strongly against the
+# hillshade. Thin outline keeps slivers visible at watershed scale.
+plot(sf::st_geometry(floodplain), col = "#2c7a2cd9", border = "#144314",
+     lwd = 0.15, add = TRUE)
 plot(sf::st_geometry(waterbodies), col = "#a3cdb966", border = "#2171B5",
      lwd = 0.3, add = TRUE)
 plot(sf::st_geometry(streams), col = "#1f77b4", lwd = 0.4, add = TRUE)
@@ -157,8 +208,12 @@ if (!is.null(railways)) {
   plot(sf::st_geometry(railways), col = "black", lwd = 0.8, lty = "dashed", add = TRUE)
 }
 if (!is.null(parks)) {
-  plot(sf::st_geometry(parks), col = "#639b5f55", border = "#33a02c",
-       lwd = 0.7, add = TRUE)
+  # Outline only. Peace and Fraser fill parks in pale green, which in this
+  # watershed group reads as a second class of floodplain — Babine Mountains
+  # Park sits immediately north-east of Smithers and is larger than any
+  # single floodplain unit on the map.
+  plot(sf::st_geometry(parks), col = NA, border = "#5b3fa8",
+       lwd = 1.0, lty = "longdash", add = TRUE)
 }
 if (!is.null(reserves)) {
   plot(sf::st_geometry(reserves), col = "#b2b2b288", border = "#232323",
@@ -173,53 +228,16 @@ if (!is.null(municipalities)) {
   muni_pts <- suppressWarnings(sf::st_centroid(sf::st_geometry(municipalities),
                                                of_largest_polygon = TRUE))
   muni_coords <- sf::st_coordinates(muni_pts)
-  text(muni_coords, labels = municipalities$admin_area_name,
+  ofs_y <- par("cxy")[2] * 0.55 * 0.9
+  text(muni_coords[, 1], muni_coords[, 2] - ofs_y,
+       labels = municipalities$label,
        cex = 0.55, col = "#cc0000", font = 2, xpd = TRUE)
 }
 
 plot(sf::st_geometry(aoi), border = "black", lwd = 1.5, add = TRUE)
-
-if (!is.null(reserves) && "english_name" %in% names(reserves) &&
-    nrow(reserves) > 0L) {
-  pts <- suppressWarnings(sf::st_centroid(sf::st_geometry(reserves),
-                                          of_largest_polygon = TRUE))
-  coords <- sf::st_coordinates(pts)
-  ofs_y  <- par("cxy")[2] * 0.45 * 0.9
-  halo_x <- par("cxy")[1] * 0.45 * 0.05
-  halo_y <- par("cxy")[2] * 0.45 * 0.05
-  ly <- coords[, 2] - ofs_y
-  for (dx in c(-1, 1)) text(coords[, 1] + dx * halo_x, ly,
-                            labels = reserves$english_name,
-                            cex = 0.45, col = "white", font = 2, xpd = TRUE)
-  for (dy in c(-1, 1)) text(coords[, 1], ly + dy * halo_y,
-                            labels = reserves$english_name,
-                            cex = 0.45, col = "white", font = 2, xpd = TRUE)
-  text(coords[, 1], ly, labels = reserves$english_name,
-       cex = 0.45, col = "#111111", font = 2, xpd = TRUE)
-}
 ```
 
-```{r flood-map-detail, fig.cap = "Detail view of the Bulkley River valley immediately north of Smithers. Symbology as Figure \\@ref(fig:flood-map-wsg); named streams labelled in italic blue; municipalities outlined and labelled in red."}
-# Window sits on the town and extends north down the Bulkley toward Witset.
-# Fail loudly rather than falling back to a generic view — a silently
-# re-centred map would render cleanly while showing the wrong place.
-smithers <- municipalities[grepl("Smithers", municipalities$admin_area_name,
-                                 ignore.case = TRUE), ]
-if (is.null(municipalities) || nrow(smithers) == 0L) {
-  stop("Smithers absent from the municipalities layer — cannot derive the ",
-       "detail map extent. Re-run scripts/gis/floodplain.R.")
-}
-sc <- sf::st_coordinates(
-  suppressWarnings(sf::st_centroid(sf::st_geometry(smithers),
-                                   of_largest_polygon = TRUE))
-)
-half_w <- 15000   # metres; BC Albers
-inset_bbox <- sf::st_bbox(c(
-  xmin = unname(sc[1, 1] - half_w),
-  ymin = unname(sc[1, 2] -  3000),
-  xmax = unname(sc[1, 1] + half_w),
-  ymax = unname(sc[1, 2] + 27000)
-), crs = sf::st_crs(streams))
+```{r flood-map-detail, fig.width = fig_w_flood, fig.height = fig_h_detail, fig.cap = "Detail view of the Bulkley River valley immediately north of Smithers. Symbology as Figure \\@ref(fig:flood-map-wsg); named streams labelled in italic blue; First Nations reserves labelled; municipalities outlined and labelled in red."}
 inset_ext <- terra::ext(inset_bbox[c("xmin", "xmax", "ymin", "ymax")])
 
 crop_sf <- function(x) {
@@ -250,8 +268,8 @@ terra::plot(hill_inset, col = grey(0:100 / 100), legend = FALSE, axes = FALSE,
             main = "Bulkley River Watershed Group\nvalley north of Smithers")
 
 if (!is.null(floodplain_inset)) {
-  plot(sf::st_geometry(floodplain_inset), col = "#2c7a2c8c", border = NA,
-       add = TRUE)
+  plot(sf::st_geometry(floodplain_inset), col = "#2c7a2cd9", border = "#144314",
+       lwd = 0.3, add = TRUE)
 }
 if (!is.null(wb_inset)) {
   plot(sf::st_geometry(wb_inset), col = "#a3cdb988", border = "#2171B5",
@@ -267,8 +285,8 @@ if (!is.null(railways_inset)) {
        add = TRUE)
 }
 if (!is.null(parks_inset)) {
-  plot(sf::st_geometry(parks_inset), col = "#639b5f55", border = "#33a02c",
-       lwd = 0.8, add = TRUE)
+  plot(sf::st_geometry(parks_inset), col = NA, border = "#5b3fa8",
+       lwd = 1.2, lty = "longdash", add = TRUE)
 }
 if (!is.null(reserves_inset)) {
   plot(sf::st_geometry(reserves_inset), col = "#b2b2b2aa", border = "#232323",
@@ -285,12 +303,12 @@ if (!is.null(municipalities_inset)) {
   halo_y <- par("cxy")[2] * 0.6 * 0.05
   ly <- muni_coords[, 2] - ofs_y
   for (dx in c(-1, 1)) text(muni_coords[, 1] + dx * halo_x, ly,
-                            labels = municipalities_inset$admin_area_name,
+                            labels = municipalities_inset$label,
                             cex = 0.6, col = "white", font = 2, xpd = TRUE)
   for (dy in c(-1, 1)) text(muni_coords[, 1], ly + dy * halo_y,
-                            labels = municipalities_inset$admin_area_name,
+                            labels = municipalities_inset$label,
                             cex = 0.6, col = "white", font = 2, xpd = TRUE)
-  text(muni_coords[, 1], ly, labels = municipalities_inset$admin_area_name,
+  text(muni_coords[, 1], ly, labels = municipalities_inset$label,
        cex = 0.6, col = "#cc0000", font = 2, xpd = TRUE)
 }
 if (!is.null(aoi_inset)) {

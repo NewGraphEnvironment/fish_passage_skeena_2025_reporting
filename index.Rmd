@@ -15,7 +15,7 @@ author: |
 
 date: |
  |
- | Version 0.4.0 DRAFT `r format(Sys.Date(), "%Y-%m-%d")`
+ | Version 0.5.0 DRAFT `r format(Sys.Date(), "%Y-%m-%d")`
  |
  | *Claude Opus 5 (Anthropic) assisted with literature synthesis, drafting, and technical writing. All scientific interpretation, data analysis, and conclusions are the responsibility of the authors.*
 toc-title: Table of Contents

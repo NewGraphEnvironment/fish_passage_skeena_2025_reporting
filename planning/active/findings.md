@@ -126,6 +126,51 @@ Upstream `stac_floodplains_bc#9`: `scenario` is not in item `properties` — onl
 title. It must be parsed from the item id. Latent today because nearly everything is ff04, but
 `morr_ch_ff06` already breaks the assumption.
 
+## Measured outcomes (Phase 1)
+
+BULK generated clean against the tunnel: 7,762 km² AOI, 6,851 coho-accessible order-3+ stream
+segments, 525 waterbodies, 21,781 roads, 5 municipalities (including "Town of Smithers", so the
+detail-map lookup resolves). Published floodplain read back at **490.47 km²**, matching the
+catalogue property exactly. md5 `c87d7db9d21aae14ac24ea406da3dcae`.
+
+### The proximity trim does not work here
+
+Roads were 20.90 MB of geometry across 21,781 features — 73% of an 18.99 MB gpkg. The obvious trim
+is to keep fine road detail only near the floodplain, since that is what the appendix is about. It
+buys nothing: **21,667 of 21,781 roads are already within 5 km of the floodplain**. The Bulkley
+valley is settled and the road network follows it, so proximity to the floodplain is not a
+discriminating filter in this watershed group. It may still be worth measuring in a less-settled
+group before assuming it never helps.
+
+Vertex simplification is the lever that does work, and it floors quickly: 10 m tolerance gives
+13.83 MB, 25 m gives 13.37 MB, 50 m gives 13.17 MB. The cost is feature *count*, not vertices. 10 m
+was chosen — the detail map renders at ~22 m/pixel and the watershed-wide map at ~91 m/pixel, so it
+is invisible either way.
+
+Applied only to the layers routed through `fetch_layer()` (railways, roads, reserves, parks,
+named_streams, municipalities), which are drawn but never measured. `aoi`, `streams`, `waterbodies`
+and the floodplain are left alone because they feed the reported areas and lengths — thinning them
+would move published numbers silently.
+
+Cache: **28.6 MB → 21.3 MB** (gpkg 18.99 → 11.64, DEM 9.62 unchanged). Fraser's was 18.6 MB for a
+watershed group roughly two-thirds the area, so per-km² this is comparable, not worse.
+
+The DEM is now the floor. It cannot be downsampled: at 30 m the detail window is ~1,000 cells
+rendered across ~1,350 px, so any aggregation would make the hillshade blocky in the one map where
+terrain detail carries the message.
+
+### The waterbody counts are close to tautological
+
+`lakes_n` and `wetlands_n` come out at 180 and 345 — exactly the totals on the network. Every
+waterbody falls inside the floodplain, because waterbodies were an **input** to the valley
+confinement model (`fl_valley_confine(waterbodies =)`) precisely so it would not carve holes around
+them. So "lakes within floodplain" is close to a restatement of "lakes on the accessible network".
+
+Inherited from Peace and Fraser, and the appendix prose does disclose the mechanism ("Waterbodies
+were included so the valley confinement model fills cells that gradient and cost-distance masks
+would otherwise exclude"). Left as-is for consistency with the sibling reports, but the rows carry
+less information than their labels imply, and are worth reconsidering across all three.
+
 ## Related worked example, deliberately not used
 
 `restoration_wedzin_kwa_2024/2043-Appendix-lulc.Rmd` (466 lines) is a complete floodplain +

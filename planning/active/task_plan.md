@@ -65,16 +65,34 @@ roughly 1.5× the area.
 
 ## Phase 2: Port the appendix
 
-- [ ] Copy Fraser's `0720-appendix-floodplain.Rmd` → same filename (0720 free; `{-#app-floodplain}`
+- [x] Copy Fraser's `0720-appendix-floodplain.Rmd` → same filename (0720 free; `{-#app-floodplain}`
       unused here)
-- [ ] Read layer `co_ff04`, not `floodplain`
-- [ ] Switch both map chunks from `terra::plot(valleys, ...)` to plotting the polygon — no VCA run
+- [x] Read layer `co_ff04`, not `floodplain`
+- [x] Switch both map chunks from `terra::plot(valleys, ...)` to plotting the polygon — no VCA run
       means no `_valleys.tif`
-- [ ] 15 text swaps: Nechako → Bulkley (9 sites), chinook → coho (6 sites)
-- [ ] Retarget the zoom to just north of Smithers from the `municipalities` layer, **erroring** if
+- [x] 15 text swaps: Nechako → Bulkley (9 sites), chinook → coho (6 sites)
+- [x] Retarget the zoom to just north of Smithers from the `municipalities` layer, **erroring** if
       Smithers is absent rather than falling back silently as Fraser's does
-- [ ] Port the companion rollup chunk at Fraser's `0400-results.Rmd:179-201`
-- [ ] Verify: no duplicate chunk labels; figures resolve; zoom is where it should be
+- [x] Port the companion rollup chunk at Fraser's `0400-results.Rmd:179-201`
+- [x] Verify: no duplicate chunk labels; figures resolve; zoom is where it should be
+
+**Three cartographic defects found by reading the rendered PNGs, not the source.**
+
+1. *Parks and floodplain were both green.* Peace and Fraser fill parks `#639b5f55`; Babine Mountains
+   Park sits north-east of Smithers and is larger than any single floodplain unit, so the map showed
+   what looked like two classes of floodplain. Parks are now outline-only in purple longdash. This
+   defect is latent in Peace and Fraser — it simply had no large park to expose it. **Worth filing
+   upstream.**
+2. *White bands.* The Bulkley group is markedly taller than wide (h/w 1.26) against a wide default
+   device, so the map filled roughly 40 % of the canvas. Figure dimensions are now derived from each
+   map's own bbox aspect, so the appendix travels to another watershed group unchanged.
+3. *Unreadable label pile.* Full legal municipality names ("The Corporation of the Village of
+   Telkwa") plus 17 reserve labels collided into illegibility around Hazelton. Municipality labels
+   are shortened to the place name; reserve labels are dropped from the watershed-wide map (diamonds
+   retained) and kept on the detail map where they are legible.
+
+I mis-diagnosed 1 twice before reading closely enough — first as an artifact of my own added
+polygon border, then as alpha over varying hillshade. Both were wrong; it was a second layer.
 
 ## Phase 3: Reconnect the body text
 
