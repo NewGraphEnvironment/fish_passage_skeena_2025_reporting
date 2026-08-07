@@ -1,3 +1,10 @@
+# fish_passage_skeena_2025_reporting 0.7.0 (2026-08-06)
+
+* Give the Waterfall Creek monitoring appendix the background the site warrants. Crossing 124421 sits in a system with a documented restoration history: coho were lost in the late 1970s following the improper installation of the Highway 16 crossing, reintroduced from 1990 with stock transplanted from Toboggan Creek, and supported by the Hazelton Elementary Streamkeepers and the Chicago Creek Community Environmental Enhancement Society, whose hatchery recorded runs of 65 to 297 fish between 1998 and 2001. Coho are still trapped near the Bulkley confluence and trucked into this reach, and habitat immediately upstream has been rated critical for coho spawning. The appendix previously stated the site had no direct evidence of fish use, which was wrong at the system scale and is removed.
+* Cite the Phase 1 assessment from the 2021 report in both monitoring appendices, so a reader can find the survey detail, habitat ratings and fish sampling the memos summarize rather than taking them on trust.
+* Commit the interactive eDNA map. `scripts/edna_map.R` writes `data/edna_unbc_results_2025_map.html` and copies it to `docs/`, but neither copy had ever been committed, so the link from the eDNA appendix returned 404 on the published site — the file existed only on whichever machine last ran the script. Peace and Fraser track both copies; Skeena now does too.
+* Add a recommendation to confirm with the Chicago Creek Community Environmental Enhancement Society whether the trap-and-truck operation still runs — removing the 11th Avenue culvert changes what that operation has to bypass.
+
 # fish_passage_skeena_2025_reporting 0.6.1 (2026-08-06)
 
 * Reword the opening of the passage explaining how the initiative's components fit together, in both the executive summary and the recommendations. It had opened by saying what the work is not — "These are not separate studies" — and now states what it is: the components are designed to complement one another, building the state of knowledge regarding watershed health and directing restoration effort to where it will do the most good.

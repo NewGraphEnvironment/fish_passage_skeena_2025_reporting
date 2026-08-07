@@ -16,7 +16,7 @@ PSCIS crossing `r as.character(my_site_mon)` on Peacock Creek is located on the 
 
 ## Crossing Characteristics {.unnumbered}
 
-Before replacement, the structure was a corrugated metal culvert with a concrete headwall, ranked a barrier to upstream migration under the provincial protocol [@moe2011Fieldassessment]. The assessment recorded a partial inlet drop of varying height caused by large woody debris and boulders. Photographs taken during the September 2021 assessment show the outlet perched above a plunge pool, with the drop and the pool visible below the headwall (Figure \@ref(fig:photo-197962-before)).
+Before replacement, the structure was a corrugated metal culvert with a concrete headwall, ranked a barrier to upstream migration under the provincial protocol [@moe2011Fieldassessment]. The Phase 1 assessment recorded a partial inlet drop of varying height caused by large woody debris and boulders. Photographs taken during the September 2021 assessment show the outlet perched above a plunge pool, with the drop and the pool visible below the headwall [@irvine2022BulkleyRiver] (Figure \@ref(fig:photo-197962-before)).
 
 <br>
 
@@ -75,11 +75,11 @@ tab_monitoring |>
 
 ## Habitat and Fish Presence {.unnumbered}
 
-Habitat confirmation assessments were completed at this site in September 2021, before the culvert was replaced. Both the reach upstream and the reach downstream of the crossing were rated high habitat value, with 750 m surveyed upstream and 600 m downstream. The upstream reach was described as complex habitat with undercut banks, large and small woody debris and pools; the downstream reach as carrying consistent undercut banks with woody debris and overhanging vegetation providing cover. Approximately 4.8 km of upstream habitat length was estimated, and the site was ranked a high priority for remediation.
+Habitat confirmation assessments were completed at this site in September 2021, before the culvert was replaced [@irvine2022BulkleyRiver]. Both the reach upstream and the reach downstream of the crossing were rated high habitat value, with 750 m surveyed upstream and 600 m downstream. The upstream reach was described as complex habitat with undercut banks, large and small woody debris and pools; the downstream reach as carrying consistent undercut banks with woody debris and overhanging vegetation providing cover. Approximately 4.8 km of upstream habitat length was estimated, and the site was ranked a high priority for remediation.
 
 <br>
 
-The site was electrofished on 2021-09-17 at three closed-site multi-pass locations upstream of the crossing and three downstream, capturing 96 fish across four species (Table \@ref(tab:tab-fish-197962)). Dolly Varden and rainbow trout were caught on both sides of the crossing. Coho salmon and cutthroat trout were caught only downstream. Fork lengths ranged from 48 to 148 mm across all species, with coho between 63 and 85 mm.
+The site was electrofished on 2021-09-17 at three closed-site multi-pass locations upstream of the crossing and three downstream, capturing 96 fish across four species [@irvine2022BulkleyRiver] (Table \@ref(tab:tab-fish-197962)). Dolly Varden and rainbow trout were caught on both sides of the crossing. Coho salmon and cutthroat trout were caught only downstream. Fork lengths ranged from 48 to 148 mm across all species, with coho between 63 and 85 mm.
 
 <br>
 
@@ -152,7 +152,7 @@ knitr::include_graphics("fig/pixel.png")
 
 ## Discussion {.unnumbered}
 
-The site carries an uncommonly strong record. The pre-remediation habitat confirmation rated both reaches high value and estimated 4.8 km of habitat upstream, multi-pass electrofishing established what was present on each side of the culvert before it was replaced, and the `r params$project_year` environmental DNA re-establishes species presence four years after replacement.
+The site carries an uncommonly strong record, set out in full in our Phase 1 assessment [@irvine2022BulkleyRiver]. The pre-remediation habitat confirmation rated both reaches high value and estimated 4.8 km of habitat upstream, multi-pass electrofishing established what was present on each side of the culvert before it was replaced, and the `r params$project_year` environmental DNA re-establishes species presence four years after replacement.
 
 <br>
 
@@ -166,6 +166,6 @@ Recommendations for continued monitoring at this site:
 
 - Assay the same species panel at both locations so the two are directly comparable. In `r params$project_year` the upstream and downstream samples were assayed for different sets of targets.
 
-- Repeat the electrofishing conducted in 2021 at the same closed-site locations. Pre-remediation multi-pass data exist for three sites upstream and three downstream, which is an uncommonly strong baseline and the most direct available measure of whether the replacement changed fish use rather than only passage condition.
+- Repeat the electrofishing conducted in 2021 at the same closed-site locations. Pre-remediation multi-pass data exist for three sites upstream and three downstream, which is an uncommonly strong baseline and the most direct available measure of how the replacement changed fish use in the areas sampled in 2021.
 
 - Continue photographic monitoring of substrate, cover, bank stability and revegetation through the crossing, so channel recovery following construction can be tracked over time.
