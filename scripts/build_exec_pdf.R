@@ -6,6 +6,11 @@
 #
 # Usage: Rscript scripts/build_exec_pdf.R
 
+# Rscript starts with `repos` unset, so the available.packages() check in
+# scripts/packages.R errors out. RStudio masks this by setting a mirror. Same
+# guard scripts/run_gitbook.R and scripts/run_pagedown.R already carry.
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
 if (!requireNamespace("pagedown", quietly = TRUE)) {
   stop("pagedown is required. Install with: pak::pak('pagedown')")
 }

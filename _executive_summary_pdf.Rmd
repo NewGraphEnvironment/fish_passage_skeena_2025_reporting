@@ -9,13 +9,27 @@ output:
     back_cover: null
     toc: false
 params:
-  report_url: 'https://www.newgraphenvironment.com/fish_passage_skeena_2025_reporting/'
+  run_project: FALSE
   repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_skeena_2025_reporting'
-  repo_name: 'fish_passage_skeena_2025_reporting'
-  gis_project_name: 'sern_skeena_2023'
-  project_region: 'skeena'
-  project_year: '2025'
-  project_start_year: '2020'
+  report_url: 'https://www.newgraphenvironment.com/fish_passage_skeena_2025_reporting/'
+  job_name: '2025-076-sern-skeena-fraser-fish-passage'
+  repo_name: "fish_passage_skeena_2025_reporting"
+  gis_project_name: "sern_skeena_2023"
+  project_region: "skeena"
+  project_year: "2025"
+  project_start_year: "2020"
+  model_species: "st"
+  wsg_code: [BULK, MORR, ZYMO, KISP, KLUM]
+  update_packages: FALSE
+  update_form_pscis: FALSE
+  update_form_fiss_site: FALSE
+  update_form_monitoring: FALSE
+  update_form_edna: FALSE
+  update_gis: FALSE
+  update_bib: FALSE
+  update_bcfishpass: FALSE
+  force_bcfishpass_rebuild: FALSE
+  pscis_funding_project_number: "skeena_2025_phase1"
 ---
 
 ```{r exec-pdf-setup, include=FALSE}
@@ -23,6 +37,18 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 version <- desc::desc_get_version()
 build_date <- format(Sys.Date(), "%Y-%m-%d")
 gitbook_on <- FALSE
+
+# Source the same setup chain index.Rmd uses, so every object the executive
+# summary references is defined. params above set run_project and all update_*
+# flags FALSE, so this reads committed caches and never touches the database.
+source('scripts/packages.R')
+staticimports::import()
+source('scripts/staticimports.R')
+source('scripts/functions.R')
+source("scripts/02_reporting/0100-load-bcfishpass-data.R")
+source("scripts/02_reporting/0120-read-sqlite.R")
+source("scripts/02_reporting/0105-params-derived.R")
+source('scripts/02_reporting/0130-tables.R')
 
 form_edna <- tryCatch(
   readr::read_csv(
