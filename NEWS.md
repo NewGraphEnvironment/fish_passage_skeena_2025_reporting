@@ -1,6 +1,7 @@
 # fish_passage_skeena_2025_reporting 0.6.1 (2026-08-06)
 
 * Reword the opening of the passage explaining how the initiative's components fit together, in both the executive summary and the recommendations. It had opened by saying what the work is not — "These are not separate studies" — and now states what it is: the components are designed to complement one another, building the state of knowledge regarding watershed health and directing restoration effort to where it will do the most good.
+* Stop naming the model version in the assistance note. It read "Claude Opus 5" in the report body and "Claude Sonnet 4.6" on the executive summary cover — two different claims in one release, because the cover is a separate file built by a separate script and had not been rebuilt since May. The note now reads "Claude (Anthropic)", which stays accurate across model releases and across the many sessions a report is drafted over.
 * Fix the standalone executive summary PDF, which had never been built in this repository. Every release has linked readers to `executive_summary.pdf` and the file did not exist. `_executive_summary_pdf.Rmd` child-includes the executive summary chapter but never sourced the setup chain that defines what that chapter references, and its parameters had drifted from `index.Rmd`. It now copies those parameters, forces the derive and update flags off so the render reads committed caches rather than the database, and sources the same chain the book build uses.
 
 # fish_passage_skeena_2025_reporting 0.6.0 (2026-08-06)

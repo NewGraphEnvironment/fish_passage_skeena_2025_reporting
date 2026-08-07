@@ -97,7 +97,7 @@ Version `r version` DRAFT | `r build_date`
 
 <div style="text-align: center; margin-top: 3em; font-size: 0.75em; font-style: italic; line-height: 1.4;">
 
-Claude Sonnet 4.6 (Anthropic) assisted with literature synthesis, drafting, and technical writing. All scientific interpretation, data analysis, and conclusions are the responsibility of the authors.
+Claude (Anthropic) assisted with literature synthesis, drafting, and technical writing. All scientific interpretation, data analysis, and conclusions are the responsibility of the authors.
 
 </div>
 
