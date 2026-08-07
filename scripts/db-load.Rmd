@@ -344,6 +344,8 @@ ids_design <- c(
   125231, 
   #missinka
   125179,
+  # arctic
+  125000,
   # Chuchinka-Colbourne
   125345, 
   #fern
