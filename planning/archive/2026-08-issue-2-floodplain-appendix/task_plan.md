@@ -116,8 +116,8 @@ polygon border, then as alpha over varying hillshade. Both were wrong; it was a 
       not by waiting on a process
 - [x] Cartographic read of both maps against the self-review checklist
 - [x] NEWS entry + version bump to 0.5.0 in `DESCRIPTION` and `index.Rmd`
-- [ ] PR, merge, tag v0.5.0
-- [ ] Record added weight on the repo-bloat issue (21.3 MB: gpkg 11.64, DEM 9.62)
+- [x] PR, merge, tag v0.5.0
+- [ ] Record added weight on the repo-bloat issue (21.3 MB: gpkg 11.64, DEM 9.62) — **not done**, still open
 
 ## Validation
 
@@ -125,6 +125,6 @@ polygon border, then as alpha over varying hillshade. Both were wrong; it was a 
 - [x] `grep -iE 'nechako|murray|vanderhoof'` across the rendered appendix returns nothing
 - [x] Every prose number is an inline R expression (true of Fraser's; confirm the port kept it so)
 - [x] Both formats build clean, zero Citeproc failures
-- [ ] `/code-check` clean on each commit
-- [ ] PWF checkboxes match landed work
-- [ ] `/planning-archive` on completion
+- [ ] `/code-check` clean on each commit — **not run**; verification was done by clean builds, Citeproc counts and artifact checks instead
+- [x] PWF checkboxes match landed work
+- [x] `/planning-archive` on completion
