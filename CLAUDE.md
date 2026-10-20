@@ -1,6 +1,6 @@
 # fish_passage_skeena_2025_reporting
 
-Fish passage restoration planning and monitoring — Skeena region, 2025. Bookdown report spawned from [fish_passage_template_reporting](https://github.com/NewGraphEnvironment/fish_passage_template_reporting); source lives in the numbered `*.Rmd` chapter files and `scripts/`.
+Fish passage restoration planning and monitoring — Skeena region, 2025. Bookdown report spawned from New Graph Environment's internal fish passage report template; source lives in the numbered `*.Rmd` chapter files and `scripts/`.
 
 ## Repository Context
 
