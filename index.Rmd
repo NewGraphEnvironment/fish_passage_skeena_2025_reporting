@@ -62,7 +62,7 @@ nocite: |
   @irvine_schick2023SkeenaWatershed,
   @irvine_schick2025SkeenaWatershed
 documentclass: book
-bibliography: "`r if (isTRUE(params$update_bib)) rbbt::bbt_write_bib('references.bib', overwrite = TRUE) else 'references.bib'`"
+bibliography: "`r if (isTRUE(params$update_bib)) rbbt::bbt_write_bib('references.bib', overwrite = TRUE, filter = function(b) gsub('[[:space:]]+file = [{][^}]*[}],?', '', b)) else 'references.bib'`"
 biblio-style: apalike
 link-citations: no
 github-repo: rstudio/bookdown-demo
