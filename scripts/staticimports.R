@@ -96,7 +96,7 @@ sfis_tab_sp <- function(
   fish_spp_prep <- fish_species_watershed |>
     dplyr::group_split(watershed_group_code)
 
-  # grab watershed names from xref table - https://github.com/NewGraphEnvironment/rfp/issues/5
+  # grab watershed names from xref table - an internal issue
   xref_wsg <- fpr::fpr_db_query(
     query= "SELECT watershed_group_code, watershed_group_name
   FROM whse_basemapping.fwa_watershed_groups_poly"
